@@ -39,9 +39,9 @@
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-    
-    <script src="{{ asset('js/sweetalert/sweetalert.min.js')}}"></script>
-    <script src="{{ asset('css/sweetalert2.css')}}"></script>
+
+    <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
 
     <script type="text/javascript" src="{{ asset('/vendor/ckeditor/ckeditor.js')}}"></script>
 
