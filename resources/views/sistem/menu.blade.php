@@ -14,5 +14,11 @@
           <p>Orang</p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/keluarga')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>Keluarga</p>
+        </a>
+      </li>
     </ul>
 </li>
