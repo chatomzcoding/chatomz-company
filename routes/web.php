@@ -35,4 +35,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     })->name('dashboard');
 
     Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
+
+    // Chatomz
+    Route::resource('orang', 'App\Http\Controllers\Chatomz\OrangController');
+
 });
