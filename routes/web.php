@@ -14,12 +14,11 @@ use App\Http\Livewire\Members; //Load class Members
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// PENGUJIAN
-Route::get('/pengujian','App\Http\Controllers\Cikara\PengujianController@index');
+// HOMEPAGE
+Route::get('/','App\Http\Controllers\Homepage\LandingController@index');
+Route::get('/view/{file}','App\Http\Controllers\Homepage\LandingController@view');
+Route::get('/h/blog','App\Http\Controllers\Homepage\LandingController@blog');
+Route::get('/h/blog/{id}','App\Http\Controllers\Homepage\LandingController@blogdetail');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
@@ -36,9 +35,18 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
 
+    // Admin
+    Route::resource('artikel', 'App\Http\Controllers\Admin\ArtikelController');
+    Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
+    Route::resource('kategoriartikel', 'App\Http\Controllers\Admin\KategoriartikelController');
+
     // Chatomz
     Route::resource('orang', 'App\Http\Controllers\Chatomz\OrangController');
     Route::resource('keluarga', 'App\Http\Controllers\Chatomz\KeluargaController');
     Route::resource('keluargahubungan', 'App\Http\Controllers\Chatomz\HubungankeluargaController');
+    
+    // Market
+    Route::resource('kategoriproduk', 'App\Http\Controllers\Market\KategoriprodukController');
+
 
 });

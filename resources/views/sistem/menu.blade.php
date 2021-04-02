@@ -22,3 +22,47 @@
       </li>
     </ul>
 </li>
+<li class="nav-item">
+    <a href="#" class="nav-link">
+      <i class="nav-icon fas fa-cog"></i>
+      <p>
+        Market
+        <i class="fas fa-angle-left right"></i>
+        {{-- <span class="badge badge-info right">6</span> --}}
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{ url('/kategoriproduk')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>Kategori</p>
+        </a>
+      </li>
+    </ul>
+</li>
+<li class="nav-item">
+    <a href="#" class="nav-link">
+      <i class="nav-icon fas fa-cog"></i>
+      <p>
+        Admin
+        <i class="fas fa-angle-left right"></i>
+        {{-- <span class="badge badge-info right">6</span> --}}
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{ url('/adminuser')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>User</p>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{ url('/artikel')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>Artikel</p>
+        </a>
+      </li>
+    </ul>
+</li>
