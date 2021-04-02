@@ -90,7 +90,7 @@
                                 </tr>
                             @empty
                                 <tr class="text-center">
-                                    <td colspan="5">tidak ada data</td>
+                                    <td colspan="6">tidak ada data</td>
                                 </tr>
                             @endforelse
                     </table>

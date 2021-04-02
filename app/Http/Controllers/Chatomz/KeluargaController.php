@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Chatomz;
 use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
+use App\Models\Orang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -18,8 +19,9 @@ class KeluargaController extends Controller
      */
     public function index()
     {
-        $keluarga   = Keluarga::all();
-        return view('Chatomz.keluarga.index', compact('keluarga'));
+        $keluarga       = Keluarga::all();
+        $kepalakeluarga = Orang::where('gender','male')->where('marital_status','married')->get();
+        return view('chatomz.keluarga.index', compact('keluarga','kepalakeluarga'));
     }
 
     /**
@@ -40,7 +42,9 @@ class KeluargaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Keluarga::create($request->all());
+
+        return redirect()->back()->with('ds','Keluarga');
     }
 
     /**
@@ -57,7 +61,7 @@ class KeluargaController extends Controller
                                 ->select('keluarga_hubungan.*','orang.first_name','orang.last_name')
                                 ->where('keluarga_hubungan.keluarga_id',$keluarga->id)
                                 ->get();
-        return view('Chatomz.keluarga.show', compact('keluarga','keluargahubungan'));
+        return view('chatomz.keluarga.show', compact('keluarga','keluargahubungan'));
     }
 
     /**
@@ -78,9 +82,18 @@ class KeluargaController extends Controller
      * @param  \App\Models\Keluarga  $keluarga
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Keluarga $keluarga)
+    public function update(Request $request)
     {
-        //
+        Keluarga::where('id',$request->id)->update([
+            'orang_id' => $request->orang_id,
+            'nama_keluarga' => $request->nama_keluarga,
+            'no_kk' => $request->no_kk,
+            'keterangan' => $request->keterangan,
+            'tgl_pernikahan' => $request->tgl_pernikahan,
+            'status_keluarga' => $request->status_keluarga,
+        ]);
+
+        return redirect()->back()->with('du','Keluarga');
     }
 
     /**
