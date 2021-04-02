@@ -52,7 +52,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Chatomz - LOGIN</title>
+  <title>Masuk Terlebih dahulu</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -68,10 +68,10 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="#" class="h1"><b>Admin</b>LTE</a>
+      <a href="#" class="h1"><b>Chatomz</b>Company</a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      {{-- <p class="login-box-msg">silahkan </p> --}}
       @if (session('status'))
             <div class="mb-4 font-medium text-sm text-green-600">
                 {{ session('status') }}
@@ -108,6 +108,10 @@
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">MASUK</button>
+            <br>
+          </div>
+          <div class="col-12">
+            <a href="{{ url('/')}}"><< kembali ke halaman awal</a>
           </div>
           <!-- /.col -->
         </div>

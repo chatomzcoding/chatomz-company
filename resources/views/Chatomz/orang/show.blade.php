@@ -76,7 +76,7 @@
                                                     @method('delete')
                                                     </form>
                                                     <button onclick="deleteRow( {{ $orang->id }} )" class="btn btn-icon btn-round btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                                <a href="{{ url('person/'.Crypt::encryptString($orang->id).'/edit')}}" style="display: inline;">
+                                                <a href="{{ url('orang/'.Crypt::encryptString($orang->id).'/edit')}}" style="display: inline;">
                                                     <button type="button" class="btn btn-icon btn-round btn-success">
                                                         <i class="fas fa-pen"></i>
                                                     </button>
