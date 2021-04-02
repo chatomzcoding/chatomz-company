@@ -1,6 +1,22 @@
 <?php 
 
 // name label for reminders
+if (! function_exists('list_status')) {
+    function list_status()
+    {
+        $result = ['aktif','tidak aktif'];
+        return $result;
+    }
+}
+// name label for reminders
+if (! function_exists('list_leveluser')) {
+    function list_leveluser()
+    {
+        $result = ['admin','seller'];
+        return $result;
+    }
+}
+// name label for reminders
 if (! function_exists('reminderlabel')) {
     function reminderlabel()
     {
@@ -149,7 +165,7 @@ if (! function_exists('kingdom_jk')) {
 if (! function_exists('kingdom_goldar')) {
     function kingdom_goldar()
     {
-        $result = ['A','B','AB','O'];
+        $result = ['a','b','ab','o','tidak tahu'];
         return $result;
     }
 }
@@ -159,6 +175,15 @@ if (! function_exists('kingdom_jjgpendidikan')) {
     function kingdom_jjgpendidikan()
     {
         $result = ['Tidak Sekolah','SD','SMP/MTS','SMA/SMK/MA','Akademi','Perguruan Tinggi'];
+        return $result;
+    }
+}
+
+// daftar agama yang di akui di indonesia
+if (! function_exists('kingdom_statuskeluarga')) {
+    function kingdom_statuskeluarga()
+    {
+        $result = ['menikah','bercerai','talak'];
         return $result;
     }
 }
