@@ -35,7 +35,15 @@
       <li class="nav-item">
         <a href="{{ url('/kategoriproduk')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
-          <p>Kategori</p>
+          <p>Kategori Produk</p>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{ url('/toko')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>Toko</p>
         </a>
       </li>
     </ul>

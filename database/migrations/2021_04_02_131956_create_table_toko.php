@@ -15,6 +15,11 @@ class CreateTableToko extends Migration
     {
         Schema::create('toko', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_toko');
+            $table->string('no_hp',20);
+            $table->string('keterangan_toko');
+            $table->string('alamat_toko');
+            $table->text('logo_toko');
             $table->timestamps();
         });
     }
