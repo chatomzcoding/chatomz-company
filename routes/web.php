@@ -19,6 +19,8 @@ Route::get('/','App\Http\Controllers\Homepage\LandingController@index');
 Route::get('/view/{file}','App\Http\Controllers\Homepage\LandingController@view');
 Route::get('/h/blog','App\Http\Controllers\Homepage\LandingController@blog');
 Route::get('/h/blog/{id}','App\Http\Controllers\Homepage\LandingController@blogdetail');
+Route::get('/h/produk/{slug}','App\Http\Controllers\Homepage\ProdukController@detail');
+Route::get('/h/kategoriproduk/{slug}','App\Http\Controllers\Homepage\ProdukController@kategori');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');

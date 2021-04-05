@@ -168,6 +168,7 @@
     </header>
     <!-- Header Section End -->
 
+
     @yield('container')
 
         <!-- Footer Section Begin -->

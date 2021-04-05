@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Artikel;
 use App\Models\Kategoriartikel;
 use App\Models\Kategoriproduk;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -13,7 +14,8 @@ class LandingController extends Controller
     public function index()
     {
         $kategoriproduk     = Kategoriproduk::where('status','aktif')->get();
-        return view('homepage.index', compact('kategoriproduk'));
+        $produk             = Produk::all();
+        return view('homepage.index', compact('kategoriproduk','produk'));
     }
 
     public function view($file)
