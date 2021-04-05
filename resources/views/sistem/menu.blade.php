@@ -47,6 +47,14 @@
         </a>
       </li>
     </ul>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{ url('/produk')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>Produk</p>
+        </a>
+      </li>
+    </ul>
 </li>
 <li class="nav-item">
     <a href="#" class="nav-link">

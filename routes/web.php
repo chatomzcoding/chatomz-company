@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // Market
     Route::resource('kategoriproduk', 'App\Http\Controllers\Market\KategoriprodukController');
     Route::resource('toko', 'App\Http\Controllers\Market\TokoController');
+    Route::resource('produk', 'App\Http\Controllers\Market\ProdukController');
 
 
 });
