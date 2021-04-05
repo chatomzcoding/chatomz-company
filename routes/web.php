@@ -14,6 +14,11 @@ use App\Http\Livewire\Members; //Load class Members
 |
 */
 
+// Pengujian
+Route::get('/cetak/lihat','App\Http\Controllers\CetakController@get');
+Route::get('/cetak/download','App\Http\Controllers\CetakController@out');
+
+
 // HOMEPAGE
 Route::get('/','App\Http\Controllers\Homepage\LandingController@index');
 Route::get('/view/{file}','App\Http\Controllers\Homepage\LandingController@view');
