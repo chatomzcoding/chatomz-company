@@ -14,9 +14,6 @@ use App\Http\Livewire\Members; //Load class Members
 |
 */
 
-// Pengujian
-Route::get('/cetak/lihat','App\Http\Controllers\CetakController@get');
-Route::get('/cetak/download','App\Http\Controllers\CetakController@out');
 
 
 // HOMEPAGE
@@ -59,3 +56,13 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
 
 });
+
+
+
+// --------------------------------------------------------------------------------------------
+// PENGUJIAN DLL
+// --------------------------------------------------------------------------------------------
+// Cetak PDF dengan dompdf packgake
+Route::get('/cetak/lihat','App\Http\Controllers\Pengujian\PrintpdfController@get');
+Route::get('/cetak/download','App\Http\Controllers\Pengujian\PrintpdfController@out');
+// --------------------------------------------------------------------------------------------
