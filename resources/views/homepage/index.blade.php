@@ -48,16 +48,27 @@
                 @foreach ($produk as $item)
                     <div class="col-lg-3 col-md-4 col-sm-6 mix kategori{{ $item->kategoriproduk_id}}">
                         <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
-                                <ul class="featured__item__pic__hover">
-                                    {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li> --}}
-                                    {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
+                            <div class="product__discount__item__pic set-bg"
+                            data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
+                            @php
+                                $diskon = DbChatomz::showtablefirst('produk_diskon',['produk_id',$item->id]);
+                            @endphp
+                            @if ($diskon)
+                                <div class="product__discount__percent">{{ $diskon->nilai_diskon}}%</div>
+                            @endif
+                            <ul class="product__item__pic__hover">
+                                {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li> --}}
+                                {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
+                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
                             <div class="featured__item__text">
                                 <h6><a href="{{ url('/h/produk/'.$item->slug)}}">{{ $item->nama_produk}}</a></h6>
-                                <h5>{{ rupiah($item->harga_produk)}}</h5>
+                                @if ($diskon)
+                                    <h5><span class="text-danger">{{ rupiah(market_hitungdiskon($item->harga_produk,$diskon->nilai_diskon))}}</span> <small><del>{{ norupiah($item->harga_produk)}}</del></small></h5>
+                                @else
+                                    <h5>{{ rupiah($item->harga_produk)}}</h5>
+                                @endif
                             </div>
                         </div>
                     </div>
