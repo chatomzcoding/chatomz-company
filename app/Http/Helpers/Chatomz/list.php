@@ -188,4 +188,13 @@ if (! function_exists('kingdom_statuskeluarga')) {
     }
 }
 
+// daftar list posisi iklan
+if (! function_exists('kingdom_posisiiklan')) {
+    function kingdom_posisiiklan()
+    {
+        $result = ['market-atas','market-bawah','market-samping'];
+        return $result;
+    }
+}
+
 
