@@ -1,3 +1,7 @@
+@php
+    $infowebsite = App\Models\Infowebsite::first(); 
+@endphp
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -33,7 +37,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="{{ asset('/template/ogani/img/logo.png')}}" alt=""></a>
+            <a href="#"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -81,8 +85,8 @@
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                <li>Free Shipping for all Order of $99</li>
+                <li><i class="fa fa-envelope"></i> {{ $infowebsite->email}}</li>
+                <li>{{ $infowebsite->teks_atas}}</li>
             </ul>
         </div>
     </div>
@@ -96,18 +100,18 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
+                                <li><i class="fa fa-envelope"></i> {{ $infowebsite->email}}</li>
+                                <li>{{ $infowebsite->teks_atas}}</li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                                <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fa fa-facebook"></i></a>
+                                <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                <a href="{{ $infowebsite->link_in}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                <a href="{{ $infowebsite->link_pi}}" target="_blank"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             {{-- <div class="header__top__right__language">
                                 <img src="{{ asset('/template/ogani/img/language.png')}}" alt="">
@@ -130,7 +134,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset('/template/ogani/img/logo.png')}}" alt=""></a>
+                        <a href="./index.html"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -181,9 +185,9 @@
                                 <a href="./index.html"><img src="{{ asset('/template/ogani/img/logo.png')}}" alt=""></a>
                             </div>
                             <ul>
-                                <li>Address: 60-49 Road 11378 New York</li>
-                                <li>Phone: +65 11.188.888</li>
-                                <li>Email: hello@colorlib.com</li>
+                                <li>Alamat: {{ $infowebsite->alamat}}</li>
+                                <li>No. Telp: {{ $infowebsite->telp}}</li>
+                                <li>Email: {{ $infowebsite->email}}</li>
                             </ul>
                         </div>
                     </div>
@@ -214,13 +218,13 @@
                             <p>Get E-mail updates about our latest shop and special offers.</p>
                             <form action="#">
                                 <input type="text" placeholder="Enter your mail">
-                                <button type="submit" class="site-btn">Subscribe</button>
+                                <button type="submit" class="site-btn">Berlangganan</button>
                             </form>
                             <div class="footer__widget__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fa fa-facebook"></i></a>
+                                <a href="{{ $infowebsite->link_ig}}" target="_blank"><i class="fa fa-instagram"></i></a>
+                                <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                <a href="{{ $infowebsite->link_pi}}" target="_blank"><i class="fa fa-pinterest"></i></a>
                             </div>
                         </div>
                     </div>
