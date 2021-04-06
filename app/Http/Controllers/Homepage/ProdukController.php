@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Homepage;
 use App\Http\Controllers\Controller;
 use App\Models\Kategoriproduk;
 use App\Models\Produk;
+use App\Models\Produkdiskon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,13 +16,14 @@ class ProdukController extends Controller
         $produk         = Produk::where('slug',$slug)->first();
         $kategori       = Kategoriproduk::find($produk->kategoriproduk_id);
         $produksama     = Produk::where('kategoriproduk_id',$kategori->id)->get();
+        $diskon         = Produkdiskon::where('produk_id',$produk->id)->first();
 
         $view           = $produk->dilihat + 1;
         // tambahkan view saat masuk kehalaman ini
         Produk::where('id',$produk->id)->update([
             'dilihat' => $view,
         ]);
-        return view('homepage.produk.show', compact('produk','kategori','produksama'));
+        return view('homepage.produk.show', compact('produk','kategori','produksama','diskon'));
     }
 
     public function kategori($slug)
