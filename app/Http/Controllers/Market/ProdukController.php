@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Market;
 use App\Http\Controllers\Controller;
 use App\Models\Kategoriproduk;
 use App\Models\Produk;
+use App\Models\Produkdiskon;
 use App\Models\Toko;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -36,7 +37,7 @@ class ProdukController extends Controller
     public function create()
     {
         $toko       = Toko::all();
-        $kategori   = Kategoriproduk::where('status','aktif')->get();
+        $kategori   = Kategoriproduk::where('status','aktif')->orderBy('nama_kategori','ASC')->get();
         return view('chatomz.market.produk.create', compact('toko','kategori'));
     }
 
@@ -128,7 +129,9 @@ class ProdukController extends Controller
     public function show($produk)
     {
         $produk     = Produk::find(Crypt::decryptString($produk));
-        return view('chatomz.market.produk.show', compact('produk'));
+        $kategori   = Kategoriproduk::find($produk->kategoriproduk_id);
+        $diskon     = Produkdiskon::where('produk_id',$produk->id)->first();
+        return view('chatomz.market.produk.show', compact('produk','kategori','diskon'));
     }
 
     /**
@@ -140,7 +143,7 @@ class ProdukController extends Controller
     public function edit($produk)
     {
         $produk     = Produk::find(Crypt::decryptString($produk));
-        $kategori   = Kategoriproduk::where('status','aktif')->get();
+        $kategori   = Kategoriproduk::where('status','aktif')->orderBy('nama_kategori','ASC')->get();
         return view('chatomz.market.produk.edit', compact('produk','kategori'));
     }
 
