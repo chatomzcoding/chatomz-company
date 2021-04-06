@@ -141,7 +141,7 @@
                         <input type="date" name="tgl_akhir" class="form-control col-md-8" min="{{ tgl_sekarang()}}" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Diskon berapa % (0-100)</label>
+                        <label for="" class="col-md-4 p-2">Diskon berapa % (0-100) <span class="text-danger">*</span></label>
                         <input type="number" name="nilai_diskon" id="nilai_diskon" class="form-control col-md-8" min="0" max="100" required>
                     </div>
                     <div class="form-group row">
@@ -184,7 +184,7 @@
                         <input type="date" name="tgl_akhir" class="form-control col-md-8" min="{{ tgl_sekarang()}}" value="{{ $diskon->tgl_akhir}}" required>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-md-4 p-2">Diskon berapa % (0-100)</label>
+                        <label for="" class="col-md-4 p-2">Diskon berapa % (0-100) <span class="text-danger">*</span></label>
                         <input type="number" name="nilai_diskon" id="nilai_diskon" class="form-control col-md-8" min="0" max="100" value="{{ $diskon->nilai_diskon}}" required>
                     </div>
                     <div class="form-group row">
