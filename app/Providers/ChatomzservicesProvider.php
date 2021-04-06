@@ -15,6 +15,7 @@ class ChatomzservicesProvider extends ServiceProvider
     {
         require_once app_path() . '/Http/Helpers/Chatomz/list.php';
         require_once app_path() . '/Http/Helpers/Chatomz/db.php';
+        require_once app_path() . '/Http/Helpers/Chatomz/market.php';
         require_once app_path() . '/Http/Helpers/Sistem/bilangan.php';
         require_once app_path() . '/Http/Helpers/Sistem/data.php';
         require_once app_path() . '/Http/Helpers/Sistem/sistem.php';
