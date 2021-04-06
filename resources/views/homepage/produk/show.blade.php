@@ -60,8 +60,15 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">$50.00</div>
-                        <p>{{ $produk->keterangan_produk}}</p>
+                        @if ($diskon)
+                            <div class="alert alert-success">
+                                Produk ini sedang <strong>DISKON {{ $diskon->nilai_diskon}}%</strong>
+                            </div>
+                            <div class="product__details__price">{{ rupiah(market_hitungdiskon($produk->harga_produk,$diskon->nilai_diskon))}} <small class="text-muted"><del>{{ norupiah($produk->harga_produk)}}</del></small></div>
+                        @else
+                            <div class="product__details__price">{{ rupiah($produk->harga_produk)}}</div>
+                        @endif
+                        <p class="text-justify">{{ ucfirst($produk->keterangan_produk)}}</p>
                         {{-- <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
