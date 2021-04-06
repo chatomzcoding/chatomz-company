@@ -67,6 +67,14 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
+        <a href="{{ url('/info-website')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>Info Website</p>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
         <a href="{{ url('/adminuser')}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
           <p>User</p>

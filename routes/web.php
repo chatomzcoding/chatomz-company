@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // Admin
     Route::resource('artikel', 'App\Http\Controllers\Admin\ArtikelController');
     Route::resource('iklan', 'App\Http\Controllers\Admin\IklanController');
+    Route::resource('info-website', 'App\Http\Controllers\Admin\InfowebsiteController');
     Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
     Route::resource('kategoriartikel', 'App\Http\Controllers\Admin\KategoriartikelController');
 
