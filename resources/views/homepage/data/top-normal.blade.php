@@ -1,4 +1,7 @@
-    <!-- Hero Section Begin -->
+@php
+$infowebsite = App\Models\Infowebsite::first(); 
+@endphp
+ <!-- Hero Section Begin -->
     <section class="hero hero-normal">
         <div class="container">
             <div class="row">
@@ -33,8 +36,8 @@
                                 <i class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
-                                <h5>+65 11.188.888</h5>
-                                <span>support 24/7 time</span>
+                                <h5>{{ $infowebsite->telp}}</h5>
+                                <span>support 24/7 waktu</span>
                             </div>
                         </div>
                     </div>

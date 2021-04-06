@@ -35,7 +35,9 @@
                             <h4>Kategori lainnya</h4>
                             <ul>
                                 @foreach ($listkategori as $item)
-                                    <li><a href="{{ url('/h/kategoriproduk/'.$item->slug)}}">{{ $item->nama_kategori}}</a></li>
+                                    @if ($item->id <> $kategori->id)
+                                        <li><a href="{{ url('/h/kategoriproduk/'.$item->slug)}}">{{ strtoupper($item->nama_kategori)}}</a></li>
+                                    @endif
                                 @endforeach
                             </ul>
                         </div>
