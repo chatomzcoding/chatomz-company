@@ -57,7 +57,7 @@
                         @csrf
                         @method('patch')
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-6 p-3">
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 p-2">Nama Produk <span class="text-danger">*</span></label>
                                     <input type="text" name="nama_produk" class="form-control col-md-8" placeholder="Nama Produk" value="{{ $produk->nama_produk}}" required>
@@ -67,41 +67,67 @@
                                     <input type="number" name="stok" class="form-control col-md-8" placeholder="Stok Produk" value="{{ $produk->stok}}" required>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Harga Produk <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 p-2">Harga Produk (Rp)<span class="text-danger">*</span></label>
                                     <input type="text" name="harga_produk" id="rupiah" class="form-control col-md-8" placeholder="Harga Produk" value="{{ $produk->harga_produk}}" required>
                                 </div>
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 p-2">Keterangan <span class="text-danger">*</span></label>
                                     <textarea name="keterangan_produk" class="form-control col-md-8" cols="10" rows="4" required>{{ $produk->keterangan_produk}}</textarea>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 p-2">Kategori <span class="text-danger">*</span></label>
                                     <select name="kategoriproduk_id" id="" class="form-control col-md-8" required>
                                         @foreach ($kategori as $item)
                                             <option value="{{ $item->id}}" @if ($item->id == $produk->kategoriproduk_id)
                                                 selected
-                                            @endif>{{ $item->nama_kategori}}</option>
+                                            @endif>{{ strtoupper($item->nama_kategori)}}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Photo Produk <br><span class="text-danger">(upload untuk merubah)</span></label>
-                                    <input type="file" name="poto_produk" class="form-control col-md-8">
+                                    <div class="col-md-4">
+                                        <img src="{{ asset('/img/market/produk/'.$produk->poto_produk)}}" alt="tidak ada" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 pt-2">
+                                        <label for="">Photo Produk</label><hr>
+                                        <input type="file" name="poto_produk" class="form-control">
+                                        <span class="text-danger">(upload untuk merubah)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 p-3">
+                                <div class="form-group row">
+                                    <div class="col-md-4 p-2">
+                                        <img src="{{ asset('/img/market/produk/'.$produk->poto_1)}}" alt="tidak ada" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 pt-2">
+                                        <label for="">Photo tambahan 1</label><hr>
+                                        <input type="file" name="poto_1" class="form-control">
+                                        <span class="text-danger">(upload untuk merubah)</span>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Photo tambahan 1 <br><span class="text-danger">(upload untuk merubah)</span></label>
-                                    <input type="file" name="poto_1" class="form-control col-md-8">
+                                    <div class="col-md-4">
+                                        <img src="{{ asset('/img/market/produk/'.$produk->poto_2)}}" alt="tidak ada" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 pt-2">
+                                        <label for="">Photo tambahan 2 </label><hr>
+                                        <input type="file" name="poto_2" class="form-control">
+                                        <span class="text-danger">(upload untuk merubah)</span>
+                                    </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Photo tambahan 2 <br><span class="text-danger">(upload untuk merubah)</span></label>
-                                    <input type="file" name="poto_2" class="form-control col-md-8">
+                                    <div class="col-md-4">
+                                        <img src="{{ asset('/img/market/produk/'.$produk->poto_3)}}" alt="tidak ada" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-8 pt-2">
+                                        <label for="">Photo tambahan 3</label><hr>
+                                        <input type="file" name="poto_3" class="form-control">
+                                        <span class="text-danger">(upload untuk merubah)</span>
+                                    </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Photo tambahan 3 <br><span class="text-danger">(upload untuk merubah)</span></label>
-                                    <input type="file" name="poto_3" class="form-control col-md-8">
-                                </div>
+                            </div>
+                            <div class="col">
                                 <hr>
                                 <div class="form-group text-right">
                                     <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
