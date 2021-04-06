@@ -70,7 +70,7 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <button type="button" data-toggle="modal" data-nama_toko="{{ $item->nama_toko }}" data-keterangan_toko="{{ $item->keterangan_toko }}" data-no_hp="{{ $item->no_hp }}" data-alamat_toko="{{ $item->alamat_toko }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                        <button type="button" data-toggle="modal" data-nama_toko="{{ $item->nama_toko }}" data-keterangan_toko="{{ $item->keterangan_toko }}" data-no_hp="{{ $item->no_hp }}" data-alamat_toko="{{ $item->alamat_toko }}" data-user_id="{{ $item->user_id }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
@@ -107,33 +107,33 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Toko</label>
-                        <input type="text" name="nama_toko" id="nama_toko" class="form-control" placeholder="Nama Toko" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nama Toko</label>
+                        <input type="text" name="nama_toko" id="nama_toko" class="form-control col-md-8" placeholder="Nama Toko" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Alamat Toko</label>
-                        <input type="text" name="alamat_toko" id="alamat_toko" class="form-control" placeholder="Alamat" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Alamat Toko</label>
+                        <input type="text" name="alamat_toko" id="alamat_toko" class="form-control col-md-8" placeholder="Alamat" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">No Hp Toko</label>
-                        <input type="text" name="no_hp" id="no_hp" class="form-control" placeholder="08xxxx" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">No Hp Toko</label>
+                        <input type="text" name="no_hp" id="no_hp" class="form-control col-md-8" placeholder="08xxxx" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Tentang Toko</label>
-                        <input type="text" name="keterangan_toko" id="keterangan_toko" class="form-control" placeholder="Tentang Toko" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Tentang Toko</label>
+                        <input type="text" name="keterangan_toko" id="keterangan_toko" class="form-control col-md-8" placeholder="Tentang Toko" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Pemilik</label>
-                        <select name="user_id" id="user_id" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Pemilik</label>
+                        <select name="user_id" id="user_id" class="form-control col-md-8">
                             @foreach ($user as $item)
                                 <option value="{{ $item->id}}">{{ $item->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Logo</label>
-                        <input type="file" name="logo_toko" id="profile_photo_path" class="form-control" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Logo</label>
+                        <input type="file" name="logo_toko" id="profile_photo_path" class="form-control col-md-8" required>
                     </div>
                 </section>
             </div>
@@ -155,7 +155,7 @@
                 @csrf
                 @method('patch')
             <div class="modal-header">
-            <h4 class="modal-title">Edit User</h4>
+            <h4 class="modal-title">Edit Toko</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -163,26 +163,33 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama </label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Nama User" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nama Toko</label>
+                        <input type="text" name="nama_toko" id="nama_toko" class="form-control col-md-8" placeholder="Nama Toko" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">email</label>
-                        <input type="text" name="email" id="email" class="form-control" placeholder="Alamat Email" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Alamat Toko</label>
+                        <input type="text" name="alamat_toko" id="alamat_toko" class="form-control col-md-8" placeholder="Alamat" required>
                     </div>
-                   
-                    <div class="form-group">
-                        <label for="">Password</label>
-                        <input type="password" name="password" id="password" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">No Hp Toko</label>
+                        <input type="text" name="no_hp" id="no_hp" class="form-control col-md-8" placeholder="08xxxx" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Ulangi Password</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Tentang Toko</label>
+                        <input type="text" name="keterangan_toko" id="keterangan_toko" class="form-control col-md-8" placeholder="Tentang Toko" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Photo (jika ingin diubah)</label>
-                        <input type="file" name="profile_photo_path" id="profile_photo_path" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Pemilik</label>
+                        <select name="user_id" id="user_id" class="form-control col-md-8">
+                            @foreach ($user as $item)
+                                <option value="{{ $item->id}}">{{ $item->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Logo (unggah jika ingin mengubah)</label>
+                        <input type="file" name="logo_toko" id="profile_photo_path" class="form-control col-md-8">
                     </div>
                 </section>
             </div>
@@ -201,16 +208,20 @@
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var name = button.data('name')
-                var level = button.data('level')
-                var email = button.data('email')
+                var nama_toko = button.data('nama_toko')
+                var keterangan_toko = button.data('keterangan_toko')
+                var alamat_toko = button.data('alamat_toko')
+                var no_hp = button.data('no_hp')
+                var user_id = button.data('user_id')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #name').val(name);
-                modal.find('.modal-body #level').val(level);
-                modal.find('.modal-body #email').val(email);
+                modal.find('.modal-body #nama_toko').val(nama_toko);
+                modal.find('.modal-body #keterangan_toko').val(keterangan_toko);
+                modal.find('.modal-body #alamat_toko').val(alamat_toko);
+                modal.find('.modal-body #no_hp').val(no_hp);
+                modal.find('.modal-body #user_id').val(user_id);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

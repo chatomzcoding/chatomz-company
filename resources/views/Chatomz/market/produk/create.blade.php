@@ -60,9 +60,9 @@
                                 @if (Auth::user()->level == 'admin')
                                     <div class="form-group row">
                                         <label for="" class="col-md-4 p-2">Toko <span class="text-danger">*</span></label>
-                                        <select name="user_id" id="" class="form-control col-md-8" required>
+                                        <select name="toko_id" id="" class="form-control col-md-8" required>
                                             @foreach ($toko as $item)
-                                                <option value="{{ $item->user_id}}">{{ $item->nama_toko}}</option>
+                                                <option value="{{ $item->id}}">{{ $item->nama_toko}}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -14,8 +14,8 @@ class AddFkToProduk extends Migration
     public function up()
     {
         Schema::table('produk', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->after('id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('toko_id')->after('id');
+            $table->foreign('toko_id')->references('id')->on('toko')->onDelete('cascade');
             $table->unsignedBigInteger('kategoriproduk_id')->after('user_id');
             $table->foreign('kategoriproduk_id')->references('id')->on('kategori_produk')->onDelete('cascade');
         });

@@ -103,7 +103,7 @@ class ProdukController extends Controller
         }
 
         Produk::create([
-            'user_id'  => $request->user_id,
+            'toko_id'  => $request->toko_id,
             'kategoriproduk_id'  => $request->kategoriproduk_id,
             'nama_produk'  => $request->nama_produk,
             'stok'  => $request->stok,
