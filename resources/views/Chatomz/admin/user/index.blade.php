@@ -107,33 +107,33 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama </label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Nama User" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nama </label>
+                        <input type="text" name="name" id="name" class="form-control col-md-8" placeholder="Nama User" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">email</label>
-                        <input type="text" name="email" id="email" class="form-control" placeholder="Alamat Email" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">email</label>
+                        <input type="text" name="email" id="email" class="form-control col-md-8" placeholder="Alamat Email" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Level</label>
-                        <select name="level" id="level" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Level</label>
+                        <select name="level" id="level" class="form-control col-md-8">
                             @foreach (list_leveluser() as $item)
                                 <option value="{{ $item}}">{{ $item}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="********" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Password</label>
+                        <input type="password" name="password" id="password" class="form-control col-md-8" placeholder="********" required  autocomplete="off">
                     </div>
-                    <div class="form-group">
-                        <label for="">Ulangi Password</label>
-                        <input type="password" name="password_confirmation" id="password" class="form-control" placeholder="********" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Ulangi Password</label>
+                        <input type="password" name="password_confirmation" id="password" class="form-control col-md-8" placeholder="********" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Photo</label>
-                        <input type="file" name="profile_photo_path" id="profile_photo_path" class="form-control" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Photo</label>
+                        <input type="file" name="profile_photo_path" id="profile_photo_path" class="form-control col-md-8" required>
                     </div>
                 </section>
             </div>
@@ -163,33 +163,33 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama </label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Nama User" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nama </label>
+                        <input type="text" name="name" id="name" class="form-control col-md-8" placeholder="Nama User" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">email</label>
-                        <input type="text" name="email" id="email" class="form-control" placeholder="Alamat Email" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">email</label>
+                        <input type="text" name="email" id="email" class="form-control col-md-8" placeholder="Alamat Email" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Level</label>
-                        <select name="level" id="level" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Level</label>
+                        <select name="level" id="level" class="form-control col-md-8">
                             @foreach (list_leveluser() as $item)
                                 <option value="{{ $item}}">{{ $item}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Password</label>
-                        <input type="password" name="password" id="password" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Password</label>
+                        <input type="password" name="password" id="password" class="form-control col-md-8" autocomplete="off">
                     </div>
-                    <div class="form-group">
-                        <label for="">Ulangi Password</label>
-                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Ulangi Password</label>
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control col-md-8">
                     </div>
-                    <div class="form-group">
-                        <label for="">Photo (jika ingin diubah)</label>
-                        <input type="file" name="profile_photo_path" id="profile_photo_path" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Photo (jika ingin diubah)</label>
+                        <input type="file" name="profile_photo_path" id="profile_photo_path" class="form-control col-md-8">
                     </div>
                 </section>
             </div>
