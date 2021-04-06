@@ -39,13 +39,19 @@
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <img data-imgbigurl="{{ asset('/img/market/produk/'.$produk->poto_produk)}}"
-                                src="{{ asset('/img/market/produk/'.$produk->poto_produk)}}">
-                            <img data-imgbigurl="{{ asset('/img/market/produk/'.$produk->poto_1)}}"
-                                src="{{ asset('/img/market/produk/'.$produk->poto_1)}}">
-                            <img data-imgbigurl="{{ asset('/img/market/produk/'.$produk->poto_2)}}"
-                                src="{{ asset('/img/market/produk/'.$produk->poto_2)}}">
-                            <img data-imgbigurl="{{ asset('/img/market/produk/'.$produk->poto_3)}}"
-                                src="{{ asset('/img/market/produk/'.$produk->poto_3)}}">
+                            src="{{ asset('/img/market/produk/'.$produk->poto_produk)}}">
+                            @if (!is_null($produk->poto_1))
+                                <img data-imgbigurl="{{ asset('/img/market/produk/'.$produk->poto_1)}}"
+                                    src="{{ asset('/img/market/produk/'.$produk->poto_1)}}">
+                            @endif
+                            @if (!is_null($produk->poto_2))
+                                <img data-imgbigurl="{{ asset('/img/market/produk/'.$produk->poto_2)}}"
+                                    src="{{ asset('/img/market/produk/'.$produk->poto_2)}}">
+                            @endif
+                            @if (!is_null($produk->poto_3))
+                                <img data-imgbigurl="{{ asset('/img/market/produk/'.$produk->poto_3)}}"
+                                    src="{{ asset('/img/market/produk/'.$produk->poto_3)}}">
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -79,7 +85,7 @@
                         <a href="#" class="primary-btn">PESAN SEKARANG</a>
                         {{-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> --}}
                         <ul>
-                            <li><b>Stok</b> <span>{{ $produk->stok}}</span></li>
+                            <li><b>Stok</b> <span>: {{ $produk->stok}}</span></li>
                             {{-- <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li> --}}
                             {{-- <li><b>Weight</b> <span>0.5 kg</span></li> --}}
                             {{-- <li><b>Share on</b>
