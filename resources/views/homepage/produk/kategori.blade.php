@@ -198,26 +198,30 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-                                @for ($i = 1; $i < 7; $i++)
+                                @forelse ($diskon as $item)
                                     <div class="col-lg-4">
                                         <div class="product__discount__item">
                                             <div class="product__discount__item__pic set-bg"
-                                                data-setbg="{{ asset('/template/ogani/img/product/discount/pd-1.jpg')}}">
-                                                <div class="product__discount__percent">-20%</div>
+                                                data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
+                                                <div class="product__discount__percent">{{ $item->nilai_diskon}}%</div>
                                                 <ul class="product__item__pic__hover">
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                    {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li> --}}
+                                                    {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
                                                     <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                                 </ul>
                                             </div>
                                             <div class="product__discount__item__text">
-                                                <span>Dried Fruit</span>
-                                                <h5><a href="#">Raisin’n’nuts</a></h5>
-                                                <div class="product__item__price">$30.00 <span>$36.00</span></div>
+                                                <span>{{ $item->nama_kategori}}</span>
+                                                <h5><a href="{{ url('/h/produk/'.$item->slug)}}">{{ $item->nama_produk}}</a></h5>
+                                                <div class="product__item__price">{{ rupiah(market_hitungdiskon($item->harga_produk,$item->nilai_diskon))}}  <span>{{ norupiah($item->harga_produk)}}</span></div>
                                             </div>
                                         </div>
                                     </div>
-                                @endfor
+                                @empty
+                                    <div class="col">
+                                        belum ada produk diskon
+                                    </div>                                    
+                                @endforelse
                             </div>
                         </div>
                     </div>
