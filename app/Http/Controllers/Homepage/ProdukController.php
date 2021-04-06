@@ -14,6 +14,12 @@ class ProdukController extends Controller
         $produk         = Produk::where('slug',$slug)->first();
         $kategori       = Kategoriproduk::find($produk->kategoriproduk_id);
         $produksama     = Produk::where('kategoriproduk_id',$kategori->id)->get();
+
+        $view           = $produk->dilihat + 1;
+        // tambahkan view saat masuk kehalaman ini
+        Produk::where('id',$produk->id)->update([
+            'dilihat' => $view,
+        ]);
         return view('homepage.produk.show', compact('produk','kategori','produksama'));
     }
 
