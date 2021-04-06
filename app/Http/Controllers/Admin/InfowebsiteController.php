@@ -89,20 +89,20 @@ class InfowebsiteController extends Controller
             $logo_brand  = $infowebsite->logo_brand;
         }
 
-        if (isset($request->favicon)) {
+        if (isset($request->bg_produk)) {
             $request->validate([
-                'favicon' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+                'bg_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
-            $file = $request->file('favicon');
+            $file = $request->file('bg_produk');
             
-            $favicon = time()."_".$file->getClientOriginalName();
+            $bg_produk = time()."_".$file->getClientOriginalName();
             $tujuan_upload = 'img/admin/info';
             // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$favicon);
-            deletefile($tujuan_upload.'/'.$infowebsite->favicon);
+            $file->move($tujuan_upload,$bg_produk);
+            deletefile($tujuan_upload.'/'.$infowebsite->bg_produk);
         } else {
-            $favicon  = $infowebsite->favicon;
+            $bg_produk  = $infowebsite->bg_produk;
         }
         
         Infowebsite::where('id',$infowebsite->id)->update([
@@ -119,7 +119,7 @@ class InfowebsiteController extends Controller
             'link_in'  => $request->link_in,
             'link_pi'  => $request->link_pi,
             'logo_brand' => $logo_brand,
-            'favicon' => $favicon,
+            'bg_produk' => $bg_produk,
         ]);
         return redirect()->back()->with('du','Info Website');
     }

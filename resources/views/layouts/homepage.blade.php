@@ -63,17 +63,17 @@
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="{{ url('/')}}">Beranda</a></li>
-                <li><a href="{{ url('/view/shop-grid')}}">Belanja</a></li>
-                <li><a href="#">Halaman</a>
+                {{-- <li><a href="{{ url('/view/shop-grid')}}">Belanja</a></li> --}}
+                {{-- <li><a href="#">Halaman</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="{{ url('/view/shop-detail')}}">Shop Details</a></li>
                         <li><a href="{{ url('/view/cart')}}">Shoping Cart</a></li>
                         <li><a href="{{ url('/view/checkout')}}">Check Out</a></li>
                         <li><a href="{{ url('/view/blog-detail')}}">Blog Details</a></li>
                     </ul>
-                </li>
+                </li> --}}
                 <li><a href="{{ url('/h/blog')}}">Blog</a></li>
-                <li><a href="{{ url('/view/contact')}}">Kontak</a></li>
+                {{-- <li><a href="{{ url('/view/contact')}}">Kontak</a></li> --}}
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -141,17 +141,17 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="{{ url('/')}}">Beranda</a></li>
-                            <li><a href="{{ url('/view/shop-grid')}}">Belanja</a></li>
-                            <li><a href="#">Halaman</a>
+                            {{-- <li><a href="{{ url('/view/shop-grid')}}">Belanja</a></li> --}}
+                            {{-- <li><a href="#">Halaman</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="{{ url('/view/shop-detail')}}">Shop Details</a></li>
                                     <li><a href="{{ url('/view/cart')}}">Shoping Cart</a></li>
                                     <li><a href="{{ url('/view/checkout')}}">Check Out</a></li>
                                     <li><a href="{{ url('/view/blog-detail')}}">Blog Details</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li><a href="{{ url('/h/blog')}}">Blog</a></li>
-                            <li><a href="{{ url('/view/contact')}}">Kontak</a></li>
+                            {{-- <li><a href="{{ url('/view/contact')}}">Kontak</a></li> --}}
                         </ul>
                     </nav>
                 </div>
@@ -193,22 +193,22 @@
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
                         <div class="footer__widget">
-                            <h6>Useful Links</h6>
+                            <h6>Ketahui lebih jauh</h6>
                             <ul>
                                 <li><a href="#">About Us</a></li>
-                                <li><a href="#">About Our Shop</a></li>
+                                {{-- <li><a href="#">About Our Shop</a></li>
                                 <li><a href="#">Secure Shopping</a></li>
                                 <li><a href="#">Delivery infomation</a></li>
                                 <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Our Sitemap</a></li>
+                                <li><a href="#">Our Sitemap</a></li> --}}
                             </ul>
                             <ul>
                                 <li><a href="#">Who We Are</a></li>
-                                <li><a href="#">Our Services</a></li>
+                                {{-- <li><a href="#">Our Services</a></li>
                                 <li><a href="#">Projects</a></li>
                                 <li><a href="#">Contact</a></li>
                                 <li><a href="#">Innovation</a></li>
-                                <li><a href="#">Testimonials</a></li>
+                                <li><a href="#">Testimonials</a></li> --}}
                             </ul>
                         </div>
                     </div>

@@ -1,5 +1,6 @@
 @php
-$infowebsite = App\Models\Infowebsite::first(); 
+$infowebsite    = App\Models\Infowebsite::first(); 
+$dkategori      = App\Models\Kategoriproduk::where('status','aktif')->orderBy('nama_kategori','ASC')->get(); 
 @endphp
  <!-- Hero Section Begin -->
     <section class="hero hero-normal">
@@ -12,8 +13,8 @@ $infowebsite = App\Models\Infowebsite::first();
                             <span>Kategori</span>
                         </div>
                         <ul>
-                            @foreach (DbChatomz::showtable('kategori_produk',['status','aktif']) as $item)
-                                <li><a href="{{ url('/h/kategoriproduk/'.$item->slug)}}">{{ $item->nama_kategori}}</a></li>
+                            @foreach ($dkategori as $item)
+                                <li><a href="{{ url('/h/kategoriproduk/'.$item->slug)}}">{{ ucwords($item->nama_kategori)}}</a></li>
                             @endforeach
                         </ul>
                     </div>

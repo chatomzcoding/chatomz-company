@@ -12,8 +12,8 @@
                             <span>Kategori</span>
                         </div>
                         <ul>
-                            @foreach (DbChatomz::showtable('kategori_produk',['status','aktif']) as $item)
-                                <li><a href="{{ url('/h/kategoriproduk/'.$item->slug)}}">{{ $item->nama_kategori}}</a></li>
+                            @foreach ($kategoriproduk as $item)
+                                <li><a href="{{ url('/h/kategoriproduk/'.$item->slug)}}">{{ ucwords($item->nama_kategori)}}</a></li>
                             @endforeach
                         </ul>
                     </div>

@@ -91,7 +91,7 @@
                                     <label for="" class="col-md-4 p-2">Kategori <span class="text-danger">*</span></label>
                                     <select name="kategoriproduk_id" id="" class="form-control col-md-8" required>
                                         @foreach ($kategori as $item)
-                                            <option value="{{ $item->id}}">{{ $item->nama_kategori}}</option>
+                                            <option value="{{ $item->id}}">{{ strtoupper($item->nama_kategori)}}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -75,21 +75,21 @@
                             <div class="col-md-6">
                                 <div class="form-group row">
                                     <div class="col-md-4 p-2">
-                                        <label for="" >Logo Brand</label>
-                                        <img src="{{ asset('/img/admin/info/'.$info->logo_brand)}}" alt="">
+                                        <img src="{{ asset('/img/admin/info/'.$info->logo_brand)}}" alt="" class="img-fluid">
                                     </div>
                                     <div class="col-md-8">
+                                        <label for="" >Logo Brand</label>
                                         <input type="file" name="logo_brand" class="form-control">
                                         <i>unggah jika ingin merubah</i>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-4 p-2">
-                                        <label for="" >Favicon</label>
-                                        <img src="{{ asset('/img/admin/info/'.$info->favicon)}}" alt="">
+                                        <img src="{{ asset('/img/admin/info/'.$info->bg_produk)}}" alt="" class="img-fluid">
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="file" name="favicon" class="form-control">
+                                        <label for="" >Background Produk</label>
+                                        <input type="file" name="bg_produk" class="form-control">
                                         <i>unggah jika ingin merubah</i>
                                     </div>
                                 </div>

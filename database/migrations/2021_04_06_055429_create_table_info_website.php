@@ -22,7 +22,7 @@ class CreateTableInfoWebsite extends Migration
             $table->string('alamat');
             $table->string('maps');
             $table->text('logo_brand');
-            $table->text('favicon');
+            $table->text('bg_produk');
             $table->string('link_fb')->nullable();
             $table->string('link_tw')->nullable();
             $table->string('link_yt')->nullable();

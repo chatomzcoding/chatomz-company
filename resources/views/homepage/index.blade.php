@@ -16,7 +16,7 @@
                     @foreach ($kategoriproduk as $item)
                         <div class="col-lg-3">
                             <div class="categories__item set-bg" data-setbg="{{ asset('/img/market/kategoriproduk/'.$item->icon)}}">
-                                <h5><a href="#">{{ $item->nama_kategori}}</a></h5>
+                                <h5><a href="{{ url('/h/kategoriproduk/'.$item->slug)}}">{{ $item->nama_kategori}}</a></h5>
                             </div>
                         </div>
                     @endforeach
