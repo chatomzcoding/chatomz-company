@@ -82,10 +82,14 @@
                                 </div>
                             </div>
                         </div> --}}
-                        <a href="#" class="primary-btn">PESAN SEKARANG</a>
+                        <a href="{{ market_pesanwhatsapp($toko->no_hp,'saya ingin memesan produk '.$produk->nama_produk)}}" class="primary-btn">PESAN SEKARANG</a>
                         {{-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> --}}
                         <ul>
                             <li><b>Stok</b> <span>: {{ $produk->stok}}</span></li>
+                            <hr>
+                            <li><b>Toko</b> <span>: {{ $toko->nama_toko}}</span></li>
+                            <li><b>Keterangan</b> <span>: {{ $toko->keterangan_toko}}</span></li>
+                            <li><b>Alamat Toko</b> <span>: {{ $toko->alamat_toko}}</span></li>
                             {{-- <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li> --}}
                             {{-- <li><b>Weight</b> <span>0.5 kg</span></li> --}}
                             {{-- <li><b>Share on</b>
