@@ -8,6 +8,7 @@ use App\Models\Produk;
 use App\Models\Produkdiskon;
 use App\Models\Toko;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -22,10 +23,21 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        $produk = DB::table('produk')
-                    ->join('kategori_produk','produk.kategoriproduk_id','=','kategori_produk.id')
-                    ->select('produk.*','kategori_produk.nama_kategori')
-                    ->get();
+        $user   = Auth::user();
+        if ($user->level == 'admin') {
+            $produk = DB::table('produk')
+                        ->join('kategori_produk','produk.kategoriproduk_id','=','kategori_produk.id')
+                        ->select('produk.*','kategori_produk.nama_kategori')
+                        ->get();
+        } else {
+            $toko   = Toko::where('user_id',$user->id)->first();
+            $produk = DB::table('produk')
+                        ->join('kategori_produk','produk.kategoriproduk_id','=','kategori_produk.id')
+                        ->select('produk.*','kategori_produk.nama_kategori')
+                        ->where('produk.toko_id',$toko->id)
+                        ->get();
+        }
+                
         return view('chatomz.market.produk.index', compact('produk'));
     }
 
@@ -36,9 +48,15 @@ class ProdukController extends Controller
      */
     public function create()
     {
-        $toko       = Toko::all();
+        $user       = Auth::user();
+        if ($user->level == 'admin') {
+            $toko       = Toko::all();
+        } else {
+            $toko       = Toko::where('user_id',$user->id)->first();
+        }
+        
         $kategori   = Kategoriproduk::where('status','aktif')->orderBy('nama_kategori','ASC')->get();
-        return view('chatomz.market.produk.create', compact('toko','kategori'));
+        return view('chatomz.market.produk.create', compact('toko','kategori','user'));
     }
 
     /**
@@ -50,7 +68,7 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+            'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
         ]);
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('poto_produk');
@@ -67,7 +85,7 @@ class ProdukController extends Controller
         
         if (isset($request->poto_1)) {
             $request->validate([
-                'poto_1' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                'poto_1' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_1');
@@ -79,7 +97,7 @@ class ProdukController extends Controller
         }
         if (isset($request->poto_2)) {
             $request->validate([
-                'poto_2' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                'poto_2' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_2');
@@ -91,7 +109,7 @@ class ProdukController extends Controller
         }
         if (isset($request->poto_3)) {
             $request->validate([
-                'poto_3' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                'poto_3' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_3');
@@ -162,7 +180,7 @@ class ProdukController extends Controller
         $nama_file3     = $produk->poto_3;
         if (isset($request->poto_produk)) {
             $request->validate([
-                'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_produk');
@@ -177,7 +195,7 @@ class ProdukController extends Controller
         
         if (isset($request->poto_1)) {
             $request->validate([
-                'poto_1' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                'poto_1' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_1');
@@ -191,7 +209,7 @@ class ProdukController extends Controller
         }
         if (isset($request->poto_2)) {
             $request->validate([
-                'poto_2' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                'poto_2' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_2');
@@ -204,7 +222,7 @@ class ProdukController extends Controller
         }
         if (isset($request->poto_3)) {
             $request->validate([
-                'poto_3' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                'poto_3' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_3');

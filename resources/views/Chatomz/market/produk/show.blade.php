@@ -44,81 +44,96 @@
                     @endif --}}
                     <a href="{{ url('/produk')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali</a>
                     <a href="{{ url('/produk/'.Crypt::encryptString($produk->id).'/edit')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-pen"></i> Edit Produk</a>
+                    <button onclick="deleteRow( {{ $produk->id }} )" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash-alt"></i> hapus produk</button>
                     @if ($diskon)
                         <a href="#" class="btn btn-outline-danger btn-flat btn-sm" data-toggle="modal" data-target="#edit"><i class="fas fa-pen"></i> Edit Diskon</a>
                     @else
                         <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambahkan Diskon</a>
                     @endif
-                    <button onclick="deleteRow( {{ $produk->id }} )" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash-alt"></i> hapus produk</button>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
                 <section>
                         <div class="row">
+                            <div class="col-md-4">
+                                <section>
+                                    <a href="{{ asset('/img/market/produk/'.$produk->poto_produk)}}" target="_blank"><img src="{{ asset('/img/market/produk/'.$produk->poto_produk)}}" alt="tidak ada" class="img-fluid"></a>
+                                </section>
+                            </div>
+                            <div class="col-md-8">
+                                <dl class="row">
+                                    <dt class="col-md-4">Nama Produk</dt>
+                                    <dd class="col-md-8 text-capitalize">: {{ $produk->nama_produk}}</dd>
+                                    <dt class="col-md-4">Harga Produk</dt>
+                                    <dd class="col-md-8">: {{ rupiah($produk->harga_produk)}}</dd>
+                                    @if ($diskon)
+                                    <dt class="col-md-4">Harga Diskon</dt>
+                                    <dd class="col-md-8">: {{ rupiah(market_hitungdiskon($produk->harga_produk,$diskon->nilai_diskon))}}</dd>
+                                    @endif
+                                    <dt class="col-md-4">Keterangan Produk</dt>
+                                    <dd class="col-md-8">: {{ $produk->keterangan_produk}}</dd>
+                                    <dt class="col-md-4">Stok Produk</dt>
+                                    <dd class="col-md-8">: {{ $produk->stok}}</dd>
+                                    <dt class="col-md-4">kategori</dt>
+                                    <dd class="col-md-8">: {{ $kategori->nama_kategori}}</dd>
+                                    <dt class="col-md-4">Dilihat</dt>
+                                    <dd class="col-md-8">: {{ $produk->dilihat}} kali</dd>
+                                    @if ($diskon)
+                                    <dt class="col-md-4">DISKON {{ $diskon->nama_diskon}}</dt>
+                                    <dd class="col-md-8"> : Diskon <strong>{{ $diskon->nilai_diskon}}%</strong>  dari tanggal ( {{ date_indo($diskon->tgl_awal).' - '.date_indo($diskon->tgl_akhir)}} ) 
+                                        <form id="data-{{ $diskon->id }}" action="{{ url('/produk-diskon/'.$diskon->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                        <button onclick="deleteRow( {{ $diskon->id }} )" class="btn btn-danger btn-sm">HAPUS DISKON</button> </dd>
+                                    @endif
+                                </dl>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
                             <div class="col-md-12">
-                               <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <tr>
-                                            <th width="30%">Nama Produk</th>
-                                            <td>: {{ $produk->nama_produk}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Harga Produk</th>
-                                            <td>: {{ rupiah($produk->harga_produk)}}</td>
-                                        </tr>
-                                        @if ($diskon)
-                                            <tr class="table-danger">
-                                                <th>Harga Diskon</th>
-                                                <td>: {{ rupiah(market_hitungdiskon($produk->harga_produk,$diskon->nilai_diskon))}}</td>
-                                            </tr>
+                                <div class="callout callout-info">
+                                    <h5><i class="fas fa-smile-wink text-success"></i> Tips Chatomz!</h5>
+                                    <p>Manfaatkan fitur tambahan poto agar produk semakin menarik untuk dilihat dari segala sudut, buat poto sudut samping kiri / kanan, atas atau penggunaan produk dll. 
+                                        {{-- cek jika hanya poto produk yang diisi, maka berikan masukkan untuk menambahkan poto tambahan --}}
+                                        @if (is_null($produk->poto_1) AND is_null($produk->poto_2) AND is_null($produk->poto_3))
+                                            <a href="{{ url('/produk/'.Crypt::encryptString($produk->id).'/edit')}}" class="text-primary">tambahkan sekarang !</a></p>
                                         @endif
-                                        <tr>
-                                            <th>Keterangan Produk</th>
-                                            <td>: {{ $produk->keterangan_produk}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Stok Produk</th>
-                                            <td>: {{ $produk->stok}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>kategori</th>
-                                            <td>: {{ $kategori->nama_kategori}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Dilihat</th>
-                                            <td>: {{ $produk->dilihat}} kali</td>
-                                        </tr>
-                                        @if ($diskon)
-                                            <tr class="table-success">
-                                                <th class="text-danger">DISKON {{ $diskon->nama_diskon}}</th>
-                                                <td>
-                                                    : Diskon <strong>{{ $diskon->nilai_diskon}}%</strong>  dari tanggal ( {{ date_indo($diskon->tgl_awal).' - '.date_indo($diskon->tgl_akhir)}} ) 
-                                                    <form id="data-{{ $diskon->id }}" action="{{ url('/produk-diskon/'.$diskon->id)}}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                    </form>
-                                                    <button onclick="deleteRow( {{ $diskon->id }} )" class="btn btn-danger btn-sm">HAPUS DISKON</button>    
-                                                </td>
-                                            </tr>
-                                        @endif
-                                    </table>
-                               </div>
+                                  </div>
                             </div>
-                            <div class="col-md-3 text-center font-weight-bold">
-                                <p>Poto Produk</p>
-                                <img src="{{ asset('/img/market/produk/'.$produk->poto_produk)}}" alt="tidak ada" class="img-fluid">
+                            <div class="col-md-4 text-center font-weight-bold p-2">
+                                <section class="border p-2">
+                                    <p>Poto Tambahan 1</p>
+                                    @if (is_null($produk->poto_1))
+                                        <strong class="text-danger">belum upload</strong>
+                                        <img src="{{ asset('/img/market/photo.png')}}" alt="" class="img-fluid">
+                                    @else
+                                        <a href="{{ asset('/img/market/produk/'.$produk->poto_1)}}" target="_blank"><img src="{{ asset('/img/market/produk/'.$produk->poto_1)}}" alt="tidak ada" class="img-fluid"></a>
+                                    @endif
+                                </section>
                             </div>
-                            <div class="col-md-3 text-center font-weight-bold">
-                                <p>Poto Tambahan 1</p>
-                                <img src="{{ asset('/img/market/produk/'.$produk->poto_1)}}" alt="tidak ada" class="img-fluid">
+                            <div class="col-md-4 text-center font-weight-bold p-2">
+                                <section class="border p-2">
+                                    <p>Poto Tambahan 2</p>
+                                    @if (is_null($produk->poto_2))
+                                        <strong class="text-danger">belum upload</strong>
+                                        <img src="{{ asset('/img/market/photo.png')}}" alt="" class="img-fluid">
+                                    @else
+                                        <a href="{{ asset('/img/market/produk/'.$produk->poto_2)}}" target="_blank"><img src="{{ asset('/img/market/produk/'.$produk->poto_2)}}" alt="tidak ada" class="img-fluid"></a>
+                                    @endif
+                                </section>
                             </div>
-                            <div class="col-md-3 text-center font-weight-bold">
-                                <p>Poto Tambahan 2</p>
-                                <img src="{{ asset('/img/market/produk/'.$produk->poto_2)}}" alt="tidak ada" class="img-fluid">
-                            </div>
-                            <div class="col-md-3 text-center font-weight-bold">
-                                <p>Poto Tambahan 3</p>
-                                <img src="{{ asset('/img/market/produk/'.$produk->poto_3)}}" alt="tidak ada" class="img-fluid">
+                            <div class="col-md-4 text-center font-weight-bold p-2">
+                                <section class="border p-2">
+                                    <p>Poto Tambahan 3</p>
+                                    @if (is_null($produk->poto_3))
+                                        <strong class="text-danger">belum upload</strong>
+                                        <img src="{{ asset('/img/market/photo.png')}}" alt="" class="img-fluid">
+                                    @else
+                                        <a href="{{ asset('/img/market/produk/'.$produk->poto_3)}}" target="_blank"><img src="{{ asset('/img/market/produk/'.$produk->poto_3)}}" alt="tidak ada" class="img-fluid"></a>
+                                    @endif
+                                </section>
                             </div>
                         </div>
                 </section>

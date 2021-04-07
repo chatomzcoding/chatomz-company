@@ -34,12 +34,8 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                @if (Auth::user()->level == 'admin')
-                    <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Produk Baru </a>
-                @endif
                 {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Hapus Data Terpilih</a> --}}
-                {{-- <a href="{{ url('/artikel')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke artikel</a> --}}
+                <a href="{{ url('/produk')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar produk</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -56,10 +52,28 @@
                     <form action="{{ url('/produk')}}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-warning">
+                                    <ul>
+                                        <li>
+                                            Tanda <span class="text-danger">*</span> <strong>tidak boleh kosong</strong> 
+                                        </li>
+                                        <li>
+                                            Ukuran Gambar Maksimal <strong>4 Mb</strong> <i>(direkomendasikan dibawah 1 Mb)</i>
+                                        </li>
+                                        <li>
+                                            Rasio Gambar Produk terbaik <strong>1:1 (persegi)</strong> tidak potrait / landscape
+                                        </li>
+                                        <li>
+                                            <strong>Photo Tambahan 1, 2, 3 </strong> digunakan untuk detail poto lebih lengkap (tampak kanan, kiri dll)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <div class="col-md-6">
-                                @if (Auth::user()->level == 'admin')
+                                @if ($user->level == 'admin')
                                     <div class="form-group row">
-                                        <label for="" class="col-md-4 p-2">Toko <span class="text-danger">*</span></label>
+                                        <label for="" class="col-md-4 pt-2">Toko <span class="text-danger">*</span></label>
                                         <select name="toko_id" id="" class="form-control col-md-8" required>
                                             @foreach ($toko as $item)
                                                 <option value="{{ $item->id}}">{{ $item->nama_toko}}</option>
@@ -67,28 +81,28 @@
                                         </select>
                                     </div>
                                 @else
-                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id}}">
+                                    <input type="hidden" name="toko_id" value="{{ $toko->id}}">
                                 @endif
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Nama Produk <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Nama Produk <span class="text-danger">*</span></label>
                                     <input type="text" name="nama_produk" class="form-control col-md-8" placeholder="Nama Produk" value="{{ old('nama_produk')}}" required>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Stok Produk <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Stok Produk <span class="text-danger">*</span></label>
                                     <input type="number" name="stok" class="form-control col-md-8" placeholder="Stok Produk" value="{{ old('stok')}}" required>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Harga Produk <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Harga Produk <span class="text-danger">*</span></label>
                                     <input type="text" name="harga_produk" id="rupiah" class="form-control col-md-8" placeholder="Harga Produk" value="{{ old('harga_produk')}}" required>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Keterangan <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Keterangan <span class="text-danger">*</span></label>
                                     <textarea name="keterangan_produk" class="form-control col-md-8" cols="10" rows="4" required>{{ old('keterangan_produk')}}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Kategori <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Kategori <span class="text-danger">*</span></label>
                                     <select name="kategoriproduk_id" id="" class="form-control col-md-8" required>
                                         @foreach ($kategori as $item)
                                             <option value="{{ $item->id}}">{{ strtoupper($item->nama_kategori)}}</option>
@@ -96,19 +110,19 @@
                                     </select>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Photo Produk <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Photo Produk <span class="text-danger">*</span></label>
                                     <input type="file" name="poto_produk" class="form-control col-md-8" required>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Photo tambahan 1</label>
+                                    <label for="" class="col-md-4 pt-2">Photo tambahan 1</label>
                                     <input type="file" name="poto_1" class="form-control col-md-8">
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Photo tambahan 2</label>
+                                    <label for="" class="col-md-4 pt-2">Photo tambahan 2</label>
                                     <input type="file" name="poto_2" class="form-control col-md-8">
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Photo tambahan 3</label>
+                                    <label for="" class="col-md-4 pt-2">Photo tambahan 3</label>
                                     <input type="file" name="poto_3" class="form-control col-md-8">
                                 </div>
                                 <hr>

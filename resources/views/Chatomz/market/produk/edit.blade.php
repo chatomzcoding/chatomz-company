@@ -34,12 +34,7 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                @if (Auth::user()->level == 'admin')
-                    <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Produk Baru </a>
-                @endif
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Hapus Data Terpilih</a> --}}
-                {{-- <a href="{{ url('/artikel')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke artikel</a> --}}
+                <a href="{{ url('/produk/'.Crypt::encryptString($produk->id))}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -57,25 +52,40 @@
                         @csrf
                         @method('patch')
                         <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-warning">
+                                    <ul>
+                                        <li>
+                                            Tanda <span class="text-danger">*</span> tidak boleh kosong
+                                        </li>
+                                        <li>
+                                            Ukuran Gambar Maksimal <strong>4 Mb</strong> <i>(direkomendasikan dibawah 1 Mb)</i>
+                                        </li>
+                                        <li>
+                                            Rasio Gambar Produk terbaik <strong>1:1 (persegi)</strong> tidak potrait / landscape
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <div class="col-md-6 p-3">
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Nama Produk <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Nama Produk <span class="text-danger">*</span></label>
                                     <input type="text" name="nama_produk" class="form-control col-md-8" placeholder="Nama Produk" value="{{ $produk->nama_produk}}" required>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Stok Produk <span class="text-danger">*</span></label>
-                                    <input type="number" name="stok" class="form-control col-md-8" placeholder="Stok Produk" value="{{ $produk->stok}}" required>
+                                    <label for="" class="col-md-4 pt-2">Stok Produk <span class="text-danger">*</span></label>
+                                    <input type="number" name="stok" class="form-control col-md-8" placeholder="Stok Produk" min="0" value="{{ $produk->stok}}" required>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Harga Produk (Rp)<span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Harga Produk (Rp)<span class="text-danger">*</span></label>
                                     <input type="text" name="harga_produk" id="rupiah" class="form-control col-md-8" placeholder="Harga Produk" value="{{ $produk->harga_produk}}" required>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Keterangan <span class="text-danger">*</span></label>
-                                    <textarea name="keterangan_produk" class="form-control col-md-8" cols="10" rows="4" required>{{ $produk->keterangan_produk}}</textarea>
+                                    <label for="" class="col-md-4 pt-2">Keterangan <span class="text-danger">*</span></label>
+                                    <textarea name="keterangan_produk" class="form-control col-md-8" cols="10" rows="5" required>{{ $produk->keterangan_produk}}</textarea>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="" class="col-md-4 p-2">Kategori <span class="text-danger">*</span></label>
+                                    <label for="" class="col-md-4 pt-2">Kategori <span class="text-danger">*</span></label>
                                     <select name="kategoriproduk_id" id="" class="form-control col-md-8" required>
                                         @foreach ($kategori as $item)
                                             <option value="{{ $item->id}}" @if ($item->id == $produk->kategoriproduk_id)
@@ -84,46 +94,77 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md-4">
+                                <hr>
+                                <div class="form-group row border">
+                                    <div class="col-md-4 p-2">
                                         <img src="{{ asset('/img/market/produk/'.$produk->poto_produk)}}" alt="tidak ada" class="img-fluid">
                                     </div>
                                     <div class="col-md-8 pt-2">
-                                        <label for="">Photo Produk</label><hr>
+                                        <label for="">Photo Produk</label>
                                         <input type="file" name="poto_produk" class="form-control">
-                                        <span class="text-danger">(upload untuk merubah)</span>
+                                        <span class="text-danger">[ upload untuk merubah poto produk]</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 p-3">
-                                <div class="form-group row">
+                                <div class="form-group row border">
                                     <div class="col-md-4 p-2">
-                                        <img src="{{ asset('/img/market/produk/'.$produk->poto_1)}}" alt="tidak ada" class="img-fluid">
+                                        @if (is_null($produk->poto_1))
+                                            <img src="{{ asset('/img/market/photo.png')}}" alt="" class="img-fluid">
+                                        @else
+                                            <img src="{{ asset('/img/market/produk/'.$produk->poto_1)}}" alt="tidak ada" class="img-fluid">
+                                        @endif
                                     </div>
                                     <div class="col-md-8 pt-2">
-                                        <label for="">Photo tambahan 1</label><hr>
+                                        <label for="">Photo tambahan 1 @if (is_null($produk->poto_1))
+                                            <span class="text-danger">(belum upload)</span>
+                                        @endif</label>
                                         <input type="file" name="poto_1" class="form-control">
-                                        <span class="text-danger">(upload untuk merubah)</span>
+                                        @if (is_null($produk->poto_1))
+                                            <span class="text-primary">[ tambahkan poto 1 ]</span>
+                                        @else
+                                            <span class="text-danger">[ upload untuk merubah poto 1 ]</span>
+                                        @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row border">
                                     <div class="col-md-4">
-                                        <img src="{{ asset('/img/market/produk/'.$produk->poto_2)}}" alt="tidak ada" class="img-fluid">
+                                        @if (is_null($produk->poto_2))
+                                            <img src="{{ asset('/img/market/photo.png')}}" alt="" class="img-fluid">
+                                        @else
+                                            <img src="{{ asset('/img/market/produk/'.$produk->poto_2)}}" alt="tidak upload" class="img-fluid">
+                                        @endif
                                     </div>
                                     <div class="col-md-8 pt-2">
-                                        <label for="">Photo tambahan 2 </label><hr>
+                                        <label for="">Photo tambahan 2  @if (is_null($produk->poto_2))
+                                            <span class="text-danger">(belum upload)</span>
+                                        @endif</label>
                                         <input type="file" name="poto_2" class="form-control">
-                                        <span class="text-danger">(upload untuk merubah)</span>
+                                         @if (is_null($produk->poto_2))
+                                            <span class="text-primary">[ tambahkan poto 2 ]</span>
+                                        @else
+                                            <span class="text-danger">[ upload untuk merubah poto 2]</span>
+                                        @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class="form-group row border">
                                     <div class="col-md-4">
-                                        <img src="{{ asset('/img/market/produk/'.$produk->poto_3)}}" alt="tidak ada" class="img-fluid">
+                                        @if (is_null($produk->poto_3))
+                                            <img src="{{ asset('/img/market/photo.png')}}" alt="" class="img-fluid">
+                                        @else
+                                            <img src="{{ asset('/img/market/produk/'.$produk->poto_3)}}" alt="tidak upload" class="img-fluid">
+                                        @endif
                                     </div>
                                     <div class="col-md-8 pt-2">
-                                        <label for="">Photo tambahan 3</label><hr>
+                                        <label for="">Photo tambahan 3 @if (is_null($produk->poto_3))
+                                            <span class="text-danger">(belum upload)</span>
+                                        @endif</label>
                                         <input type="file" name="poto_3" class="form-control">
-                                        <span class="text-danger">(upload untuk merubah)</span>
+                                         @if (is_null($produk->poto_3))
+                                            <span class="text-primary">[ tambahkan poto 3 ]</span>
+                                        @else
+                                            <span class="text-danger">[ upload untuk merubah poto 3 ]</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
