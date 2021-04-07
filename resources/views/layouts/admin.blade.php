@@ -236,6 +236,9 @@
               @case('admin')
                 @include('sistem.menu')
                 @break
+              @case('seller')
+                @include('chatomz.seller.menu')
+                @break
               @default
                   
           @endswitch
