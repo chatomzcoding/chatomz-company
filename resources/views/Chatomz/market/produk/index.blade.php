@@ -56,19 +56,31 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Aksi</th>
                                 <th>Photo</th>
                                 <th>Nama Produk</th>
+                                @if (Auth::user()->level == 'admin')
+                                    <th>Nama Toko</th>
+                                @endif
                                 <th>Kategori</th>
                                 <th>Harga</th>
                                 <th>Stok</th>
                                 <th>Dilihat</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($produk as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
+                                    <td class="text-center"><a href="{{ asset('/img/market/produk/'.$item->poto_produk)}}" target="_blank"> <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="{{ $item->poto_produk}}" width="50px"></a></td>
+                                    <td><a href="{{ url('/produk/'.Crypt::encryptString($item->id))}}">{{ $item->nama_produk}}</a> </td>
+                                    @if (Auth::user()->level == 'admin')
+                                        <td>{{ DbChatomz::showtablefirst('toko',['id',$item->toko_id])->nama_toko}}</td>
+                                    @endif
+                                    <td>{{ $item->nama_kategori}}</td>
+                                    <td class="text-right">{{ norupiah($item->harga_produk)}}</td>
+                                    <td class="text-center">{{ $item->stok}}</td>
+                                    <td class="text-center">{{ $item->dilihat}}</td>
                                     <td class="text-center">
                                         <form id="data-{{ $item->id }}" action="{{url('/produk',$item->id)}}" method="post">
                                             @csrf
@@ -77,12 +89,6 @@
                                         <a href="{{ url('/produk/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i></a>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td><img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="{{ $item->poto_produk}}" width="100px"></td>
-                                    <td>{{ $item->nama_produk}}</td>
-                                    <td>{{ $item->nama_kategori}}</td>
-                                    <td>{{ rupiah($item->harga_produk)}}</td>
-                                    <td class="text-center">{{ $item->stok}}</td>
-                                    <td class="text-center">{{ $item->dilihat}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -102,7 +108,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

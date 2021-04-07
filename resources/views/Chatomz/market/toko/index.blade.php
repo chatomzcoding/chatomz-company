@@ -57,6 +57,8 @@
                                 <th>Aksi</th>
                                 <th>Logo</th>
                                 <th>Nama Toko</th>
+                                <th>Alamat</th>
+                                <th>No Telp</th>
                                 <th>Pemilik</th>
                                 <th>Keterangan</th>
                             </tr>
@@ -75,9 +77,11 @@
                                         </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td><img src="{{ asset('/img/market/toko/'.$item->logo_toko)}}" alt="{{ $item->logo_toko}}" width="100px"></td>
+                                    <td class="text-center"><img src="{{ asset('/img/market/toko/'.$item->logo_toko)}}" alt="{{ $item->logo_toko}}" width="50px"></td>
                                     <td>{{ $item->nama_toko}}</td>
-                                    <td>{{ $item->user_id}}</td>
+                                    <td>{{ $item->alamat_toko}}</td>
+                                    <td>{{ $item->no_hp}}</td>
+                                    <td>{{ DbChatomz::showtablefirst('users',['id',$item->user_id])->name}}</td>
                                     <td>{{ $item->keterangan_toko}}</td>
                                 </tr>
                             @empty

@@ -31,6 +31,10 @@
         <div class="row">
           <!-- left column -->
           <div class="col-md-12">
+              <form id="data-{{ $produk->id }}" action="{{url('/produk',$produk->id)}}" method="post">
+                  @csrf
+                  @method('delete')
+                  </form>
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
@@ -38,13 +42,14 @@
                 {{-- @if (Auth::user()->level == 'admin')
                     <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Produk Baru </a>
                     @endif --}}
+                    <a href="{{ url('/produk')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali</a>
                     <a href="{{ url('/produk/'.Crypt::encryptString($produk->id).'/edit')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-pen"></i> Edit Produk</a>
                     @if ($diskon)
-                        <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-toggle="modal" data-target="#edit"><i class="fas fa-pen"></i> Edit Diskon</a>
+                        <a href="#" class="btn btn-outline-danger btn-flat btn-sm" data-toggle="modal" data-target="#edit"><i class="fas fa-pen"></i> Edit Diskon</a>
                     @else
                         <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambahkan Diskon</a>
                     @endif
-                    <a href="{{ url('/produk')}}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar produk</a>
+                    <button onclick="deleteRow( {{ $produk->id }} )" class="btn btn-outline-danger btn-flat btn-sm"><i class="fas fa-trash-alt"></i> hapus produk</button>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -61,6 +66,12 @@
                                             <th>Harga Produk</th>
                                             <td>: {{ rupiah($produk->harga_produk)}}</td>
                                         </tr>
+                                        @if ($diskon)
+                                            <tr class="table-danger">
+                                                <th>Harga Diskon</th>
+                                                <td>: {{ rupiah(market_hitungdiskon($produk->harga_produk,$diskon->nilai_diskon))}}</td>
+                                            </tr>
+                                        @endif
                                         <tr>
                                             <th>Keterangan Produk</th>
                                             <td>: {{ $produk->keterangan_produk}}</td>
