@@ -66,10 +66,10 @@
                                         </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td><img src="{{ asset('/img/market/kategoriproduk/'.$item->icon)}}" alt="" width="100px"></td>
-                                    <td>{{ $item->nama_kategori}}</td>
+                                    <td class="text-center"><img src="{{ asset('/img/market/kategoriproduk/'.$item->icon)}}" alt="" width="50px"></td>
+                                    <td class="text-capitalize">{{ $item->nama_kategori}}</td>
                                     <td>{{ $item->keterangan}}</td>
-                                    <td>{{ $item->status}}</td>
+                                    <td class="text-center">{{ $item->status}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -98,17 +98,17 @@
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Kategori</label>
-                        <input type="text" name="nama_kategori" class="form-control" placeholder="Nama Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nama Kategori<span class="text-danger">*</span></label>
+                        <input type="text" name="nama_kategori" class="form-control col-md-8" placeholder="Nama Kategori" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Keterangan<span class="text-danger">*</span></label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" placeholder="Keterangan Kategori" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Icon Kategori</label>
-                        <input type="file" name="icon" id="icon" class="form-control" placeholder="Keterangan Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Icon Kategori<span class="text-danger">*</span></label>
+                        <input type="file" name="icon" id="icon" class="form-control col-md-8" placeholder="Keterangan Kategori" required>
                     </div>
                 </section>
             </div>
@@ -138,25 +138,25 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group">
-                        <label for="">Nama Kategori</label>
-                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control" placeholder="Nama Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Nama Kategori<span class="text-danger">*</span></label>
+                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control col-md-8" placeholder="Nama Kategori" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control" placeholder="Keterangan Kategori" required>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Keterangan<span class="text-danger">*</span></label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" placeholder="Keterangan Kategori" required>
                     </div>
-                    <div class="form-group">
-                        <label for="">Status</label>
-                        <select name="status" id="status" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Status<span class="text-danger">*</span></label>
+                        <select name="status" id="status" class="form-control col-md-8" required>
                             @foreach (list_status() as $item)
                                 <option value="{{ $item}}">{{ $item}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Icon Kategori (upload jika mau merubah)</label>
-                        <input type="file" name="icon" id="icon" class="form-control">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4 p-2">Icon Kategori (upload jika ingin merubah)</label>
+                        <input type="file" name="icon" id="icon" class="form-control col-md-8">
                     </div>
                 </section>
             </div>
