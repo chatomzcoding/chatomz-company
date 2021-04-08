@@ -10,6 +10,8 @@
 
   <title>@yield('title')</title>
 
+  <link rel="shortcut icon" href="{{ asset('/img/cc.png')}}">
+
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -183,8 +185,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/dashboard')}}" class="brand-link">
-      <img src="{{ asset('template/admin/lte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">SIdesa</span>
+      <img src="{{ asset('img/cc.png')}}" alt="AdminLTE Logo" class="brand-image elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">ChatomzCo</span>
     </a>
 
     <!-- Sidebar -->
@@ -195,7 +197,7 @@
           <img src="{{ asset('/img/user/'.$user->profile_photo_path)}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ $user->name}}</a>
+          <a href="#" class="d-block text-capitalize">{{ $user->name}}</a>
         </div>
       </div>
 
@@ -227,9 +229,15 @@
             </a>
           </li> --}}
           <li class="nav-item">
-            <a href="{{ url('/dashboard')}}" class="nav-link">
+            <a href="{{ url('/')}}" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
-              <p class="text">Beranda</p>
+              <p class="text">Halaman Depan</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ url('/dashboard')}}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p class="text">Dashboard</p>
             </a>
           </li>
           @switch(Auth::user()->level)

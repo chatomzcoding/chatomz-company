@@ -13,6 +13,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 
+  <link rel="shortcut icon" href="{{ asset('/img/cc.png')}}">
+
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
@@ -25,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('/template/ogani/css/owl.carousel.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/template/ogani/css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/template/ogani/css/style.css')}}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('/css/style.css')}}" type="text/css">
 </head>
 
 <body>
@@ -37,7 +40,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt=""></a>
+            <a href="{{ url('/')}}"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt="" width="150px"></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -57,7 +60,11 @@
                 </ul>
             </div> --}}
             <div class="header__top__right__auth">
-                <a href="{{ url('/login')}}"><i class="fa fa-user"></i> Masuk</a>
+                @if (Auth::user())
+                    <a href="{{ url('/dashboard')}}"><i class="fa fa-file"></i> Dashboard</a>
+                @else
+                    <a href="{{ url('/login')}}"><i class="fa fa-user"></i> Masuk</a>
+                @endif
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -123,7 +130,11 @@
                                 </ul>
                             </div> --}}
                             <div class="header__top__right__auth">
-                                <a href="{{ url('/login')}}"><i class="fa fa-user"></i> Masuk</a>
+                                @if (Auth::user())
+                                    <a href="{{ url('/dashboard')}}"><i class="fa fa-file"></i> Dashboard</a>
+                                @else
+                                    <a href="{{ url('/login')}}"><i class="fa fa-user"></i> Masuk</a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -134,7 +145,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt=""></a>
+                        <a href="{{ url('/')}}"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt="" width="150px"></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -182,7 +193,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="footer__about">
                             <div class="footer__about__logo">
-                                <a href="./index.html"><img src="{{ asset('/template/ogani/img/logo.png')}}" alt=""></a>
+                                <a href="./index.html"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt=""></a>
                             </div>
                             <ul>
                                 <li>Alamat: {{ $infowebsite->alamat}}</li>
