@@ -173,3 +173,13 @@ if (! function_exists('kingdom_umur')) {
         
     }
 }
+
+// cek umur
+if (! function_exists('tgl_artikel')) {
+    function tgl_artikel($created_at){
+        $array      = explode(' ',$created_at);
+        $tanggal    = date_indo($array[0]).' '.$array[0];
+
+        return $tanggal;
+    }
+}

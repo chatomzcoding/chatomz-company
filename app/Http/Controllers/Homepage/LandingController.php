@@ -8,6 +8,7 @@ use App\Models\Iklan;
 use App\Models\Kategoriartikel;
 use App\Models\Kategoriproduk;
 use App\Models\Produk;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LandingController extends Controller
@@ -32,16 +33,27 @@ class LandingController extends Controller
 
     public function blog()
     {
-        $blog = Artikel::all();
-
-        return view('homepage.blog', compact('blog'));
+        $blog = Artikel::paginate(4);
+        $kategori   = Kategoriartikel::all();
+        $blogrecent = Artikel::orderBy('id','DESC')->limit(3)->get();
+        return view('homepage.blog.index', compact('blog','kategori','blogrecent'));
     }
 
     public function blogdetail($slug)
     {
         $kategori   = Kategoriartikel::all();
         $blog       = Artikel::where('slug',$slug)->first();
+        $user       = User::find($blog->user_id);
         $blogrecent = Artikel::where('id','<>',$blog->id)->orderBy('id','DESC')->limit(3)->get();
-        return view('homepage.blog-detail', compact('blog','blogrecent','kategori'));
+        return view('homepage.blog.show', compact('blog','blogrecent','kategori','user'));
+    }
+
+    public function blogkategori($slug)
+    {
+        $kategori       = Kategoriartikel::all();
+        $kategorifirst  = Kategoriartikel::where('slug',$slug)->first();
+        $blog       = Artikel::where('kategoriartikel_id',$kategorifirst->id)->paginate(4);
+        $blogrecent = Artikel::orderBy('id','DESC')->limit(3)->get();
+        return view('homepage.blog.kategori', compact('blog','kategori','kategorifirst','blogrecent'));
     }
 }

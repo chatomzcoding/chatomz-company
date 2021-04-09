@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Kategoriartikel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class KategoriartikelController extends Controller
 {
@@ -38,7 +39,11 @@ class KategoriartikelController extends Controller
      */
     public function store(Request $request)
     {
-        Kategoriartikel::create($request->all());
+        Kategoriartikel::create([
+            'nama_kategori' => $request->nama_kategori,
+            'slug' => Str::slug($request->nama_kategori),
+            'keterangan' => $request->keterangan,
+        ]);
 
         return redirect()->back()->with('du','Kategori Artikel');
     }
@@ -76,6 +81,7 @@ class KategoriartikelController extends Controller
     {
         Kategoriartikel::where('id',$request->id)->update([
             'nama_kategori' => $request->nama_kategori,
+            'slug' => Str::slug($request->nama_kategori),
             'keterangan' => $request->keterangan,
         ]);
 
