@@ -45,4 +45,19 @@ class ProdukController extends Controller
         $info           = Infowebsite::first();
         return view('homepage.produk.kategori', compact('kategori','listkategori','produk','diskon','info'));
     }
+
+    public function cariproduk(Request $request)
+    {
+        $cari  = $request->nama_produk;
+        
+        return redirect('/h/produk/pencarian/'.$cari);
+    }
+    
+    public function hasilpencarian($cari)
+    {
+        $produk      = Produk::where('nama_produk','LiKE','%'.$cari.'%')->paginate();
+        $info        = Infowebsite::first();
+        $kategori    = Kategoriproduk::where('status','aktif')->orderBy('nama_kategori','ASC')->get();
+        return view('homepage.produk.cari', compact('produk','info','kategori','cari'));
+    }
 }

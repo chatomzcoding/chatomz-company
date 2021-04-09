@@ -14,8 +14,6 @@ use App\Http\Livewire\Members; //Load class Members
 |
 */
 
-
-
 // HOMEPAGE
 Route::get('/','App\Http\Controllers\Homepage\LandingController@index');
 Route::get('/view/{file}','App\Http\Controllers\Homepage\LandingController@view');
@@ -23,6 +21,8 @@ Route::get('/h/blog','App\Http\Controllers\Homepage\LandingController@blog');
 Route::get('/h/blog/{id}','App\Http\Controllers\Homepage\LandingController@blogdetail');
 Route::get('/h/blog/kategori/{slug}','App\Http\Controllers\Homepage\LandingController@blogkategori');
 Route::get('/h/produk/{slug}','App\Http\Controllers\Homepage\ProdukController@detail');
+Route::post('/h/produk/cari','App\Http\Controllers\Homepage\ProdukController@cariproduk');
+Route::get('/h/produk/pencarian/{cari}','App\Http\Controllers\Homepage\ProdukController@hasilpencarian');
 Route::get('/h/kategoriproduk/{slug}','App\Http\Controllers\Homepage\ProdukController@kategori');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -58,10 +58,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('produk', 'App\Http\Controllers\Market\ProdukController');
     Route::resource('produk-diskon', 'App\Http\Controllers\Market\ProdukdiskonController');
 
-
 });
-
-
 
 // --------------------------------------------------------------------------------------------
 // PENGUJIAN DLL

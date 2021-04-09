@@ -58,14 +58,15 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
                         <h3 class="text-capitalize">{{ $produk->nama_produk}}</h3>
-                        <div class="product__details__rating">
+                        <hr>
+                        {{-- <div class="product__details__rating">
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
-                        </div>
+                        </div> --}}
                         @if ($diskon)
                             <div class="alert alert-success">
                                 Produk ini sedang <strong>DISKON {{ $diskon->nilai_diskon}}%</strong>
@@ -103,7 +104,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-12">
+                {{-- <div class="col-lg-12">
                     <div class="product__details__tab">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -140,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </section>
@@ -159,8 +160,14 @@
             <div class="row">
                 @forelse ($produksama as $item)
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
+                        <div class="featured__item">
+                            <div class="product__discount__item__pic set-bg" data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
+                                @php
+                                $diskon = DbChatomz::showtablefirst('produk_diskon',['produk_id',$item->id]);
+                                @endphp
+                                @if ($diskon)
+                                    <div class="product__discount__percent">{{ $diskon->nilai_diskon}}%</div>
+                                @endif
                                 <ul class="product__item__pic__hover">
                                     {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li> --}}
                                     {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
@@ -168,8 +175,12 @@
                                 </ul>
                             </div>
                             <div class="product__item__text">
-                                <h6><a href="{{ url('/h/produk/'.$item->slug)}}">{{ $item->nama_produk}}</a></h6>
-                                <h5>{{ rupiah($item->harga_produk)}}</h5>
+                                <h6><a href="{{ url('/h/produk/'.$item->slug)}}" class="text-capitalize">{{ $item->nama_produk}}</a></h6>
+                                @if ($diskon)
+                                    <h5><span class="text-danger">{{ rupiah(market_hitungdiskon($item->harga_produk,$diskon->nilai_diskon))}}</span> <small><del>{{ norupiah($item->harga_produk)}}</del></small></h5>
+                                @else
+                                    <h5>{{ rupiah($item->harga_produk)}}</h5>
+                                @endif
                             </div>
                         </div>
                     </div>

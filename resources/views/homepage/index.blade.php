@@ -68,7 +68,7 @@
                                 </ul>
                             </div>
                             <div class="featured__item__text">
-                                <h6><a href="{{ url('/h/produk/'.$item->slug)}}">{{ $item->nama_produk}}</a></h6>
+                                <h6><a href="{{ url('/h/produk/'.$item->slug)}}" class="text-capitalize">{{ $item->nama_produk}}</a></h6>
                                 @if ($diskon)
                                     <h5><span class="text-danger">{{ rupiah(market_hitungdiskon($item->harga_produk,$diskon->nilai_diskon))}}</span> <small><del>{{ norupiah($item->harga_produk)}}</del></small></h5>
                                 @else
