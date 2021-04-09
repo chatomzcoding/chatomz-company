@@ -13,7 +13,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
 
-  <link rel="shortcut icon" href="{{ asset('/img/cc.png')}}">
+  <link rel="shortcut icon" href="{{ asset('/img/bunefit-v2.png')}}">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -40,7 +40,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="{{ url('/')}}"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt="" width="150px"></a>
+            <a href="{{ url('/')}}"><img src="{{ asset('/img/logo-bunefit.png')}}" alt="" width="150px"></a>
         </div>
         <div class="humberger__menu__cart">
             {{-- <ul>

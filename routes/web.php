@@ -30,17 +30,17 @@ Route::get('/h/kategoriproduk/{slug}','App\Http\Controllers\Homepage\ProdukContr
 // })->name('dashboard');
 
 // PERCOBAAN LIVEWIRE
-Route::get('/example',[Example::class, 'render'])->name('example');
-// Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
+// Route::get('/example',[Example::class, 'render'])->name('example');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
-    Route::get('/dashboard', function() {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function() {
+    //     return view('dashboard');
+    // })->name('dashboard');
 
-    Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
+    // Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
 
     // Admin
+    Route::get('/dashboard', 'App\Http\Controllers\Market\HomeController@index')->name('dashboard');
     Route::resource('artikel', 'App\Http\Controllers\Admin\ArtikelController');
     Route::resource('iklan', 'App\Http\Controllers\Admin\IklanController');
     Route::resource('info-website', 'App\Http\Controllers\Admin\InfowebsiteController');

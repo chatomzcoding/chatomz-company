@@ -67,8 +67,11 @@
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
-    <div class="card-header text-center">
-      <a href="#" class="h1"><b>Chatomz</b>Company</a>
+    <div class="card-header">
+      {{-- <a href="#" class="h1"><b>Chatomz</b>Company</a> --}}
+      <section class="p-3 m-3">
+        <img src="{{ asset('/img/logo-bunefit.png')}}" alt="" class="img-fluid">
+      </section>
     </div>
     <div class="card-body">
       {{-- <p class="login-box-msg">silahkan </p> --}}
@@ -111,7 +114,7 @@
             <br>
           </div>
           <div class="col-12">
-            <a href="{{ url('/')}}"><< kembali ke halaman awal</a>
+            <a href="{{ url('/')}}"><i class="fas fa-angle-left"></i> kembali ke Halaman Depan</a>
           </div>
           <!-- /.col -->
         </div>
