@@ -208,8 +208,6 @@
               @default
                   
           @endswitch
-          @if (Auth::user()->level == 'pimpinan')
-          @endif
           <li class="nav-header">SISTEM</li>
           <li class="nav-item">
             <a href="#" class="nav-link active">
@@ -223,23 +221,23 @@
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fas fa-book-open nav-icon"></i>
-                  <p>Panduan</p>
+                  <p>Panduan (coming soon)</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="fas fa-address-book nav-icon"></i>
-                  <p>Kontak Kami</p>
+                  <p>Kontak Kami (coming soon)</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
               <p class="text">Pengaturan</p>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
               <form method="POST" action="{{ route('logout') }}">
                @csrf

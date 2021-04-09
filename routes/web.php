@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('produk', 'App\Http\Controllers\Market\ProdukController');
     Route::resource('produk-diskon', 'App\Http\Controllers\Market\ProdukdiskonController');
 
+    // Seller
+    Route::get('/seller/user', 'App\Http\Controllers\Admin\UserController@seller');
+
 });
 
 // --------------------------------------------------------------------------------------------

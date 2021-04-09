@@ -1,8 +1,8 @@
  <div class="product__pagination text-center">
     @if ($paginator->onFirstPage())
-        <a href="#"><i class="fa fa-long-arrow-left"></i></a>
+        <a href="#"><i class="fas fa-long-arrow-alt-left"></i></a>
     @else
-        <a href="{{ $paginator->previousPageUrl() }}"><i class="fa fa-long-arrow-left"></i></a>
+        <a href="{{ $paginator->previousPageUrl() }}"><i class="fas fa-long-arrow-alt-left"></i></a>
     @endif
 
     @foreach ($elements as $element)
@@ -21,9 +21,9 @@
         @endif
     @endforeach
     @if ($paginator->hasMorePages())
-        <a href="{{ $paginator->nextPageUrl() }}"><i class="fa fa-long-arrow-right"></i></a>
+        <a href="{{ $paginator->nextPageUrl() }}"><i class="fas fa-long-arrow-alt-right"></i></a>
     @else
-        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+        <a href="#"><i class="fas fa-long-arrow-alt-right"></i></a>
     @endif
     <div>
         <hr>

@@ -23,12 +23,12 @@
                         <div class="hero__search__form">
                             <form action="{{ url('/h/produk/cari')}}" method="post">
                                 @csrf
-                                <div class="hero__search__categories">
+                                {{-- <div class="hero__search__categories">
                                     Semua Kategori
                                     <span class="arrow_carrot-down"></span>
-                                </div>
+                                </div> --}}
                                 <input type="text" name="nama_produk" placeholder="apa yang anda cari?" maxlength="100" required>
-                                <button type="submit" class="site-btn">Cari Disini</button>
+                                <button type="submit" class="site-btn"><i class="fas fa-search"></i> Cari Disini</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">

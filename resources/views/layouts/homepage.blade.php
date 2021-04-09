@@ -20,7 +20,8 @@
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{ asset('/template/ogani/css/bootstrap.min.css')}}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('/template/ogani/css/font-awesome.min.css')}}" type="text/css">
+    {{-- <link rel="stylesheet" href="{{ asset('/template/ogani/css/font-awesome.min.css')}}" type="text/css"> --}}
+    <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('/template/ogani/css/elegant-icons.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/template/ogani/css/nice-select.css')}}" type="text/css">
     <link rel="stylesheet" href="{{ asset('/template/ogani/css/jquery-ui.min.css')}}" type="text/css">
@@ -67,7 +68,7 @@
                 @if (Auth::user())
                     <a href="{{ url('/dashboard')}}"><i class="fa fa-file"></i> Dashboard</a>
                 @else
-                    <a href="{{ url('/login')}}"><i class="fa fa-user"></i> Masuk</a>
+                    <a href="{{ url('/login')}}"><i class="fas fa-sign-in-alt"></i> Masuk</a>
                 @endif
             </div>
         </div>
@@ -145,7 +146,7 @@
                                 @if (Auth::user())
                                     <a href="{{ url('/dashboard')}}"><i class="fa fa-file"></i> Dashboard</a>
                                 @else
-                                    <a href="{{ url('/login')}}"><i class="fa fa-user"></i> Masuk</a>
+                                    <a href="{{ url('/login')}}"><i class="fas fa-sign-in-alt"></i> Masuk</a>
                                 @endif
                             </div>
                         </div>
@@ -224,10 +225,10 @@
                         <div class="footer__widget">
                             <h6>Ketahui lebih jauh</h6>
                             <div class="footer__widget__social">
-                                <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fa fa-facebook"></i></a>
-                                <a href="{{ $infowebsite->link_ig}}" target="_blank"><i class="fa fa-instagram"></i></a>
-                                <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fa fa-twitter"></i></a>
-                                <a href="{{ $infowebsite->link_pi}}" target="_blank"><i class="fa fa-pinterest"></i></a>
+                                <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fab fa-facebook-square"></i></i></a>
+                                <a href="{{ $infowebsite->link_ig}}" target="_blank"><i class="fab fa-instagram-square"></i></a>
+                                <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fab fa-twitter-square"></i></a>
+                                <a href="{{ $infowebsite->link_pi}}" target="_blank"><i class="fab fa-pinterest-square"></i></a>
                             </div>
                             <ul>
                                 <li><a href="https://www.youtube.com/channel/UCNnujqOJv9u-nFCZyY3V89A" target="_blank">Youtube Firman Chatomz</a></li>

@@ -125,7 +125,7 @@
                                             <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
-                                            <h6>{{ $item->nama_produk}}</h6>
+                                            <h6 class="text-capitalize">{{ $item->nama_produk}}</h6>
                                             <span>{{ rupiah($item->harga_produk)}}</span>
                                         </div>
                                     </a>
@@ -145,7 +145,7 @@
                                             <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="">
                                         </div>
                                         <div class="latest-product__item__text">
-                                            <h6>{{ $item->nama_produk}}</h6>
+                                            <h6 class="text-capitalize">{{ $item->nama_produk}}</h6>
                                             <span>{{ rupiah($item->harga_produk)}}</span>
                                         </div>
                                     </a>
@@ -195,7 +195,7 @@
                                     <li><i class="fa fa-calendar-o"></i> {{ tgl_artikel($item->created_at)}}</li>
                                     {{-- <li><i class="fa fa-comment-o"></i> 5</li> --}}
                                 </ul>
-                                <h5><a href="{{ url('/h/blog/'.$item->slug)}}">{{ $item->judul_artikel}}</a></h5>
+                                <h5><a href="{{ url('/h/blog/'.$item->slug)}}" class="text-capitalize">{{ $item->judul_artikel}}</a></h5>
                                 <section>
                                     {!! Str::substr($item->isi_artikel, 0, 100) !!}...
                                 </section>

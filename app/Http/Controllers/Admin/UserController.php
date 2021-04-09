@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -17,8 +18,14 @@ class UserController extends Controller
     public function index()
     {
         $user   = User::all();
-
         return view('chatomz.admin.user.index', compact('user'));
+    }
+
+    public function seller()
+    {
+        $user   = Auth::user();
+
+        return view('chatomz.seller.user.index', compact('user'));
     }
 
     /**
