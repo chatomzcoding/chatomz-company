@@ -207,18 +207,28 @@
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="footer__about">
                             <div class="footer__about__logo">
-                                <a href="./index.html"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt=""></a>
+                                <a href="{{ url('/')}}"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" width="150px" alt=""></a>
                             </div>
-                            <ul>
-                                <li>Alamat: {{ $infowebsite->alamat}}</li>
-                                <li>No. Telp: {{ $infowebsite->telp}}</li>
-                                <li>Email: {{ $infowebsite->email}}</li>
-                            </ul>
+                            <hr>
+                            <dl class="row">
+                                <dt class="col-md-4">Alamat</dt>
+                                <dd class="col-md-8 small">{{ $infowebsite->alamat}}</dd>
+                                <dt class="col-md-4">Telp</dt>
+                                <dd class="col-md-8 small">{{ $infowebsite->telp}}</dd>
+                                <dt class="col-md-4">Email</dt>
+                                <dd class="col-md-8 small">{{ $infowebsite->email}}</dd>
+                            </dl>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
                         <div class="footer__widget">
                             <h6>Ketahui lebih jauh</h6>
+                            <div class="footer__widget__social">
+                                <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fa fa-facebook"></i></a>
+                                <a href="{{ $infowebsite->link_ig}}" target="_blank"><i class="fa fa-instagram"></i></a>
+                                <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                <a href="{{ $infowebsite->link_pi}}" target="_blank"><i class="fa fa-pinterest"></i></a>
+                            </div>
                             <ul>
                                 <li><a href="https://www.youtube.com/channel/UCNnujqOJv9u-nFCZyY3V89A" target="_blank">Youtube Firman Chatomz</a></li>
                                 <li><a href="https://www.youtube.com/channel/UCacBj5kaClfzM5grpiGrqcg" target="_blank">Youtube Chatomz Family</a></li>
@@ -230,27 +240,25 @@
                     </div>
                     <div class="col-lg-4 col-md-12">
                         <div class="footer__widget">
-                            <h6>Join Our Newsletter Now</h6>
-                            <p>Get E-mail updates about our latest shop and special offers.</p>
+                            <h6>Lokasi Kantor</h6>
+                            {{-- <p>Get E-mail updates about our latest shop and special offers.</p>
                             <form action="#">
                                 <input type="text" placeholder="Enter your mail">
                                 <button type="submit" class="site-btn">Berlangganan</button>
-                            </form>
-                            <div class="footer__widget__social">
-                                <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fa fa-facebook"></i></a>
-                                <a href="{{ $infowebsite->link_ig}}" target="_blank"><i class="fa fa-instagram"></i></a>
-                                <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fa fa-twitter"></i></a>
-                                <a href="{{ $infowebsite->link_pi}}" target="_blank"><i class="fa fa-pinterest"></i></a>
-                            </div>
+                            </form> --}}
+                            <section>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1429.8123313334963!2d108.19739095686242!3d-7.301848930790125!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f50dc3fc96b95%3A0x983b0a907d6af155!2sGrand%20Sukarindik%20Regency!5e0!3m2!1sid!2sid!4v1617950090492!5m2!1sid!2sid" width="100%" height="200px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </section>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="footer__copyright">
-                            <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-      Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p></div>
-                            {{-- <div class="footer__copyright__payment"><img src="{{ asset('/template/ogani/img/payment-item.png')}}" alt=""></div> --}}
+                            <div class="footer__copyright__text text-center w-100">
+                                <p>Copyright &copy; {{ ambil_tahun()}} All rights reserved | Support by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
