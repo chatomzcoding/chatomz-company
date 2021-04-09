@@ -16,7 +16,7 @@ class LandingController extends Controller
     public function index()
     {
         $kategoriproduk     = Kategoriproduk::where('status','aktif')->orderBy('nama_kategori','ASC')->get();
-        $produk             = Produk::limit(20);
+        $produk             = Produk::limit(20)->get();
         $iklan              = Iklan::where('posisi','market-atas')->first();
         $iklanbawah         = Iklan::where('posisi','market-bawah')->get();
         $artikel            = Artikel::limit(3)->get();

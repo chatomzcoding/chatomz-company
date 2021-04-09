@@ -43,11 +43,15 @@
             <a href="{{ url('/')}}"><img src="{{ asset('/img/admin/info/'.$infowebsite->logo_brand)}}" alt="" width="150px"></a>
         </div>
         <div class="humberger__menu__cart">
-            <ul>
+            {{-- <ul>
                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                 <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-            </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+            </ul> --}}
+            @if (Auth::user())
+                <div class="header__cart__price"><i class="fa fa-user"></i> <span>{{ Auth::user()->name}}</span></div>
+            @else
+                <div class="header__cart__price"><i class="fa fa-user"></i> <span>Konsumen</span></div>
+            @endif
         </div>
         <div class="humberger__menu__widget">
             {{-- <div class="header__top__right__language">
@@ -115,10 +119,18 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
-                                <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fa fa-facebook"></i></a>
-                                <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fa fa-twitter"></i></a>
-                                <a href="{{ $infowebsite->link_in}}" target="_blank"><i class="fa fa-linkedin"></i></a>
-                                <a href="{{ $infowebsite->link_pi}}" target="_blank"><i class="fa fa-pinterest-p"></i></a>
+                                @if (!is_null($infowebsite->link_fb))
+                                    <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fa fa-facebook"></i></a>
+                                @endif
+                                @if (!is_null($infowebsite->link_tw))
+                                    <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                                @endif
+                                @if (!is_null($infowebsite->link_in))
+                                    <a href="{{ $infowebsite->link_in}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                                @endif
+                                @if (!is_null($infowebsite->link_pi))
+                                    <a href="{{ $infowebsite->link_pi}}" target="_blank"><i class="fa fa-pinterest-p"></i></a>
+                                @endif
                             </div>
                             {{-- <div class="header__top__right__language">
                                 <img src="{{ asset('/template/ogani/img/language.png')}}" alt="">
@@ -169,10 +181,12 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            {{-- <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li> --}}
+                            {{-- <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>0</span></a></li> --}}
+                            <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        {{-- <div class="header__cart__price">item: <span>$150.00</span></div> --}}
+                        <div class="header__cart__price">Mulai Pesan Sekarang !</div>
                     </div>
                 </div>
             </div>
@@ -206,20 +220,11 @@
                         <div class="footer__widget">
                             <h6>Ketahui lebih jauh</h6>
                             <ul>
-                                <li><a href="#">About Us</a></li>
-                                {{-- <li><a href="#">About Our Shop</a></li>
-                                <li><a href="#">Secure Shopping</a></li>
-                                <li><a href="#">Delivery infomation</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Our Sitemap</a></li> --}}
+                                <li><a href="https://www.youtube.com/channel/UCNnujqOJv9u-nFCZyY3V89A" target="_blank">Youtube Firman Chatomz</a></li>
+                                <li><a href="https://www.youtube.com/channel/UCacBj5kaClfzM5grpiGrqcg" target="_blank">Youtube Chatomz Family</a></li>
                             </ul>
                             <ul>
-                                <li><a href="#">Who We Are</a></li>
-                                {{-- <li><a href="#">Our Services</a></li>
-                                <li><a href="#">Projects</a></li>
-                                <li><a href="#">Contact</a></li>
-                                <li><a href="#">Innovation</a></li>
-                                <li><a href="#">Testimonials</a></li> --}}
+                                <li><a href="https://cikarastudio.com/wp/" target="_blank">Cikara Studio</a></li>
                             </ul>
                         </div>
                     </div>

@@ -37,7 +37,7 @@
                             </div>
                             <div class="hero__search__phone__text">
                                 <h5>{{ $infowebsite->telp}}</h5>
-                                <span>support 24/7 waktu</span>
+                                <span>Info Lebih Lanjut !</span>
                             </div>
                         </div>
                     </div>

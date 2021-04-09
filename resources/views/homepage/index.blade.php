@@ -43,7 +43,7 @@
                         <ul>
                             <li class="active" data-filter="*">Semua</li>
                             @foreach ($kategoriproduk as $item)
-                                <li data-filter=".kategori{{$item->id}}">{{ $item->nama_kategori}}</li>
+                                <li data-filter=".kategori{{$item->id}}" class="text-capitalize">{{ $item->nama_kategori}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -55,18 +55,18 @@
                         <div class="featured__item">
                             <div class="product__discount__item__pic set-bg"
                             data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
-                            @php
-                                $diskon = DbChatomz::showtablefirst('produk_diskon',['produk_id',$item->id]);
-                            @endphp
-                            @if ($diskon)
-                                <div class="product__discount__percent">{{ $diskon->nilai_diskon}}%</div>
-                            @endif
-                            <ul class="product__item__pic__hover">
-                                {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li> --}}
-                                {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
+                                @php
+                                    $diskon = DbChatomz::showtablefirst('produk_diskon',['produk_id',$item->id]);
+                                @endphp
+                                @if ($diskon)
+                                    <div class="product__discount__percent">{{ $diskon->nilai_diskon}}%</div>
+                                @endif
+                                <ul class="product__item__pic__hover">
+                                    {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li> --}}
+                                    {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
+                                    {{-- <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li> --}}
+                                </ul>
+                            </div>
                             <div class="featured__item__text">
                                 <h6><a href="{{ url('/h/produk/'.$item->slug)}}">{{ $item->nama_produk}}</a></h6>
                                 @if ($diskon)
@@ -192,8 +192,8 @@
                             </div>
                             <div class="blog__item__text">
                                 <ul>
-                                    <li><i class="fa fa-calendar-o"></i> {{ $item->created_at}}</li>
-                                    <li><i class="fa fa-comment-o"></i> 5</li>
+                                    <li><i class="fa fa-calendar-o"></i> {{ tgl_artikel($item->created_at)}}</li>
+                                    {{-- <li><i class="fa fa-comment-o"></i> 5</li> --}}
                                 </ul>
                                 <h5><a href="{{ url('/h/blog/'.$item->slug)}}">{{ $item->judul_artikel}}</a></h5>
                                 <section>
