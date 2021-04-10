@@ -53,8 +53,9 @@
                 @foreach ($produk as $item)
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 mix kategori{{ $item->kategoriproduk_id}}">
                         <div class="featured__item">
-                            <div class="product__discount__item__pic set-bg"
-                            data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
+                            <div class="product__discount__item__pic set-bg">
+                            {{-- data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}"> --}}
+                                <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="">
                                 @php
                                     $diskon = DbChatomz::showtablefirst('produk_diskon',['produk_id',$item->id]);
                                 @endphp
