@@ -7,6 +7,8 @@ use App\Models\Toko;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Str;
+
 
 class TokoController extends Controller
 {
@@ -52,6 +54,7 @@ class TokoController extends Controller
         $file->move($tujuan_upload,$nama_file);
         Toko::create([
             'nama_toko'  => $request->nama_toko,
+            'slug' => Str::slug($request->nama_toko),
             'user_id'  => $request->user_id,
             'keterangan_toko'  => $request->keterangan_toko,
             'no_hp'  => $request->no_hp,
@@ -113,6 +116,7 @@ class TokoController extends Controller
         
         Toko::where('id',$request->id)->update([
             'nama_toko'  => $request->nama_toko,
+            'slug' => Str::slug($request->nama_toko),
             'user_id'  => $request->user_id,
             'keterangan_toko'  => $request->keterangan_toko,
             'no_hp'  => $request->no_hp,
@@ -131,6 +135,9 @@ class TokoController extends Controller
      */
     public function destroy(Toko $toko)
     {
-        //
+        $tujuan_upload = 'img/market/toko';
+        deletefile($tujuan_upload.'/'.$toko->logo_toko);
+        $toko->delete();
+        return redirect()->back()->with('du','Toko');
     }
 }
