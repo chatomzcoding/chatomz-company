@@ -76,34 +76,22 @@
                             <div class="product__details__price">{{ rupiah($produk->harga_produk)}}</div>
                         @endif
                         <p class="text-justify">{{ ucfirst($produk->keterangan_produk)}}</p>
-                        {{-- <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
-                            </div>
-                        </div> --}}
-                        {{-- <a href="{{ market_pesanwhatsapp($toko->no_hp,'saya ingin memesan produk '.$produk->nama_produk)}}" class="primary-btn">PESAN SEKARANG</a> --}}
-                        <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="primary-btn">PESAN SEKARANG</a>
-
-                        {{-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> --}}
+                        <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-success btn-sm"><i class="fa fa-shopping-bag"></i> PESAN SEKARANG</a>
                         <ul>
                             <li><b>Stok</b> <span>: {{ $produk->stok}}</span></li>
-                            <hr>
-                            <li><b>Toko</b> <span>: {{ $toko->nama_toko}}</span></li>
-                            <li><b>Keterangan</b> <span>: {{ $toko->keterangan_toko}}</span></li>
-                            <li><b>Alamat Toko</b> <span>: {{ $toko->alamat_toko}}</span></li>
-                            {{-- <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li> --}}
-                            {{-- <li><b>Weight</b> <span>0.5 kg</span></li> --}}
-                            {{-- <li><b>Share on</b>
-                                <div class="share">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                </div>
-                            </li> --}}
                         </ul>
+                        <hr>
+                        <section class="row">
+                            <div class="col-md-4">
+                                <img src="{{ asset('/img/market/toko/'.$toko->logo_toko)}}" alt="" class="img-rounded">
+                            </div>
+                            <div class="col-md-8">
+                                <p> <strong>Toko {{ $toko->nama_toko}} </strong> <br>
+                                    {{ $toko->alamat_toko}} <br>
+                                    <a href="{{ url('/h/toko/'.$toko->slug)}}">Kunjungi Toko</a>
+                                </p>
+                            </div>
+                        </section>
                     </div>
                 </div>
                 {{-- <div class="col-lg-12">
@@ -162,10 +150,11 @@
             <div class="row">
                 @forelse ($produksama as $item)
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <div class="featured__item">
-                            <div class="product__discount__item__pic set-bg" data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
+                        <div class="featured__item border">
+                            <div class="product__discount__item__pic set-bg">
+                                <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="">
                                 @php
-                                $diskon = DbChatomz::showtablefirst('produk_diskon',['produk_id',$item->id]);
+                                    $diskon = DbChatomz::produkdiskonid($item->id);
                                 @endphp
                                 @if ($diskon)
                                     <div class="product__discount__percent">{{ $diskon->nilai_diskon}}%</div>
@@ -173,7 +162,7 @@
                                 <ul class="product__item__pic__hover">
                                     {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li> --}}
                                     {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    {{-- <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li> --}}
                                 </ul>
                             </div>
                             <div class="product__item__text">

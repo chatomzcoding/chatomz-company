@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Helpers\Chatomz;
 
+use App\Models\Produkdiskon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,14 +11,10 @@ class DbChatomz {
         $jumlah = DB::table('members')->where('group_id', $id)->count();
         return $jumlah;
     }
-    public static function cekMember($person_id,$group_id)
+    public static function produkdiskonid($id)
     {
-        $result = TRUE;
-        $member = DB::table('members')->where('person_id',$person_id)->where('group_id',$group_id)->count();
-        if ($member == 1) {
-            $result = FALSE;
-        }
-        return $result;
+        $diskon         = Produkdiskon::where('produk_id',$id)->where('tgl_awal','<=',tgl_sekarang())->where('tgl_akhir','>=',tgl_sekarang())->first();
+        return $diskon;
     }
 
     public static function personid($id)

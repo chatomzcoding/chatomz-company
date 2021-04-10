@@ -39,7 +39,7 @@
                                 <div class="product__discount__slider owl-carousel">
                                     @forelse ($diskon as $item)
                                         <div class="col-lg-4">
-                                            <div class="product__discount__item">
+                                            <div class="product__discount__item border">
                                                 <div class="product__discount__item__pic set-bg"
                                                     data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}">
                                                     <div class="product__discount__percent">{{ $item->nilai_diskon}}%</div>
@@ -92,9 +92,15 @@
                     <div class="row">
                         @foreach ($produk as $item)
                             <div class="col-lg-4 col-md-6 col-sm-6">
-                                <div class="product__item">
-                                    <div class="product__item__pic set-bg">
+                                <div class="product__item border">
+                                    <div class="product__discount__item__pic set-bg">
                                         <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="">
+                                        @php
+                                            $diskon = DbChatomz::produkdiskonid($item->id);
+                                        @endphp
+                                        @if ($diskon)
+                                            <div class="product__discount__percent">{{ $diskon->nilai_diskon}}%</div>
+                                        @endif
                                         <ul class="product__item__pic__hover">
                                             {{-- <li><a href="#"><i class="fa fa-heart"></i></a></li> --}}
                                             {{-- <li><a href="#"><i class="fa fa-retweet"></i></a></li> --}}
@@ -103,7 +109,11 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h6><a href="{{ url('/h/produk/'.$item->slug)}}">{{ $item->nama_produk}}</a></h6>
-                                        <h5>{{ rupiah($item->harga_produk)}}</h5>
+                                        @if ($diskon)
+                                            <h5><span class="text-danger">{{ rupiah(market_hitungdiskon($item->harga_produk,$diskon->nilai_diskon))}}</span> <small><del>{{ norupiah($item->harga_produk)}}</del></small></h5>
+                                        @else
+                                            <h5>{{ rupiah($item->harga_produk)}}</h5>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

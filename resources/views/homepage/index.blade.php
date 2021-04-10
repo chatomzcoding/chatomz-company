@@ -52,12 +52,12 @@
             <div class="row featured__filter">
                 @foreach ($produk as $item)
                     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 mix kategori{{ $item->kategoriproduk_id}}">
-                        <div class="featured__item">
+                        <div class="featured__item border">
                             <div class="product__discount__item__pic set-bg">
                             {{-- data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}"> --}}
                                 <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="">
                                 @php
-                                    $diskon = DbChatomz::showtablefirst('produk_diskon',['produk_id',$item->id]);
+                                    $diskon = DbChatomz::produkdiskonid($item->id);
                                 @endphp
                                 @if ($diskon)
                                     <div class="product__discount__percent">{{ $diskon->nilai_diskon}}%</div>

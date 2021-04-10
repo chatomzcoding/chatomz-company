@@ -25,7 +25,12 @@ Route::post('/h/produk/cari','App\Http\Controllers\Homepage\ProdukController@car
 Route::get('/h/produk/pencarian/{cari}','App\Http\Controllers\Homepage\ProdukController@hasilpencarian');
 Route::get('/h/kategoriproduk/{slug}','App\Http\Controllers\Homepage\ProdukController@kategori');
 Route::post('/h/kirimpesanan','App\Http\Controllers\Homepage\ProdukController@kirimpesanan');
+Route::get('/h/toko/{slug}','App\Http\Controllers\Homepage\TokoController@show');
 
+
+/*
+-------------------------------------------------------------------------------------------------
+*/
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
 // })->name('dashboard');
