@@ -24,6 +24,7 @@ Route::get('/h/produk/{slug}','App\Http\Controllers\Homepage\ProdukController@de
 Route::post('/h/produk/cari','App\Http\Controllers\Homepage\ProdukController@cariproduk');
 Route::get('/h/produk/pencarian/{cari}','App\Http\Controllers\Homepage\ProdukController@hasilpencarian');
 Route::get('/h/kategoriproduk/{slug}','App\Http\Controllers\Homepage\ProdukController@kategori');
+Route::post('/h/kirimpesanan','App\Http\Controllers\Homepage\ProdukController@kirimpesanan');
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //     return view('dashboard');
@@ -56,6 +57,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('kategoriproduk', 'App\Http\Controllers\Market\KategoriprodukController');
     Route::resource('toko', 'App\Http\Controllers\Market\TokoController');
     Route::resource('produk', 'App\Http\Controllers\Market\ProdukController');
+    Route::resource('pemesanan', 'App\Http\Controllers\Market\PemesananController');
     Route::resource('produk-diskon', 'App\Http\Controllers\Market\ProdukdiskonController');
 
     // Seller

@@ -5,10 +5,13 @@ namespace App\Http\Controllers\Homepage;
 use App\Http\Controllers\Controller;
 use App\Models\Infowebsite;
 use App\Models\Kategoriproduk;
+use App\Models\Pemesanan;
 use App\Models\Produk;
 use App\Models\Produkdiskon;
 use App\Models\Toko;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProdukController extends Controller
@@ -59,5 +62,28 @@ class ProdukController extends Controller
         $info        = Infowebsite::first();
         $kategori    = Kategoriproduk::where('status','aktif')->orderBy('nama_kategori','ASC')->get();
         return view('homepage.produk.cari', compact('produk','info','kategori','cari'));
+    }
+
+    public function kirimpesanan(Request $request)
+    {
+        // versi pertama user konsumen ditentukan oleh admin
+        // pemesan tidak perlu login terlebih dahulu
+        $user       = User::where('level','konsumen')->first();
+
+        Pemesanan::create([
+            'user_id' => $user->id,
+            'produk_id' => $request->produk_id,
+            'nama_pemesan' => $request->nama_pemesan,
+            'alamat_pengiriman' => $request->alamat_pengiriman,
+            'telp' => $request->telp,
+            'kota' => $request->kota,
+            'catatan' => $request->catatan,
+        ]);
+
+        // produk yang dipesan
+        $produk     = Produk::find($request->produk_id);
+        $toko       = Toko::find($produk->toko_id);
+
+        return redirect(market_pesanwhatsapp($toko->no_hp,'saya ingin memesan produk '.$produk->nama_produk));
     }
 }

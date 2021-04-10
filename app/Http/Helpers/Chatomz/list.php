@@ -12,7 +12,7 @@ if (! function_exists('list_status')) {
 if (! function_exists('list_leveluser')) {
     function list_leveluser()
     {
-        $result = ['admin','seller'];
+        $result = ['admin','seller','konsumen'];
         return $result;
     }
 }

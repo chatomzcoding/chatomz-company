@@ -83,7 +83,9 @@
                                 </div>
                             </div>
                         </div> --}}
-                        <a href="{{ market_pesanwhatsapp($toko->no_hp,'saya ingin memesan produk '.$produk->nama_produk)}}" class="primary-btn">PESAN SEKARANG</a>
+                        {{-- <a href="{{ market_pesanwhatsapp($toko->no_hp,'saya ingin memesan produk '.$produk->nama_produk)}}" class="primary-btn">PESAN SEKARANG</a> --}}
+                        <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="primary-btn">PESAN SEKARANG</a>
+
                         {{-- <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a> --}}
                         <ul>
                             <li><b>Stok</b> <span>: {{ $produk->stok}}</span></li>
@@ -193,4 +195,55 @@
         </div>
     </section>
     <!-- Related Product Section End -->
+
+    <!-- Large modal -->
+{{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button> --}}
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form method="post" action="{{ url('/h/kirimpesanan')}}">
+            @csrf
+            <input type="hidden" name="produk_id" value="{{ $produk->id}}">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Formulir pemesanan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <section class="p-2">
+                    <div class="alert alert-warning">
+                        Tanda <span class="text-danger">*</span> Wajib diisi
+                    </div>
+                    <div class="form-group row">
+                        <label for="recipient-name" class="col-md-4 p-2">Nama Lengkap<span class="text-danger">*</span></label>
+                        <input type="text" name="nama_pemesan" class="form-control col-md-8" id="recipient-name" placeholder="masukkan nama lengkap" required>
+                    </div>
+                    <div class="form-group row">
+                        <label for="recipient-name" class="col-md-4 p-2">No Telp<span class="text-danger">*</span></label>
+                        <input type="text" name="telp" class="form-control col-md-8" maxlength="20" id="recipient-name" placeholder="08xxxxxxx" required>
+                    </div>
+                    <div class="form-group row">
+                        <label for="recipient-name" class="col-md-4 p-2">Alamat Pengiriman<span class="text-danger">*</span></label>
+                        <textarea name="alamat_pengiriman" id="" cols="30" rows="3" class="form-control col-md-8" placeholder="masukkan alamat pengiriman atau alamat anda" required></textarea>
+                    </div>
+                    <div class="form-group row">
+                        <label for="recipient-name" class="col-md-4 p-2">Kota<span class="text-danger">*</span></label>
+                        <input type="text" name="kota" class="form-control col-md-8" id="recipient-name" placeholder="masukkan kota anda" required>
+                    </div>
+                    <div class="form-group row">
+                        <label for="recipient-name" class="col-md-4 p-2">Cacatan Pengiriman (opsional)</label>
+                        <textarea name="catatan" id="" cols="30" rows="3" class="form-control col-md-8" placeholder="kirim catatan ke seller / penjual"></textarea>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Kirim Pesanan</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
 @endsection
