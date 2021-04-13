@@ -17,6 +17,12 @@ class TokoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('admin')->only('index');
+    }
+
     public function index()
     {
         $toko   = Toko::all();
