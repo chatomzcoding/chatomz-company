@@ -1,5 +1,22 @@
 @extends('layouts.homepage')
 
+@section('meta')
+    <!-- Image to display -->
+    <!-- Replace   «example.com/image01.jpg» with your own -->
+    <meta property="og:image" content="{{ asset('/img/market/toko/'.$toko->logo_toko)}}">
+
+    <!-- No need to change anything here -->
+    <meta property="og:type" content="website" />
+    <meta property="og:image:type" content="image/jpeg">
+
+    <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="300">
+
+    <!-- Website to visit when clicked in fb or WhatsApp-->
+    <meta property="og:url" content="https://bunefit.com/">
+@endsection
+
 @section('title')
     Bunefit.com - Toko {{ $toko->nama_toko}}
 @endsection
@@ -46,16 +63,17 @@
                             <li><b>Total Produk</b> <span>: {{ DbChatomz::countData('produk',['toko_id',$toko->id])}}</span></li>
                             <li><b>Keterangan</b> <span>: {{ $toko->keterangan_toko}}</span></li>
                             <li><b>Alamat Toko</b> <span>: {{ $toko->alamat_toko}}</span></li>
-                            {{-- <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li> --}}
-                            {{-- <li><b>Weight</b> <span>0.5 kg</span></li> --}}
-                            {{-- <li><b>Share on</b>
-                                <div class="share">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                            <section class="row footer__widget">
+                                <div class="col-md-4">
+                                    Bagikan Halaman Toko : 
                                 </div>
-                            </li> --}}
+                                <div class="footer__widget__social p-3">
+                                    <a href="{{ market_bagikantoko($toko->slug)}}"><i class="fab fa-whatsapp-square"></i></a>
+                                    {{-- <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fab fa-facebook-square"></i></i></a> --}}
+                                    {{-- <a href="{{ $infowebsite->link_ig}}" target="_blank"><i class="fab fa-instagram-square"></i></a> --}}
+                                    {{-- <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fab fa-twitter-square"></i></a> --}}
+                                </div>
+                            </section>
                         </ul>
                     </div>
                 </div>

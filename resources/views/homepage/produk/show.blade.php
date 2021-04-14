@@ -1,7 +1,24 @@
 @extends('layouts.homepage')
 
+@section('meta')
+    <!-- Image to display -->
+    <!-- Replace   «example.com/image01.jpg» with your own -->
+    <meta property="og:image" content="{{ asset('/img/market/produk/'.$produk->poto_produk)}}">
+
+    <!-- No need to change anything here -->
+    <meta property="og:type" content="website" />
+    <meta property="og:image:type" content="image/jpeg">
+
+    <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="300">
+
+    <!-- Website to visit when clicked in fb or WhatsApp-->
+    <meta property="og:url" content="https://bunefit.com/">
+@endsection
+
 @section('title')
-    Market - Detail Barang
+    Market - Produk {{ $produk->nama_produk}}
 @endsection
 
 @section('container')
@@ -76,7 +93,18 @@
                             <div class="product__details__price">{{ rupiah($produk->harga_produk)}}</div>
                         @endif
                         <p class="text-justify">{{ ucfirst($produk->keterangan_produk)}}</p>
-                        <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-success btn-sm"><i class="fa fa-shopping-bag"></i> PESAN SEKARANG</a>
+                        <a href="#" data-toggle="modal" data-target=".bd-example-modal-lg" class="btn btn-success btn-sm"><i class="fa fa-shopping-bag"></i> PESAN SEKARANG</a><hr>
+                        <section class="row footer__widget">
+                            <div class="col-md-4">
+                                Bagikan ke : 
+                            </div>
+                            <div class="footer__widget__social p-3">
+                                <a href="{{ market_bagikankewhatsapp($produk->slug)}}"><i class="fab fa-whatsapp-square"></i></a>
+                                {{-- <a href="{{ $infowebsite->link_fb}}" target="_blank"><i class="fab fa-facebook-square"></i></i></a> --}}
+                                {{-- <a href="{{ $infowebsite->link_ig}}" target="_blank"><i class="fab fa-instagram-square"></i></a> --}}
+                                {{-- <a href="{{ $infowebsite->link_tw}}" target="_blank"><i class="fab fa-twitter-square"></i></a> --}}
+                            </div>
+                        </section>
                         <ul>
                             <li><b>Stok</b> <span>: {{ $produk->stok}}</span></li>
                         </ul>
