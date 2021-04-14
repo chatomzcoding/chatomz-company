@@ -17,7 +17,7 @@ class OrangController extends Controller
     public function index()
     {
         $orang  = Orang::orderBy('first_name','ASC')->get();
-        return view('chatomz.orang.index', compact('orang'));
+        return view('chatomz.kingdom.orang.index', compact('orang'));
     }
 
     /**
@@ -27,7 +27,7 @@ class OrangController extends Controller
      */
     public function create()
     {
-        return view('chatomz.orang.create');
+        return view('chatomz.kingdom.orang.create');
     }
 
     /**
@@ -94,7 +94,9 @@ class OrangController extends Controller
         $orang  = Orang::find(Crypt::decryptString($orang));
         $tombol['next'] = Orang::where("id",'>',$orang->id)->first();
         $tombol['back'] = Orang::where("id",'<',$orang->id)->orderBy('id','DESC')->first();
-        return view('chatomz.orang.show', compact('orang','tombol'));
+        $kontak         = Orang::find($orang->id)->kontak;
+        $pendidikan     = Orang::find($orang->id)->pendidikan;
+        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan'));
     }
 
     /**
@@ -106,7 +108,7 @@ class OrangController extends Controller
     public function edit($orang)
     {
         $orang  = Orang::find(Crypt::decryptString($orang));
-        return view('chatomz.orang.edit', compact('orang'));
+        return view('chatomz.kingdom.orang.edit', compact('orang'));
     }
 
     /**
