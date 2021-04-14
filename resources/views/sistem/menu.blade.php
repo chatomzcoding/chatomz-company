@@ -2,7 +2,7 @@
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-user-secret"></i>
       <p>
-        Chatomz
+        Kingdomz
         <i class="fas fa-angle-left right"></i>
         {{-- <span class="badge badge-info right">6</span> --}}
       </p>

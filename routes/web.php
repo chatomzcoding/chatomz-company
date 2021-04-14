@@ -56,6 +56,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('kategoriartikel', 'App\Http\Controllers\Admin\KategoriartikelController');
         // Chatomz
         Route::resource('orang', 'App\Http\Controllers\Chatomz\OrangController');
+        Route::resource('kontak', 'App\Http\Controllers\Chatomz\KontakController');
+        Route::resource('pendidikan', 'App\Http\Controllers\Chatomz\PendidikanController');
         Route::resource('keluarga', 'App\Http\Controllers\Chatomz\KeluargaController');
         Route::resource('keluargahubungan', 'App\Http\Controllers\Chatomz\HubungankeluargaController');
         Route::resource('kategoriproduk', 'App\Http\Controllers\Market\KategoriprodukController');

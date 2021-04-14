@@ -12,18 +12,28 @@ class HomeController extends Controller
     public function index()
     {
         $user   = Auth::user();
-        if ($user->level == 'admin') {
-            $toko           = NULL;
-            $totalproduk    = Produk::count();
-        } else {
-            $toko           = Toko::where('user_id',$user->id)->first();
-            $totalproduk    = Produk::where('toko_id',$toko->id)->count();
+        switch ($user->level) {
+
+            case 'admin':
+                $totalproduk    = Produk::count();
+                $total      = [
+                    'produk' => $totalproduk,
+                ];
+                return view('chatomz.admin.dashboard', compact('total'));
+                break;
+
+            case 'seller':
+                $toko           = Toko::where('user_id',$user->id)->first();
+                $totalproduk    = Produk::where('toko_id',$toko->id)->count();
+                $total      = [
+                    'produk' => $totalproduk,
+                ];
+                return view('chatomz.seller.dashboard', compact('total'));
+                break;
+
+            default:
+                return view('dashboard');
+                break;
         }
-        
-        $total      = [
-            'produk' => $totalproduk,
-        ];
-        
-        return view('dashboard', compact('total'));
     }
 }
