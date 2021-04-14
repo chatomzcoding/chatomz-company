@@ -12,4 +12,14 @@ class Orang extends Model
     protected $table = 'orang';
 
     protected $guarded = [];
+
+    public function kontak()
+    {
+        return $this->hasOne(Kontak::class);
+    }
+
+    public function pendidikan()
+    {
+        return $this->hasOne(Pendidikan::class);
+    }
 }
