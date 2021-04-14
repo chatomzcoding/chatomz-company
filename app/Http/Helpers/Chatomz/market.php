@@ -22,3 +22,22 @@ if (! function_exists('market_pesanwhatsapp')) {
         return $link;
     }
 }
+
+// link bagikan ke whatsapp
+if (! function_exists('market_bagikankewhatsapp')) {
+    function market_bagikankewhatsapp($slug)
+    {
+        // menggunakan fitur yang diberikan whatsapp secara gratis
+        $link   = "https://api.whatsapp.com/send?text=".url('/h/produk/'.$slug);
+        return $link;
+    }
+}
+// link toko bagikan ke whatsapp
+if (! function_exists('market_bagikantoko')) {
+    function market_bagikantoko($slug)
+    {
+        // menggunakan fitur yang diberikan whatsapp secara gratis
+        $link   = "https://api.whatsapp.com/send?text=".url('/h/toko/'.$slug);
+        return $link;
+    }
+}
