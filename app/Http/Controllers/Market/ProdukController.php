@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-
 class ProdukController extends Controller
 {
     /**
@@ -120,12 +119,15 @@ class ProdukController extends Controller
             $file->move($tujuan_upload,$nama_file3);
         }
 
+        // slug produk
+        $slug   = Str::slug($request->nama_produk);
+
         Produk::create([
             'toko_id'  => $request->toko_id,
             'kategoriproduk_id'  => $request->kategoriproduk_id,
             'nama_produk'  => $request->nama_produk,
             'stok'  => $request->stok,
-            'slug' => Str::slug($request->nama_produk),
+            'slug' => $slug,
             'harga_produk'  => default_nilai($request->harga_produk),
             'keterangan_produk'  => $request->keterangan_produk,
             'poto_produk' => $nama_file,
@@ -135,7 +137,11 @@ class ProdukController extends Controller
             'dilihat' => 0,
         ]);
 
-        return redirect('/produk')->with('ds','Produk');
+        // ambil produk yang sudah di input
+        $produk     = Produk::where('slug',$slug)->where('toko_id',$request->toko_id)->orderBy('id','DESC')->first();
+
+        // arahkan ke detail produk yang sudah di inputkan
+        return redirect('/produk/'.Crypt::encryptString($produk->id))->with('ds','Produk');
     }
 
     /**

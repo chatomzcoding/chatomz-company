@@ -1,3 +1,21 @@
+@section('meta')
+    <!-- Image to display -->
+    <!-- Replace   «example.com/image01.jpg» with your own -->
+    <meta property="og:image" content="{{ asset('/img/market/produk/'.$produk->poto_produk)}}">
+
+    <!-- No need to change anything here -->
+    <meta property="og:type" content="website" />
+    <meta property="og:image:type" content="image/jpeg">
+
+    <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
+    <meta property="og:image:width" content="300">
+    <meta property="og:image:height" content="300">
+
+    <!-- Website to visit when clicked in fb or WhatsApp-->
+    <meta property="og:url" content="https://bunefit.com/">
+@endsection
+
+
 @section('title')
     Market - Detail Produk
 @endsection
@@ -53,6 +71,11 @@
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
+                  @if (session('ds'))
+                    <div class="callout callout-success">
+                        Produk sudah tampil diberanda aplikasi <strong>bunefit.com</strong> dan sudah siap dipromosikan. Bagikan lewat whatsapp <a href="{{ market_bagikankewhatsapp($produk->slug)}}" class="text-success"><i class="fab fa-whatsapp-square"></i> Klik Disini</a>
+                    </div>
+                  @endif
                 <section>
                         <div class="row">
                             <div class="col-md-4">
@@ -78,6 +101,8 @@
                                     <dd class="col-md-8">: {{ $kategori->nama_kategori}}</dd>
                                     <dt class="col-md-4">Dilihat</dt>
                                     <dd class="col-md-8">: {{ $produk->dilihat}} kali</dd>
+                                    <dt class="col-md-4">Bagikan lewat whastapp</dt>
+                                    <dd class="col-md-8">: <a href="{{ market_bagikankewhatsapp($produk->slug)}}" class="text-success"><i class="fab fa-whatsapp-square"></i> Klik Disini</a></dd>
                                     @if ($diskon)
                                     <dt class="col-md-4">DISKON {{ $diskon->nama_diskon}}</dt>
                                     <dd class="col-md-8"> : Diskon <strong>{{ $diskon->nilai_diskon}}%</strong>  dari tanggal ( {{ date_indo($diskon->tgl_awal).' - '.date_indo($diskon->tgl_akhir)}} ) 
