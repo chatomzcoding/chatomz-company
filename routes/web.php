@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Example; 
-use App\Http\Livewire\Members; //Load class Members 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,22 +25,21 @@ Route::get('/h/produk/pencarian/{cari}','App\Http\Controllers\Homepage\ProdukCon
 Route::get('/h/kategoriproduk/{slug}','App\Http\Controllers\Homepage\ProdukController@kategori');
 Route::post('/h/kirimpesanan','App\Http\Controllers\Homepage\ProdukController@kirimpesanan');
 Route::get('/h/toko/{slug}','App\Http\Controllers\Homepage\TokoController@show');
+// proses daftar akun
+Route::get('/daftarsekarang','App\Http\Controllers\Homepage\LandingController@daftar');
+Route::post('/simpandaftar','App\Http\Controllers\Homepage\LandingController@simpandaftar');
+
 
 
 /*
 -------------------------------------------------------------------------------------------------
 */
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
 
 // PERCOBAAN LIVEWIRE
 // Route::get('/example',[Example::class, 'render'])->name('example');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
-    // Route::get('/dashboard', function() {
-    //     return view('dashboard');
-    // })->name('dashboard');
+
 
     // Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
 
