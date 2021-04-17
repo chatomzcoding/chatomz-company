@@ -40,7 +40,7 @@
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">Coming Soon <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/produk')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -48,14 +48,15 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>0<sup style="font-size: 20px">%</sup></h3>
+              <h3>{{ $total['toko']}}</h3>
 
-              <p>Total View (coming soon)</p>
+              <p>Toko</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="ion ion-person-add"></i>
+              {{-- <i class="ion ion-stats-bars"></i> --}}
             </div>
-            <a href="#" class="small-box-footer">Coming Soon <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/toko')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -63,14 +64,14 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>0</h3>
+              <h3>{{ $total['hits']}}</h3>
 
-              <p>Pemesanan (coming soon)</p>
+              <p>Visitor</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">Coming Soon <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/visitor')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Produk;
 use App\Models\Toko;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,8 +17,12 @@ class HomeController extends Controller
 
             case 'admin':
                 $totalproduk    = Produk::count();
+                $totaltoko      = Toko::count();
+                $totalhits      = Visitor::sum('hits');
                 $total      = [
                     'produk' => $totalproduk,
+                    'toko' => $totaltoko,
+                    'hits' => $totalhits,
                 ];
                 return view('chatomz.admin.dashboard', compact('total'));
                 break;
