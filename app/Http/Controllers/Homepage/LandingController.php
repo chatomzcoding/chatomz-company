@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 
 class LandingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('visitorhits');
+    }
+
     public function index()
     {
         $kategoriproduk     = Kategoriproduk::where('status','aktif')->orderBy('nama_kategori','ASC')->get();
