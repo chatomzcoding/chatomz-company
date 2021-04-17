@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Market;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pemesanan;
+use App\Models\Toko;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PemesananController extends Controller
 {
@@ -15,7 +18,13 @@ class PemesananController extends Controller
      */
     public function index()
     {
-        //
+        $user       = Auth::user();
+        $toko       = Toko::where('user_id',$user->id)->first();
+        $pemesanan  = DB::table('pemesanan')
+                        ->join('produk','pemesanan.produk_id','=','produk.id')
+                        ->where('produk.toko_id',$toko->id)
+                        ->get();
+        return view('chatomz.seller.pemesanan.index', compact('pemesanan'));
     }
 
     /**

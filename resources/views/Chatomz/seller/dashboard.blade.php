@@ -29,12 +29,6 @@
     <div class="container-fluid">
       <div class="row">
         {{-- informasi update aplikasi --}}
-        <div class="col-md-12">
-          <div class="callout callout-info">
-            <h5 class="border-bottom">Selamat Datang {{ strtoupper(Auth::user()->name) }} di Aplikasi Bunefit.com</h5>
-            <p><strong>Terima kasih telah bergabung bersama Bunefit.com </strong> <br> Status Aplikasi ini sedang dalam tahap <strong>Pra-Launching</strong>, dimana tahap bergabungnya "Seller Sesi Pertama" yang ditentukan oleh Admin <i>(seller belum daftar secara mandiri)</i>. Selain itu, Tampilan dan Sistem dapat berubah seiring masukkan dari pada Seller dan pengguna yang bermanfaat untuk kemajuan aplikasi bunefit.com ini <i>(tahap pengembangan/pengujian)</i></p>
-          </div>
-        </div>
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-info">
@@ -46,7 +40,7 @@
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">Coming Soon <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/produk')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -54,14 +48,15 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>0<sup style="font-size: 20px">%</sup></h3>
+              <h3>{{ $total['pemesanan']}}</h3>
 
-              <p>Total View (coming soon)</p>
+              <p>Pemesanan</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="ion ion-person-add"></i>
+              {{-- <i class="ion ion-stats-bars"></i> --}}
             </div>
-            <a href="#" class="small-box-footer">Coming Soon <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/pemesanan')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -69,14 +64,14 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>0</h3>
+              <h3>{{ $total['view']}}</h3>
 
-              <p>Pemesanan (coming soon)</p>
+              <p>Produk Dilihat</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">Coming Soon <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/produk')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->

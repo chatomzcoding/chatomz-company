@@ -238,6 +238,10 @@
                         <input type="text" name="nama_pemesan" class="form-control col-md-8" id="recipient-name" placeholder="masukkan nama lengkap" required>
                     </div>
                     <div class="form-group row">
+                        <label for="recipient-name" class="col-md-4 p-2">Jumlah Pemesanan<span class="text-danger">*</span></label>
+                        <input type="number" name="jumlah" class="form-control col-md-8" min="1"  max="{{ $produk->stok}}" value="1" required>
+                    </div>
+                    <div class="form-group row">
                         <label for="recipient-name" class="col-md-4 p-2">No Telp<span class="text-danger">*</span></label>
                         <input type="text" name="telp" class="form-control col-md-8" maxlength="20" id="recipient-name" placeholder="08xxxxxxx" required>
                     </div>

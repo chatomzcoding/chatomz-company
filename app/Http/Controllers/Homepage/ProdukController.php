@@ -78,6 +78,7 @@ class ProdukController extends Controller
             'telp' => $request->telp,
             'kota' => $request->kota,
             'catatan' => $request->catatan,
+            'jumlah' => $request->jumlah,
         ]);
 
         // produk yang dipesan
