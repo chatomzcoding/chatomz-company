@@ -18,7 +18,7 @@
                             @foreach ($kategoriproduk as $item)
                                 <div style="height: 190px;">
                                     <a href="{{ url('/h/kategoriproduk/'.$item->slug)}}">
-                                        <img src="{{ asset('/img/market/kategoriproduk/'.$item->icon)}}" width="110px" alt=""><br>
+                                        <img src="{{ asset('/img/market/kategoriproduk/'.$item->icon)}}" width="110px" alt="" height="auto"><br>
                                         <small class="text-capitalize">{{ $item->nama_kategori}}</small>
                                     </a>
                                 </div>
@@ -55,7 +55,7 @@
                         <div class="featured__item border">
                             <div class="product__discount__item__pic set-bg">
                             {{-- data-setbg="{{ asset('/img/market/produk/'.$item->poto_produk)}}"> --}}
-                                <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="">
+                                <img src="{{ asset('/img/market/produk/'.$item->poto_produk)}}" alt="" width="100%" height="auto">
                                 @php
                                     $diskon = DbChatomz::produkdiskonid($item->id);
                                 @endphp
@@ -175,7 +175,7 @@
     <!-- Latest Product Section End -->
 
     <!-- Blog Section Begin -->
-    <section class="from-blog spad">
+    {{-- <section class="from-blog spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -194,7 +194,7 @@
                             <div class="blog__item__text">
                                 <ul>
                                     <li><i class="fa fa-calendar-o"></i> {{ tgl_artikel($item->created_at)}}</li>
-                                    {{-- <li><i class="fa fa-comment-o"></i> 5</li> --}}
+                                    <li><i class="fa fa-comment-o"></i> 5</li>
                                 </ul>
                                 <h5><a href="{{ url('/h/blog/'.$item->slug)}}" class="text-capitalize">{{ $item->judul_artikel}}</a></h5>
                                 <section>
@@ -206,7 +206,7 @@
                 @endforeach
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- Blog Section End -->
 
     @endsection

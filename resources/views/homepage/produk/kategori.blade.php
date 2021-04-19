@@ -65,31 +65,14 @@
                             </div>
                         </div>
                     @endif
-                    {{-- <div class="filter__item">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-5">
-                                <div class="filter__sort">
-                                    <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-3">
-                                <div class="filter__option">
-                                    <span class="icon_grid-2x2"></span>
-                                    <span class="icon_ul"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div> --}}
+                   
                     <div class="row">
+                        @if (count($produk) == 0)
+                            <div class="col text-center">
+                                <p><strong>Maaf</strong>, Produk {{ $kategori->nama_kategori}} belum ada.</p>
+                                <img src="{{ asset('/img/market/tidak-ditemukan.png')}}" alt="" class="img-fluid">
+                            </div>
+                        @endif
                         @foreach ($produk as $item)
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item border">
@@ -119,11 +102,13 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ $produk->links('homepage.data.page') }}
+                    @if (count($produk) > 0)
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ $produk->links('homepage.data.page') }}
+                            </div>
                         </div>
-                    </div>
+                    @endif
                    
                 </div>
                 <div class="col-lg-3 col-md-5">
