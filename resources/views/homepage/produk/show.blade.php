@@ -84,7 +84,7 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div> --}}
-                        @if ($diskon)
+                        @if (DbChatomz::produkdiskonid($produk->id))
                             <div class="alert alert-success">
                                 Produk ini sedang <strong>DISKON {{ $diskon->nilai_diskon}}%</strong>
                             </div>
