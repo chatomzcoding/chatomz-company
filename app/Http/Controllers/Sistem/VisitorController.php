@@ -15,7 +15,7 @@ class VisitorController extends Controller
      */
     public function index()
     {
-        $visitor    = Visitor::orderBy('id')->get();
+        $visitor    = Visitor::orderBy('id','DESC')->get();
 
         return view('chatomz.sistem.visitor.index', compact('visitor'));
     }
