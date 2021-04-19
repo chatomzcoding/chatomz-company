@@ -26,13 +26,13 @@ class VisitorMiddleware
         
         // cek visitor
         $cekvisitor = Visitor::where([['tgl_visitor',$tglvisitor],['ip_address',$ipaddress]])->first();
-
         if ($cekvisitor) {
             // jika visitor ada, maka hits ditambahkan 1 lalu di update
+
             $hits   = $cekvisitor->hits + 1;
             Visitor::where('id',$cekvisitor->id)->update([
                 'hits' => $hits
-            ]);
+                ]);
         } else {
             // jika tidak ada maka visitor ditambahkan baru
             Visitor::create([

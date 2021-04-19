@@ -20,6 +20,12 @@
           <p>Keluarga</p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/grup')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="fas fa-id-card nav-icon"></i>
+          <p>Grup</p>
+        </a>
+      </li>
     </ul>
 </li>
 <li class="nav-item">

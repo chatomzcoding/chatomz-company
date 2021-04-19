@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class TokoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('visitorhits');
+    }
     public function show($slug)
     {
         $toko       = Toko::where('slug',$slug)->first();

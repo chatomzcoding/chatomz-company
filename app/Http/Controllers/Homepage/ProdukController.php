@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\DB;
 
 class ProdukController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('visitorhits');
+    }
+
     public function detail($slug)
     {
         $produk         = Produk::where('slug',$slug)->first();

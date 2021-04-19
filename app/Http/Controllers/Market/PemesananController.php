@@ -19,11 +19,20 @@ class PemesananController extends Controller
     public function index()
     {
         $user       = Auth::user();
-        $toko       = Toko::where('user_id',$user->id)->first();
-        $pemesanan  = DB::table('pemesanan')
-                        ->join('produk','pemesanan.produk_id','=','produk.id')
-                        ->where('produk.toko_id',$toko->id)
-                        ->get();
+        if ($user->level == 'seller') {
+            $toko       = Toko::where('user_id',$user->id)->first();
+            $pemesanan  = DB::table('pemesanan')
+                            ->join('produk','pemesanan.produk_id','=','produk.id')
+                            ->where('produk.toko_id',$toko->id)
+                            ->orderByDesc('pemesanan.id')
+                            ->get();
+        } else {
+            $pemesanan  = DB::table('pemesanan')
+            ->join('produk','pemesanan.produk_id','=','produk.id')
+            ->orderByDesc('pemesanan.id')
+            ->get();
+        }
+        
         return view('chatomz.seller.pemesanan.index', compact('pemesanan'));
     }
 

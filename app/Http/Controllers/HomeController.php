@@ -21,10 +21,12 @@ class HomeController extends Controller
                 $totalproduk    = Produk::count();
                 $totaltoko      = Toko::count();
                 $totalhits      = Visitor::sum('hits');
+                $totalpemesanan = Pemesanan::count();
                 $total      = [
                     'produk' => $totalproduk,
                     'toko' => $totaltoko,
                     'hits' => $totalhits,
+                    'pemesanan' => $totalpemesanan,
                 ];
                 return view('chatomz.admin.dashboard', compact('total'));
                 break;
