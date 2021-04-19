@@ -23,7 +23,7 @@
 
 @section('container')
 
-    @include('homepage.data.top-normal')
+    {{-- @include('homepage.data.top-normal') --}}
 
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="{{ asset('/img/admin/info/'.$info->bg_produk)}}">
