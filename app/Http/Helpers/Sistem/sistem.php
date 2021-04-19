@@ -150,3 +150,31 @@ function get_client_browser() {
         $browser = 'Other';
     return $browser;
 }
+
+function kompres($file,$temp)
+    {
+        $name       = time().'_'.$file->getClientOriginalName();
+        $ext        = $file->getClientOriginalExtension();
+        
+        $tmp_name   = $file->getRealPath();
+        $path = $temp . $name;
+        
+        list($width, $height) = getimagesize($tmp_name);
+      
+        if($ext == 'png'){
+            $new_image = imagecreatefrompng($tmp_name);
+        }
+        
+        if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'JPG')  {  
+            $new_image = imagecreatefromjpeg($tmp_name);  
+        }
+        
+        $new_width=600;
+        $new_height = ($height/$width)*600;
+        $tmp_image = imagecreatetruecolor($new_width, $new_height);
+        imagecopyresampled($tmp_image, $new_image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+        imagejpeg($tmp_image, $path, 100);
+        imagedestroy($new_image);
+        imagedestroy($tmp_image);
+        return $name;
+    }

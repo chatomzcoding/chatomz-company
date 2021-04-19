@@ -67,15 +67,16 @@ class ProdukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+            'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
         ]);
         // menyimpan data file yang diupload ke variabel $file
         $file = $request->file('poto_produk');
         
-        $nama_file = time()."_".$file->getClientOriginalName();
-        $tujuan_upload = 'img/market/produk';
+        // $nama_file = time()."_".$file->getClientOriginalName();
+        $tujuan_upload = 'img/market/produk/';
+        $nama_file = kompres($file,$tujuan_upload);
         // isi dengan nama folder tempat kemana file diupload
-        $file->move($tujuan_upload,$nama_file);
+        // $file->move($tujuan_upload,$nama_file);
 
         // sisa photo tambahan
         $nama_file1     = NULL;
@@ -84,39 +85,41 @@ class ProdukController extends Controller
         
         if (isset($request->poto_1)) {
             $request->validate([
-                'poto_1' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'poto_1' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_1');
             
-            $nama_file1 = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/market/produk';
+            // $nama_file1 = time()."_".$file->getClientOriginalName();
             // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file1);
+            // $file->move($tujuan_upload,$nama_file1);
+
+            $nama_file1 = kompres($file,$tujuan_upload);
+
         }
         if (isset($request->poto_2)) {
             $request->validate([
-                'poto_2' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'poto_2' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_2');
             
-            $nama_file2 = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/market/produk';
+            // $nama_file2 = time()."_".$file->getClientOriginalName();
             // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file2);
+            // $file->move($tujuan_upload,$nama_file2);
+            $nama_file2 = kompres($file,$tujuan_upload);
+
         }
         if (isset($request->poto_3)) {
             $request->validate([
-                'poto_3' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'poto_3' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_3');
-            
-            $nama_file3 = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/market/produk';
+            // $nama_file3 = time()."_".$file->getClientOriginalName();
             // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file3);
+            // $file->move($tujuan_upload,$nama_file3);
+            $nama_file3 = kompres($file,$tujuan_upload);
         }
 
         // slug produk
@@ -184,60 +187,64 @@ class ProdukController extends Controller
         $nama_file1     = $produk->poto_1;
         $nama_file2     = $produk->poto_2;
         $nama_file3     = $produk->poto_3;
+        $tujuan_upload = 'img/market/produk/';
         if (isset($request->poto_produk)) {
             $request->validate([
-                'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_produk');
             
-            $nama_file = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/market/produk';
+            // $nama_file = time()."_".$file->getClientOriginalName();
             // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file);
-            deletefile($tujuan_upload.'/'.$produk->poto_produk);
+            // $file->move($tujuan_upload,$nama_file);
+            $nama_file = kompres($file,$tujuan_upload);
+            deletefile($tujuan_upload.$produk->poto_produk);
         }
 
         
         if (isset($request->poto_1)) {
             $request->validate([
-                'poto_1' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'poto_1' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_1');
             
-            $nama_file1 = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/market/produk';
+            // $nama_file1 = time()."_".$file->getClientOriginalName();
+            // $tujuan_upload = 'img/market/produk';
             // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file1);
-            deletefile($tujuan_upload.'/'.$produk->poto_1);
+            // $file->move($tujuan_upload,$nama_file1);
+            $nama_file1 = kompres($file,$tujuan_upload);
+            deletefile($tujuan_upload.$produk->poto_1);
 
         }
         if (isset($request->poto_2)) {
             $request->validate([
-                'poto_2' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'poto_2' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_2');
             
-            $nama_file2 = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/market/produk';
+            // $nama_file2 = time()."_".$file->getClientOriginalName();
+            // $tujuan_upload = 'img/market/produk';
             // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file2);
-            deletefile($tujuan_upload.'/'.$produk->poto_2);
+            // $file->move($tujuan_upload,$nama_file2);
+            $nama_file2 = kompres($file,$tujuan_upload);
+            deletefile($tujuan_upload.$produk->poto_2);
         }
         if (isset($request->poto_3)) {
             $request->validate([
-                'poto_3' => 'required|file|image|mimes:jpeg,png,jpg|max:4000',
+                'poto_3' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('poto_3');
             
-            $nama_file3 = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/market/produk';
+            // $nama_file3 = time()."_".$file->getClientOriginalName();
+            // $tujuan_upload = 'img/market/produk';
             // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file3);
-            deletefile($tujuan_upload.'/'.$produk->poto_3);
+            // $file->move($tujuan_upload,$nama_file3);
+            $nama_file3 = kompres($file,$tujuan_upload);
+            deletefile($tujuan_upload.$produk->poto_3);
         }
 
         Produk::where('id',$produk->id)->update([
@@ -255,7 +262,7 @@ class ProdukController extends Controller
 
         return redirect('/produk/'.Crypt::encryptString($produk->id))->with('du','Produk');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
