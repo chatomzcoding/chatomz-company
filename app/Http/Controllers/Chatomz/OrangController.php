@@ -57,7 +57,7 @@ class OrangController extends Controller
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$nama_file);
         } else {
-            $nama_file = 'person.png';
+            $nama_file = NULL;
         }
         Orang::create([
             'first_name'  => $request->first_name,
@@ -138,6 +138,7 @@ class OrangController extends Controller
             $tujuan_upload = 'img/chatomz/orang';
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$nama_file);
+            deletefile($tujuan_upload.'/'.$orang->photo);
         } else {
             $nama_file = $orang->photo;
         }
@@ -171,6 +172,11 @@ class OrangController extends Controller
      */
     public function destroy(Orang $orang)
     {
-        //
+        $tujuan_upload = 'img/chatomz/orang';
+        deletefile($tujuan_upload.'/'.$orang->photo);
+
+        $orang->delete();
+
+        return redirect('/orang')->with('dd','Orang');
     }
 }

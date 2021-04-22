@@ -58,11 +58,11 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="card card-post card-round">
-                                    <a href="#" data-target="#ubahphoto" data-toggle="modal"><img class="card-img-top" src="{{ asset('/img/chatomz/orang/'.$orang->photo)}}" alt="Card image cap"></a>
+                                    <a href="#" data-target="#ubahphoto" data-toggle="modal"><img class="card-img-top" src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" alt="Card image cap"></a>
                                     <div class="card-body">
                                         <div class="d-flex">
                                             <div class="avatar">
-                                                <a href="{{ asset('/img/chatomz/orang/'.$orang->photo)}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.$orang->photo)}}" width="50px" alt="..." class="avatar-img rounded-circle"></a>
+                                                <a href="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" width="50px" alt="..." class="avatar-img rounded-circle"></a>
                                             </div>
                                             <div class="info-post ml-2">
                                                 <p class="username text-capitalize">{{ $orang->job_status}}</p>
@@ -73,7 +73,7 @@
                                         {{-- <p class="card-category text-info mb-1">Quick Access</p> --}}
                                         <h3 class="card-title">
                                             <p class="demo">
-                                                <form id="data-{{ $orang->id }}" action="{{url('/orang',Crypt::encryptString($orang->id))}}" method="post">
+                                                <form id="data-{{ $orang->id }}" action="{{url('/orang/'.$orang->id)}}" method="post">
                                                     @csrf
                                                     @method('delete')
                                                     </form>
