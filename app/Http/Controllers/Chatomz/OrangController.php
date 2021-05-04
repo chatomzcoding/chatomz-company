@@ -16,7 +16,7 @@ class OrangController extends Controller
      */
     public function index()
     {
-        $orang  = Orang::orderBy('first_name','ASC')->get();
+        $orang  = Orang::select('id','first_name','last_name','gender','home_address')->orderBy('first_name','ASC')->get();
         return view('chatomz.kingdom.orang.index', compact('orang'));
     }
 
