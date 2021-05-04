@@ -23,12 +23,14 @@ class PemesananController extends Controller
             $toko       = Toko::where('user_id',$user->id)->first();
             $pemesanan  = DB::table('pemesanan')
                             ->join('produk','pemesanan.produk_id','=','produk.id')
+                            ->select('pemesanan.*','produk.nama_produk')
                             ->where('produk.toko_id',$toko->id)
                             ->orderByDesc('pemesanan.id')
                             ->get();
         } else {
             $pemesanan  = DB::table('pemesanan')
             ->join('produk','pemesanan.produk_id','=','produk.id')
+            ->select('pemesanan.*','produk.nama_produk')
             ->orderByDesc('pemesanan.id')
             ->get();
         }
