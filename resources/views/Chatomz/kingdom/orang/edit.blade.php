@@ -40,55 +40,55 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">First Name</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Nama Awal</label>
                                     <input type="text" class="form-control col-md-8" name="first_name" id="inlineinput" value="{{ $orang->first_name}}" required>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Last Name</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Nama Akhir</label>
                                     <input type="text" class="form-control col-md-8" name="last_name" id="inlineinput" value="{{ $orang->last_name}}">
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Nick Name</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Nama Panggilan</label>
                                     <input type="text" class="form-control col-md-8" name="nick_name" id="inlineinput"  value="{{ $orang->nick_name}}">
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Home Address</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Alamat Rumah</label>
                                     <textarea name="home_address" id="" cols="30" rows="3" class="form-control col-md-8">{{ $orang->home_address}}</textarea>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Current Address</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Alamat Sekarang</label>
                                     <textarea name="current_address" id="" cols="30" rows="3" class="form-control col-md-8">{{ $orang->current_address}}</textarea>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Place Birth</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Tempat Lahir</label>
                                     <input type="text" name="place_birth" class="form-control col-md-8" id="inlineinput" value="{{ $orang->place_birth}}">
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Date Birth</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Tanggal Lahir</label>
                                     <input type="date" name="date_birth" class="form-control col-md-8" id="inlineinput" value="{{ $orang->date_birth}}">
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Job Status</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Pekerjaan</label>
                                     <input type="text" name="job_status" class="form-control col-md-8" value="{{ $orang->job_status}}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Gender</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Jenis Kelamin</label>
                                     <select name="gender" id="" class="form-control col-md-8">
                                         <option value="male" @if ($orang->gender == 'male')
                                             selected
-                                        @endif>Male</option>
+                                        @endif>Laki - laki</option>
                                         <option value="female" @if ($orang->gender == 'female')
                                             selected
-                                        @endif>Female</option>
+                                        @endif>Perempuan</option>
                                         <option value="other" @if ($orang->gender == 'other')
                                             selected
-                                        @endif>Other</option>
+                                        @endif>Lainnya</option>
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Nasionality</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Kebangsaan</label>
                                     <select name="nasionality" id="" class="form-control col-md-8">
                                         @foreach (countryname() as $item)
                                         <option value="{{ $item }}" @if ($orang->nasionality == $item)
@@ -98,7 +98,7 @@
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Religion</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Agama</label>
                                     <select name="religion" id="" class="form-control col-md-8">
                                         @foreach (kingdom_agama() as $item)
                                         <option value="{{ $item}}" @if ($item == $orang->religion)
@@ -108,7 +108,7 @@
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Blood Type</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Golongan Darah</label>
                                     <select name="blood_type" id="" class="form-control col-md-8">
                                         @foreach (kingdom_goldar() as $item)
                                         <option value="{{ $item}}" @if ($item == $orang->blood_type)
@@ -118,28 +118,28 @@
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Marital Status</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Status Perkawinan</label>
                                     <select name="marital_status" id="" class="form-control col-md-8">
                                         <option value="single" @if ($orang->marital_status == 'single')
                                             selected
-                                        @endif >Single</option>
+                                        @endif >Belum Kawin</option>
                                         <option value="married" @if ($orang->marital_status == 'married')
                                             selected
-                                        @endif>Married</option>
+                                        @endif>Sudah Kawin</option>
                                         <option value="ever been married" @if ($orang->marital_status == 'ever been married')
                                             selected
-                                        @endif>Ever Been married</option>
+                                        @endif>Pernah Kawin</option>
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Group Status</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Grup Status</label>
                                     <select name="status_group" id="" class="form-control col-md-8">
                                         <option value="available" @if ($orang->status_group == 'available')
                                             selected
-                                        @endif>Available</option>
+                                        @endif>Tersedia</option>
                                         <option value="full"  @if ($orang->status_group == 'full')
                                             selected
-                                        @endif>Full</option>
+                                        @endif>Ditutup</option>
                                     </select>
                             </div>
                             <div class="form-group row">
@@ -147,19 +147,22 @@
                                     <select name="death" id="" class="form-control col-md-8">
                                         <option value="" @if ($orang->death == NULL)
                                             selected
-                                        @endif>Ada</option>
+                                        @endif>Masih Hidup</option>
                                         <option value="alm" @if ($orang->death == 'alm')
                                             selected
-                                        @endif>Almarhum</option>
+                                        @endif>Meninggal</option>
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Note</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Catatan</label>
                                     <input type="text" name="note" class="form-control col-md-8" id="inlineinput" value="{{ $orang->note}}">
                             </div>
                             <div class="form-group row">
                                 <label for="inlineinput" class="col-md-4 col-form-label">Photo</label>
-                                    <input type="file" name="photo"> input jika ingin mengubah photo
+                                <div class="col-md-8">
+                                    <input type="file" name="photo" class="form-control">
+                                    <span class="text-danger">input jika ingin mengubah photo</span>
+                                </div>
                             </div>
                             <div class="form-group float-right">
                                 <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>

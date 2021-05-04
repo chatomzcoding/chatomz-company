@@ -49,49 +49,49 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">First Name</label>
-                                    <input type="text" class="form-control col-md-8" name="first_name" id="inlineinput" >
+                                <label for="inlineinput" class="col-md-4 col-form-label">Nama Awal</label>
+                                    <input type="text" class="form-control col-md-8" name="first_name" value="{{ old('first_name')}}" id="inlineinput" >
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Last Name</label>
-                                    <input type="text" class="form-control col-md-8" name="last_name" id="inlineinput">
+                                <label for="inlineinput" class="col-md-4 col-form-label">Nama Akhir</label>
+                                    <input type="text" class="form-control col-md-8" name="last_name" value="{{ old('last_name')}}" id="inlineinput">
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Nick Name</label>
-                                    <input type="text" class="form-control col-md-8" name="nick_name" id="inlineinput" ">
+                                <label for="inlineinput" class="col-md-4 col-form-label">Nama Panggilan</label>
+                                    <input type="text" class="form-control col-md-8" name="nick_name" value="{{ old('nick_name')}}" id="inlineinput">
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Home Address</label>
-                                    <textarea name="home_address" id="" cols="30" rows="3" class="form-control col-md-8"></textarea>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Alamat Rumah</label>
+                                    <textarea name="home_address" id="" cols="30" rows="3" class="form-control col-md-8">{{ old('home_address')}}</textarea>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Current Address</label>
-                                    <textarea name="current_address" id="" cols="30" rows="3" class="form-control col-md-8"></textarea>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Alamat Sekarang</label>
+                                    <textarea name="current_address" id="" cols="30" rows="3" class="form-control col-md-8">{{ old('current_address')}}</textarea>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Place Birth</label>
-                                    <input type="text" name="place_birth" class="form-control col-md-8" id="inlineinput" value="bandung">
+                                <label for="inlineinput" class="col-md-4 col-form-label">Tempat Lahir</label>
+                                    <input type="text" name="place_birth" class="form-control col-md-8" id="inlineinput"  value="{{ old('place_birth')}}">
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Date Birth</label>
-                                    <input type="date" name="date_birth" class="form-control col-md-8" id="inlineinput" value="2000-01-01">
+                                <label for="inlineinput" class="col-md-4 col-form-label">Tanggal Lahir</label>
+                                    <input type="date" name="date_birth" class="form-control col-md-8" id="inlineinput" value="{{ old('date_birth')}}">
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Job Status</label>
-                                    <input type="text" name="job_status" class="form-control col-md-8" >
+                                <label for="inlineinput" class="col-md-4 col-form-label">Pekerjaan</label>
+                                    <input type="text" name="job_status" class="form-control col-md-8"  value="{{ old('job_status')}}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Gender</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Jenis Kelamin</label>
                                     <select name="gender" id="" class="form-control col-md-8">
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
+                                        <option value="male">Laki - laki</option>
+                                        <option value="female">Perempuan</option>
+                                        <option value="other">Lainnya</option>
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Nasionality</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Kebangsaan</label>
                                     <select name="nasionality" id="" class="form-control col-md-8">
                                         @foreach (countryname() as $item)
                                         <option value="{{ $item }}" >{{ $item }}</option>
@@ -99,13 +99,13 @@
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Religion</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Agama</label>
                                     <select name="religion" id="" class="form-control col-md-8">
                                         <option value="islam">Islam</option>
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Blood Type</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Golongan Darah</label>
                                     <select name="blood_type" id="" class="form-control col-md-8">
                                         <option value="none" >none</option>
                                         <option value="a" >A</option>
@@ -115,37 +115,37 @@
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Marital Status</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Status Perkawinan</label>
                                     <select name="marital_status" id="" class="form-control col-md-8">
-                                        <option value="single" >Single</option>
-                                        <option value="married">Married</option>
-                                        <option value="ever been married">Ever Been married</option>
+                                        <option value="single" >Belum Kawin</option>
+                                        <option value="married">Sudah Kawin</option>
+                                        <option value="ever been married">Pernah Kawin</option>
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Group Status</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Status Grup</label>
                                     <select name="status_group" id="" class="form-control col-md-8">
-                                        <option value="available" >Available</option>
-                                        <option value="full" >Full</option>
+                                        <option value="available" >Tersedia</option>
+                                        <option value="full" >Ditutup</option>
                                     </select>
                             </div>
                             <div class="form-group row">
                                 <label for="inlineinput" class="col-md-4 col-form-label">Status Kematian</label>
                                     <select name="death" id="" class="form-control col-md-8">
-                                        <option value="">Ada</option>
-                                        <option value="alm" >Almarhum</option>
+                                        <option value="">Masih Hidup</option>
+                                        <option value="alm" >Meninggal</option>
                                     </select>
                             </div>
                             <div class="form-group row">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Note</label>
-                                    <input type="text" name="note" class="form-control col-md-8" id="inlineinput">
+                                <label for="inlineinput" class="col-md-4 col-form-label">Catatan</label>
+                                    <input type="text" name="note" class="form-control col-md-8" id="inlineinput" value="{{ old('note')}}">
                             </div>
                             <div class="form-group row">
                                 <label for="inlineinput" class="col-md-4 col-form-label">Photo</label>
                                     <input type="file" name="photo">
                             </div>
                             <div class="form-group float-right">
-                                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                                <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> SIMPAN</button>
                             </div>
                         </div>
                     </div>
