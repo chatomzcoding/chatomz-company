@@ -102,50 +102,73 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                  <strong>Pohon Keluarga</strong>
+                  <strong>Pohon Keluarga</strong> 
+                  @if ($keluarga->status_keluarga == 'menikah')
+                      <span class="badge badge-info float-right">Status Pernikahan {{ $keluarga->status_keluarga }}</span>
+                    @else
+                      <span class="badge badge-warning float-right">Status Pernikahan {{ $keluarga->status_keluarga }}</span>
+                  @endif
               </div>
               <div class="card-body">
-                {{-- baris kepala keluarga dan istri --}}
-                <div class="row justify-content-center">
-                    <div class="col-md-3 pb-0">
-                        <div class="card bg-success mb-0">
-                            <div class="row no-gutters">
-                              <div class="col-md-4">
-                                <a href="{{ url('/orang/'.Crypt::encryptString($pohon['istri']->idorang))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->photo))}}" class="card-img" alt="..."></a>
-                              </div>
-                              <div class="col-md-8">
-                                <div class="card-body p-2">
-                                  <small class="text-capitalize">{{ fullname($pohon['istri'])}}
-                                    @if ($pohon['ortuistri'])
-                                    <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}"><span><i class="fas fa-angle-up"></i></span></a>
-                                   @endif
-                                    <br>
-                                  <i>istri</i></small>
+                  {{-- baris kepala keluarga dan istri --}}
+                  <div class="row justify-content-center">
+                      <div class="col-md-3 pb-0">
+                          <div class="card bg-info mb-0">
+                              <div class="row no-gutters">
+                                <div class="col-md-4">
+                                  <a href="{{ url('/orang/'.Crypt::encryptString($pohon['suami']->id))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="card-img" alt="..."></a>
+                                </div>
+                                <div class="col-md-8">
+                                  <div class="card-body p-2">
+                                      
+                                      <small class="text-capitalize">{{ fullname($pohon['suami'])}} 
+                                          {{-- cek keturunan keatas --}}
+                                          @if ($pohon['ortusuami'])
+                                           <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}"><span><i class="fas fa-angle-up"></i></span></a>
+                                          @endif
+                                      <br> <i>suami</i></small>
+                                    </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                    </div>
-                    <div class="col-md-3 pb-0">
-                        <div class="card bg-info mb-0">
-                            <div class="row no-gutters">
-                              <div class="col-md-4">
-                                <a href="{{ url('/orang/'.Crypt::encryptString($pohon['suami']->id))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="card-img" alt="..."></a>
-                              </div>
-                              <div class="col-md-8">
-                                <div class="card-body p-2">
-                                    
-                                    <small class="text-capitalize">{{ fullname($pohon['suami'])}} 
-                                        {{-- cek keturunan keatas --}}
-                                        @if ($pohon['ortusuami'])
-                                         <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}"><span><i class="fas fa-angle-up"></i></span></a>
-                                        @endif
-                                    <br> <i>suami</i></small>
-                                  </div>
-                              </div>
+                      </div>
+                      @if ($pohon['istri'])
+                        <div class="col-md-3 pb-0">
+                            <div class="card bg-success mb-0">
+                                <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <a href="{{ url('/orang/'.Crypt::encryptString($pohon['istri']->idorang))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->photo))}}" class="card-img" alt="..."></a>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-2">
+                                    <small class="text-capitalize">{{ fullname($pohon['istri'])}}
+                                        @if ($pohon['ortuistri'])
+                                        <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}"><span><i class="fas fa-angle-up"></i></span></a>
+                                    @endif
+                                        <br>
+                                    <i>istri</i></small>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
-                          </div>
-                    </div>
+                        </div>
+                        @else
+                        <div class="col-md-3 pb-0">
+                            <div class="card bg-success mb-0">
+                                <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/istri.png')}}" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-2">
+                                    <small class="text-capitalize">Belum ada Data
+                                    </small>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                      @endif
                 </div>
                 {{-- garis keturunan --}}
                 <div class="row justify-content-center">

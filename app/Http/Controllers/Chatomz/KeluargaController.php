@@ -19,8 +19,8 @@ class KeluargaController extends Controller
      */
     public function index()
     {
-        $keluarga       = Keluarga::all();
-        $kepalakeluarga = Orang::where('gender','male')->where('marital_status','married')->get();
+        $keluarga       = Keluarga::orderBy('nama_keluarga','ASC')->get();
+        $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->get();
         return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
     }
 
@@ -63,15 +63,20 @@ class KeluargaController extends Controller
                                 ->orderBy('keluarga_hubungan.urutan','ASC')
                                 ->get();
         // data pohon keluarga
+        $suami              = Orang::find($keluarga->orang_id);
         $istri              = DB::table('keluarga_hubungan')
         ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
         ->select('keluarga_hubungan.*','orang.first_name','orang.last_name','orang.photo','orang.death','orang.id as idorang')
         ->where('keluarga_hubungan.keluarga_id',$keluarga->id)
         ->where('keluarga_hubungan.status','istri')
         ->first();
-        $suami              = Orang::find($keluarga->orang_id);
         $ortusuami          = Keluargahubungan::where('orang_id',$suami->id)->where('status','anak')->first();
-        $ortuistri          = Keluargahubungan::where('orang_id',$istri->idorang)->where('status','anak')->first();
+        // jika istri ada
+        if ($istri) {
+            $ortuistri          = Keluargahubungan::where('orang_id',$istri->idorang)->where('status','anak')->first();
+        } else {
+            $ortuistri          = NULL;
+        }
         $pohon = [
             'istri' => $istri,
             'suami' => $suami,
@@ -121,6 +126,8 @@ class KeluargaController extends Controller
      */
     public function destroy(Keluarga $keluarga)
     {
-        //
+        $keluarga->delete();
+
+        return redirect()->back()->with('dd','Keluarga');
     }
 }

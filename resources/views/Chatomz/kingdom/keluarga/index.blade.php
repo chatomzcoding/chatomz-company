@@ -82,7 +82,6 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        {{-- <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i></a> --}}
                                         <button type="button" data-toggle="modal"  data-nama_keluarga="{{ $item->nama_keluarga }}"  data-no_kk="{{ $item->no_kk }}"  data-orang_id="{{ $item->orang_id }}" data-tgl_pernikahan="{{ $item->tgl_pernikahan }}" data-keterangan="{{ $item->keterangan }}" data-status_keluarga="{{ $item->status_keluarga }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
                                         </button>
