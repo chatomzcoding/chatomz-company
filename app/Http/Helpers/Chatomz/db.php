@@ -1,12 +1,33 @@
 <?php
 namespace App\Http\Helpers\Chatomz;
 
+use App\Models\Keluarga;
+use App\Models\Keluargahubungan;
 use App\Models\Produkdiskon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class DbChatomz {
 
+    public static function cekketurunankeluarga($id,$jk)
+    {
+        if ($jk == 'perempuan') {
+            $keluarga = Keluargahubungan::where('orang_id',$id)->where('status','istri')->first();
+            if ($keluarga) {
+                $idkeluarga = $keluarga->keluarga_id;
+            } else {
+                return FALSE;
+            }
+        } else {
+            $keluarga = Keluarga::where('orang_id',$id)->first();
+            if ($keluarga) {
+                $idkeluarga = $keluarga->id;
+            } else {
+                return FALSE;
+            }
+        }
+        return $idkeluarga;
+    }
     public static function countGroupId($id) {
         $jumlah = DB::table('members')->where('group_id', $id)->count();
         return $jumlah;

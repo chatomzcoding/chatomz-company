@@ -61,17 +61,21 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Aksi</th>
                                 <th>Hubungan Keluarga</th>
                                 <th>Nama Anggota</th>
                                 <th>Urutan</th>
                                 <th>Keterangan</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($keluargahubungan as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
+                                    <td>{{ $item->status}}</td>
+                                    <td><a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}">{{ $item->first_name.' '.$item->last_name}}</a> </td>
+                                    <td class="text-center">{{ $item->urutan}}</td>
+                                    <td>{{ $item->keterangan}}</td>
                                     <td class="text-center">
                                         <form id="data-{{ $item->id }}" action="{{url('/keluargahubungan',$item->id)}}" method="post">
                                             @csrf
@@ -83,10 +87,6 @@
                                         </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td>{{ $item->status}}</td>
-                                    <td><a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}">{{ $item->first_name.' '.$item->last_name}}</a> </td>
-                                    <td class="text-center">{{ $item->urutan}}</td>
-                                    <td>{{ $item->keterangan}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -94,6 +94,112 @@
                                 </tr>
                             @endforelse
                     </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card">
+              <div class="card-header">
+                  <strong>Pohon Keluarga</strong>
+              </div>
+              <div class="card-body">
+                {{-- baris kepala keluarga dan istri --}}
+                <div class="row justify-content-center">
+                    <div class="col-md-3 pb-0">
+                        <div class="card bg-success mb-0">
+                            <div class="row no-gutters">
+                              <div class="col-md-4">
+                                <a href="{{ url('/orang/'.Crypt::encryptString($pohon['istri']->idorang))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->photo))}}" class="card-img" alt="..."></a>
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body p-2">
+                                  <small class="text-capitalize">{{ fullname($pohon['istri'])}}
+                                    @if ($pohon['ortuistri'])
+                                    <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}"><span><i class="fas fa-angle-up"></i></span></a>
+                                   @endif
+                                    <br>
+                                  <i>istri</i></small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-3 pb-0">
+                        <div class="card bg-info mb-0">
+                            <div class="row no-gutters">
+                              <div class="col-md-4">
+                                <a href="{{ url('/orang/'.Crypt::encryptString($pohon['suami']->id))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="card-img" alt="..."></a>
+                              </div>
+                              <div class="col-md-8">
+                                <div class="card-body p-2">
+                                    
+                                    <small class="text-capitalize">{{ fullname($pohon['suami'])}} 
+                                        {{-- cek keturunan keatas --}}
+                                        @if ($pohon['ortusuami'])
+                                         <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}"><span><i class="fas fa-angle-up"></i></span></a>
+                                        @endif
+                                    <br> <i>suami</i></small>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                {{-- garis keturunan --}}
+                <div class="row justify-content-center">
+                    <div class="col-md-3 akar-utama">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-3 akar-kiri">
+                    </div>
+                    <div class="col-md-3 akar-kanan">
+                    </div>
+                </div>
+                @if (count($keluargahubungan) < 2)
+                    <div class="row justify-content-center">
+                        <div class="col-md-3 bg-secondary text-center small text-italic">
+                            belum ada data
+                        </div>
+                    </div>
+                @endif
+                <div class="row justify-content-center">
+                    @if (count($keluargahubungan) > 4)
+                        @for ($i = 1; $i < 4; $i++)
+                            <div class="col-md-3 akar-anak">
+                            </div>
+                        @endfor
+                    @endif
+                </div>
+                <div class="row justify-content-center">
+                    @foreach ($keluargahubungan as $item)
+                        @if ($item->status <> 'istri')
+                            <div class="col-md-3">
+                                <div class="card mb-3">
+                                    <div class="row no-gutters">
+                                    <div class="col-md-4">
+                                        <a href="{{ url('/orang/'.Crypt::encryptString($item->idorang))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="..."></a>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body p-2">
+                                        <small class="text-capitalize">{{ fullname($item)}}
+                                            @php
+                                                $keturunan = DbChatomz::cekketurunankeluarga($item->idorang,$item->gender);
+                                            @endphp
+                                            @if ($keturunan)
+                                                <a href="{{ url('keluarga/'.Crypt::encryptString($keturunan)) }}"><span><i class="fas fa-angle-down"></i></span></a>
+                                            @endif
+                                            <br>
+                                        <i>Anak {{ $item->urutan }}</i></small>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
               </div>
             </div>
@@ -211,7 +317,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

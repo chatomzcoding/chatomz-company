@@ -1,0 +1,20 @@
+.akar-utama{
+    border-left: 4px solid rgba(20, 160, 7, 0.755);
+    border-right: 4px solid rgb(8, 122, 171);
+    border-bottom: 4px solid grey;
+    padding: 10px;
+}
+.akar-anak{
+    border-left: 2px solid grey;
+    border-right: 2px solid grey;
+    border-top: 4px solid grey;
+    padding: 10px;
+}
+.akar-kiri {
+    padding: 10px;
+    border-right: 2px solid grey;
+}
+.akar-kanan {
+    padding: 10px;
+    border-left: 2px solid grey;
+}

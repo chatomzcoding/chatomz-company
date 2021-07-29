@@ -21,7 +21,7 @@ class KeluargaController extends Controller
     {
         $keluarga       = Keluarga::all();
         $kepalakeluarga = Orang::where('gender','male')->where('marital_status','married')->get();
-        return view('chatomz.keluarga.index', compact('keluarga','kepalakeluarga'));
+        return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
     }
 
     /**
@@ -58,10 +58,27 @@ class KeluargaController extends Controller
         $keluarga           = Keluarga::find(Crypt::decryptString($keluarga));
         $keluargahubungan   = DB::table('keluarga_hubungan')
                                 ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
-                                ->select('keluarga_hubungan.*','orang.first_name','orang.last_name')
+                                ->select('keluarga_hubungan.*','orang.first_name','orang.last_name','orang.photo','orang.death','orang.gender','orang.id as idorang')
                                 ->where('keluarga_hubungan.keluarga_id',$keluarga->id)
+                                ->orderBy('keluarga_hubungan.urutan','ASC')
                                 ->get();
-        return view('chatomz.keluarga.show', compact('keluarga','keluargahubungan'));
+        // data pohon keluarga
+        $istri              = DB::table('keluarga_hubungan')
+        ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
+        ->select('keluarga_hubungan.*','orang.first_name','orang.last_name','orang.photo','orang.death','orang.id as idorang')
+        ->where('keluarga_hubungan.keluarga_id',$keluarga->id)
+        ->where('keluarga_hubungan.status','istri')
+        ->first();
+        $suami              = Orang::find($keluarga->orang_id);
+        $ortusuami          = Keluargahubungan::where('orang_id',$suami->id)->where('status','anak')->first();
+        $ortuistri          = Keluargahubungan::where('orang_id',$istri->idorang)->where('status','anak')->first();
+        $pohon = [
+            'istri' => $istri,
+            'suami' => $suami,
+            'ortusuami' => $ortusuami,
+            'ortuistri' => $ortuistri
+        ];
+        return view('chatomz.kingdom.keluarga.show', compact('keluarga','keluargahubungan','pohon'));
     }
 
     /**

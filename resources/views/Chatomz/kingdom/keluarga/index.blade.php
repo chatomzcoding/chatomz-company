@@ -64,31 +64,30 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
-                                <th>Aksi</th>
                                 <th>Nama Keluarga</th>
                                 <th>Tgl Pernikahan</th>
                                 <th>Status</th>
+                                <th width="10%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($keluarga as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
+                                    <td><a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}">{{ $item->nama_keluarga}}</a></td>
+                                    <td>{{ date_indo($item->tgl_pernikahan,'-')}}</td>
+                                    <td class="text-center">{{ $item->status_keluarga}}</td>
                                     <td class="text-center">
                                         <form id="data-{{ $item->id }}" action="{{url('/keluarga',$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i></a>
                                         {{-- <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i></a> --}}
                                         <button type="button" data-toggle="modal"  data-nama_keluarga="{{ $item->nama_keluarga }}"  data-no_kk="{{ $item->no_kk }}"  data-orang_id="{{ $item->orang_id }}" data-tgl_pernikahan="{{ $item->tgl_pernikahan }}" data-keterangan="{{ $item->keterangan }}" data-status_keluarga="{{ $item->status_keluarga }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </td>
-                                    <td>{{ $item->nama_keluarga}}</td>
-                                    <td>{{ date_indo($item->tgl_pernikahan,'-')}}</td>
-                                    <td class="text-center">{{ $item->status_keluarga}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">

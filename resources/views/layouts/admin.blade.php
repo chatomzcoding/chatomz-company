@@ -36,6 +36,7 @@
   <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/summernote/summernote-bs4.min.css')}}">
 
   <link rel="stylesheet" href="{{ asset('css/style.css')}}">
+  <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
 
   {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
 
