@@ -85,9 +85,9 @@
                             <div class="form-group row">
                                 <label for="inlineinput" class="col-md-4 col-form-label">Jenis Kelamin</label>
                                     <select name="gender" id="" class="form-control col-md-8">
-                                        <option value="male">Laki - laki</option>
-                                        <option value="female">Perempuan</option>
-                                        <option value="other">Lainnya</option>
+                                        <option value="laki-laki">Laki - laki</option>
+                                        <option value="perempuan">Perempuan</option>
+                                        <option value="lainnya">Lainnya</option>
                                     </select>
                             </div>
                             <div class="form-group row">

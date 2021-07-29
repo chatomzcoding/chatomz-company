@@ -35,7 +35,7 @@
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title text-capitalize w-100">{{ fullname($orang)}} 
-                    @if ($orang->gender == 'male')
+                    @if ($orang->gender == 'laki-laki')
                         <sup><i class="fas fa-mars text-primary"></i></sup>  
                     @else
                         <sup><i class="fas fa-venus text-danger"></i></sup>  
@@ -129,7 +129,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Tempat Lahir</th>
-                                                    <td>{{ $orang->place_birth.', '.$orang->date_birth}}</td>
+                                                    <td>{{ $orang->place_birth.', '.date_indo($orang->date_birth)}}</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Agama</th>
@@ -137,7 +137,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Status Perkawinan</th>
-                                                    <td>{{ $orang->marital_status}}</td>
+                                                    <td>{{ $orang->marital_status}} Kawin</td>
                                                 </tr>
                                                 <tr>
                                                     <th>Golongan Darah</th>

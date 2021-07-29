@@ -76,13 +76,13 @@
                             <div class="form-group row">
                                 <label for="inlineinput" class="col-md-4 col-form-label">Jenis Kelamin</label>
                                     <select name="gender" id="" class="form-control col-md-8">
-                                        <option value="male" @if ($orang->gender == 'male')
+                                        <option value="laki-laki" @if ($orang->gender == 'laki-laki')
                                             selected
                                         @endif>Laki - laki</option>
-                                        <option value="female" @if ($orang->gender == 'female')
+                                        <option value="perempuan" @if ($orang->gender == 'perempuan')
                                             selected
                                         @endif>Perempuan</option>
-                                        <option value="other" @if ($orang->gender == 'other')
+                                        <option value="lainnya" @if ($orang->gender == 'lainnya')
                                             selected
                                         @endif>Lainnya</option>
                                     </select>
@@ -120,13 +120,13 @@
                             <div class="form-group row">
                                 <label for="inlineinput" class="col-md-4 col-form-label">Status Perkawinan</label>
                                     <select name="marital_status" id="" class="form-control col-md-8">
-                                        <option value="single" @if ($orang->marital_status == 'single')
+                                        <option value="belum" @if ($orang->marital_status == 'belum')
                                             selected
                                         @endif >Belum Kawin</option>
-                                        <option value="married" @if ($orang->marital_status == 'married')
+                                        <option value="sudah" @if ($orang->marital_status == 'sudah')
                                             selected
                                         @endif>Sudah Kawin</option>
-                                        <option value="ever been married" @if ($orang->marital_status == 'ever been married')
+                                        <option value="pernah" @if ($orang->marital_status == 'pernah')
                                             selected
                                         @endif>Pernah Kawin</option>
                                     </select>
