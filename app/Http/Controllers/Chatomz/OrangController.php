@@ -144,6 +144,13 @@ class OrangController extends Controller
         return redirect('orang/'.Crypt::encryptString($orang->id))->with('ds','Orang');
     }
 
+    public function cariorang(Request $request)
+    {
+        $orang  = Orang::where('first_name','LIKE','%'.$request->nama.'%')->Orwhere('last_name','LIKE','%'.$request->nama.'%')->get();
+        return view('chatomz.kingdom.orang.index', compact('orang'));
+
+    }
+
     /**
      * Display the specified resource.
      *

@@ -315,8 +315,8 @@
                                                     </tr>
                                                     @endif
                                                     <tr>
-                                                        <td colspan="2">
-                                                            <a href="{{ url('/pendidikan/'.Crypt::encryptString($pendidikan->id).'/edit')}}" class="btn btn-success btn-sm">edit</a>
+                                                        <td colspan="2" class="text-right">
+                                                            <a href="{{ url('/pendidikan/'.Crypt::encryptString($pendidikan->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> EDIT PENDIDIKAN</a>
                                                         </td>
                                                     </tr>
                                                    
