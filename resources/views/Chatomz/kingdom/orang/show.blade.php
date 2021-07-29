@@ -154,47 +154,67 @@
                                         @if (is_null($kontak))
                                             <div class="text-center m-3 p-3">
                                                 <p><i> Data kontak belum ada </i></p>
-                                                <a href="#" class="btn btn-secondary btn-sm" data-target="#addcontact" data-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i> tambahkan</a>
+                                                <a href="#" class="btn btn-secondary btn-sm" data-target="#tambahkontak" data-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i> tambahkan</a>
                                             </div>
                                         @else
                                             <table class="table mt-3">
                                                 <tbody>
-                                                    <tr>
-                                                        <th>No. Handphone</th>
-                                                        <td>{{ $kontak->no_hp}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>No. Telepon</th>
-                                                        <td>{{ $kontak->no_tel}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>No. Whatsapp</th>
-                                                        <td>{{ $kontak->no_wa}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>E-mail</th>
-                                                        <td class="text-lowercase">{{ $kontak->email}}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th>E-mail Office</th>
-                                                        <td class="text-lowercase">{{ $kontak->office_email}}</td>
-                                                    </tr>
+                                                    @if (!is_null($kontak->no_hp))
+                                                        <tr>
+                                                            <th>No. Handphone</th>
+                                                            <td>{{ $kontak->no_hp}}</td>
+                                                        </tr>
+                                                    @endif
+                                                    @if (!is_null($kontak->no_tel))
+                                                        <tr>
+                                                            <th>No. Telepon</th>
+                                                            <td>{{ $kontak->no_tel}}</td>
+                                                        </tr>
+                                                    @endif
+                                                    @if (!is_null($kontak->no_wa))
+                                                        <tr>
+                                                            <th>No. Whatsapp</th>
+                                                            <td>{{ $kontak->no_wa}}</td>
+                                                        </tr>
+                                                    @endif
+                                                    @if (!is_null($kontak->email))
+                                                        <tr>
+                                                            <th>E-mail</th>
+                                                            <td class="text-lowercase">{{ $kontak->email}}</td>
+                                                        </tr>
+                                                    @endif
+                                                    @if (!is_null($kontak->office_email))
+                                                        <tr>
+                                                            <th>E-mail Office</th>
+                                                            <td class="text-lowercase">{{ $kontak->office_email}}</td>
+                                                        </tr>
+                                                    @endif
                                                     <tr>
                                                         <th>Social Media</th>
                                                         <td>
-                                                            <a href="{{ $kontak->fb}}" target="_blank" class="{{ linkDisabled($kontak->fb) }}"><i class="fab fa-facebook-square fa-2x"></i></a>&nbsp;
-                                                            <a href="{{ $kontak->tw}}" target="_blank" class="{{ linkDisabled($kontak->tw) }}"><i class="fab fa-twitter-square fa-2x"></i></a>&nbsp;
-                                                            <a href="{{ $kontak->ig}}" target="_blank" class="{{ linkDisabled($kontak->ig) }}"><i class="fab fa-instagram fa-2x"></i></a> &nbsp;
-                                                            <a href="{{ $kontak->line}}" target="_blank" class="{{ linkDisabled($kontak->link) }}"><i class="fab fa-line fa-2x"></i></a> 
+                                                            @if (!is_null($kontak->fb))
+                                                                <a href="{{ $kontak->fb}}" target="_blank" class="{{ linkDisabled($kontak->fb) }}"><i class="fab fa-facebook-square fa-2x"></i></a>&nbsp;
+                                                            @endif
+                                                            @if (!is_null($kontak->tw))
+                                                                <a href="{{ $kontak->tw}}" target="_blank" class="{{ linkDisabled($kontak->tw) }}"><i class="fab fa-twitter-square fa-2x"></i></a>&nbsp;
+                                                            @endif
+                                                            @if (!is_null($kontak->ig))
+                                                                <a href="{{ $kontak->ig}}" target="_blank" class="{{ linkDisabled($kontak->ig) }}"><i class="fab fa-instagram fa-2x"></i></a> &nbsp;
+                                                            @endif
+                                                            @if (!is_null($kontak->line))
+                                                                <a href="{{ $kontak->line}}" target="_blank" class="{{ linkDisabled($kontak->link) }}"><i class="fab fa-line fa-2x"></i></a> 
+                                                            @endif
                                                          </td>
                                                     </tr>
+                                                    @if (!is_null($kontak->web))
+                                                        <tr>
+                                                            <th>Website</th>
+                                                            <td><a href="{{ '/'.$kontak->web}}" target="_blank">{{ $kontak->web}}</a> </td>
+                                                        </tr>
+                                                    @endif
                                                     <tr>
-                                                        <th>Website</th>
-                                                        <td><a href="{{ '/'.$kontak->web}}" target="_blank">{{ $kontak->web}}</a> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <a href="{{ url('/kontak/'.Crypt::encryptString($kontak->id).'/edit')}}" class="btn btn-success btn-sm">edit</a>
+                                                        <td colspan="2" class="text-right">
+                                                            <a href="{{ url('/kontak/'.Crypt::encryptString($kontak->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> EDIT KONTAK</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -205,7 +225,7 @@
                                         @if (is_null($pendidikan))
                                             <div class="text-center m-3 p-3">
                                                 <p class="font-italic">Data pendidikan belum tersedia</p>
-                                                <a href="#" class="btn btn-secondary btn-sm" data-target="#addeducation" data-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i>  tambahkan</a>
+                                                <a href="#" class="btn btn-secondary btn-sm" data-target="#tambahpendidikan" data-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i>  tambahkan</a>
                                             </div>
                                         @else
                                             <table class="table mt-3">
@@ -315,31 +335,82 @@
     </div>
     {{-- modal --}}
     {{-- modal tambah --}}
-    {{-- <div class="modal fade" id="tambah">
+    <div class="modal fade" id="tambahpendidikan">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ url('/orang')}}" method="post">
+            <form action="{{ url('/pendidikan')}}" method="post">
                 @csrf
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
             <div class="modal-header">
-            <h4 class="modal-title">Tambah Data Klasifikasi Surat</h4>
+            <h4 class="modal-title">Tambah Pendidikan</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-body p-3">
                 <section class="p-3">
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Kode</label>
-                        <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" required>
-                   </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small small">TK/TPA</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="tk">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">SD</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="sd">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">SMP/MTS</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="smp">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">SMA/SMK/MA</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="sma">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Jenjang Diploma</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="d">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Jenjang S1</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="s1">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Jenjang S2</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="s2">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Jenjang S3</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="s3">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Pesantren</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="pesantren">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Sekolah Dirumah</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="homescholl">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Boarding Scholl</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="boardingscholl">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Bimbingan Belajar</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="bimbel">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Kursus</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="kursus">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Informasi Singkat</label>
+                                <textarea name="information" id="" cols="30" rows="4" class="form-control col-md-8"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -349,7 +420,82 @@
         </form>
         </div>
         </div>
-    </div> --}}
+    </div>
+
+    <div class="modal fade" id="tambahkontak">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('/kontak')}}" method="post">
+                @csrf
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambah Kontak</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">No Telepon Seluler</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="no_hp" placeholder="input number phone celluler">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">No Telepon Rumah</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="no_tel" placeholder="input number phone home">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">No Whatsapp</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="no_wa" placeholder="input number whatsapp">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">No Telepon Kantor</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="no_office" placeholder="input number office phone">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Alamat E-mail</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="email" placeholder="input email address">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Alamat E-mail Kantor</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="office_email" placeholder="input email office address">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Link Facebook</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="fb" placeholder="input link facebook">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Link Twitter</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="tw" placeholder="input link twitter">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Link Instagram</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="ig" placeholder="input link instagram">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Website</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="web" placeholder="input website">
+                            </div>
+                            <div class="row form-group">
+                                <label for="" class="col-md-4 pt-2 small">Line</label>
+                                <input type="text" class="form-control form-control-sm col-md-8" name="line" placeholder="input account line">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
     <!-- /.modal -->
 
     {{-- modal edit --}}

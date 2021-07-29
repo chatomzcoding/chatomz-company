@@ -38,7 +38,9 @@ class KontakController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Kontak::create($request->all());
+
+        return redirect()->back()->with('ds','Kontak');
     }
 
     /**

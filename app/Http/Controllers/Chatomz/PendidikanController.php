@@ -38,7 +38,9 @@ class PendidikanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Pendidikan::create($request->all());
+
+        return redirect()->back()->with('ds','Pendidikan');
     }
 
     /**
@@ -74,7 +76,24 @@ class PendidikanController extends Controller
      */
     public function update(Request $request, Pendidikan $pendidikan)
     {
-        //
+        Pendidikan::where('id',$pendidikan->id)->update([
+            'tk' => $request->tk,
+            'sd' => $request->sd,
+            'smp' => $request->smp,
+            'sma' => $request->sma,
+            'd' => $request->d,
+            's1' => $request->s1,
+            's2' => $request->s2,
+            's3' => $request->s3,
+            'pesantren' => $request->pesantren,
+            'homescholl' => $request->homescholl,
+            'boardingscholl' => $request->boardingscholl,
+            'bimbel' => $request->bimbel,
+            'kursus' => $request->kursus,
+            'information' => $request->information,
+        ]);
+
+        return redirect('/orang/'.Crypt::encryptString($pendidikan->orang_id))->with('du','Pendidikan');
     }
 
     /**
