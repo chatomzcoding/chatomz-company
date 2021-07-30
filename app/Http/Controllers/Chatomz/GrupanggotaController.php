@@ -36,7 +36,19 @@ class GrupanggotaController extends Controller
      */
     public function store(Request $request)
     {
-        Grupanggota::create($request->all());
+        if (isset($request->sesi)) {
+            for ($i=0; $i < count($request->grup_id); $i++) {
+                $grup          = $request->grup_id;
+                $information    = $request->information;
+                Grupanggota::create([
+                    'orang_id' => $request->orang_id,
+                    'grup_id' => $grup[$i],
+                    'information' => $information[$i],
+                ]);
+            }
+        } else {
+            Grupanggota::create($request->all());
+        }
 
         return redirect()->back()->with('ds','Anggota Grup');
     }
@@ -70,9 +82,13 @@ class GrupanggotaController extends Controller
      * @param  \App\Models\Grupanggota  $grupanggota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Grupanggota $grupanggota)
+    public function update(Request $request)
     {
-        //
+        Grupanggota::where('id',$request->id)->update([
+            'information' => $request->information
+        ]);
+
+        return redirect()->back()->with('du','Anggota');
     }
 
     /**

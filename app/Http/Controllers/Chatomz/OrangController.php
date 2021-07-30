@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Chatomz;
 
 use App\Http\Controllers\Controller;
+use App\Models\Grup;
+use App\Models\Grupanggota;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
 use App\Models\Orang;
@@ -195,7 +197,14 @@ class OrangController extends Controller
                 $daftarkeluarga[] = $item;
             }
         }
-        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga'));
+        // grup
+        $anggotagrup    = DB::table('grup_anggota')
+                            ->join('grup','grup_anggota.grup_id','=','grup.id')
+                            ->where('grup_anggota.orang_id',$orang->id)
+                            ->orderBy('grup.name','ASC')
+                            ->get();
+        $datagrup       = Grup::orderBy('name','ASC')->get();
+        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup'));
     }
 
     /**

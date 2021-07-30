@@ -3,9 +3,6 @@
 @endsection
 <x-app-layout>
     <x-slot name="header">
-        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> --}}
         <div class="row mb-2">
             <div class="col-sm-6">
               <h1 class="m-0">Data Grup</h1>
@@ -19,14 +16,6 @@
             </div><!-- /.col -->
           </div><!-- /.row -->
     </x-slot>
-
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div> --}}
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -37,16 +26,18 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/grup')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> kembali </a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Grup </a>
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a> --}}
-                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
-                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
                 <span class="float-right">Total Anggota {{ count($anggota) }}</span>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="text-right my-2">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-                  </section> --}}
+                  <div class="row mb-2">
+                    <div class="col-md-12">
+                        <img src="{{ asset('/img/chatomz/grup/'.$grup->photo)}}" alt="" class="img-fluid">
+                        <small>{{ $grup->information }}</small> <br>
+                        <small>Tahun Dibentuk {{ $grup->created_year }}</small>
+                    </div>
+                  </div>
+                  <hr>
                     <div class="row d-flex align-items-stretch">
                         @foreach ($anggota as $item)
                             <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
@@ -67,12 +58,17 @@
                                     </div>
                                 </div>
                                 </div>
-                                <div class="card-footer p-1">
+                                <div class="card-footer p-2">
                                     <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
                                         @csrf
                                         @method('delete')
                                     </form>
-                                        <span class="text-muted text-sm text-justify"><i class="fas fa-calendar-alt"></i> {{ $item->created_at }} </span> <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right"><i class="fas fa-trash-alt"></i></button>
+                                    <span class="text-muted text-sm text-justify"><i class="fas fa-calendar-alt"></i> {{ $item->created_at }} </span>
+                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
+                                    <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                        
                                 </div>
                             </div>
                             </div>
@@ -129,11 +125,11 @@
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('keluarga.update','test')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('grupanggota.update','test')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
             <div class="modal-header">
-            <h4 class="modal-title">Edit Keluarga</h4>
+            <h4 class="modal-title">Edit Anggota</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -141,37 +137,9 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Keluarga</label>
-                        <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" required>
-                   </div>
-                   {{-- <div class="form-group row">
-                    <label for="" class="col-md-4">Kepala Keluarga</label>
-                    <select name="orang_id" id="orang_id" class="form-control col-md-8">
-                        @foreach ($kepalakeluarga as $item)
-                            <option value="{{ $item->id}}">{{ $item->first_name.' '.$item->last_name}}</option>
-                        @endforeach
-                    </select>
-                    </div> --}}
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">No KK</label>
-                        <input type="text" name="no_kk" id="no_kk" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tanggal Pernikahan</label>
-                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
-                   </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Status Keluarga</label>
-                        <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
-                            @foreach (kingdom_statuskeluarga() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="information" id="information" class="form-control col-md-8">
                    </div>
                 </section>
             </div>
@@ -190,22 +158,12 @@
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama_keluarga = button.data('nama_keluarga')
-                var no_kk = button.data('no_kk')
-                var tgl_pernikahan = button.data('tgl_pernikahan')
-                var keterangan = button.data('keterangan')
-                var status_keluarga = button.data('status_keluarga')
-                var orang_id = button.data('orang_id')
+                var information = button.data('information')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama_keluarga').val(nama_keluarga);
-                modal.find('.modal-body #no_kk').val(no_kk);
-                modal.find('.modal-body #tgl_pernikahan').val(tgl_pernikahan);
-                modal.find('.modal-body #keterangan').val(keterangan);
-                modal.find('.modal-body #status_keluarga').val(status_keluarga);
-                modal.find('.modal-body #orang_id').val(orang_id);
+                modal.find('.modal-body #information').val(information);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

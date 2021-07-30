@@ -90,17 +90,19 @@
                                                         </button>
                                                         <span class="{{ bgaddgroupicon($orang->status_group)}}">{{ count($groups) }}</span>
                                                     </a> --}}
-                                                    <a href="#" data-toggle="modal" data-target="#addreminder">
-                                                        <button type="button" class="btn btn-icon btn-round btn-success">
-                                                            <i class="far fa-calendar-alt"></i>
+                                                    <a href="#" data-toggle="modal" data-target="#grup">
+                                                        <button type="button" class="btn btn-icon btn-round btn-info">
+                                                            <i class="far fa-id-card"></i>
                                                         </button>
                                                     </a>
                                                 @endif
-                                                <a href="#" data-toggle="modal" data-target="#keluarga">
-                                                    <button type="button" class="btn btn-icon btn-round btn-secondary">
-                                                        <i class="fas fa-sitemap"></i>
-                                                    </button>
-                                                </a>
+                                                @if ($orang->marital_status == 'sudah' || count($keluarga) > 0)
+                                                    <a href="#" data-toggle="modal" data-target="#keluarga">
+                                                        <button type="button" class="btn btn-icon btn-round btn-secondary">
+                                                            <i class="fas fa-sitemap"></i>
+                                                        </button>
+                                                    </a>
+                                                @endif
                                             </p>
                                         </h3>
                                        
@@ -646,6 +648,7 @@
         </div>
         </div>
     </div>
+
     <div class="modal fade" id="tambahkeluarga">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -684,55 +687,76 @@
         </div>
         </div>
     </div>
-    <!-- /.modal -->
-
-    {{-- modal edit --}}
-    {{-- <div class="modal fade" id="ubah">
+    <div class="modal fade" id="grup">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('orang.update','test')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                @method('patch')
             <div class="modal-header">
-            <h4 class="modal-title">Edit Klasifikasi Surat</h4>
+            <h4 class="modal-title">Anggota Grup</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-body p-3">
-                <input type="hidden" name="id" id="id">
-                <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Kode</label>
-                        <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Status</label>
-                        <select name="status" id="status" class="form-control col-md-8">
-                            @foreach (list_status() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
-                   </div>
+                <section class="row p-2">
+                   @foreach ($anggotagrup as $item)
+                   <div class="col-md-4">
+                    <div class="card">
+                        <a href="{{ url('grup/'.Crypt::encryptString($item->grup_id))}}"><img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" class="card-img-top" alt="..."></a>
+                        <div class="card-body p-1 text-center">
+                          <p class="small text-capitalize">{{ $item->name}}</p>
+                          <small class="text-muted">{{ $item->information }}</small>
+                        </div>
+                      </div>
+                    </div>
+                   @endforeach
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahgrup"><i class="fas fa-save"></i> TAMBAH GRUP</button>
             </div>
-            </form>
         </div>
         </div>
-    </div> --}}
+    </div>
     <!-- /.modal -->
+    <div class="modal fade" id="tambahgrup">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('/grupanggota')}}" method="post">
+                @csrf
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+                <input type="hidden" name="sesi" value="TRUE">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambah Grup</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                    <p>ceklis bila ingin dimasukkan kedalam grup</p>
+                    @foreach ($datagrup as $item)
+                        @if (!DbChatomz::cekstatusgrup($item->id,$orang->id))
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    <input type="checkbox" name="grup_id[]" value="{{ $item->id }}"> <span class="text-uppercase">{{ $item->name }}</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="information[]" class="form-control" placeholder="masukkan informasi">
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
 
     @section('script')
         

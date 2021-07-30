@@ -57,7 +57,7 @@ class GrupController extends Controller
                         ->join('orang','grup_anggota.orang_id','=','orang.id')
                         ->select('grup_anggota.*','orang.first_name','orang.last_name','orang.gender','orang.photo','orang.death')
                         ->where('grup_anggota.grup_id',$grup->id)
-                        ->orderByDesc('grup_anggota.id')
+                        ->orderBy('orang.first_name','ASC')
                         ->get();
         $orang      = Orang::where('status_group','available')->orderBy('first_name','ASC')->get();
         return view('chatomz.kingdom.grup.show', compact('grup','anggota','orang'));
