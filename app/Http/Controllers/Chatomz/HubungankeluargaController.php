@@ -70,9 +70,14 @@ class HubungankeluargaController extends Controller
      * @param  \App\Models\Keluargahubungan  $keluargahubungan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Keluargahubungan $keluargahubungan)
+    public function update(Request $request)
     {
-        //
+        Keluargahubungan::where('id',$request->id)->update([
+            'urutan' => $request->urutan,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return redirect()->back()->with('ds','Hubungan Keluarga');
     }
 
     /**

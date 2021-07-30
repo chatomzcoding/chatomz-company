@@ -34,7 +34,9 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Keluarga </a>
+                @if (isset($pohon['istri']))
+                    <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Keluarga </a>
+                @endif
                 <a href="{{ url('/keluarga')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar keluarga</a>
               </div>
               <div class="card-body">
@@ -64,8 +66,7 @@
                                             @csrf
                                             @method('delete')
                                             </form>
-                                        {{-- <a href="{{ url('/keluargahubungan/'.Crypt::encryptString($item->id))}}" class="btn btn-primary btn-sm"><i class="fas fa-list"></i></a> --}}
-                                        <button type="button" data-toggle="modal"  data-keluarga_id="{{ $item->keluarga_id }}" data-status="{{ $item->status }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                        <button type="button" data-toggle="modal" data-urutan="{{ $item->urutan }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                         <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
@@ -213,54 +214,51 @@
           </div>
         </div>
     </div>
-    <div class="modal fade" id="tambah">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/keluarga')}}" method="post">
-                @csrf
-                <input type="hidden" name="keluarga_id" value="{{ $keluarga->id }}">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Anggota Keluarga</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    @if (isset($pohon['istri']))
+        <div class="modal fade" id="tambah">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="{{ url('/keluarga')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="keluarga_id" value="{{ $keluarga->id }}">
+                    <input type="hidden" name="status" value="anak">
+                <div class="modal-header">
+                <h4 class="modal-title">Tambah Anggota Keluarga</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body p-3">
+                    <section class="p-3">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4">Nama Anggota Keluarga</label>
+                            <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
+                                @foreach ($anggotakeluarga as $item)
+                                    @if ($item->id <> $pohon['suami']->id AND $item->id <> $pohon['istri']->idorang)
+                                    <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    <div class="form-group row">
+                            <label for="" class="col-md-4">Urutan</label>
+                            <input type="number" name="urutan" id="urutan" class="form-control col-md-8">
+                    </div>
+                    <div class="form-group row">
+                            <label for="" class="col-md-4">Keterangan</label>
+                            <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
+                    </div>
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+                </div>
+            </form>
             </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Keluarga</label>
-                        <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">No KK</label>
-                        <input type="text" name="no_kk" id="no_kk" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tanggal Pernikahan</label>
-                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Status Keluarga</label>
-                        <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
-                            @foreach (kingdom_statuskeluarga() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
-                   </div>
-                </section>
             </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
         </div>
-        </div>
-    </div>
+    @endif
     <div class="modal fade" id="tambahistri">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
@@ -270,7 +268,7 @@
                 <input type="hidden" name="status" value="istri">
                 <input type="hidden" name="urutan" value="1">
             <div class="modal-header">
-            <h4 class="modal-title">Tambah Anggota Keluarga</h4>
+            <h4 class="modal-title">Tambahkan Istri</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -301,54 +299,15 @@
         </div>
         </div>
     </div>
-    {{-- modal --}}
-    {{-- modal tambah --}}
-    {{-- <div class="modal fade" id="tambah">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/orang')}}" method="post">
-                @csrf
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Data Klasifikasi Surat</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Kode</label>
-                        <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" required>
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div> --}}
-    <!-- /.modal -->
-
     {{-- modal edit --}}
-    {{-- <div class="modal fade" id="ubah">
+    <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('orang.update','test')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('keluargahubungan.update','test')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
             <div class="modal-header">
-            <h4 class="modal-title">Edit Klasifikasi Surat</h4>
+            <h4 class="modal-title">Edit Anggota Keluarga</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -357,24 +316,12 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Kode</label>
-                        <input type="text" name="kode" id="kode" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama</label>
-                        <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
+                        <label for="" class="col-md-4">Urutan</label>
+                        <input type="number" name="urutan" id="urutan" class="form-control col-md-8">
                    </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Status</label>
-                        <select name="status" id="status" class="form-control col-md-8">
-                            @foreach (list_status() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
                    </div>
                 </section>
             </div>
@@ -385,29 +332,25 @@
             </form>
         </div>
         </div>
-    </div> --}}
+    </div>
     <!-- /.modal -->
 
     @section('script')
         
-        {{-- <script>
+        <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama = button.data('nama')
-                var kode = button.data('kode')
+                var urutan = button.data('urutan')
                 var keterangan = button.data('keterangan')
-                var status = button.data('status')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama').val(nama);
-                modal.find('.modal-body #kode').val(kode);
+                modal.find('.modal-body #urutan').val(urutan);
                 modal.find('.modal-body #keterangan').val(keterangan);
-                modal.find('.modal-body #status').val(status);
                 modal.find('.modal-body #id').val(id);
             })
-        </script> --}}
+        </script>
         <script>
             $(function () {
             $("#example1").DataTable({

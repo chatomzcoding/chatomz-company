@@ -537,26 +537,17 @@
                         </section>
                         @endif
                     @endif
-                    @foreach ($keluarga as $item)
-                    @if ($item->status == 'anak')
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body p-2">
-                                    <small class="text-capitalize">{{ fullname($item)}}
-                                        <br>
-                                    <i>{{ $item->status .' - '. $item->urutan }}</i> | {{ $item->nama_keluarga }}</small> <br>
-                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="btn btn-outline-success btn-sm">Lihat Keluarga</a>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
+
+                    @if (count($keluarga) == 0)
+                        @if ($orang->gender == 'perempuan' AND $orang->marital_status == 'sudah')
+                            <section class="col-md-12 text-center">
+                                <small class="font-italic">Memenuhi syarat menjadi seorang istri</small> <br>
+                                <a href="#" data-toggle="modal" data-target="#tambahkeluarga" class="btn btn-primary btn-sm">Tambahkan keluarga</a>
+                            </section>
+                        @endif
                     @endif
+                  
+                    @foreach ($keluarga as $item)
                     @if ($item->status == 'istri')
                         <div class="col-md-6">
                             <div class="card bg-success">
@@ -576,6 +567,26 @@
                             </div>
                         </div>
                     @endif
+                    @if ($item->status == 'anak')
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-2">
+                                    <small class="text-capitalize">{{ fullname($item)}}
+                                        <br>
+                                    <i>{{ $item->status .' - '. $item->urutan }}</i> | {{ $item->nama_keluarga }}</small> <br>
+                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="btn btn-outline-success btn-sm">Lihat Keluarga</a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    
                 @endforeach
                 </section>
             </div>
@@ -624,6 +635,44 @@
                                 <option value="{{ $item}}">{{ $item}}</option>
                             @endforeach
                         </select>
+                   </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="tambahkeluarga">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('/keluargahubungan')}}" method="post">
+                @csrf
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+                <input type="hidden" name="status" value="istri">
+                <input type="hidden" name="urutan" value="1">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambah Keluarga</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                    <div class="form-group row">
+                         <label for="" class="col-md-4">Daftar Keluarga</label>
+                         <select name="keluarga_id" id="keluarga_id" class="form-control col-md-8">
+                             @foreach ($daftarkeluarga as $item)
+                                 <option value="{{ $item->id}}">{{ $item->nama_keluarga}}</option>
+                             @endforeach
+                         </select>
+                    </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
                    </div>
                 </section>
             </div>

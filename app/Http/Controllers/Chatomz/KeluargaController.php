@@ -63,14 +63,16 @@ class KeluargaController extends Controller
                                 ->orderBy('keluarga_hubungan.urutan','ASC')
                                 ->get();
         // data pohon keluarga
-        $daftaristri        = Orang::where('gender','perempuan')->where('marital_status','sudah')->get();
+        $daftaristri        = Orang::where('gender','perempuan')->where('marital_status','sudah')->orderBy('orang.first_name','ASC')->get();
         $suami              = Orang::find($keluarga->orang_id);
         $istri              = DB::table('keluarga_hubungan')
         ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
         ->select('keluarga_hubungan.*','orang.first_name','orang.last_name','orang.photo','orang.death','orang.id as idorang')
         ->where('keluarga_hubungan.keluarga_id',$keluarga->id)
         ->where('keluarga_hubungan.status','istri')
+        ->orderBy('orang.first_name','ASC')
         ->first();
+        $anggotakeluarga    = Orang::select('id','first_name','last_name')->orderBy('first_name','ASC')->get();
         $ortusuami          = Keluargahubungan::where('orang_id',$suami->id)->where('status','anak')->first();
         // jika istri ada
         if ($istri) {
@@ -84,7 +86,7 @@ class KeluargaController extends Controller
             'ortusuami' => $ortusuami,
             'ortuistri' => $ortuistri
         ];
-        return view('chatomz.kingdom.keluarga.show', compact('keluarga','keluargahubungan','pohon','daftaristri'));
+        return view('chatomz.kingdom.keluarga.show', compact('keluarga','keluargahubungan','pohon','daftaristri','anggotakeluarga'));
     }
 
     /**

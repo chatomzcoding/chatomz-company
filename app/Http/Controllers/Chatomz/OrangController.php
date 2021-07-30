@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Chatomz;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
+use App\Models\Keluargahubungan;
 use App\Models\Orang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -184,9 +185,17 @@ class OrangController extends Controller
         ->where('keluarga_hubungan.orang_id',$orang->id)
         ->orderBy('keluarga_hubungan.urutan','ASC')
         ->get();
-        $suami      = Keluarga::where('orang_id',$orang->id)->get();
-
-        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami'));
+        $suami          = Keluarga::where('orang_id',$orang->id)->get();
+        $dkeluarga      = Keluarga::all();
+        $daftarkeluarga = [];
+        foreach ($dkeluarga as $item) {
+            // cek jika belum ada istri
+            $keluargahubungan = Keluargahubungan::where('keluarga_id',$item->id)->where('status','istri')->first();
+            if (!$keluargahubungan) {
+                $daftarkeluarga[] = $item;
+            }
+        }
+        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga'));
     }
 
     /**
