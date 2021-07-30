@@ -96,7 +96,7 @@
                                                         </button>
                                                     </a>
                                                 @endif
-                                                <a href="#" data-toggle="modal" data-target="#addfamily">
+                                                <a href="#" data-toggle="modal" data-target="#keluarga">
                                                     <button type="button" class="btn btn-icon btn-round btn-secondary">
                                                         <i class="fas fa-sitemap"></i>
                                                     </button>
@@ -493,6 +493,87 @@
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
             </div>
         </form>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="keluarga">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+            <h4 class="modal-title">Riwayat Keluarga</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="row p-3">
+                    @if (count($suami) > 0)
+                        @foreach ($suami as $item)
+                        <div class="col-md-6">
+                            <div class="card bg-info">
+                                <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-2">
+                                    <small class="text-capitalize">{{ fullname($orang)}}
+                                        <br>
+                                    <i>Kepala Keluarga</i> | {{ $item->nama_keluarga }}</small> <br>
+                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id)) }}" class="btn btn-outline-light btn-sm">Lihat Keluarga</a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    @endif
+                    @foreach ($keluarga as $item)
+                    @if ($item->status == 'anak')
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-2">
+                                    <small class="text-capitalize">{{ fullname($item)}}
+                                        <br>
+                                    <i>{{ $item->status .' - '. $item->urutan }}</i> | {{ $item->nama_keluarga }}</small> <br>
+                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="btn btn-outline-success btn-sm">Lihat Keluarga</a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @if ($item->status == 'istri')
+                        <div class="col-md-6">
+                            <div class="card bg-success">
+                                <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-2">
+                                    <small class="text-capitalize">{{ fullname($item)}}
+                                        <br>
+                                    <i>{{ $item->status }}</i> | {{ $item->nama_keluarga }}</small> <br>
+                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="btn btn-outline-light btn-sm">Lihat Keluarga</a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+                </section>
+            </div>
+            <div class="modal-footer text-right">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            {{-- <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button> --}}
+            </div>
         </div>
         </div>
     </div>

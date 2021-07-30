@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Chatomz;
 
 use App\Http\Controllers\Controller;
+use App\Models\Keluarga;
 use App\Models\Orang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Swift;
 
 class OrangController extends Controller
@@ -164,7 +166,17 @@ class OrangController extends Controller
         $tombol['back'] = Orang::where("id",'<',$orang->id)->orderBy('id','DESC')->first();
         $kontak         = Orang::find($orang->id)->kontak;
         $pendidikan     = Orang::find($orang->id)->pendidikan;
-        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan'));
+        // riwayat keluarga
+        $keluarga   = DB::table('keluarga_hubungan')
+        ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
+        ->join('keluarga','keluarga_hubungan.keluarga_id','=','keluarga.id')
+        ->select('keluarga_hubungan.*','orang.first_name','orang.last_name','orang.photo','orang.death','orang.gender','keluarga.nama_keluarga')
+        ->where('keluarga_hubungan.orang_id',$orang->id)
+        ->orderBy('keluarga_hubungan.urutan','ASC')
+        ->get();
+        $suami      = Keluarga::where('orang_id',$orang->id)->get();
+
+        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami'));
     }
 
     /**
