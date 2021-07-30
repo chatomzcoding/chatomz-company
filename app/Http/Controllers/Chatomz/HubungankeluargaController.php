@@ -36,7 +36,9 @@ class HubungankeluargaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Keluargahubungan::create($request->all());
+
+        return redirect()->back()->with('ds','Hubungan Keluarga');
     }
 
     /**

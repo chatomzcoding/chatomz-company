@@ -527,6 +527,15 @@
                             </div>
                         </div>
                         @endforeach
+                    @else
+                        {{-- jika laki laki dan sudah kawin maka munculkan tambahkan keluarga --}}
+                        @if ($orang->gender == 'laki-laki' AND $orang->marital_status == 'sudah')
+                        <section class="col-md-12 text-center">
+                            <small class="font-italic">Memenuhi syarat menjadi kepala keluarga</small> <br>
+                            {{-- <a href="{{ url('/keluarga/create') }}" class="btn btn-primary btn-sm">Tambahkan keluarga baru</a> --}}
+                            <a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-primary btn-sm">Tambahkan keluarga baru</a>
+                        </section>
+                        @endif
                     @endif
                     @foreach ($keluarga as $item)
                     @if ($item->status == 'anak')
@@ -574,6 +583,55 @@
             <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
             {{-- <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button> --}}
             </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tambah">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('/keluarga')}}" method="post">
+                @csrf
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambah Keluarga</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Keluarga</label>
+                        <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" required>
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">No KK</label>
+                        <input type="text" name="no_kk" id="no_kk" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Tanggal Pernikahan</label>
+                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Status Keluarga</label>
+                        <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
+                            @foreach (kingdom_statuskeluarga() as $item)
+                                <option value="{{ $item}}">{{ $item}}</option>
+                            @endforeach
+                        </select>
+                   </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+        </form>
         </div>
         </div>
     </div>

@@ -45,7 +45,7 @@
                         <form action="{{  url('/proses/lihat/orangpoto') }}" method="post">
                             @csrf
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="" class="small">Jenis Kelamin</label>
                                         <select name="kelamin" id="" class="form-control" onchange="this.form.submit()">
@@ -64,7 +64,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="" class="small">Status Perkawinan</label>
                                         <select name="perkawinan" id="" class="form-control" onchange="this.form.submit()">
@@ -104,6 +104,22 @@
                                               selected
                                           @endif>{{ $i }} Tahun</option>
                                           @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="" class="small">Status Kematian</label>
+                                        <select name="kematian" id="" class="form-control" onchange="this.form.submit()">
+                                            <option value="semua" @if ($sesi['kematian'] == 'semua')
+                                                selected
+                                            @endif >Semua</option>
+                                            <option value="" @if ($sesi['kematian'] == NULL)
+                                                selected
+                                            @endif>Masih Hidup</option>
+                                            <option value="alm" @if ($sesi['kematian'] == 'alm')
+                                                selected
+                                            @endif>Meninggal</option>
                                         </select>
                                     </div>
                                 </div>

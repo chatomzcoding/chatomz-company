@@ -28,6 +28,12 @@ class DbChatomz {
         }
         return $idkeluarga;
     }
+
+    public static function cekstatusistri($id)
+    {
+        $istri  = Keluargahubungan::where('orang_id',$id)->where('status','istri')->first();
+        return $istri;
+    }
     public static function countGroupId($id) {
         $jumlah = DB::table('members')->where('group_id', $id)->count();
         return $jumlah;

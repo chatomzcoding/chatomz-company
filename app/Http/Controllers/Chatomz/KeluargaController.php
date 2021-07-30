@@ -63,6 +63,7 @@ class KeluargaController extends Controller
                                 ->orderBy('keluarga_hubungan.urutan','ASC')
                                 ->get();
         // data pohon keluarga
+        $daftaristri        = Orang::where('gender','perempuan')->where('marital_status','sudah')->get();
         $suami              = Orang::find($keluarga->orang_id);
         $istri              = DB::table('keluarga_hubungan')
         ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
@@ -83,7 +84,7 @@ class KeluargaController extends Controller
             'ortusuami' => $ortusuami,
             'ortuistri' => $ortuistri
         ];
-        return view('chatomz.kingdom.keluarga.show', compact('keluarga','keluargahubungan','pohon'));
+        return view('chatomz.kingdom.keluarga.show', compact('keluarga','keluargahubungan','pohon','daftaristri'));
     }
 
     /**

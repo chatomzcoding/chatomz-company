@@ -117,9 +117,9 @@
                             <div class="form-group row">
                                 <label for="inlineinput" class="col-md-4 col-form-label">Status Perkawinan</label>
                                     <select name="marital_status" id="" class="form-control col-md-8">
-                                        <option value="single" >Belum Kawin</option>
-                                        <option value="married">Sudah Kawin</option>
-                                        <option value="ever been married">Pernah Kawin</option>
+                                        <option value="belum" >Belum Kawin</option>
+                                        <option value="sudah">Sudah Kawin</option>
+                                        <option value="pernah">Pernah Kawin</option>
                                     </select>
                             </div>
                             <div class="form-group row">

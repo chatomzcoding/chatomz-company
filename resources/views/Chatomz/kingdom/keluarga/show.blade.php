@@ -39,23 +39,6 @@
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <section class="text-right my-2">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-                  </section> --}}
-                  {{-- <section class="mb-3">
-                      <form action="" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
-                                    <option value="">-- Semua --</option>
-                                    @foreach (list_status() as $item)
-                                        <option value="{{ $item}}">{{ $item}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                  </section> --}}
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -162,7 +145,8 @@
                                 <div class="col-md-8">
                                     <div class="card-body p-2">
                                     <small class="text-capitalize">Belum ada Data
-                                    </small>
+                                    </small><br>
+                                    <a href="#" data-target="#tambahistri" data-toggle="modal" class="btn btn-outline-light btn-sm">Tambahkan Istri</a>
                                     </div>
                                 </div>
                                 </div>
@@ -227,6 +211,94 @@
               </div>
             </div>
           </div>
+        </div>
+    </div>
+    <div class="modal fade" id="tambah">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('/keluarga')}}" method="post">
+                @csrf
+                <input type="hidden" name="keluarga_id" value="{{ $keluarga->id }}">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambah Anggota Keluarga</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Keluarga</label>
+                        <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" required>
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">No KK</label>
+                        <input type="text" name="no_kk" id="no_kk" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Tanggal Pernikahan</label>
+                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Status Keluarga</label>
+                        <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
+                            @foreach (kingdom_statuskeluarga() as $item)
+                                <option value="{{ $item}}">{{ $item}}</option>
+                            @endforeach
+                        </select>
+                   </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+        </form>
+        </div>
+        </div>
+    </div>
+    <div class="modal fade" id="tambahistri">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ url('/keluargahubungan')}}" method="post">
+                @csrf
+                <input type="hidden" name="keluarga_id" value="{{ $keluarga->id }}">
+                <input type="hidden" name="status" value="istri">
+                <input type="hidden" name="urutan" value="1">
+            <div class="modal-header">
+            <h4 class="modal-title">Tambah Anggota Keluarga</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <section class="p-3">
+                    <div class="form-group row">
+                         <label for="" class="col-md-4">Status Keluarga</label>
+                         <select name="orang_id" id="orang_id" class="form-control col-md-8">
+                             @foreach ($daftaristri as $item)
+                                @if (!DbChatomz::cekstatusistri($item->id))
+                                    <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                                @endif
+                             @endforeach
+                         </select>
+                    </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
+                   </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+            </div>
+        </form>
+        </div>
         </div>
     </div>
     {{-- modal --}}

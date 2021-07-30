@@ -25,42 +25,51 @@ class OrangController extends Controller
 
     public function orangpoto($sesi)
     {
-        $datasemua  = Orang::select('id','date_birth','first_name','last_name','gender','photo')->orderBy('first_name','ASC')->get();
+        $datasemua  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->orderBy('first_name','ASC')->get();
         if ($sesi == 'semua') {
             $kelamin        = 'semua';
             $perkawinan     = 'semua';
+            $kematian       = 'semua';
             $usia1           = 0;
             $usia2           = 100;
             $orang  = $datasemua;
         } else {
             // pecahkan data parameter
             $sesi   = explode('_',$sesi);
+
             // cek kelamin
             if ($sesi[0] == 'semua' AND $sesi[1] == 'semua') {
                 $orang = $datasemua;
             } else {
                 // cek jika kelamin semua dan perkawinan bukan semua
                 if ($sesi[0] == 'semua') {
-                    $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo')->where('marital_status',$sesi[1])->orderBy('first_name','ASC')->get();
+                    $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('marital_status',$sesi[1])->orderBy('first_name','ASC')->get();
                 } else {
                     if ($sesi[1] == 'semua') {
-                        $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo')->where('gender',$sesi[0])->orderBy('first_name','ASC')->get();
+                        $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('gender',$sesi[0])->orderBy('first_name','ASC')->get();
                     } else {
-                        $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo')->where('gender',$sesi[0])->where('marital_status',$sesi[1])->orderBy('first_name','ASC')->get();
+                        $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('gender',$sesi[0])->where('marital_status',$sesi[1])->orderBy('first_name','ASC')->get();
                     }
-                    
                 }
-                
             }
             // cek usia
             $data   = [];
             foreach ($orang as $item) {
                 $usia = kingdom_umur($item->date_birth);
-                if ($usia >= $sesi[2] AND $usia <= $sesi[3] ) {
-                    $data[] = $item;
+                // cek kematian
+                if ($sesi[4] == 'semua') {
+                    if ($usia >= $sesi[2] AND $usia <= $sesi[3] ) {
+                        $data[] = $item;
+                    }
+                } else {
+                    if ($item->death == $sesi[4]) {
+                        if ($usia >= $sesi[2] AND $usia <= $sesi[3] ) {
+                            $data[] = $item;
+                        }
+                    }                    
                 }
             }
-
+            $kematian   = $sesi[4];
             $orang      = $data;
             $kelamin    = $sesi[0];
             $perkawinan = $sesi[1];
@@ -72,7 +81,8 @@ class OrangController extends Controller
             'kelamin' => $kelamin,
             'perkawinan' => $perkawinan,
             'usia1' => $usia1,
-            'usia2' => $usia2
+            'usia2' => $usia2,
+            'kematian' => $kematian
         ];
         
         return view('chatomz.kingdom.orang.lihatpoto', compact('orang','sesi'));
@@ -80,7 +90,7 @@ class OrangController extends Controller
 
     public function prosesorangpoto(Request $request)
     {
-        return redirect('/lihat/orangpoto/'.$request->kelamin.'_'.$request->perkawinan.'_'.$request->usia1.'_'.$request->usia2);
+        return redirect('/lihat/orangpoto/'.$request->kelamin.'_'.$request->perkawinan.'_'.$request->usia1.'_'.$request->usia2.'_'.$request->kematian);
     }
 
     /**
