@@ -69,6 +69,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url('/orang/create') }}" target="_blank" class="nav-link">Tambah Orang</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ url('/lihat/orangpoto/semua') }}" class="nav-link">Filter Orang</a>
+      </li>
       {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('member') }}" class="nav-link">Kontak</a>
       </li> --}}

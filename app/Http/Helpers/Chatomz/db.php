@@ -34,6 +34,11 @@ class DbChatomz {
         $istri  = Keluargahubungan::where('orang_id',$id)->where('status','istri')->first();
         return $istri;
     }
+    public static function cekstatussuami($id)
+    {
+        $suami  = Keluarga::where('orang_id',$id)->first();
+        return $suami;
+    }
     public static function countGroupId($id) {
         $jumlah = DB::table('members')->where('group_id', $id)->count();
         return $jumlah;

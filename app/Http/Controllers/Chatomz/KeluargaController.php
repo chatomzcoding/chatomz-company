@@ -20,7 +20,7 @@ class KeluargaController extends Controller
     public function index()
     {
         $keluarga       = Keluarga::orderBy('nama_keluarga','ASC')->get();
-        $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->get();
+        $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->orderBy('first_name','ASC')->get();
         return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
     }
 

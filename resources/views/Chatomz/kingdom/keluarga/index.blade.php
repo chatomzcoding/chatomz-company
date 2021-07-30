@@ -123,7 +123,9 @@
                     <label for="" class="col-md-4">Kepala Keluarga</label>
                     <select name="orang_id" id="orang_id" class="form-control col-md-8">
                         @foreach ($kepalakeluarga as $item)
-                            <option value="{{ $item->id}}">{{ $item->first_name.' '.$item->last_name}}</option>
+                            @if (!DbChatomz::cekstatussuami($item->id))
+                                <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                            @endif
                         @endforeach
                     </select>
                     </div>
