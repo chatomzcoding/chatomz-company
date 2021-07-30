@@ -36,8 +36,6 @@
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Grup </a>
                 {{-- <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Orang Baru </a> --}}
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a> --}}
-                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
                 {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
               </div>
               <div class="card-body">
@@ -58,11 +56,11 @@
                                     <img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" alt="user-avatar" class="img-fluid img-rounded">
                                     </div>
                                     <div class="col-md-12">
-                                    <h2 class="lead"><b>{{ $item->created_year}}</b></h2>
+                                    <p class="small"><b>{{ DbChatomz::countData('grup_anggota',['grup_id',$item->id])}} Anggota | {{ $item->created_year}}</b></p>
                                     <p class="text-muted text-sm text-justify">{{ $item->information}} </p>
                                     <ul class="ml-4 mb-0 fa-ul text-muted">
-                                        <li class="small"><span class="fa-li"><i class="fas fa-user"></i></span> {{ DbChatomz::countData('grup_anggota',['grup_id',$item->id])}} Anggota</li>
-                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>
+                                        <li class="small"><span class="fa-li"></li>
+                                        {{-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> --}}
                                     </ul>
                                     </div>
                                 </div>
@@ -72,8 +70,8 @@
                                     {{-- <a href="#" class="btn btn-sm bg-teal">
                                     <i class="fas fa-comments"></i>
                                     </a> --}}
-                                    <a href="{{ url('/grup/'.Crypt::encryptString($item->id))}}" class="btn btn-sm btn-primary">
-                                    <i class="fas fa-user"></i> Detail
+                                    <a href="{{ url('/grup/'.Crypt::encryptString($item->id))}}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-list"></i> Detail
                                     </a>
                                 </div>
                                 </div>

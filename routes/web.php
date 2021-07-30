@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
         Route::resource('kontak', 'App\Http\Controllers\Chatomz\KontakController');
         Route::resource('grup', 'App\Http\Controllers\Chatomz\GrupController');
+        Route::resource('grupanggota', 'App\Http\Controllers\Chatomz\GrupanggotaController');
         Route::resource('pendidikan', 'App\Http\Controllers\Chatomz\PendidikanController');
         Route::resource('keluarga', 'App\Http\Controllers\Chatomz\KeluargaController');
         Route::resource('keluargahubungan', 'App\Http\Controllers\Chatomz\HubungankeluargaController');

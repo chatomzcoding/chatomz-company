@@ -36,7 +36,9 @@ class GrupanggotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Grupanggota::create($request->all());
+
+        return redirect()->back()->with('ds','Anggota Grup');
     }
 
     /**
@@ -79,8 +81,10 @@ class GrupanggotaController extends Controller
      * @param  \App\Models\Grupanggota  $grupanggota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Grupanggota $grupanggota)
+    public function destroy($grupanggota)
     {
-        //
+        Grupanggota::find($grupanggota)->delete();
+
+        return redirect()->back()->with('dd','Anggota');
     }
 }

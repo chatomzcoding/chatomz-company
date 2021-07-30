@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Helpers\Chatomz;
 
+use App\Models\Grupanggota;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
 use App\Models\Produkdiskon;
@@ -38,6 +39,11 @@ class DbChatomz {
     {
         $suami  = Keluarga::where('orang_id',$id)->first();
         return $suami;
+    }
+    public static function cekstatusgrup($grup,$id)
+    {
+        $grup  = Grupanggota::where('grup_id',$grup)->where('orang_id',$id)->first();
+        return $grup;
     }
     public static function countGroupId($id) {
         $jumlah = DB::table('members')->where('group_id', $id)->count();
