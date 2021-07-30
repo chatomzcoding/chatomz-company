@@ -99,7 +99,7 @@
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{ asset('/img/user/'.$user->profile_photo_path)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="{{ asset('/img/user/'.$user->photo)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   Brad Diesel
@@ -159,7 +159,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('/img/user/'.$user->profile_photo_path)}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset('/img/user/'.$user->photo)}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block text-capitalize">{{ $user->name}}</a>
@@ -239,12 +239,12 @@
               </li>
             </ul>
           </li>
-          {{-- <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-cogs"></i>
-              <p class="text">Pengaturan</p>
+          <li class="nav-item">
+            <a href="{{ url('/user/'.Crypt::encryptString(Auth::user()->id).'/edit')}}" class="nav-link">
+              <i class="nav-icon fas fa-users-cog"></i>
+              <p class="text">Pengaturan Akun</p>
             </a>
-          </li> --}}
+          </li>
           <li class="nav-item">
               <form method="POST" action="{{ route('logout') }}">
                @csrf

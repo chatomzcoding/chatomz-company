@@ -70,6 +70,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     });
     
     Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
+    Route::resource('user', 'App\Http\Controllers\UserController');
     
     
     // Market
