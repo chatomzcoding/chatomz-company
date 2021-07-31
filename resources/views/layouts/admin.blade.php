@@ -67,10 +67,13 @@
         <a href="{{ url('/') }}" target="_blank" class="nav-link">Halaman Depan</a>
       </li> --}}
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{ url('/orang/create') }}" target="_blank" class="nav-link">Tambah Orang</a>
+        <a href="{{ url('/orang/create') }}" class="nav-link">Tambah Orang</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ url('/lihat/orangpoto/semua') }}" class="nav-link">Filter Orang</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ url('/lihat/grup/pilih') }}" class="nav-link">Filter Grup</a>
       </li>
       {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="{{ route('member') }}" class="nav-link">Kontak</a>

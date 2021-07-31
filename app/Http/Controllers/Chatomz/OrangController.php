@@ -200,6 +200,7 @@ class OrangController extends Controller
         // grup
         $anggotagrup    = DB::table('grup_anggota')
                             ->join('grup','grup_anggota.grup_id','=','grup.id')
+                            ->select('grup_anggota.*','grup.name','grup.photo')
                             ->where('grup_anggota.orang_id',$orang->id)
                             ->orderBy('grup.name','ASC')
                             ->get();

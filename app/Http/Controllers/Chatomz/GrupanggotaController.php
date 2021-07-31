@@ -37,13 +37,20 @@ class GrupanggotaController extends Controller
     public function store(Request $request)
     {
         if (isset($request->sesi)) {
-            for ($i=0; $i < count($request->grup_id); $i++) {
-                $grup          = $request->grup_id;
-                $information    = $request->information;
+            $grup          = $request->grup_id;
+            $information    = $request->information;
+            // hapus array null
+            $info   = [];
+            foreach ($information as $key) {
+                if (!is_null($key)) {
+                    $info[] = $key;
+                }
+            }
+            for ($i=0; $i < count($grup); $i++) {
                 Grupanggota::create([
                     'orang_id' => $request->orang_id,
                     'grup_id' => $grup[$i],
-                    'information' => $information[$i],
+                    'information' => $info[$i],
                 ]);
             }
         } else {

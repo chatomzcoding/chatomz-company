@@ -38,47 +38,66 @@
                     <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Keluarga </a>
                 @endif
                 <a href="{{ url('/keluarga')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar keluarga</a>
+                <a href="#" data-toggle="modal" data-target="#editkeluarga" class="btn btn-outline-success btn-flat btn-sm"><i class="fas fa-pen"></i> Edit Keluarga</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead class="text-center">
-                            <tr>
-                                <th width="5%">No</th>
-                                <th>Hubungan Keluarga</th>
-                                <th>Nama Anggota</th>
-                                <th>Urutan</th>
-                                <th>Keterangan</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-capitalize">
-                            @forelse ($keluargahubungan as $item)
-                            <tr>
-                                    <td class="text-center">{{ $loop->iteration}}</td>
-                                    <td>{{ $item->status}}</td>
-                                    <td><a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}">{{ $item->first_name.' '.$item->last_name}}</a> </td>
-                                    <td class="text-center">{{ $item->urutan}}</td>
-                                    <td>{{ $item->keterangan}}</td>
-                                    <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/keluargahubungan',$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            </form>
-                                        <button type="button" data-toggle="modal" data-urutan="{{ $item->urutan }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr class="text-center">
-                                    <td colspan="6">tidak ada data</td>
-                                </tr>
-                            @endforelse
-                    </table>
-                </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                        @if (!is_null($keluarga->no_kk))
+                            <strong>No. Kartu Keluarga</strong><br>
+                            <small>{{ $keluarga->no_kk }}</small>
+                        @endif
+                        @if (!is_null($keluarga->tgl_pernikahan))
+                            <strong>Tanggal Pernikahan</strong><br>
+                            &nbsp;&nbsp;&nbsp;<small>{{ date_indo($keluarga->tgl_pernikahan) }}</small><br>
+                        @endif
+                        @if (!is_null($keluarga->keterangan))
+                            <strong>Keterangan</strong><br>
+                            &nbsp;&nbsp;&nbsp;<small>"{{ $keluarga->keterangan }}"</small>
+                        @endif
+                    </div>
+                    <div class="col-md-8 border p-1">
+                        <div class="table-responsive">
+                          <table id="example1" class="table table-bordered table-striped">
+                              <thead class="text-center">
+                                  <tr>
+                                      <th width="5%">No</th>
+                                      <th>Hubungan Keluarga</th>
+                                      <th>Nama Anggota</th>
+                                      <th>Urutan</th>
+                                      <th>Keterangan</th>
+                                      <th>Aksi</th>
+                                  </tr>
+                              </thead>
+                              <tbody class="text-capitalize">
+                                  @forelse ($keluargahubungan as $item)
+                                  <tr>
+                                          <td class="text-center">{{ $loop->iteration}}</td>
+                                          <td>{{ $item->status}}</td>
+                                          <td><a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}">{{ $item->first_name.' '.$item->last_name}}</a> </td>
+                                          <td class="text-center">{{ $item->urutan}}</td>
+                                          <td>{{ $item->keterangan}}</td>
+                                          <td class="text-center">
+                                              <form id="data-{{ $item->id }}" action="{{url('/keluargahubungan',$item->id)}}" method="post">
+                                                  @csrf
+                                                  @method('delete')
+                                                  </form>
+                                              <button type="button" data-toggle="modal" data-urutan="{{ $item->urutan }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                                  <i class="fa fa-edit"></i>
+                                              </button>
+                                              <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                          </td>
+                                      </tr>
+                                  @empty
+                                      <tr class="text-center">
+                                          <td colspan="6">tidak ada data</td>
+                                      </tr>
+                                  @endforelse
+                          </table>
+                      </div>
+                    </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -322,6 +341,59 @@
                    <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
                         <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
+                   </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    {{-- modal edit --}}
+    <div class="modal fade" id="editkeluarga">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ route('keluarga.update','test')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('patch')
+            <div class="modal-header">
+            <h4 class="modal-title">Edit Keluarga</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <input type="hidden" name="id" value="{{  $keluarga->id }}">
+                <input type="hidden" name="orang_id" value="{{ $keluarga->orang_id }}">
+                <section class="p-3">
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Keluarga</label>
+                        <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" value="{{ $keluarga->nama_keluarga }}" required>
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">No KK</label>
+                        <input type="text" name="no_kk" id="no_kk" value="{{ $keluarga->no_kk }}" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Tanggal Pernikahan</label>
+                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan</label>
+                        <input type="text" name="keterangan" id="keterangan" value="{{ $keluarga->keterangan }}" class="form-control col-md-8">
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Status Keluarga</label>
+                        <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
+                            @foreach (kingdom_statuskeluarga() as $item)
+                                <option value="{{ $item}}" @if ($item == $keluarga->status_keluarga)
+                                    selected
+                                @endif>{{ $item}}</option>
+                            @endforeach
+                        </select>
                    </div>
                 </section>
             </div>

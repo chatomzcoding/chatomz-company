@@ -706,6 +706,16 @@
                           <p class="small text-capitalize">{{ $item->name}}</p>
                           <small class="text-muted">{{ $item->information }}</small>
                         </div>
+                        <div class="card-footer">
+                            <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
+                                @csrf
+                                @method('delete')
+                            </form>
+                            <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
+                            <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </div>
                       </div>
                     </div>
                    @endforeach
@@ -758,26 +768,52 @@
         </div>
     </div>
 
+        {{-- modal edit --}}
+        <div class="modal fade" id="ubah">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <form action="{{ route('grupanggota.update','test')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    @method('patch')
+                <div class="modal-header">
+                <h4 class="modal-title">Edit Anggota</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body p-3">
+                    <input type="hidden" name="id" id="id">
+                    <section class="p-3">
+                       <div class="form-group row">
+                            <label for="" class="col-md-4">Keterangan</label>
+                            <input type="text" name="information" id="information" class="form-control col-md-8">
+                       </div>
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        <!-- /.modal -->
+
     @section('script')
         
-        {{-- <script>
+        <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama = button.data('nama')
-                var kode = button.data('kode')
-                var keterangan = button.data('keterangan')
-                var status = button.data('status')
+                var information = button.data('information')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama').val(nama);
-                modal.find('.modal-body #kode').val(kode);
-                modal.find('.modal-body #keterangan').val(keterangan);
-                modal.find('.modal-body #status').val(status);
+                modal.find('.modal-body #information').val(information);
                 modal.find('.modal-body #id').val(id);
             })
-        </script> --}}
+        </script>
         <script>
             $(function () {
             $("#example1").DataTable({
