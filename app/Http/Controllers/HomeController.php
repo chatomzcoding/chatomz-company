@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orang;
 use App\Models\Pemesanan;
 use App\Models\Produk;
 use App\Models\Toko;
@@ -51,5 +52,16 @@ class HomeController extends Controller
                 return view('dashboard');
                 break;
         }
+    }
+
+    public function statistik()
+    {
+        // data orang yang baru ditambahkan ditampilkan 8 data
+        $orangbaru      = Orang::limit(8)->orderByDesc('id')->get();
+        $data = [
+            'orangbaru' => $orangbaru
+        ];
+
+        return view('sistem.statistik', compact('data'));
     }
 }
