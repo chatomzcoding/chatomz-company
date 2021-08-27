@@ -14,22 +14,9 @@ use App\Http\Livewire\Example;
 */
 
 // HOMEPAGE
-Route::get('/','App\Http\Controllers\Homepage\LandingController@index');
-Route::get('/view/{file}','App\Http\Controllers\Homepage\LandingController@view');
-Route::get('/h/blog','App\Http\Controllers\Homepage\LandingController@blog');
-Route::get('/h/blog/{id}','App\Http\Controllers\Homepage\LandingController@blogdetail');
-Route::get('/h/blog/kategori/{slug}','App\Http\Controllers\Homepage\LandingController@blogkategori');
-Route::get('/h/produk/{slug}','App\Http\Controllers\Homepage\ProdukController@detail');
-Route::post('/h/produk/cari','App\Http\Controllers\Homepage\ProdukController@cariproduk');
-Route::get('/h/produk/pencarian/{cari}','App\Http\Controllers\Homepage\ProdukController@hasilpencarian');
-Route::get('/h/kategoriproduk/{slug}','App\Http\Controllers\Homepage\ProdukController@kategori');
-Route::post('/h/kirimpesanan','App\Http\Controllers\Homepage\ProdukController@kirimpesanan');
-Route::get('/h/toko/{slug}','App\Http\Controllers\Homepage\TokoController@show');
-// proses daftar akun
-Route::get('/daftarsekarang','App\Http\Controllers\Homepage\LandingController@daftar');
-Route::post('/simpandaftar','App\Http\Controllers\Homepage\LandingController@simpandaftar');
-
-
+Route::get('/', function(){
+    return redirect('login');
+});
 
 /*
 -------------------------------------------------------------------------------------------------
