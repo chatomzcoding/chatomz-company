@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grup;
+use App\Models\Keluarga;
 use App\Models\Orang;
 use App\Models\Pemesanan;
+use App\Models\Pendidikan;
 use App\Models\Produk;
 use App\Models\Toko;
 use App\Models\Visitor;
@@ -19,33 +22,17 @@ class HomeController extends Controller
         switch ($user->level) {
 
             case 'admin':
-                $totalproduk    = Produk::count();
-                $totaltoko      = Toko::count();
-                $totalhits      = Visitor::sum('hits');
-                $totalpemesanan = Pemesanan::count();
+                $orang    = Orang::count();
+                $grup      = Grup::count();
+                $keluarga      = Keluarga::count();
+                $pendidikan = Pendidikan::count();
                 $total      = [
-                    'produk' => $totalproduk,
-                    'toko' => $totaltoko,
-                    'hits' => $totalhits,
-                    'pemesanan' => $totalpemesanan,
+                    'orang' => $orang,
+                    'grup' => $grup,
+                    'keluarga' => $keluarga,
+                    'pendidikan' => $pendidikan,
                 ];
                 return view('chatomz.admin.dashboard', compact('total'));
-                break;
-
-            case 'seller':
-                $toko           = Toko::where('user_id',$user->id)->first();
-                $totalproduk    = Produk::where('toko_id',$toko->id)->count();
-                $totalpemesanan = DB::table('pemesanan')
-                                    ->join('produk','pemesanan.produk_id','=','produk.id')
-                                    ->where('produk.toko_id',$toko->id)
-                                    ->count();
-                $totalview      = Produk::where('toko_id',$toko->id)->sum('dilihat');
-                $total      = [
-                    'produk' => $totalproduk,
-                    'pemesanan' => $totalpemesanan,
-                    'view' => $totalview,
-                ];
-                return view('chatomz.seller.dashboard', compact('total'));
                 break;
 
             default:

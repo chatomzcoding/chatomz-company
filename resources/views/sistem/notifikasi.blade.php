@@ -37,3 +37,12 @@
     <p>Data {{ session('dd') }} telah dihapus.</p>
   </div>
 @endif
+
+@if (isset($errors))
+    <ul>
+      @foreach ($errors->all() as $item)
+        <li>{{ $item }}</li>
+      @endforeach
+    </ul>
+@endif
+    

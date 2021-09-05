@@ -114,12 +114,6 @@ class OrangController extends Controller
      */
     public function store(Request $request)
     {
-        // validation form
-        $request->validate([
-            'first_name' => 'required',
-            'place_birth' => 'required',
-            'date_birth' => 'required',
-       ]);
        if (isset($request->photo)) {
             // validation form photo
             $request->validate([
@@ -129,9 +123,12 @@ class OrangController extends Controller
             $file = $request->file('photo');
             
             $nama_file = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/chatomz/orang';
+            $tujuan_upload = 'public/img/chatomz/orang';
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$nama_file);
+
+            // $nama_file1 = kompres($file,$tujuan_upload);
+            
         } else {
             $nama_file = NULL;
         }
@@ -229,12 +226,7 @@ class OrangController extends Controller
      */
     public function update(Request $request, Orang $orang)
     {
-        // validation form
-        $request->validate([
-            'first_name' => 'required',
-            'place_birth' => 'required',
-            'date_birth' => 'required',
-       ]);
+
        if (isset($request->photo)) {
             // validation form photo
             $request->validate([
@@ -244,7 +236,7 @@ class OrangController extends Controller
             $file = $request->file('photo');
             
             $nama_file = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/chatomz/orang';
+            $tujuan_upload = 'public/img/chatomz/orang';
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$nama_file);
             deletefile($tujuan_upload.'/'.$orang->photo);
@@ -281,7 +273,7 @@ class OrangController extends Controller
      */
     public function destroy(Orang $orang)
     {
-        $tujuan_upload = 'img/chatomz/orang';
+        $tujuan_upload = 'public/img/chatomz/orang';
         deletefile($tujuan_upload.'/'.$orang->photo);
 
         $orang->delete();

@@ -35,11 +35,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     // Route Admin & Chatomz
     Route::middleware(['admin'])->group(function () {
-        Route::resource('artikel', 'App\Http\Controllers\Admin\ArtikelController');
         Route::resource('iklan', 'App\Http\Controllers\Admin\IklanController');
         Route::resource('info-website', 'App\Http\Controllers\Admin\InfowebsiteController');
         Route::resource('kategoriartikel', 'App\Http\Controllers\Admin\KategoriartikelController');
         // Chatomz
+        Route::resource('barang', 'App\Http\Controllers\Chatomz\BarangController');
         Route::resource('orang', 'App\Http\Controllers\Chatomz\OrangController');
         Route::get('lihat/orangpoto/{sesi}', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
         Route::post('proses/lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@prosesorangpoto');

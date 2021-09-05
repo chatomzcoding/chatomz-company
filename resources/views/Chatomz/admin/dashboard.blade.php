@@ -33,14 +33,14 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>{{ $total['produk']}}</h3>
+              <h3>{{ $total['orang']}}</h3>
 
-              <p>Produk</p>
+              <p>Orang</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="{{ url('/produk')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/orang')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -48,15 +48,15 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>{{ $total['toko']}}</h3>
+              <h3>{{ $total['grup']}}</h3>
 
-              <p>Toko</p>
+              <p>Grup</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
               {{-- <i class="ion ion-stats-bars"></i> --}}
             </div>
-            <a href="{{ url('/toko')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/grup')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -64,14 +64,14 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>{{ $total['hits']}}</h3>
+              <h3>{{ $total['keluarga']}}</h3>
 
-              <p>Hits</p>
+              <p>Keluarga</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ url('/visitor')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="{{ url('/keluarga')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -79,14 +79,14 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>{{ $total['pemesanan']}}</h3>
+              <h3>{{ $total['pendidikan']}}</h3>
 
-              <p>Pemesanan</p>
+              <p>Pendidikan</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="{{ url('/pemesanan')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
+            {{-- <a href="{{ url('/pemesanan')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a> --}}
           </div>
         </div>
         <!-- ./col -->
@@ -142,37 +142,37 @@
                   </p>
 
                   <div class="progress-group">
-                    Toko yang bergabung
-                    <span class="float-right"><b>{{ $total['toko']}}</b>/100</span>
+                    Daftar Orang yang sudah di input
+                    <span class="float-right"><b>{{ $total['orang']}}</b>/1000</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-primary" style="width: {{ dashboard_persentarget($total['toko'],100)}}%"></div>
+                      <div class="progress-bar bg-primary" style="width: {{ dashboard_persentarget($total['orang'],1000)}}%"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
 
                   <div class="progress-group">
-                    Produk yang diunggah
-                    <span class="float-right"><b>{{ $total['produk']}}</b>/1000</span>
+                    Keluarga yang dibuat
+                    <span class="float-right"><b>{{ $total['keluarga']}}</b>/100</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-danger" style="width: {{ dashboard_persentarget($total['produk'],1000)}}%"></div>
+                      <div class="progress-bar bg-danger" style="width: {{ dashboard_persentarget($total['keluarga'],100)}}%"></div>
                     </div>
                   </div>
 
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    <span class="progress-text">Penayangan Halaman</span>
-                    <span class="float-right"><b>{{ $total['hits']}}</b>/10000</span>
+                    <span class="progress-text">Grup yang dibuat</span>
+                    <span class="float-right"><b>{{ $total['grup']}}</b>/100</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-success" style="width: {{ dashboard_persentarget($total['hits'],10000)}}%"></div>
+                      <div class="progress-bar bg-success" style="width: {{ dashboard_persentarget($total['grup'],100)}}%"></div>
                     </div>
                   </div>
 
                   <!-- /.progress-group -->
                   <div class="progress-group">
-                    Pemesanan Produk
-                    <span class="float-right"><b>{{ $total['pemesanan']}}</b>/100</span>
+                    Pendidikan
+                    <span class="float-right"><b>{{ $total['pendidikan']}}</b>/10000</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-warning" style="width: {{ dashboard_persentarget($total['pemesanan'],100)}}%"></div>
+                      <div class="progress-bar bg-warning" style="width: {{ dashboard_persentarget($total['pendidikan'],10000)}}%"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
