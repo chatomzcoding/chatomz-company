@@ -18,6 +18,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $dashboard  = TRUE;
         $user   = Auth::user();
         switch ($user->level) {
 
@@ -32,11 +33,11 @@ class HomeController extends Controller
                     'keluarga' => $keluarga,
                     'pendidikan' => $pendidikan,
                 ];
-                return view('chatomz.admin.dashboard', compact('total'));
+                return view('chatomz.admin.dashboard', compact('total','dashboard'));
                 break;
 
             default:
-                return view('dashboard');
+                return view('dashboard', compact('dashboard'));
                 break;
         }
     }

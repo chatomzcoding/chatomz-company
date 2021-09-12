@@ -35,11 +35,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     // Route Admin & Chatomz
     Route::middleware(['admin'])->group(function () {
-        Route::resource('iklan', 'App\Http\Controllers\Admin\IklanController');
         Route::resource('info-website', 'App\Http\Controllers\Admin\InfowebsiteController');
-        Route::resource('kategoriartikel', 'App\Http\Controllers\Admin\KategoriartikelController');
         // Chatomz
         Route::resource('barang', 'App\Http\Controllers\Chatomz\BarangController');
+        Route::resource('jejak', 'App\Http\Controllers\Chatomz\JejakController');
+        Route::resource('jejakorang', 'App\Http\Controllers\Chatomz\JejakorangController');
+        Route::resource('jejakpoto', 'App\Http\Controllers\Chatomz\JejakpotoController');
         Route::resource('orang', 'App\Http\Controllers\Chatomz\OrangController');
         Route::get('lihat/orangpoto/{sesi}', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
         Route::post('proses/lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@prosesorangpoto');
@@ -55,24 +56,14 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('pendidikan', 'App\Http\Controllers\Chatomz\PendidikanController');
         Route::resource('keluarga', 'App\Http\Controllers\Chatomz\KeluargaController');
         Route::resource('keluargahubungan', 'App\Http\Controllers\Chatomz\HubungankeluargaController');
-        Route::resource('kategoriproduk', 'App\Http\Controllers\Market\KategoriprodukController');
         
         // SISTEM
         Route::resource('visitor', 'App\Http\Controllers\Sistem\VisitorController');
+        Route::resource('kategori', 'App\Http\Controllers\Sistem\KategoriController');
     });
     
     Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
     Route::resource('user', 'App\Http\Controllers\UserController');
-    
-    
-    // Market
-    Route::resource('toko', 'App\Http\Controllers\Market\TokoController');
-    Route::resource('produk', 'App\Http\Controllers\Market\ProdukController');
-    Route::resource('pemesanan', 'App\Http\Controllers\Market\PemesananController');
-    Route::resource('produk-diskon', 'App\Http\Controllers\Market\ProdukdiskonController');
-    
-    // Seller
-    Route::get('/seller/user', 'App\Http\Controllers\Admin\UserController@seller'); 
 
 });
 

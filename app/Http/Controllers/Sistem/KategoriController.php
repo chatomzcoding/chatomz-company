@@ -15,7 +15,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        $kategori   = Kategori::all();
+
+        return view('chatomz.admin.kategori.index', compact('kategori'));
     }
 
     /**
@@ -36,7 +38,13 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Kategori::create([
+            'nama_kategori' => strtolower($request->nama_kategori),
+            'label' => strtolower($request->label),
+            'keterangan_kategori' => $request->keterangan_kategori,
+        ]);
+
+        return redirect()->back()->with('ds','Kategori');
     }
 
     /**

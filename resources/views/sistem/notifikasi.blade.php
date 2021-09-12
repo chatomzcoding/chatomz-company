@@ -21,6 +21,13 @@
     <p>Data {{ session('ds') }} telah ditambahkan.</p>
   </div>
 @endif
+{{-- save custom --}}
+@if (session('dsc'))
+<div class="callout callout-success">
+    <h5>Berhasil!</h5>
+    <p>{{ session('dsc') }}</p>
+  </div>
+@endif
 
 {{-- notifikasi data berhasil di update --}}
 @if (session('du'))
@@ -29,12 +36,24 @@
     <p>Data {{ session('du') }} telah diperbaharui.</p>
   </div>
 @endif
+@if (session('duc'))
+<div class="callout callout-info">
+    <h5>Berhasil!</h5>
+    <p>{{ session('duc') }}</p>
+  </div>
+@endif
 
 {{-- notifikasi data berhasil di hapus --}}
 @if (session('dd'))
 <div class="callout callout-danger">
     <h5>Berhasil!</h5>
     <p>Data {{ session('dd') }} telah dihapus.</p>
+  </div>
+@endif
+@if (session('ddc'))
+<div class="callout callout-danger">
+    <h5>Berhasil!</h5>
+    <p>{{ session('ddc') }}</p>
   </div>
 @endif
 

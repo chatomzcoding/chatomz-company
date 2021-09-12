@@ -26,6 +26,12 @@
           <p>Grup</p>
         </a>
       </li>
+      <li class="nav-item">
+        <a href="{{ url('/jejak')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="fas fa-id-card nav-icon"></i>
+          <p>Jejak</p>
+        </a>
+      </li>
     </ul>
 </li>
 <li class="nav-item">
@@ -62,12 +68,16 @@
           <p>Info Website</p>
         </a>
       </li>
-    </ul>
-    <ul class="nav nav-treeview">
       <li class="nav-item">
         <a href="{{ url('/adminuser')}}" class="nav-link">
           &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>
           <p>User</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/kategori')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="fas fa-list nav-icon"></i>
+          <p>Kategori</p>
         </a>
       </li>
     </ul>
