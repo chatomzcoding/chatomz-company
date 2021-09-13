@@ -1,6 +1,11 @@
 @section('title')
     CHATOMZ - Daftar Jejak
 @endsection
+
+@section('head')
+
+
+@endsection
 <x-app-layout>
     <x-slot name="header">
         {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -155,11 +160,14 @@
                 <section class="p-3">
                     <div class="form-group row">
                      <label for="" class="col-md-4">Nama </label>
-                     <select name="orang_id" id="orang_id" class="form-control col-md-8" required>
-                         @foreach ($orang as $item)
-                             <option value="{{ $item->id}}">{{ fullname($item)}}</option>
-                         @endforeach
-                     </select>
+                     {{-- <input type="text" id="buah" name="orang_id" class="form-control col-md-8" placeholder="Nama Orang" value="" autofocus> --}}
+                    <div class="col-md-8 p-0">
+                        <select class="form-control" style="height: 100px" data-width="100%" name="orang_id" id="orang" required>
+                            @foreach ($orang as $item)
+                                <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                      </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Catatan (opsional)</label>
@@ -301,7 +309,13 @@
     <!-- /.modal -->
 
     @section('script')
-        
+
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#orang").select2();
+            })
+        </script>
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)

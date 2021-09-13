@@ -44,6 +44,7 @@
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('vendor/select2/select2.min.css')}}">
 
     <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
     <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
@@ -51,6 +52,8 @@
     <script type="text/javascript" src="{{ asset('/vendor/ckeditor/ckeditor.js')}}"></script>
 
   @livewireStyles
+
+  @yield('head')
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed
@@ -309,6 +312,7 @@
 
 <!-- jQuery -->
 <script src="{{ asset('template/admin/lte/plugins/jquery/jquery.min.js')}}"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('template/admin/lte/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -354,11 +358,14 @@
 <script src="{{ asset('template/admin/lte/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{ asset('template/admin/lte/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
+
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('template/admin/lte/dist/js/demo.js')}}"></script>
 
 {{-- javascript chatomz --}}
 <script src="{{ asset('/js/chatomz.js')}}"></script>
+<script src="{{ asset('vendor/select2/select2.min.js')}}"></script>
+
 
 
 @yield('script')
