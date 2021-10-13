@@ -255,7 +255,7 @@
           </li>
           <li class="nav-item">
             <a href="{{ url('/user/'.Crypt::encryptString(Auth::user()->id).'/edit')}}" class="nav-link">
-              <i class="nav-icon fas fa-users-cog"></i>
+              <i class="nav-icon fas fa-cogs"></i>
               <p class="text">Pengaturan Akun</p>
             </a>
           </li>
@@ -265,8 +265,7 @@
                <a href="{{ route('logout') }}"  class="nav-link"
                         onclick="event.preventDefault();
                                this.closest('form').submit();">
-              <i class="nav-icon fas fa-sign-out-alt"></i> Keluar
-            </a>
+              <i class="nav-icon fas fa-sign-out-alt"></i><p class="text">Keluar</p></a>
             </form>
         </li>
         </ul>

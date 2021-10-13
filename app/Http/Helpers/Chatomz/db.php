@@ -5,6 +5,7 @@ use App\Models\Grupanggota;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
 use App\Models\Produkdiskon;
+use App\Models\Visitor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -224,5 +225,33 @@ class DbChatomz {
             ->first();
         }
         return $show;
+    }
+
+    public static function visitorhit()
+    {
+     // save visitor ketika ada middleware ini
+        // get informasi visitor
+        $ipaddress      = get_client_ip_2();
+        $browser        = get_client_browser();
+        $tglvisitor     = tgl_sekarang();
+
+        // cek visitor
+        $cekvisitor = Visitor::where([['tgl_visitor',$tglvisitor],['ip_address',$ipaddress]])->first();
+        if ($cekvisitor) {
+            // jika visitor ada, maka hits ditambahkan 1 lalu di update
+
+            $hits   = $cekvisitor->hits + 1;
+            Visitor::where('id',$cekvisitor->id)->update([
+                'hits' => $hits
+                ]);
+        } else {
+            // jika tidak ada maka visitor ditambahkan baru
+            Visitor::create([
+                'ip_address' => $ipaddress,
+                'browser' => $browser,
+                'hits' => 1,
+                'tgl_visitor' => $tglvisitor,
+            ]);
+        }
     }
 }

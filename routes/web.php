@@ -18,6 +18,12 @@ Route::get('/', function(){
     return redirect('login');
 });
 
+Route::get('uji/lihat', 'App\Http\Controllers\ApiController@index');
+Route::post('simpanuji', 'App\Http\Controllers\ApiController@simpan');
+Route::get('uji/tambah', 'App\Http\Controllers\ApiController@tambah');
+Route::get('uji/hapus/{id}', 'App\Http\Controllers\ApiController@hapus');
+
+
 /*
 -------------------------------------------------------------------------------------------------
 */
@@ -37,7 +43,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::middleware(['admin'])->group(function () {
         Route::resource('info-website', 'App\Http\Controllers\Admin\InfowebsiteController');
         // Chatomz
+        // barang
         Route::resource('barang', 'App\Http\Controllers\Chatomz\BarangController');
+        Route::resource('barangbelanja', 'App\Http\Controllers\Chatomz\Barang\BelanjaController');
+        Route::resource('barangdaftar', 'App\Http\Controllers\Chatomz\Barang\DaftarController');
+        
         Route::resource('jejak', 'App\Http\Controllers\Chatomz\JejakController');
         Route::resource('jejakorang', 'App\Http\Controllers\Chatomz\JejakorangController');
         Route::resource('jejakpoto', 'App\Http\Controllers\Chatomz\JejakpotoController');
