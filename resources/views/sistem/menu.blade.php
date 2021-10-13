@@ -46,8 +46,26 @@
   <ul class="nav nav-treeview">
     <li class="nav-item">
       <a href="{{ url('/barang')}}" class="nav-link">
-        &nbsp;&nbsp;<i class="fas fa-chart-bar"></i>
+        &nbsp;&nbsp;<i class="fas fa-chart-bar nav-icon"></i>
         <p>Barang</p>
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-laptop-house"></i>
+    <p>
+      Informasi
+      <i class="fas fa-angle-left right"></i>
+      {{-- <span class="badge badge-info right">6</span> --}}
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('/hewan')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="fas fa-chart-bar nav-icon"></i>
+        <p>Hewan</p>
       </a>
     </li>
   </ul>

@@ -70,6 +70,11 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         // SISTEM
         Route::resource('visitor', 'App\Http\Controllers\Sistem\VisitorController');
         Route::resource('kategori', 'App\Http\Controllers\Sistem\KategoriController');
+        
+        // Company
+        // informasi
+        Route::resource('hewan', 'App\Http\Controllers\Company\Informasi\HewanController');
+
     });
     
     Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
