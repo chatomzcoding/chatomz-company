@@ -197,4 +197,31 @@ if (! function_exists('kingdom_posisiiklan')) {
     }
 }
 
+// HELPER UNTUK COMPANY INFORMASI
+if (! function_exists('list_klasifikasihewan')) {
+    function list_klasifikasihewan()
+    {
+        $result = [
+            'amfibi' => 'Amfibia adalah hewan yang hidup di dua alam, air dan darat, dengan ciri kulit yang tidak bersisik dan lembab. Amfibi memiliki ciri bermetamorfosis dengan fase larva pada anakan. Amfibi adalah hewan tukang belakang, berkembang biak dengan bertelur dan berdarang dingin',
+            'aves' => 'Aves adalah hewan jenis burung, yang ditandai dengan adanya bulu burung, paruh dan berdarah panas. Aves umunya berkembang biak dengan bertelur',
+            'mamalia' => 'Mamalia adalah hewan dengan ciri khas menyusui. Mamalia memiliki kelenjar susu di bagian dada atau perut, yang digunakan untuk memberi makan anaknya ketika masih kecil. Mamalia adalah hewan bertulang belakang, dan merupakan hewan yang berdarah hangat',
+            'pisces' => 'hewan jenis ikan. Ikan hidup di air, memiliki tukang belakang, berkembang biak dengan bertelur dan berdarang dingin',
+            'reptilia' => 'Reptilia adalah hewan darat yang memiliki ciri bersisik. Reptilia memiliki tukang belakang, berkembang biak dengan bertelur dan berdarang dingin, sama seperti amfibi. Namun reptilia tidak mengalami metamorfosis'
+        ];
+        return $result;
+    }
+}
+
+// daftar list pemakan hewan
+if (! function_exists('list_hewanpemakan')) {
+    function list_hewanpemakan()
+    {
+        $result = [
+            'herbivora' => 'hewan pemakan tumbuhan',
+            'karnivora' => 'hewan pemakan daging',
+            'omnivora' => 'hewan pemakan tumbuhan dan daging',
+        ];
+        return $result;
+    }
+}
 

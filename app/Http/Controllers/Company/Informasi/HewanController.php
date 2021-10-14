@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Company\Informasi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hewan;
+use App\Models\Hewanjenis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rules\Unique;
 
 class HewanController extends Controller
@@ -67,9 +69,12 @@ class HewanController extends Controller
      * @param  \App\Models\Hewan  $hewan
      * @return \Illuminate\Http\Response
      */
-    public function show(Hewan $hewan)
+    public function show($hewan)
     {
-        //
+        $hewan  = Hewan::find(Crypt::decryptString($hewan));
+        $jenis  = Hewanjenis::where('hewan_id',$hewan->id)->get();
+
+        return view('company.informasi.hewan.show', compact('hewan','jenis'));
     }
 
     /**
