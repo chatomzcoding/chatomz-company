@@ -49,7 +49,10 @@
                             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
                             <div class="card bg-light">
                                 <div class="card-header text-muted border-bottom-0 font-weight-bold">
-                                {{ ucwords($item->nama_jenis)}} <i>({{ $item->nama_latin_jenis}})</i>
+                                {{ ucwords($item->nama_jenis)}} 
+                                @if (!empty($item->nama_latin_jenis))
+                                    <i>({{ $item->nama_latin_jenis}})</i>
+                                @endif
                                 </div>
                                 <div class="card-body pt-0">
                                 <div class="row">
@@ -65,9 +68,9 @@
                                         {{-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> --}}
                                     </ul>
                                     <ul class="list-group list-group-horizontal">
-                                        <li class="list-group-item w-100"><i class="fas fa-utensils"></i> <span class="text-secondary">{{ $item->pemakan }}</span></li>
-                                        <li class="list-group-item w-100"><i class="fas fa-bezier-curve"></i> <span class="text-secondary">{{ $item->klasifikasi }}</span></li>
-                                        <li class="list-group-item w-100"><i class="fas fa-heartbeat"></i> <span class="text-secondary">{{ $item->lama_hidup }}</span></li>
+                                        <li class="list-group-item w-100"><i class="fas fa-utensils"></i> <br> <span class="text-secondary"> {{ $item->pemakan }}</span></li>
+                                        <li class="list-group-item w-100"><i class="fas fa-bezier-curve"></i> <br> <span class="text-secondary"> {{ $item->klasifikasi }}</span></li>
+                                        <li class="list-group-item w-100"><i class="fas fa-heartbeat"></i> <br> <span class="text-secondary">{{ $item->lama_hidup }}</span></li>
                                     </ul>
                                     </div>
                                 </div>

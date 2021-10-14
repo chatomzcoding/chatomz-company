@@ -48,7 +48,10 @@
                             <div class="col-12 col-sm-4 col-md-3 d-flex align-items-stretch">
                             <div class="card bg-light">
                                 <div class="card-header text-muted border-bottom-0 font-weight-bold">
-                                {{ ucwords($item->nama)}} <i>({{ $item->nama_latin}})</i>
+                                {{ ucwords($item->nama)}}
+                                @if (!empty($item->nama_latin))
+                                    <i>({{ $item->nama_latin}})</i>
+                                @endif
                                 </div>
                                 <div class="card-body pt-0">
                                 <div class="row">
