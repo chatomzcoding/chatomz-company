@@ -1,5 +1,15 @@
 <?php
 
+if (! function_exists('apikey_chatomz')) {
+    function apikey_chatomz($getapikey){
+        $apikey = '$2y$10$yA4qXnZzEIjaW7WE2so98O4oJORl//OVdJIDLiAU8yWaAQk804sCK';
+        if ($apikey == $getapikey) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+}
 if (! function_exists('cek_internet')) {
     function cek_internet(){
         $connected = @fsockopen("www.google.com", 80);

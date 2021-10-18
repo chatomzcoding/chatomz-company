@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Informasi\HewanController;
+use App\Http\Controllers\Company\Informasi\HewanController as InformasiHewanController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('barang', 'App\Http\Controllers\Api\BarangController@index');
-Route::get('siswa', 'App\Http\Controllers\Api\siswaController@index');
-Route::post('siswa', 'App\Http\Controllers\Api\siswaController@store');
+Route::resource('hewan', HewanController::class);
+Route::post('coba', 'App\Http\Controllers\Api\Informasi\HewanController@coba');
