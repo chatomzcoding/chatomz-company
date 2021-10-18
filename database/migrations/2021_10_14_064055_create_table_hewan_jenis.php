@@ -16,7 +16,7 @@ class CreateTableHewanJenis extends Migration
         Schema::create('hewan_jenis', function (Blueprint $table) {
             $table->id();
             $table->string('nama_jenis');
-            $table->string('nama_latin_jenis');
+            $table->string('nama_latin_jenis')->nullable();
             $table->string('tentang_jenis');
             $table->string('gambar_jenis');
             $table->string('pemakan');
