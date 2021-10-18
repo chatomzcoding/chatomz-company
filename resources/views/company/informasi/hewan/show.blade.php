@@ -35,9 +35,11 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                <a href="{{ url('/hewan')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> kembali </a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Jenis </a>
-                {{-- <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Orang Baru </a> --}}
+                
                 {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
+                <span class="float-right font-italic">{{ count($jenis)}} jenis {{ $hewan->nama}}</span>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -46,52 +48,56 @@
                   </section> --}}
                     <div class="row d-flex align-items-stretch">
                         @foreach ($jenis as $item)
-                            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                            <div class="col-12 col-sm-4 col-md-3 d-flex align-items-stretch">
                             <div class="card bg-light">
-                                <div class="card-header text-muted border-bottom-0 font-weight-bold">
-                                {{ ucwords($item->nama_jenis)}} 
-                                @if (!empty($item->nama_latin_jenis))
-                                    <i>({{ $item->nama_latin_jenis}})</i>
-                                @endif
-                                </div>
-                                <div class="card-body pt-0">
+                                <!--<div class="card-header text-muted border-bottom-0 font-weight-bold">-->
+                                <!--{{ ucwords($item->nama_jenis)}} -->
+                                <!--@if (!empty($item->nama_latin_jenis))-->
+                                <!--    <i>({{ $item->nama_latin_jenis}})</i>-->
+                                <!--@endif-->
+                                <!--</div>-->
+                                <div class="card-body pt-0 px-0 pb-0">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                    <a href="{{ asset('img/company/informasi/hewan/'.$item->gambar_jenis)}}" target="_blank"><img src="{{ asset('img/company/informasi/hewan/'.$item->gambar_jenis)}}" alt="user-avatar" class="img-fluid img-rounded"></a>
-                                    </div>
-                                    <div class="col-md-12">
-                                       
-                                    {{-- <p class="small"><b>0</b></p> --}}
-                                    <p class="text-muted text-sm text-justify">{{ Str::substr($item->tentang_jenis, 0, 100)}}. . . </p>
-                                    <ul class="ml-4 mb-0 fa-ul text-muted">
-                                        <li class="small"><span class="fa-li"></li>
-                                        {{-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> --}}
-                                    </ul>
-                                    <ul class="list-group list-group-horizontal">
-                                        <li class="list-group-item w-100"><i class="fas fa-utensils"></i> <br> <span class="text-secondary"> {{ $item->pemakan }}</span></li>
-                                        <li class="list-group-item w-100"><i class="fas fa-bezier-curve"></i> <br> <span class="text-secondary"> {{ $item->klasifikasi }}</span></li>
-                                        <li class="list-group-item w-100"><i class="fas fa-heartbeat"></i> <br> <span class="text-secondary">{{ $item->lama_hidup }}</span></li>
-                                    </ul>
+                                        <a href="{{ asset('img/company/informasi/hewan/'.$item->gambar_jenis)}}" target="_blank"><img src="{{ asset('img/company/informasi/hewan/'.$item->gambar_jenis)}}" alt="user-avatar" class="img-fluid rounded-top"></a>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12 px-2 pt-2 pb-0">
+                                        <div class="p-2">
+                                            <strong>
+                                                {{ ucwords($item->nama_jenis)}} 
+                                                @if (!empty($item->nama_latin_jenis))
+                                                    <i>({{ $item->nama_latin_jenis}})</i>
+                                                @endif
+                                            </strong>
+                                        <p class="text-muted text-sm text-justify">{{ Str::substr($item->tentang_jenis, 0, 130)}}. . . </p>    
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-footer bg-secondary">
-                                <div class="text-right">
-                                    {{-- <a href="#" class="btn btn-sm bg-teal">
-                                    <i class="fas fa-comments"></i>
-                                    </a> --}}
-                                    <form id="data-{{ $item->id }}" action="{{url('/hewanjenis',$item->id)}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                    </form>
-                                    {{-- <a href="{{ url('/hewan/'.Crypt::encryptString($item->id))}}" class="btn btn-sm btn-outline-primary">
-                                        <i class="fas fa-list"></i> Detail
-                                    </a> --}}
-                                        <button type="button" data-toggle="modal"  data-nama_jenis="{{ $item->nama_jenis }}"  data-nama_latin_jenis="{{ $item->nama_latin_jenis }}"  data-tentang_jenis="{{ $item->tentang_jenis }}" data-pemakan="{{ $item->pemakan }}" data-klasifikasi="{{ $item->klasifikasi }}" data-lama_hidup="{{ $item->lama_hidup }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-light btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-light btn-sm"><i class="fas fa-trash-alt"></i></button>
                                 </div>
+                                <div class="card-footer p-0">
+                                     <ul class="list-group list-group-horizontal text-center p-0 rounded-0">
+                                        <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-utensils text-success"></i> <br> <span class="text-secondary small"> {{ $item->pemakan }}</span></li>
+                                        <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-bezier-curve text-primary"></i> <br> <span class="text-secondary small"> {{ $item->klasifikasi }}</span></li>
+                                        <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-heartbeat text-danger"></i> <br> 
+                                            @if (!empty($item->lama_hidup))
+                                                <span class="text-secondary small">{{ $item->lama_hidup }}</span>
+                                            @else
+                                                <span class="text-secondary small">-</span>
+                                            @endif
+                                        </li>
+                                    </ul>
+                                    <div class="text-right bg-secondary p-1 rounded-bottom">
+                                        <form id="data-{{ $item->id }}" action="{{url('/hewanjenis',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                            <button type="button" data-toggle="modal"  data-nama_jenis="{{ $item->nama_jenis }}"  data-nama_latin_jenis="{{ $item->nama_latin_jenis }}"  data-tentang_jenis="{{ $item->tentang_jenis }}" data-pemakan="{{ $item->pemakan }}" data-klasifikasi="{{ $item->klasifikasi }}" data-lama_hidup="{{ $item->lama_hidup }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-light btn-sm" data-original-title="Edit Task">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-light btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                    </div>
                                 </div>
                             </div>
                             </div>
