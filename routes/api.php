@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('hewan', HewanController::class);
 Route::post('coba', 'App\Http\Controllers\Api\Informasi\HewanController@coba');
+
+// chatomz ganteng
