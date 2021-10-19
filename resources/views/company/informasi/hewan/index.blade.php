@@ -8,7 +8,7 @@
         </h2> --}}
         <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Data Hewan</h1>
+              <h1 class="m-0">Data Informasi Hewan</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
