@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Masuk Terlebih dahulu</title>
 
+  <link rel="shortcut icon" href="{{ asset('/img/bunefit-v2.png')}}">
+  
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -61,7 +63,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">MASUK</button>
+            <button type="submit" class="btn btn-outline-primary btn-block">MASUK</button>
             <br>
           </div>
           <div class="col-12">
