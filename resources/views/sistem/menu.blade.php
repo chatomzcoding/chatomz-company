@@ -54,7 +54,7 @@
 </li>
 <li class="nav-item">
   <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-laptop-house"></i>
+    <i class="nav-icon fas fa-blog"></i>
     <p>
       Informasi
       <i class="fas fa-angle-left right"></i>
@@ -64,7 +64,7 @@
   <ul class="nav nav-treeview">
     <li class="nav-item">
       <a href="{{ url('/hewan')}}" class="nav-link">
-        &nbsp;&nbsp;<i class="fas fa-chart-bar nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-dog nav-icon"></i>
         <p>Hewan</p>
       </a>
     </li>
