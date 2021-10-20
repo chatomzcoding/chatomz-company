@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // Company
         // informasi
+        Route::resource('merk', 'App\Http\Controllers\Company\MerkController');
         Route::resource('hewan', 'App\Http\Controllers\Company\Informasi\HewanController');
         Route::resource('hewanjenis', 'App\Http\Controllers\Company\Informasi\HewanjenisController');
 

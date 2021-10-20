@@ -68,6 +68,12 @@
         <p>Hewan</p>
       </a>
     </li>
+    <li class="nav-item">
+      <a href="{{ url('/gadget')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="fas fa-tablet-alt nav-icon"></i>
+        <p>Gadget</p>
+      </a>
+    </li>
   </ul>
 </li>
 <li class="nav-item">
@@ -96,6 +102,12 @@
         <a href="{{ url('/kategori')}}" class="nav-link">
           &nbsp;&nbsp;<i class="fas fa-list nav-icon"></i>
           <p>Kategori</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ url('/merk')}}" class="nav-link">
+          &nbsp;&nbsp;<i class="fas fa-border-none nav-icon"></i>
+          <p>Merk</p>
         </a>
       </li>
     </ul>
