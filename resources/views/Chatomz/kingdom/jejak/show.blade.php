@@ -162,7 +162,7 @@
                      <label for="" class="col-md-4">Nama </label>
                      {{-- <input type="text" id="buah" name="orang_id" class="form-control col-md-8" placeholder="Nama Orang" value="" autofocus> --}}
                     <div class="col-md-8 p-0">
-                        <select class="form-control" style="height: 100px" data-width="100%" name="orang_id" id="orang" required>
+                        <select class="form-control" data-height="100%" data-width="100%" name="orang_id" id="orang" required>
                             @foreach ($orang as $item)
                                 <option value="{{ $item->id}}">{{ fullname($item)}}</option>
                             @endforeach
