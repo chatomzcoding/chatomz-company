@@ -74,6 +74,14 @@
         <p>Gadget</p>
       </a>
     </li>
+    @foreach (DbChatomz::showtable('kategori',['label','informasi']) as $item)
+      <li class="nav-item">
+        <a href="{{ url('/informasi?k='.Crypt::encrypt($item->id))}}" class="nav-link">
+          &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>
+          <p>{{ $item->nama_kategori }}</p>
+        </a>
+      </li>
+    @endforeach
   </ul>
 </li>
 <li class="nav-item">

@@ -94,7 +94,9 @@
                    <div class="form-group row">
                     <label for="" class="col-md-4">Label</label>
                     <select name="label" id="label" class="form-control col-md-8" required>
-                        <option value="jejak">Jejak</option>
+                        @foreach (kingdom_label() as $item)
+                            <option value="{{ $item }}">{{ $item }}</option>
+                        @endforeach
                     </select>
                     </div>
                    <div class="form-group row">

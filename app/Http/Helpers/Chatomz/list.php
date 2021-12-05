@@ -187,6 +187,14 @@ if (! function_exists('kingdom_statuskeluarga')) {
         return $result;
     }
 }
+// daftar agama yang di akui di indonesia
+if (! function_exists('kingdom_label')) {
+    function kingdom_label()
+    {
+        $result = ['jejak','informasi'];
+        return $result;
+    }
+}
 
 // daftar list posisi iklan
 if (! function_exists('kingdom_posisiiklan')) {
