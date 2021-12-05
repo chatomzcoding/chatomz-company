@@ -49,8 +49,11 @@
                             <div class="card bg-light">
                                 <div class="card-header text-muted border-bottom-0 font-weight-bold">
                                 {{ ucwords($item->nama)}}
-                                @if (!empty($item->nama_latin))
-                                    <i>({{ $item->nama_latin}})</i>
+                                @php
+                                    $detail = json_decode($item->detail); 
+                                @endphp
+                                @if (isset($detail->nama_latin))
+                                    <i>({{ $detail->nama_latin}})</i>
                                 @endif
                                 </div>
                                 <div class="card-body pt-0">

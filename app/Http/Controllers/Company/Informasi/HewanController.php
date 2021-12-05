@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Company\Informasi;
 use App\Http\Controllers\Controller;
 use App\Models\Hewan;
 use App\Models\Hewanjenis;
+use App\Models\Informasi;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rules\Unique;
@@ -18,7 +20,23 @@ class HewanController extends Controller
      */
     public function index()
     {
-        $hewan  = Hewan::orderBy('nama','ASC')->get();
+        // $hewan      = Hewan::orderBy('nama','ASC')->get();
+
+        $kategori   = Kategori::where('nama_kategori','hewan')->first();
+
+        // foreach ($hewan as $item) {
+        //     $detail     = [
+        //         'nama_latin' => $item->nama_latin
+        //     ];
+        //     Informasi::create([
+        //         'kategori_id' => $kategori->id,
+        //         'nama' => $item->nama,
+        //         'gambar' => $item->gambar,
+        //         'detail' => json_encode($detail),
+        //     ]);
+        // }
+
+        $hewan  = Informasi::where('kategori_id',$kategori->id)->get();
 
         return view('company.informasi.hewan.index', compact('hewan'));
     }
