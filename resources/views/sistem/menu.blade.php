@@ -62,19 +62,7 @@
     </p>
   </a>
   <ul class="nav nav-treeview">
-    <li class="nav-item">
-      <a href="{{ url('/hewan')}}" class="nav-link">
-        &nbsp;&nbsp;<i class="fas fa-dog nav-icon"></i>
-        <p>Hewan</p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{{ url('/gadget')}}" class="nav-link">
-        &nbsp;&nbsp;<i class="fas fa-tablet-alt nav-icon"></i>
-        <p>Gadget</p>
-      </a>
-    </li>
-    @foreach (DbChatomz::showtable('kategori',['label','informasi']) as $item)
+        @foreach (DbChatomz::showtable('kategori',['label','informasi']) as $item)
       <li class="nav-item">
         <a href="{{ url('/informasi?k='.Crypt::encrypt($item->id))}}" class="nav-link">
           &nbsp;&nbsp;<i class="far fa-circle nav-icon"></i>

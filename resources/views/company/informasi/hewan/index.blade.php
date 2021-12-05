@@ -44,7 +44,7 @@
                       <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
                   </section> --}}
                     <div class="row d-flex align-items-stretch">
-                        @foreach ($hewan as $item)
+                        @foreach ($data as $item)
                             <div class="col-12 col-sm-4 col-md-3 d-flex align-items-stretch">
                             <div class="card bg-light">
                                 <div class="card-header text-muted border-bottom-0 font-weight-bold">
@@ -73,14 +73,11 @@
                                 </div>
                                 <div class="card-footer bg-secondary">
                                 <div class="text-right">
-                                    {{-- <a href="#" class="btn btn-sm bg-teal">
-                                    <i class="fas fa-comments"></i>
-                                    </a> --}}
-                                    <form id="data-{{ $item->id }}" action="{{url('/hewan',$item->id)}}" method="post">
+                                    <form id="data-{{ $item->id }}" action="{{url('/informasi',$item->id)}}" method="post">
                                         @csrf
                                         @method('delete')
                                     </form>
-                                    <a href="{{ url('/hewan/'.Crypt::encryptString($item->id))}}" class="btn btn-sm btn-outline-light">
+                                    <a href="{{ url('/informasi/'.$item->id)}}" class="btn btn-sm btn-outline-light">
                                         <i class="fas fa-list"></i>
                                     </a>
                                         <button type="button" data-toggle="modal"  data-nama="{{ $item->nama }}"  data-nama_latin="{{ $item->nama_latin }}"  data-tentang="{{ $item->tentang }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-light btn-sm" data-original-title="Edit Task">
