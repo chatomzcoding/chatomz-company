@@ -59,7 +59,7 @@
                                 <div class="card-body pt-0 px-0 pb-0">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <a href="{{ asset('img/company/informasi/hewan/'.$item->gambar_jenis)}}" target="_blank"><img src="{{ asset('img/company/informasi/hewan/'.$item->gambar_jenis)}}" alt="user-avatar" class="img-fluid rounded-top"></a>
+                                        <a href="{{ asset('img/company/informasi/hewan/'.$item->gambar_sub)}}" target="_blank"><img src="{{ asset('img/company/informasi/hewan/'.$item->gambar_sub)}}" alt="user-avatar" class="img-fluid rounded-top"></a>
                                     </div>
                                 </div>
                                 <div class="row">

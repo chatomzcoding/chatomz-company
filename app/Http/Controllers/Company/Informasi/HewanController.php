@@ -23,29 +23,6 @@ class HewanController extends Controller
     {
         $kategori   = Kategori::where('nama_kategori','hewan')->first();
         $hewan  = Informasi::where('kategori_id',$kategori->id)->get();
-        $hewan  = Hewan::all();
-        foreach ($hewan as $key) {
-            $sub        = Hewanjenis::where('hewan_id',$key->id)->get();
-            $informasi  = Informasi::where('nama',$key->nama)->first();
-            if (count($sub) > 0) {
-                foreach ($sub as $item) {
-                    $detail = [
-                        'nama_latin' => $item->nama_latin_jenis,
-                        'tentang' => $item->tentang_jenis,
-                        'pemakan' => $item->pemakan,
-                        'lama_hidup' => $item->lama_hidup,
-                        'klasifikasi' => $item->klasifikasi,
-                    ];
-                    Informasisub::create([
-                        'informasi_id' => $informasi->id,
-                        'nama_sub' => $item->nama_jenis,
-                        'gambar_sub' => $item->gambar_jenis,
-                        'detail_sub' => json_encode($detail),
-                    ]);
-                }
-            }
-        }
-        die();
         return view('company.informasi.hewan.index', compact('hewan'));
     }
 
