@@ -35,6 +35,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
+                <a href="{{ url('informasi?k='.Crypt::encrypt($informasi->kategori_id)) }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali </a>
                 <a href="{{ url('gadgethandphone/create') }}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Data </a>
               </div>
               <div class="card-body">
@@ -49,7 +50,7 @@
                                 <div class="card-body pt-0 px-0 pb-0">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                        <a href="{{ url('gadgethandphone/'.Crypt::encryptString($item->id))}}"><img src="{{ asset('img/company/informasi/gadget/handphone/'.$item->gambar_sub)}}" alt="gambar gadget" class="img-fluid rounded-top"></a>
+                                        <a href="{{ url('gadgethandphone/'.Crypt::encryptString($item->id))}}"><img src="{{ asset('img/company/informasi/gadget/'.$item->gambar_sub)}}" alt="gambar gadget" class="img-fluid rounded-top"></a>
                                     </div>
                                 </div>
                                 <div class="row">

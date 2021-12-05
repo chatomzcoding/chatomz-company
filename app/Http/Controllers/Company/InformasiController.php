@@ -20,44 +20,6 @@ class InformasiController extends Controller
      */
     public function index()
     {
-        // $merk       = Merk::all();
-        // $kategori   = Kategori::where('nama_kategori','gadget')->first();
-        // $informasi  = Informasi::where('kategori_id',$kategori->id)->get();
-        // foreach ($informasi as $item) {
-        //         $merk   = Merk::where('nama',$item->nama)->first();
-        //         $data = Gadgethandphone::where('merk_id',$merk->id)->get();
-                
-        //         if (count($data) > 0) {
-        //             foreach ($data as $key) {
-        //                 $kamera     = json_decode($key->kamera,TRUE);
-        //                 $layar     = json_decode($key->layar,TRUE);
-        //                 $platform     = json_decode($key->platform,TRUE);
-        //                 $baterai     = json_decode($key->baterai,TRUE);
-        //                 $body     = json_decode($key->body,TRUE);
-        //                 $memori     = json_decode($key->memori,TRUE);
-        //                 $detail = [
-        //                     'tentang' => $key->keterangan,
-        //                     'network' => $key->network,
-        //                     'kamera' => $kamera,
-        //                     'layar' => $layar,
-        //                     'platform' => $platform,
-        //                     'baterai' => $baterai,
-        //                     'body' => $body,
-        //                     'memori' => $memori,
-        //                 ];
-
-        //                 Informasisub::create([
-        //                     'informasi_id' => $item->id,
-        //                     'nama_sub' => $key->nama_gadget,
-        //                     'gambar_sub' => $key->gambar,
-        //                     'detail_sub' => json_encode($detail),
-        //                 ]);
-        //             }
-        //         }
-
-             
-        //     }
-        // die();
         $id         = Crypt::decrypt($_GET['k']);
         $kategori   = Kategori::find($id);
         $data       = Informasi::where('kategori_id',$id)->get();
