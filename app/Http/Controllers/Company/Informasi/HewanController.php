@@ -20,22 +20,7 @@ class HewanController extends Controller
      */
     public function index()
     {
-        // $hewan      = Hewan::orderBy('nama','ASC')->get();
-
         $kategori   = Kategori::where('nama_kategori','hewan')->first();
-
-        // foreach ($hewan as $item) {
-        //     $detail     = [
-        //         'nama_latin' => $item->nama_latin
-        //     ];
-        //     Informasi::create([
-        //         'kategori_id' => $kategori->id,
-        //         'nama' => $item->nama,
-        //         'gambar' => $item->gambar,
-        //         'detail' => json_encode($detail),
-        //     ]);
-        // }
-
         $hewan  = Informasi::where('kategori_id',$kategori->id)->get();
 
         return view('company.informasi.hewan.index', compact('hewan'));
