@@ -1,5 +1,5 @@
 @section('title')
-    Company - Data Gadget
+    Company - Gadget Handphone
 @endsection
 <x-app-layout>
     <x-slot name="header">
@@ -8,12 +8,13 @@
         </h2> --}}
         <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Data Gadget</h1>
+              <h1 class="m-0">Data Informasi Gadget Handphone</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item active">Daftar Gadget</li>
+                <li class="breadcrumb-item"><a href="{{ url('gadget')}}">Data Gadget</a></li>
+                <li class="breadcrumb-item active">Daftar Gadget Handphone</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -34,9 +35,7 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data </a>
-                {{-- <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Orang Baru </a> --}}
-                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
+                <a href="{{ url('gadgethandphone/create') }}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Data </a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -44,47 +43,55 @@
                       <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
                   </section> --}}
                     <div class="row d-flex align-items-stretch">
-                        @foreach ($data as $item)
-                        @php
-                            $detail = json_decode($item->detail);
-                        @endphp
-                            <div class="col-12 col-sm-4 col-md-3 d-flex align-items-stretch">
+                        @foreach ($sub as $item)
+                        <div class="col-12 col-sm-2 col-lg-3 col-md-6 d-flex align-items-stretch">
                             <div class="card bg-light">
-                                <div class="card-header text-muted border-bottom-0 font-weight-bold">
-                                {{ ucwords($item->nama)}}
-                                </div>
-                                <div class="card-body pt-0">
+                                <div class="card-body pt-0 px-0 pb-0">
                                 <div class="row">
                                     <div class="col-md-12 text-center">
-                                    <a href="{{ asset('img/company/informasi/gadget/'.$item->gambar)}}" target="_blank"><img src="{{ asset('img/company/informasi/gadget/'.$item->gambar)}}" alt="logo_merk" class="img-fluid img-rounded"></a>
+                                        <a href="{{ url('gadgethandphone/'.Crypt::encryptString($item->id))}}"><img src="{{ asset('img/company/informasi/gadget/handphone/'.$item->gambar_sub)}}" alt="gambar gadget" class="img-fluid rounded-top"></a>
                                     </div>
-                                    <div class="col-md-12">
-                                    {{-- <p class="small"><b>0</b></p> --}}
-                                    <p class="text-muted text-sm text-justify">{{ Str::substr($detail->tentang, 0, 100)}}. . . </p>
-                                    <ul class="ml-4 mb-0 fa-ul text-muted">
-                                        <li class="small"><span class="fa-li"></li>
-                                        {{-- <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li> --}}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 px-2 pt-2 pb-0">
+                                        <div class="p-2">
+                                            <strong>
+                                                {{ ucwords($item->nama_sub)}} 
+                                                    <i>({{ $item->nama}})</i>
+                                            </strong>
+                                        <p class="text-muted text-sm text-justify">{{ Str::substr($item->keterangan, 0, 100)}}. . . </p>    
+                                        @php
+                                            $kamera = json_decode($item->kamera);
+                                            $baterai = json_decode($item->baterai);
+                                            $memori = json_decode($item->memori);
+                                            $platform = json_decode($item->platform);
+                                        @endphp
+                                        {{-- <p class="text-muted text-sm text-justify"> {{ $kamera->main }} </p>     --}}
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="card-footer p-0">
+                                     <ul class="list-group list-group-horizontal text-center p-0 rounded-0">
+                                        <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-database text-success"></i> <br>
+                                            <span class="text-secondary small">{{ $memori->internal.' | '.$memori->ram }}</span></li>
+                                        <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-camera text-primary"></i> <br>
+                                            <span class="text-secondary small"> {{ $kamera->main }} </span></li>
+                                        <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-battery-three-quarters text-danger"></i> <br> 
+                                            <span class="text-secondary small">{{ $baterai->type }}</span>
+                                        </li>
                                     </ul>
+                                    <div class="text-right bg-secondary p-1 rounded-bottom">
+                                        <span class="float-left text-white small mt-1">{{ $platform->chipset }}</span>
+                                        <form id="data-{{ $item->id }}" action="{{url('/gadgethandphone',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                            <a href="{{ url('gadgethandphone/'.Crypt::encrypt($item->id).'/edit') }}" class="btn btn-outline-light btn-sm">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-light btn-sm"><i class="fas fa-trash-alt"></i></button>
                                     </div>
-                                </div>
-                                </div>
-                                <div class="card-footer bg-secondary">
-                                <div class="text-right">
-                                    {{-- <a href="#" class="btn btn-sm bg-teal">
-                                    <i class="fas fa-comments"></i>
-                                    </a> --}}
-                                    <form id="data-{{ $item->id }}" action="{{url('/merk',$item->id)}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                    </form>
-                                    <a href="{{ url('/informasi/'.$item->id)}}" class="btn btn-sm btn-outline-light">
-                                        <i class="fas fa-list"></i>
-                                    </a>
-                                        <button type="button" data-toggle="modal"  data-nama="{{ $item->nama }}"  data-tentang="{{ $item->tentang }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-light btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-light btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                </div>
                                 </div>
                             </div>
                             </div>
@@ -100,10 +107,10 @@
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ url('/merk')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/hewan')}}" method="post" enctype="multipart/form-data">
                 @csrf
             <div class="modal-header">
-            <h4 class="modal-title">Tambah Data Merk</h4>
+            <h4 class="modal-title">Tambah Hewan</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -111,16 +118,20 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                    <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Merk</label>
+                        <label for="" class="col-md-4">Nama Hewan</label>
                         <input type="text" name="nama" id="nama" class="form-control col-md-8" value="{{ old('nama')}}" required>
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Latin</label>
+                        <input type="text" name="nama_latin" id="nama_latin" class="form-control col-md-8"  value="{{ old('nama_latin')}}">
                    </div>
                    <div class="form-group row">
                        <label for="" class="col-md-4">Tentang</label>
                        <input type="text" name="tentang" id="tentang" class="form-control col-md-8"  value="{{ old('tentang')}}" required>
                     </div>
                     <div class="form-group row">
-                         <label for="" class="col-md-4">Logo</label>
-                         <input type="file" name="logo" id="logo" class="form-control col-md-8" required>
+                         <label for="" class="col-md-4">Gambar</label>
+                         <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
                     </div>
                 </section>
             </div>
@@ -138,7 +149,7 @@
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('merk.update','test')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('hewan.update','test')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
             <div class="modal-header">
@@ -151,16 +162,20 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Merk</label>
+                        <label for="" class="col-md-4">Nama Hewan</label>
                         <input type="text" name="nama" id="nama" class="form-control col-md-8" value="{{ old('nama')}}" required>
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Latin</label>
+                        <input type="text" name="nama_latin" id="nama_latin" class="form-control col-md-8"  value="{{ old('nama_latin')}}">
                    </div>
                    <div class="form-group row">
                        <label for="" class="col-md-4">Tentang</label>
                        <input type="text" name="tentang" id="tentang" class="form-control col-md-8"  value="{{ old('tentang')}}" required>
                     </div>
                     <div class="form-group row">
-                         <label for="" class="col-md-4">Logo</label>
-                         <input type="file" name="logo" id="logo" class="form-control col-md-8" required>
+                         <label for="" class="col-md-4">Gambar</label>
+                         <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
                     </div>
                 </section>
             </div>
@@ -180,12 +195,14 @@
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
                 var nama = button.data('nama')
+                var nama_latin = button.data('nama_latin')
                 var tentang = button.data('tentang')
                 var id = button.data('id')
         
                 var modal = $(this)
         
                 modal.find('.modal-body #nama').val(nama);
+                modal.find('.modal-body #nama_latin').val(nama_latin);
                 modal.find('.modal-body #tentang').val(tentang);
                 modal.find('.modal-body #id').val(id);
             })
