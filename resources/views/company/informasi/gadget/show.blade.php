@@ -54,18 +54,15 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12 px-2 pt-2 pb-0">
+                                        @php
+                                            $detail     = json_decode($item->detail_sub);
+                                        @endphp
                                         <div class="p-2">
                                             <strong>
                                                 {{ ucwords($item->nama_sub)}} 
                                                     <i>({{ $item->nama}})</i>
                                             </strong>
-                                        <p class="text-muted text-sm text-justify">{{ Str::substr($item->keterangan, 0, 100)}}. . . </p>    
-                                        @php
-                                            $kamera = json_decode($item->kamera);
-                                            $baterai = json_decode($item->baterai);
-                                            $memori = json_decode($item->memori);
-                                            $platform = json_decode($item->platform);
-                                        @endphp
+                                        <p class="text-muted text-sm text-justify">{{ Str::substr($detail->tentang, 0, 100)}}. . . </p>    
                                         {{-- <p class="text-muted text-sm text-justify"> {{ $kamera->main }} </p>     --}}
                                         </div>
                                     </div>
@@ -74,15 +71,15 @@
                                 <div class="card-footer p-0">
                                      <ul class="list-group list-group-horizontal text-center p-0 rounded-0">
                                         <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-database text-success"></i> <br>
-                                            <span class="text-secondary small">{{ $memori->internal.' | '.$memori->ram }}</span></li>
+                                            <span class="text-secondary small">{{ $detail->memori->internal.' | '.$detail->memori->ram }}</span></li>
                                         <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-camera text-primary"></i> <br>
-                                            <span class="text-secondary small"> {{ $kamera->main }} </span></li>
+                                            <span class="text-secondary small"> {{ $detail->kamera->main }} </span></li>
                                         <li class="list-group-item w-100 p-1 rounded-0"><i class="fas fa-battery-three-quarters text-danger"></i> <br> 
-                                            <span class="text-secondary small">{{ $baterai->type }}</span>
+                                            <span class="text-secondary small">{{ $detail->baterai->type }}</span>
                                         </li>
                                     </ul>
                                     <div class="text-right bg-secondary p-1 rounded-bottom">
-                                        <span class="float-left text-white small mt-1">{{ $platform->chipset }}</span>
+                                        <span class="float-left text-white small mt-1">{{ $detail->platform->chipset }}</span>
                                         <form id="data-{{ $item->id }}" action="{{url('/gadgethandphone',$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
