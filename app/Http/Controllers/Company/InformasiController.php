@@ -20,24 +20,24 @@ class InformasiController extends Controller
      */
     public function index()
     {
-        $merk       = Merk::all();
-        $kategori   = Kategori::where('nama_kategori','gadget')->first();
-        if ($kategori) {
-            foreach ($merk as $item) {
-                $detail     = [
-                    'tentang' => $item->tentang
-                ];
-                Informasi::create([
-                    'kategori_id' => $kategori->id,
-                    'nama' => $item->nama,
-                    'gambar' => $item->logo,
-                    'detail' => json_encode($detail),
-                ]);
-            }
-        }else{
-            echo 'belum ada kategori';
-        }
-        die();
+        // $merk       = Merk::all();
+        // $kategori   = Kategori::where('nama_kategori','gadget')->first();
+        // if ($kategori) {
+        //     foreach ($merk as $item) {
+        //         $detail     = [
+        //             'tentang' => $item->tentang
+        //         ];
+        //         Informasi::create([
+        //             'kategori_id' => $kategori->id,
+        //             'nama' => $item->nama,
+        //             'gambar' => $item->logo,
+        //             'detail' => json_encode($detail),
+        //         ]);
+        //     }
+        // }else{
+        //     echo 'belum ada kategori';
+        // }
+        // die();
         $id         = Crypt::decrypt($_GET['k']);
         $kategori   = Kategori::find($id);
         $data       = Informasi::where('kategori_id',$id)->get();
@@ -48,6 +48,9 @@ class InformasiController extends Controller
 
             case 'hewan':
                 return view('company.informasi.hewan.index', compact('kategori','data'));
+                break;
+            case 'gadget':
+                return view('company.informasi.gadget.index', compact('kategori','data'));
                 break;
             
             default:
