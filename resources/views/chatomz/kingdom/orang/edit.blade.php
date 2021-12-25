@@ -29,7 +29,7 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                <a href="{{ url('/orang/'.Crypt::encryptString($orang->id))}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Kembali ke detail</a>
+                <a href="{{ url('/orang/'.Crypt::encryptString($orang->id))}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali</a>
                 <a href="{{ url('/orang')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Kembali ke daftar orang</a>
               </div>
               <div class="card-body">
