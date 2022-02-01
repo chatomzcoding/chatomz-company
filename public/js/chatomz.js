@@ -1,3 +1,13 @@
+$(document).ready(function() {
+	$('.select2').select2({
+		closeOnSelect: true
+	});
+
+	$('.pop-info').tooltip();
+
+	$('[data-toggle="tooltip"]').tooltip();
+});
+
 function deleteRow(id)
         {
             swal({

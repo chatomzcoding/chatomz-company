@@ -32,8 +32,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/summernote/summernote-bs4.min.css')}}">
 
-  <link rel="stylesheet" href="{{ asset('css/style.css')}}">
-  <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
+  {{-- <link rel="stylesheet" href="{{ asset('css/style.css')}}"> --}}
 
   {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
 
@@ -48,9 +47,19 @@
 
     <script type="text/javascript" src="{{ asset('/vendor/ckeditor/ckeditor.js')}}"></script>
 
+  <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
+
+
   @livewireStyles
 
   @yield('head')
+
+  {{-- <style type="text/css">
+    .w20p {
+    width: 20px;
+    background-color: red;
+}
+  </style> --}}
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed
@@ -353,7 +362,7 @@
 <script src="{{ asset('template/admin/lte/dist/js/demo.js')}}"></script>
 
 {{-- javascript chatomz --}}
-<script src="{{ asset('/js/chatomz.js')}}"></script>
+<script src="{{ asset('js/chatomz.js')}}"></script>
 <script src="{{ asset('vendor/select2/select2.min.js')}}"></script>
 
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Chatomz\JejakController;
+use App\Http\Controllers\Chatomz\OrangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Example; 
 /*
@@ -50,7 +51,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('jejak', JejakController::class);
         Route::resource('jejakorang', 'App\Http\Controllers\Chatomz\JejakorangController');
         Route::resource('jejakpoto', 'App\Http\Controllers\Chatomz\JejakpotoController');
-        Route::resource('orang', 'App\Http\Controllers\Chatomz\OrangController');
+        Route::resource('orang', OrangController::class);
         Route::get('lihat/orangpoto/{sesi}', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
         Route::post('proses/lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@prosesorangpoto');
         Route::post('cariorang', 'App\Http\Controllers\Chatomz\OrangController@cariorang');
