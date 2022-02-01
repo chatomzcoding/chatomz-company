@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Chatomz\JejakController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Example; 
 /*
@@ -34,8 +35,6 @@ Route::get('uji/hapus/{id}', 'App\Http\Controllers\ApiController@hapus');
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
 
-    // Route::get('member', Members::class)->name('member'); //Tambahkan routing ini
-
     // Umum
     Route::get('/dashboard', 'App\Http\Controllers\HomeController@index')->name('dashboard');
 
@@ -48,7 +47,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('barangbelanja', 'App\Http\Controllers\Chatomz\Barang\BelanjaController');
         Route::resource('barangdaftar', 'App\Http\Controllers\Chatomz\Barang\DaftarController');
         
-        Route::resource('jejak', 'App\Http\Controllers\Chatomz\JejakController');
+        Route::resource('jejak', JejakController::class);
         Route::resource('jejakorang', 'App\Http\Controllers\Chatomz\JejakorangController');
         Route::resource('jejakpoto', 'App\Http\Controllers\Chatomz\JejakpotoController');
         Route::resource('orang', 'App\Http\Controllers\Chatomz\OrangController');

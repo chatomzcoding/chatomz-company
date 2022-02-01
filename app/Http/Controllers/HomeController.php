@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grup;
+use App\Models\Jejak;
 use App\Models\Keluarga;
 use App\Models\Orang;
-use App\Models\Pemesanan;
 use App\Models\Pendidikan;
-use App\Models\Produk;
-use App\Models\Toko;
-use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,23 +20,22 @@ class HomeController extends Controller
     public function index()
     {
         $dashboard  = TRUE;
-        $user   = Auth::user();
+        $menu       = 'dashboard';
+        $user       = Auth::user();
         switch ($user->level) {
-
             case 'admin':
-                $orang    = Orang::count();
-                $grup      = Grup::count();
-                $keluarga      = Keluarga::count();
-                $pendidikan = Pendidikan::count();
+                $orang          = Orang::count();
+                $grup           = Grup::count();
+                $keluarga       = Keluarga::count();
+                $jejak          = Jejak::count();
                 $total      = [
                     'orang' => $orang,
                     'grup' => $grup,
                     'keluarga' => $keluarga,
-                    'pendidikan' => $pendidikan,
+                    'jejak' => $jejak,
                 ];
-                return view('chatomz.admin.dashboard', compact('total','dashboard'));
+                return view('chatomz.admin.dashboard', compact('menu','total','dashboard'));
                 break;
-
             default:
                 return view('dashboard', compact('dashboard'));
                 break;
