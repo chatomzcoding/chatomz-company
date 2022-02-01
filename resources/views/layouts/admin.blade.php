@@ -1,6 +1,3 @@
-@php
-    $user = Auth::user();
-@endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -103,15 +100,13 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">0</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
             <div class="media">
               <img src="{{ asset('/img/user/'.$user->photo)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
@@ -123,14 +118,13 @@
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">Coming Soon</a>
         </div>
-      </li>
+      </li> --}}
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">0</span>
@@ -145,12 +139,12 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">Coming Soon</a>
         </div>
-      </li>
-      <li class="nav-item">
+      </li> --}}
+      {{-- <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
-      </li>
+      </li> --}}
       {{-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
@@ -165,7 +159,7 @@
     <!-- Brand Logo -->
     <a href="{{ url('/dashboard')}}" class="brand-link">
       <img src="{{ asset('img/bunefit.png')}}" alt="AdminLTE Logo" class="brand-image elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Bunefit.com</span>
+      <span class="brand-text font-weight-light">Chatomz</span>
     </a>
 
     <!-- Sidebar -->
@@ -214,7 +208,7 @@
             </a>
           </li> --}}
           <li class="nav-item">
-            <a href="{{ url('/dashboard')}}" class="nav-link">
+            <a href="{{ url('/dashboard')}}" class="nav-link {{ menuaktif($menu,'dashboard') }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p class="text">Dashboard</p>
             </a>

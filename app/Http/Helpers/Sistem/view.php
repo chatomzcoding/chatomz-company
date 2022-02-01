@@ -13,3 +13,15 @@ if (! function_exists('button_status')) {
         return $html;
     }
 }
+if (! function_exists('menuaktif')) {
+    function menuaktif($menu,$link){
+       $html = ($menu == $link) ? 'active' : '' ;
+        return $html;
+    }
+}
+if (! function_exists('menudropdown')) {
+    function menudropdown($data,$menu){
+        $html = (in_array($menu,$data)) ? 'menu-is-opening menu-open' : NULL ;
+        return $html;
+    }
+}

@@ -1,4 +1,4 @@
-<li class="nav-item">
+<li class="nav-item {{ menudropdown(['orang'],$menu) }}">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-user-secret"></i>
       <p>
@@ -9,7 +9,7 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{ url('/orang')}}" class="nav-link">
+        <a href="{{ url('/orang')}}" class="nav-link {{ menuaktif($menu,'orang') }}">
           &nbsp;&nbsp;<i class="fas fa-user nav-icon"></i>
           <p>Orang</p>
         </a>
@@ -107,7 +107,8 @@
         </a>
       </li>
     </ul>
-</li class="nav-item">
+</li>
+<li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-laptop-house"></i>
     <p>

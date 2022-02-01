@@ -2,6 +2,8 @@
 
 namespace App\View\Components;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\Component;
 
 class AppLayout extends Component
@@ -13,6 +15,8 @@ class AppLayout extends Component
      */
     public function render()
     {
-        return view('layouts.admin');
+        $menu   = Session::get('menu','dashboard');
+        $user   = Auth::user();
+        return view('layouts.admin', compact('menu','user'));
     }
 }
