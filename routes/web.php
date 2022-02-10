@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Chatomz\JejakController;
 use App\Http\Controllers\Chatomz\OrangController;
+use App\Http\Controllers\MigrasiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Example; 
 /*
@@ -34,7 +35,8 @@ Route::get('uji/hapus/{id}', 'App\Http\Controllers\ApiController@hapus');
 // Route::get('/example',[Example::class, 'render'])->name('example');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
-
+    // migrasi
+    Route::get('/migrasi', [MigrasiController::class,'index']);
 
     // Umum
     Route::get('/dashboard', 'App\Http\Controllers\HomeController@index')->name('dashboard');

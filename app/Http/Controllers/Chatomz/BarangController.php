@@ -74,27 +74,28 @@ class BarangController extends Controller
     {
         $barang     = Barang::find($request->id);
         if (isset($request->photo_barang)) {
-            // validation form photo
             $request->validate([
-                'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:3000',
+                'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
-            // menyimpan data file yang diupload ke variabel $file
-            $file = $request->file('photo_barang');
-            
-            $nama_file = time()."_".$file->getClientOriginalName();
             $tujuan_upload = 'public/img/chatomz/barang';
-            // isi dengan nama folder tempat kemana file diupload
+            $file = $request->file('photo_barang');
+            $mini = $request->file('photo_barang');
+            $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
+            $nama_file = time()."_".$file->getClientOriginalName();
             $file->move($tujuan_upload,$nama_file);
 
-            // $nama_file1 = kompres($file,$tujuan_upload);
-            
+            deletefile($tujuan_upload.'/'.$barang->photo_barang);
+            deletefile($tujuan_upload.'/'.$barang->mg_barang);
         } else {
             $nama_file =$barang->photo_barang;
+            $mg_barang =$barang->mg_barang;
         }
-       Barang::where('id',$request->id)->update([
-           'nama_barang' => $request->nama_barang,
-           'photo_barang' => $nama_file,
-       ]);
+
+        Barang::where('id',$request->id)->update([
+            'nama_barang' => $request->nama_barang,
+            'photo_barang' => $nama_file,
+            'mg_barang' => $mg_barang,
+        ]);
 
         return redirect()->back()->with('du','Barang');
     }

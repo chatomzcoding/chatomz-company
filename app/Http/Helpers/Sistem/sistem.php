@@ -162,18 +162,20 @@ function get_client_browser() {
     return $browser;
 }
 
-function kompres($file,$temp,$ukuran=600)
+// helper untuk daftar components
+if (! function_exists('kompres')) {
+    function kompres($file,$temp,$ukuran=600,$name_file=NULL)
     {
-        $name       = time().'_'.$file->getClientOriginalName();
+        $name       = time().'_'.$name_file.$file->getClientOriginalName();
         $ext        = $file->getClientOriginalExtension();
         
         $tmp_name   = $file->getRealPath();
-        $path = $temp . $name;
+        $path = $temp .'/'. $name;
         
         list($width, $height) = getimagesize($tmp_name);
       
         if($ext == 'png'){
-            $new_image = imagecreatefrompng($tmp_name);
+            $new_image = imagecreatefrompng($tmp_name);     
         }
         
         if ($ext == 'jpg' || $ext == 'jpeg' || $ext == 'JPG')  {  
@@ -189,3 +191,4 @@ function kompres($file,$temp,$ukuran=600)
         imagedestroy($tmp_image);
         return $name;
     }
+}

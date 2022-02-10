@@ -29,7 +29,6 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Barang Baru </a>
-                <a href="{{ url('/lihat/orangpoto/semua')}}" class="btn btn-outline-secondary btn-flat btn-sm" target="_blank"><i class="fas fa-sync"></i> View Photo</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -37,13 +36,15 @@
                         @forelse ($barang as $item)
                         <div class="col-md-2">
                             <div class="card w-100">
-                                <a href="{{ url('/barang/'.Crypt::encryptString($item->id))}}" target="_blank"><img src="{{ asset('img/chatomz/barang/'.$item->photo_barang)}}" class="card-img-top" alt="{{ $item->photo_barang }}"></a>
+                                <a href="{{ url('/barang/'.Crypt::encryptString($item->id))}}" target="_blank"><img src="{{ asset('img/chatomz/barang/'.$item->mg_barang)}}" class="card-img-top" alt="{{ $item->photo_barang }}"></a>
                                 <div class="card-body p-1 text-center">
                                 <small class="text-capitalize">{{ $item->nama_barang}}</small>
                                 {{-- <p class="card-text">{{ $item->home_address}}</p> --}}
-                                <button type="button" data-toggle="modal"  data-nama_barang="{{ $item->nama_barang }}"  data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                  <i class="fa fa-edit"></i>
-                              </button>
+                              </div>
+                              <div class="card-footer p-1">
+                                  <button type="button" data-toggle="modal"  data-nama_barang="{{ $item->nama_barang }}"  data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                    <i class="fa fa-edit"></i>
+                                </button>
                                 </div>
                             </div>
                         </div>
