@@ -14,7 +14,7 @@
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('orang')}}">Daftar Orang</a></li>
-                <li class="breadcrumb-item active">Detail {{ $orang->first_name.' '.$orang->last_name}}</li>
+                <li class="breadcrumb-item active">Detail</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -43,11 +43,11 @@
                     
                     <div class="float-right">
                         @if (!is_null($tombol['next']))
-                            <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['next']->id))}}">
+                            <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['next']->id))}}" data-toggle="tooltip" title="selanjutnya">
                             <i class="fas fa-angle-right"></i></a></span><span class="float-right">&nbsp;&nbsp;&nbsp;</span>
                         @endif 
                         @if (!is_null($tombol['back']))
-                        <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['back']->id))}}"><i class="fas fa-angle-left"></i></a></span>
+                        <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['back']->id))}}"  data-toggle="tooltip" title="sebelumnya"><i class="fas fa-angle-left"></i></a></span>
                         @endif
                     </div>
                 </h4>
@@ -77,9 +77,9 @@
                                                     @csrf
                                                     @method('delete')
                                                     </form>
-                                                    <button onclick="deleteRow( {{ $orang->id }} )" class="btn btn-icon btn-round btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                    <button onclick="deleteRow( {{ $orang->id }} )" class="btn btn-icon btn-round btn-danger pop-info" title="hapus orang"><i class="fas fa-trash-alt"></i></button>
                                                 <a href="{{ url('orang/'.Crypt::encryptString($orang->id).'/edit')}}" style="display: inline;">
-                                                    <button type="button" class="btn btn-icon btn-round btn-success">
+                                                    <button type="button" class="btn btn-icon btn-round btn-success pop-info" title="Edit Orang">
                                                         <i class="fas fa-pen"></i>
                                                     </button>
                                                 </a>
@@ -91,14 +91,14 @@
                                                         <span class="{{ bgaddgroupicon($orang->status_group)}}">{{ count($groups) }}</span>
                                                     </a> --}}
                                                     <a href="#" data-toggle="modal" data-target="#grup">
-                                                        <button type="button" class="btn btn-icon btn-round btn-info">
+                                                        <button type="button" class="btn btn-icon btn-round btn-info pop-info" title="anggota grup">
                                                             <i class="far fa-id-card"></i>
                                                         </button>
                                                     </a>
                                                 @endif
                                                 @if ($orang->marital_status == 'sudah' || count($keluarga) > 0)
                                                     <a href="#" data-toggle="modal" data-target="#keluarga">
-                                                        <button type="button" class="btn btn-icon btn-round btn-secondary">
+                                                        <button type="button" class="btn btn-icon btn-round btn-secondary pop-info" title="lihat silsilah keluarga">
                                                             <i class="fas fa-sitemap"></i>
                                                         </button>
                                                     </a>

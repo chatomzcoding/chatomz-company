@@ -34,10 +34,10 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
+                  <a href="{{ url('/keluarga')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-angle-double-left"></i> Kembali</a>
                 @if (isset($pohon['istri']))
                     <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Keluarga </a>
                 @endif
-                <a href="{{ url('/keluarga')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Kembali ke daftar keluarga</a>
                 <a href="#" data-toggle="modal" data-target="#editkeluarga" class="btn btn-outline-success btn-flat btn-sm"><i class="fas fa-pen"></i> Edit Keluarga</a>
               </div>
               <div class="card-body">

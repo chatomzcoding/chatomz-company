@@ -1,4 +1,4 @@
-<li class="nav-item {{ menudropdown(['orang'],$menu) }}">
+<li class="nav-item {{ menudropdown(['orang','keluarga','grup','jejak'],$menu) }}">
     <a href="#" class="nav-link">
       <i class="nav-icon fas fa-user-secret"></i>
       <p>
@@ -15,19 +15,19 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/keluarga')}}" class="nav-link">
+        <a href="{{ url('/keluarga')}}" class="nav-link  {{ menuaktif($menu,'keluarga') }}">
           &nbsp;&nbsp;<i class="fas fa-users nav-icon"></i>
           <p>Keluarga</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/grup')}}" class="nav-link">
+        <a href="{{ url('/grup')}}" class="nav-link  {{ menuaktif($menu,'grup') }}">
           &nbsp;&nbsp;<i class="fas fa-id-card nav-icon"></i>
           <p>Grup</p>
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{ url('/jejak')}}" class="nav-link">
+        <a href="{{ url('/jejak')}}" class="nav-link  {{ menuaktif($menu,'jejak') }}">
           &nbsp;&nbsp;<i class="fas fa-id-card nav-icon"></i>
           <p>Jejak</p>
         </a>

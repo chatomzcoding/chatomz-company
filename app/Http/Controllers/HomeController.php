@@ -10,6 +10,7 @@ use App\Models\Pendidikan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -20,7 +21,7 @@ class HomeController extends Controller
     public function index()
     {
         $dashboard  = TRUE;
-        $menu       = 'dashboard';
+        Session::put('menu','dashboard');
         $user       = Auth::user();
         switch ($user->level) {
             case 'admin':
@@ -34,7 +35,7 @@ class HomeController extends Controller
                     'keluarga' => $keluarga,
                     'jejak' => $jejak,
                 ];
-                return view('chatomz.admin.dashboard', compact('menu','total','dashboard'));
+                return view('chatomz.admin.dashboard', compact('total','dashboard'));
                 break;
             default:
                 return view('dashboard', compact('dashboard'));

@@ -37,7 +37,6 @@
                 {{-- <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Klasifikasi Baru </a> --}}
                 <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Orang Baru </a>
                 <a href="{{ url('/lihat/orangpoto/semua')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> View Photo</a>
-                <a href="{{ url('orang?s=unsil')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-sync"></i> Get Unsil</a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
@@ -63,17 +62,17 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
+                                <th>Aksi</th>
                                 <th>Nama</th>
                                 <th>Jenis Kelamin</th>
                                 <th>Alamat</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($orang as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
-                                    <td>
+                                    <td class="text-center">
                                         <form id="data-{{ $item->id }}" action="{{url('/orang',$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
@@ -84,9 +83,9 @@
                                             <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
-                                            <a href="{{ url('/orang/'.Crypt::encryptString($item->id).'/edit')}}" class="dropdown-item text-success"><i class="fas fa-pen"></i> Edit</a>
+                                            <a href="{{ url('/orang/'.Crypt::encryptString($item->id).'/edit')}}" class="dropdown-item text-success"><i class="fas fa-pen" style="width: 20px;"></i> EDIT</a>
                                             <div class="dropdown-divider"></div>
-                                            <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt"></i> Hapus</button>
+                                            <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt w20p"></i> HAPUS</button>
                                             </div>
                                         </div>
                                     </td>

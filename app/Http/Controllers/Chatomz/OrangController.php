@@ -11,6 +11,7 @@ use App\Models\Orang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Swift;
 
 class OrangController extends Controller
@@ -22,22 +23,23 @@ class OrangController extends Controller
      */
     public function index()
     {
-        if (isset($_GET['s'])) {
-           $npm     = $_GET['npm'];
+        // if (isset($_GET['s'])) {
+        //    $npm     = $_GET['npm'];
             
-            $batas = $npm + 15;
-            $result = [];
-            for ($i=$npm; $i < $batas; $i++) { 
-                $mahasiswa = self::getnpm($i);
-                $mahasiswa  = $mahasiswa['data'];
-                $result[]     = $mahasiswa;
-            }
+        //     $batas = $npm + 15;
+        //     $result = [];
+        //     for ($i=$npm; $i < $batas; $i++) { 
+        //         $mahasiswa = self::getnpm($i);
+        //         $mahasiswa  = $mahasiswa['data'];
+        //         $result[]     = $mahasiswa;
+        //     }
 
-            return view('chatomz.kingdom.orang.get', compact('result'));
-        } else {
-            $orang  = Orang::select('id','first_name','last_name','gender','home_address')->orderBy('first_name','ASC')->get();
-            return view('chatomz.kingdom.orang.index', compact('orang'));
-        }
+        //     return view('chatomz.kingdom.orang.get', compact('result'));
+        // } else {
+        Session::put('menu','orang');
+        $orang  = Orang::select('id','first_name','last_name','gender','home_address')->orderBy('first_name','ASC')->get();
+        return view('chatomz.kingdom.orang.index', compact('orang'));
+        // }
     }
 
     public function getnpm($npm)

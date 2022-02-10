@@ -9,6 +9,7 @@ use App\Models\Orang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class KeluargaController extends Controller
 {
@@ -19,6 +20,7 @@ class KeluargaController extends Controller
      */
     public function index()
     {
+        Session::put('menu','keluarga');
         $keluarga       = Keluarga::orderBy('nama_keluarga','ASC')->get();
         $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->orderBy('first_name','ASC')->get();
         return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
