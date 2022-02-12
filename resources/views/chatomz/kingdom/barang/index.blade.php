@@ -19,7 +19,6 @@
           </div><!-- /.row -->
     </x-slot>
 
-
     <div class="container-fluid">
         <div class="row">
           <!-- left column -->
@@ -42,8 +41,14 @@
                                 {{-- <p class="card-text">{{ $item->home_address}}</p> --}}
                               </div>
                               <div class="card-footer p-1">
+                                <form id="data-{{ $item->id }}" action="{{url('/barang',$item->id)}}" method="post">
+                                  @csrf
+                                  @method('delete')
+                                  </form>   
                                   <button type="button" data-toggle="modal"  data-nama_barang="{{ $item->nama_barang }}"  data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                     <i class="fa fa-edit"></i>
+                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+
                                 </button>
                                 </div>
                             </div>

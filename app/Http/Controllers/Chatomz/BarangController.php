@@ -108,6 +108,10 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        //
+        $tujuan_upload = 'public/img/chatomz/barang';
+        deletefile($tujuan_upload.'/'.$barang->photo_barang);
+        deletefile($tujuan_upload.'/'.$barang->mg_barang);
+        $barang->delete();
+        return back()->with('dd','Barang');
     }
 }
