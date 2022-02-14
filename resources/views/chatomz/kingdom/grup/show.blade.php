@@ -220,17 +220,17 @@
                 <div class="modal-body p-3">
                     <input type="hidden" name="tag[]" id="id" value="{{ $main['tag'] }}">
                     <section class="p-3">
+                        <label for="">Nama Anggota</label>
                         <div class="form-group row">
-                            <label for="" class="col-md-4">Nama Anggota</label>
-                                <div class="col-md-8 p-0">
-                                    @foreach ($main['danggota'] as $item)
-                                        @if (DbChatomz::cekanggotagruptag($item->id,$main['tag']))
-                                            <input type="checkbox" name="id[]"  value="{{ $item->id }}">
-                                            <label>{{ fullname($item).' ('.$item->gender}})</label> <br>
-                                        @endif
-                                    @endforeach
-                                </div>
-                            </div>
+                            @foreach ($main['danggota'] as $item)
+                                @if (DbChatomz::cekanggotagruptag($item->id,$main['tag']))
+                                    <div class="col-md-6 p-0">
+                                        <input type="checkbox" name="id[]"  value="{{ $item->id }}">
+                                        <label>{{ fullname($item)}}</label> <br>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
                     </section>
                 </div>
                 <div class="modal-footer justify-content-between">
