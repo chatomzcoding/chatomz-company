@@ -215,7 +215,7 @@
                    </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Data Tag</label>
-                        <input type="text" name="dtag" id="dtag" value="{{ $grup->dtag }}" class="form-control col-md-8" required>
+                        <textarea name="dtag" id="" cols="30" rows="5" class="form-control col-md-8" required>{{ $grup->dtag }}</textarea>
                     </div>
                 </section>
             </div>
