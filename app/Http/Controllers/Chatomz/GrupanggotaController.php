@@ -15,7 +15,7 @@ class GrupanggotaController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -39,6 +39,7 @@ class GrupanggotaController extends Controller
         if (isset($request->sesi)) {
             $grup          = $request->grup_id;
             $information    = $request->information;
+            $tag    = $request->tag;
             // hapus array null
             $info   = [];
             foreach ($information as $key) {
@@ -92,7 +93,8 @@ class GrupanggotaController extends Controller
     public function update(Request $request)
     {
         Grupanggota::where('id',$request->id)->update([
-            'information' => $request->information
+            'information' => $request->information,
+            'tag' => json_encode($request->tag)
         ]);
 
         return redirect()->back()->with('du','Anggota');

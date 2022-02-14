@@ -25,6 +25,7 @@
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/grup')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> kembali </a>
+                <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-toggle="modal" data-target="#editgrup"><i class="fas fa-pen"></i> Edit Grup </a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Grup </a>
                 <span class="float-right">Total Anggota {{ count($anggota) }}</span>
               </div>
@@ -35,11 +36,23 @@
                         <img src="{{ asset('/img/chatomz/grup/'.$grup->photo)}}" alt="" class="img-fluid">
                         <small>{{ $grup->information }}</small> <br>
                         <small>Tahun Dibentuk {{ $grup->created_year }}</small>
+                        <div>
+                            <a href="{{ url('grup/'.Crypt::encryptString($grup->id)) }}" @if ($main['tag'] == NULL)
+                                class="badge badge-primary"
+                            @endif>#semua</a>
+                            @forelse (c_showtag($grup->dtag) as $item)
+                                <a href="{{ url('grup/'.Crypt::encryptString($grup->id).'?tag='.$item) }}"  @if ($main['tag'] == $item)
+                                    class="badge badge-primary"
+                                @endif>#{{ $item }}</a>
+                            @empty
+                                
+                            @endforelse
+                        </div>
                     </div>
                   </div>
                   <hr>
                     <div class="row d-flex align-items-stretch">
-                        @foreach ($anggota as $item)
+                        @forelse ($anggota as $item)
                             <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
                             <div class="card bg-light">
                                 <div class="card-header text-muted border-bottom-0 text-capitalize">
@@ -49,6 +62,8 @@
                                 <div class="row">
                                     <div class="col-7">
                                     <h2 class="lead"><b>{{ $item->gender}}</b></h2>
+                                  
+                                    <i class="small">{{ c_listtag($item->tag) }}</i>
                                     </div>
                                     <div class="col-5 text-center">
                                         <a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" alt="user-avatar" class="img-fluid img-circle"></a>
@@ -65,14 +80,18 @@
                                     </form>
                                     <span class="text-muted text-sm text-justify"><i class="fas fa-calendar-alt"></i> {{ $item->created_at }} </span>
                                     <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
-                                    <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
+                                    <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                         
                                 </div>
                             </div>
                             </div>
-                        @endforeach
+                            @empty
+                                <div class="col text-center">
+                                    <i>Data tidak ada</i>
+                                </div>
+                            @endforelse
                     </div>
               </div>
             </div>
@@ -109,6 +128,14 @@
                         <label for="" class="col-md-4">Keterangan</label>
                         <input type="text" name="information" id="information" class="form-control col-md-8">
                    </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Tag</label>
+                        {{-- <select name="" id="">
+                            @foreach ($collection as $item)
+                                
+                            @endforeach
+                        </select> --}}
+                   </div>
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -125,7 +152,7 @@
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('grupanggota.update','test')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('grupanggota.update','test')}}" method="post">
                 @csrf
                 @method('patch')
             <div class="modal-header">
@@ -138,9 +165,58 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                    <div class="form-group row">
+                        <label for="" class="col-md-4">Nama</label>
+                        <input type="text" name="nama" id="nama" class="form-control col-md-8" readonly>
+                   </div>
+                   <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
                         <input type="text" name="information" id="information" class="form-control col-md-8">
                    </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Tag</label>
+                        <div class="col-md-8 p-0">
+                            <select name="tag[]" id=""  data-placeholder="pilih tag" class="select2bs4" style="width: 100%;" multiple>
+                                @foreach (c_showtag($grup->dtag) as $item)
+                                    <option value="{{ $item }}">#{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+            <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+    {{-- modal edit --}}
+    <div class="modal fade" id="editgrup">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <form action="{{ route('grup.update','test')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('patch')
+            <div class="modal-header">
+            <h4 class="modal-title">Edit Grup</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body p-3">
+                <input type="hidden" name="id" id="id" value="{{ $grup->id }}">
+                <section class="p-3">
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Grup {!! ireq() !!}</label>
+                        <input type="text" name="name" id="name" value="{{ $grup->name }}" class="form-control col-md-8" required>
+                   </div>
+                   <div class="form-group row">
+                        <label for="" class="col-md-4">Data Tag</label>
+                        <input type="text" name="dtag" id="dtag" value="{{ $grup->dtag }}" class="form-control col-md-8" required>
+                    </div>
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -159,11 +235,13 @@
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
                 var information = button.data('information')
+                var nama = button.data('nama')
                 var id = button.data('id')
         
                 var modal = $(this)
         
                 modal.find('.modal-body #information').val(information);
+                modal.find('.modal-body #nama').val(nama);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

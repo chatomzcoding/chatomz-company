@@ -18,7 +18,7 @@ class GrupController extends Controller
      */
     public function index()
     {
-        $grup   = Grup::all();
+        $grup   = Grup::orderBy('name','ASC')->get();
 
         return view('chatomz.kingdom.grup.index', compact('grup'));
     }
@@ -121,19 +121,36 @@ class GrupController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Grup  $grup
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response    
      */
     public function show($grup)
     {
         $grup       = Grup::find(Crypt::decryptString($grup));
-        $anggota    = DB::table('grup_anggota')
-                        ->join('orang','grup_anggota.orang_id','=','orang.id')
-                        ->select('grup_anggota.*','orang.first_name','orang.last_name','orang.gender','orang.photo','orang.death')
-                        ->where('grup_anggota.grup_id',$grup->id)
-                        ->orderBy('orang.first_name','ASC')
-                        ->get();
+        $tag = (isset($_GET['tag'])) ? $_GET['tag'] : NULL ;
+        if (is_null($tag)) {
+            $anggota    = DB::table('grup_anggota')
+                            ->join('orang','grup_anggota.orang_id','=','orang.id')
+                            ->select('grup_anggota.*','orang.first_name','orang.last_name','orang.gender','orang.photo','orang.death')
+                            ->where('grup_anggota.grup_id',$grup->id)
+                            ->orderBy('orang.first_name','ASC')
+                            ->get();
+       
+        } else {
+            $anggota    = DB::table('grup_anggota')
+                            ->join('orang','grup_anggota.orang_id','=','orang.id')
+                            ->select('grup_anggota.*','orang.first_name','orang.last_name','orang.gender','orang.photo','orang.death')
+                            ->where('grup_anggota.grup_id',$grup->id)
+                            ->where('grup_anggota.tag','LIKE',"%".$tag."%")
+                            ->orderBy('orang.first_name','ASC')
+                            ->get();
+        }
+        
         $orang      = Orang::where('status_group','available')->orderBy('first_name','ASC')->get();
-        return view('chatomz.kingdom.grup.show', compact('grup','anggota','orang'));
+        $menu       = 'grup';
+        $main       = [
+            'tag' => $tag
+        ];
+        return view('chatomz.kingdom.grup.show', compact('menu','main','grup','anggota','orang'));
     }
 
     /**
@@ -142,6 +159,7 @@ class GrupController extends Controller
      * @param  \App\Models\Grup  $grup
      * @return \Illuminate\Http\Response
      */
+
     public function edit(Grup $grup)
     {
         //
@@ -154,9 +172,21 @@ class GrupController extends Controller
      * @param  \App\Models\Grup  $grup
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Grup $grup)
+    
+    public function update(Request $request)
     {
-        //
+        // $dtag  = explode('#',$request->dtag);
+        // unset($dtag[0]); 
+        // $dtag  = array_map('trim',$dtag); 
+        // $dtag  = array_values($dtag); 
+        // $dtag  = json_encode($dtag);
+
+        Grup::where('id',$request->id)->update([
+            'name' => $request->name,
+            'dtag' => $request->dtag,
+        ]);
+
+        return back()->with('du','Grup');
     }
 
     /**
