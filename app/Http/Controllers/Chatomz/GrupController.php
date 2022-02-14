@@ -132,7 +132,6 @@ class GrupController extends Controller
                             ->join('orang','grup_anggota.orang_id','=','orang.id')
                             ->select('grup_anggota.*','orang.first_name','orang.last_name','orang.gender','orang.photo','orang.death')
                             ->where('grup_anggota.grup_id',$grup->id)
-                            ->where('grup_anggota.tag',NULL)
                             ->orderBy('orang.first_name','ASC')
                             ->get();
        
