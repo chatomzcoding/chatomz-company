@@ -145,7 +145,7 @@ class GrupController extends Controller
                             ->get();
         }
         
-        $orang      = Orang::where('status_group','available')->orderBy('first_name','ASC')->get();
+        $orang      = Orang::where('status_group','available')->orderBy('first_name','ASC')->get(['id','first_name','last_name']);
         $menu       = 'grup';
         $main       = [
             'tag' => $tag

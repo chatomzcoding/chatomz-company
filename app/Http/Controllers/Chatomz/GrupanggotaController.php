@@ -55,7 +55,12 @@ class GrupanggotaController extends Controller
                 ]);
             }
         } else {
-            Grupanggota::create($request->all());
+            Grupanggota::create([
+                'orang_id' => $request->orang_id,
+                'information' => $request->information,
+                'grup_id' => $request->grup_id,
+                'tag' => json_encode($request->tag)
+            ]);
         }
 
         return redirect()->back()->with('ds','Anggota Grup');

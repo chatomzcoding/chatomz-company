@@ -32,11 +32,14 @@
               <div class="card-body">
                   @include('sistem.notifikasi')
                   <div class="row mb-2">
-                    <div class="col-md-12">
-                        <img src="{{ asset('/img/chatomz/grup/'.$grup->photo)}}" alt="" class="img-fluid">
-                        <small>{{ $grup->information }}</small> <br>
+                      <div class="col-md-6">
+                          <img src="{{ asset('/img/chatomz/grup/'.$grup->photo)}}" alt="" class="img-fluid img-rounded">
+                      </div>
+                    <div class="col-md-6">
+                        <h2>{{ ucwords($grup->name) }}</h2><hr>
+                        <h5 class="text-capitalize">{{ $grup->keterangan }}</h5>
                         <small>Tahun Dibentuk {{ $grup->created_year }}</small>
-                        <div>
+                        <div class="my-3">
                             <a href="{{ url('grup/'.Crypt::encryptString($grup->id)) }}" @if ($main['tag'] == NULL)
                                 class="badge badge-primary"
                             @endif>#semua</a>
@@ -116,13 +119,15 @@
                 <section class="p-3">
                    <div class="form-group row">
                     <label for="" class="col-md-4">Nama Anggota</label>
-                    <select name="orang_id" id="orang_id" class="form-control col-md-8">
-                        @foreach ($orang as $item)
-                            @if (!DbChatomz::cekstatusgrup($grup->id,$item->id))
-                                <option value="{{ $item->id}}">{{ fullname($item)}}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                    <div class="col-md-8 p-0">
+                        <select name="orang_id" id="orang_id" class="form-control select2bs4" data-width="100%">
+                            @foreach ($orang as $item)
+                                @if (!DbChatomz::cekstatusgrup($grup->id,$item->id))
+                                    <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                     </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
@@ -130,11 +135,13 @@
                    </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Tag</label>
-                        {{-- <select name="" id="">
-                            @foreach ($collection as $item)
-                                
-                            @endforeach
-                        </select> --}}
+                        <div class="col-md-8 p-0">
+                            <select name="tag[]" id=""  data-placeholder="pilih tag" class="select2bs4" style="width: 100%;" multiple>
+                                @foreach (c_showtag($grup->dtag) as $item)
+                                    <option value="{{ $item }}">#{{ $item }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                    </div>
                 </section>
             </div>
