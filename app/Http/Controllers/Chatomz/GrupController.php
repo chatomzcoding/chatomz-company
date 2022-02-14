@@ -134,7 +134,7 @@ class GrupController extends Controller
                             ->where('grup_anggota.grup_id',$grup->id)
                             ->orderBy('orang.first_name','ASC')
                             ->get();
-       
+            $danggota = NULL;
         } else {
             $anggota    = DB::table('grup_anggota')
                             ->join('orang','grup_anggota.orang_id','=','orang.id')
@@ -143,12 +143,20 @@ class GrupController extends Controller
                             ->where('grup_anggota.tag','LIKE',"%".$tag."%")
                             ->orderBy('orang.first_name','ASC')
                             ->get();
+            $danggota    = DB::table('grup_anggota')
+                            ->join('orang','grup_anggota.orang_id','=','orang.id')
+                            ->select('orang.first_name','orang.last_name','orang.gender','grup_anggota.id','orang.death')
+                            ->where('grup_anggota.grup_id',$grup->id)
+                            // ->where('grup_anggota.tag','NOT LIKE',"%".$tag."%")
+                            ->orderBy('orang.first_name','ASC')
+                            ->get();
         }
         
         $orang      = Orang::where('status_group','available')->orderBy('first_name','ASC')->get(['id','first_name','last_name']);
         $menu       = 'grup';
         $main       = [
-            'tag' => $tag
+            'tag' => $tag,
+            'danggota' => $danggota,
         ];
         return view('chatomz.kingdom.grup.show', compact('menu','main','grup','anggota','orang'));
     }

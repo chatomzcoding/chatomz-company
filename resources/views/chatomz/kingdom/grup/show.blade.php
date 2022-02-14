@@ -27,6 +27,9 @@
                 <a href="{{ url('/grup')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> kembali </a>
                 <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-toggle="modal" data-target="#editgrup"><i class="fas fa-pen"></i> Edit Grup </a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Grup </a>
+                @if ($main['tag'] <> NULL)
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#anggotatag"><i class="fas fa-plus"></i> Tambah Anggota Ke Tag #{{ $main['tag'] }} </a>
+                @endif
                 <span class="float-right">Total Anggota {{ count($anggota) }}</span>
               </div>
               <div class="card-body">
@@ -201,6 +204,44 @@
     </div>
     <!-- /.modal -->
     {{-- modal edit --}}
+    @if (!is_null($main['danggota']))
+        <div class="modal fade" id="anggotatag">
+            <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form action="{{ url('grupanggota')}}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="sesi" value="taganggota">
+                <div class="modal-header">
+                <h4 class="modal-title">Tambahkan anggota ke tag #{{ $main['tag'] }}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body p-3">
+                    <input type="hidden" name="tag[]" id="id" value="{{ $main['tag'] }}">
+                    <section class="p-3">
+                        <div class="form-group row">
+                            <label for="" class="col-md-4">Nama Anggota</label>
+                                <div class="col-md-8 p-0">
+                                    @foreach ($main['danggota'] as $item)
+                                        @if (DbChatomz::cekanggotagruptag($item->id,$main['tag']))
+                                            <input type="checkbox" name="id[]"  value="{{ $item->id }}">
+                                            <label>{{ fullname($item).' ('.$item->gender}})</label> <br>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            </div>
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+    @endif
     <div class="modal fade" id="editgrup">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">

@@ -254,4 +254,15 @@ class DbChatomz {
             ]);
         }
     }
+    // grup
+    public static function cekanggotagruptag($id,$tag)
+    {
+        $result = FALSE;
+        $cek = Grupanggota::where('id',$id)->where('tag','LIKE','%'.$tag.'%')->count();
+        if ($cek == 0) {
+            $result = TRUE;
+        }
+        return $result;
+
+    }
 }
