@@ -735,7 +735,7 @@
             <form action="{{ url('/grupanggota')}}" method="post">
                 @csrf
                 <input type="hidden" name="orang_id" value="{{ $orang->id }}">
-                <input type="hidden" name="sesi" value="TRUE">
+                <input type="hidden" name="sesi" value="anggotalist">
             <div class="modal-header">
             <h4 class="modal-title">Tambah Grup</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
