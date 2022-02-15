@@ -65,41 +65,7 @@
                     <div class="row d-flex align-items-stretch">
                         @forelse ($anggota as $item)
                             <div class="col-12 col-sm-4 col-md-3 d-flex align-items-stretch">
-                                {{-- <div class="card bg-light">
-                                    <div class="card-header text-muted border-bottom-0 text-capitalize">
-                                    {{ fullname($item)}} 
-                                    @if ($item->gender == 'laki-laki')
-                                            <sup><i class="fas fa-mars text-primary"></i></sup>  
-                                        @else
-                                            <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                        @endif
-                                    </div>
-                                    <div class="card-body pt-0 pb-0">
-                                    <div class="row">
-                                        <div class="col-6">
-                                    
-                                        <i class="small">{{ c_listtag($item->tag) }}</i>
-                                        </div>
-                                        <div class="col-6 text-center">
-                                            <a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" alt="user-avatar" class="img-fluid img-circle"></a>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <span class="small">{{ $item->information }}</span>
-                                        </div>
-                                    </div>
-                                    </div>
-                                    <div class="card-footer p-1">
-                                        <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
-                                        <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </div>
-                                </div> --}}
-                                <div class="card mb-3" style="max-width: 540px;">
+                                <div class="card mb-3 w-100">
                                     <div class="row no-gutters">
                                         <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
                                             @csrf
@@ -127,7 +93,6 @@
                                                     <sup><i class="fas fa-venus text-danger"></i></sup>  
                                                 @endif
                                           </h6>
-                                          {{-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> --}}
                                           <p class="card-text"><small class="text-muted">{{ $item->information }}</small></p>
                                           <i class="small">{{ c_listtag($item->tag) }}</i>
                                         </div>
