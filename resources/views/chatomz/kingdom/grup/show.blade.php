@@ -71,18 +71,18 @@
                                             @csrf
                                             @method('delete')
                                         </form>
-                                      <div class="col-md-4">
-                                        <a id="dropdownMenuButton" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="w-100">
-                                            <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img" alt="...">
-                                          </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><i class="fa fa-user text-primary" style="width: 25px"></i> DETAIL</a>
-                                                <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
-                                                    <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
-                                                </button>
-                                                <a onclick="deleteRow( {{ $item->id }} )" type="button" class="dropdown-item"><i class="fa fa-trash-alt text-danger" style="width: 25px"></i> HAPUS</a>
-                                              </div>
-                                      </div>
+                                        <div class="col-md-4">
+                                            <a id="dropdownMenuButton" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="w-100">
+                                                <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img" alt="...">
+                                            </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><i class="fa fa-user text-primary" style="width: 25px"></i> DETAIL</a>
+                                                    <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                        <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
+                                                    </button>
+                                                    <a onclick="deleteRow( {{ $item->id }} )" type="button" class="dropdown-item"><i class="fa fa-trash-alt text-danger" style="width: 25px"></i> HAPUS</a>
+                                                </div>
+                                        </div>
                                       <div class="col-md-8">
                                         <div class="card-body p-2">
                                           <h6 class="card-title">
@@ -100,7 +100,7 @@
                                         </div>
                                       </div>
                                     </div>
-                                  </div>
+                                </div>
                             </div>
                             @empty
                                 <div class="col text-center">
@@ -234,9 +234,21 @@
                         <div class="form-group row">
                             @foreach ($main['danggota'] as $item)
                                 @if (DbChatomz::cekanggotagruptag($item->id,$main['tag']))
-                                    <div class="col-md-6 p-0">
-                                        <input type="checkbox" name="id[]"  value="{{ $item->id }}">
-                                        <label>{{ fullname($item)}}</label> <br>
+                                    <div class="col-lg-3 col-md-4 col-sm-6 p-2">
+                                        <div class="card">
+                                            <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img-top" alt="...">
+                                            <div class="card-body p-1">
+                                              <p class="card-text small text-center">{{ fullname($item)}} 
+                                                @if ($item->gender == 'laki-laki')
+                                                        <sup><i class="fas fa-mars text-primary"></i></sup>  
+                                                    @else
+                                                        <sup><i class="fas fa-venus text-danger"></i></sup>  
+                                                    @endif</p>
+                                                    <section>
+                                                        <input type="checkbox" name="id[]" class="form-control form-control-sm" value="{{ $item->id }}">
+                                                    </section>
+                                            </div>
+                                          </div>
                                     </div>
                                 @endif
                             @endforeach

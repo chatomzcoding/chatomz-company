@@ -145,7 +145,7 @@ class GrupController extends Controller
                             ->get();
             $danggota    = DB::table('grup_anggota')
                             ->join('orang','grup_anggota.orang_id','=','orang.id')
-                            ->select('orang.first_name','orang.last_name','orang.gender','grup_anggota.id','orang.death')
+                            ->select('orang.first_name','orang.last_name','orang.gender','grup_anggota.id','orang.death','orang.photo')
                             ->where('grup_anggota.grup_id',$grup->id)
                             // ->where('grup_anggota.tag','NOT LIKE',"%".$tag."%")
                             ->orderBy('orang.first_name','ASC')
