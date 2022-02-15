@@ -7,6 +7,7 @@ use App\Models\Grup;
 use App\Models\Grupanggota;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
+use App\Models\Linimasa;
 use App\Models\Orang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -234,7 +235,10 @@ class OrangController extends Controller
                             ->orderBy('grup.name','ASC')
                             ->get();
         $datagrup       = Grup::orderBy('name','ASC')->get();
-        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup'));
+        $linimasa       = Linimasa::where('orang_id',$orang->id)->orderby('tanggal','DESC')->get();
+
+        // return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup'));
+        return view('chatomz.kingdom.orang.show2', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup','linimasa'));
     }
 
     /**

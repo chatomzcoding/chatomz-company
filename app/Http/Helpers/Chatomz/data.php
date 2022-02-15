@@ -42,4 +42,14 @@ if (! function_exists('c_listtag')) {
         return $result;
     }
 }
+if (! function_exists('linimasa_icon')) {
+    function linimasa_icon($icon)
+    {
+        $result     = 'calendar';
+        if (!is_null($icon)) {
+            $result     = $icon;
+        }
+        return $result;
+    }
+}
 

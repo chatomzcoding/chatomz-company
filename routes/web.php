@@ -1,12 +1,20 @@
 <?php
 
+use App\Http\Controllers\Chatomz\BarangController;
+use App\Http\Controllers\Chatomz\GrupanggotaController;
+use App\Http\Controllers\Chatomz\GrupController;
 use App\Http\Controllers\Chatomz\HubungankeluargaController;
 use App\Http\Controllers\Chatomz\JejakController;
 use App\Http\Controllers\Chatomz\KeluargaController;
+use App\Http\Controllers\Chatomz\LinimasaController;
 use App\Http\Controllers\Chatomz\OrangController;
+use App\Http\Controllers\Chatomz\PendidikanController;
+use App\Http\Controllers\Company\InformasiController;
+use App\Http\Controllers\Company\InformasisubController;
 use App\Http\Controllers\MigrasiController;
+use App\Http\Controllers\Sistem\KategoriController;
+use App\Http\Controllers\Sistem\VisitorController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Example; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,7 +56,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('info-website', 'App\Http\Controllers\Admin\InfowebsiteController');
         // Chatomz
         // barang
-        Route::resource('barang', 'App\Http\Controllers\Chatomz\BarangController');
+        Route::resource('barang', BarangController::class);
         Route::resource('barangbelanja', 'App\Http\Controllers\Chatomz\Barang\BelanjaController');
         Route::resource('barangdaftar', 'App\Http\Controllers\Chatomz\Barang\DaftarController');
         
@@ -56,6 +64,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('jejakorang', 'App\Http\Controllers\Chatomz\JejakorangController');
         Route::resource('jejakpoto', 'App\Http\Controllers\Chatomz\JejakpotoController');
         Route::resource('orang', OrangController::class);
+        Route::resource('linimasa', LinimasaController::class);
         Route::get('lihat/orangpoto/{sesi}', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
         Route::post('proses/lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@prosesorangpoto');
         Route::post('cariorang', 'App\Http\Controllers\Chatomz\OrangController@cariorang');
@@ -63,27 +72,23 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
         Route::get('lihat/statistik', 'App\Http\Controllers\HomeController@statistik');
         Route::resource('kontak', 'App\Http\Controllers\Chatomz\KontakController');
-        Route::resource('grup', 'App\Http\Controllers\Chatomz\GrupController');
+        Route::resource('grup', GrupController::class);
         Route::get('lihat/grup/{sesi}', 'App\Http\Controllers\Chatomz\GrupController@lihatgrup');
         Route::post('proses/lihat/grup', 'App\Http\Controllers\Chatomz\GrupController@prosesgrup');
-        Route::resource('grupanggota', 'App\Http\Controllers\Chatomz\GrupanggotaController');
-        Route::resource('pendidikan', 'App\Http\Controllers\Chatomz\PendidikanController');
+        Route::resource('grupanggota', GrupanggotaController::class);
+        Route::resource('pendidikan', PendidikanController::class);
         Route::resource('keluarga', KeluargaController::class);
         Route::resource('hubungankeluarga', HubungankeluargaController::class);
         
         // SISTEM
-        Route::resource('visitor', 'App\Http\Controllers\Sistem\VisitorController');
-        Route::resource('kategori', 'App\Http\Controllers\Sistem\KategoriController');
+        Route::resource('visitor', VisitorController::class);
+        Route::resource('kategori', KategoriController::class);
         
         // Company
         // informasi
-        Route::resource('informasi', 'App\Http\Controllers\Company\InformasiController');
-        Route::resource('informasisub', 'App\Http\Controllers\Company\InformasisubController');
+        Route::resource('informasi', InformasiController::class);
+        Route::resource('informasisub', InformasisubController::class);
         Route::resource('merk', 'App\Http\Controllers\Company\MerkController');
-        Route::resource('gadget', 'App\Http\Controllers\Company\GadgetController');
-        Route::resource('hewan', 'App\Http\Controllers\Company\Informasi\HewanController');
-        Route::resource('gadgethandphone', 'App\Http\Controllers\Company\Informasi\Gadget\HandphoneController');
-        Route::resource('hewanjenis', 'App\Http\Controllers\Company\Informasi\HewanjenisController');
 
     });
     
