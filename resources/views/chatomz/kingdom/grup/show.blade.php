@@ -64,7 +64,7 @@
                   <hr>
                     <div class="row d-flex align-items-stretch">
                         @forelse ($anggota as $item)
-                            <div class="col-12 col-sm-4 col-md-3 d-flex align-items-stretch">
+                            <div class="col-lg-3 col-md-4 col-sm-6 d-flex align-items-stretch">
                                 <div class="card mb-3 w-100">
                                     <div class="row no-gutters">
                                         <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
@@ -72,7 +72,7 @@
                                             @method('delete')
                                         </form>
                                       <div class="col-md-4">
-                                        <a id="dropdownMenuButton" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+                                        <a id="dropdownMenuButton" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="w-100">
                                             <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img" alt="...">
                                           </a>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -93,8 +93,10 @@
                                                     <sup><i class="fas fa-venus text-danger"></i></sup>  
                                                 @endif
                                           </h6>
-                                          <p class="card-text"><small class="text-muted">{{ $item->information }}</small></p>
-                                          <i class="small">{{ c_listtag($item->tag) }}</i>
+                                          <br>
+                                            <small class="text-muted">{{ $item->information }} <br>
+                                                <i>{{ c_listtag($item->tag) }}</i>
+                                            </small>
                                         </div>
                                       </div>
                                     </div>
