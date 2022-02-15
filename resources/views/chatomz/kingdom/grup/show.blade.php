@@ -64,39 +64,76 @@
                   <hr>
                     <div class="row d-flex align-items-stretch">
                         @forelse ($anggota as $item)
-                            <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch">
-                            <div class="card bg-light">
-                                <div class="card-header text-muted border-bottom-0 text-capitalize">
-                                {{ fullname($item)}}
-                                </div>
-                                <div class="card-body pt-0 pb-0">
-                                <div class="row">
-                                    <div class="col-7">
-                                    <h2 class="lead"><b>{{ $item->gender}}</b></h2>
-                                  
-                                    <i class="small">{{ c_listtag($item->tag) }}</i>
+                            <div class="col-12 col-sm-4 col-md-3 d-flex align-items-stretch">
+                                {{-- <div class="card bg-light">
+                                    <div class="card-header text-muted border-bottom-0 text-capitalize">
+                                    {{ fullname($item)}} 
+                                    @if ($item->gender == 'laki-laki')
+                                            <sup><i class="fas fa-mars text-primary"></i></sup>  
+                                        @else
+                                            <sup><i class="fas fa-venus text-danger"></i></sup>  
+                                        @endif
                                     </div>
-                                    <div class="col-5 text-center">
-                                        <a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" alt="user-avatar" class="img-fluid img-circle"></a>
+                                    <div class="card-body pt-0 pb-0">
+                                    <div class="row">
+                                        <div class="col-6">
+                                    
+                                        <i class="small">{{ c_listtag($item->tag) }}</i>
+                                        </div>
+                                        <div class="col-6 text-center">
+                                            <a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" alt="user-avatar" class="img-fluid img-circle"></a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span class="small">{{ $item->information }}</span>
+                                        </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <span class="small">{{ $item->information }}</span>
                                     </div>
-                                </div>
-                                </div>
-                                <div class="card-footer p-2">
-                                    <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                    </form>
-                                    <span class="text-muted text-sm text-justify"><i class="fas fa-calendar-alt"></i> {{ $item->created_at }} </span>
-                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
-                                    <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                        
-                                </div>
-                            </div>
+                                    <div class="card-footer p-1">
+                                        <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
+                                        <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </div> --}}
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row no-gutters">
+                                        <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                      <div class="col-md-4">
+                                        <a id="dropdownMenuButton" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false">
+                                            <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img" alt="...">
+                                          </a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><i class="fa fa-user text-primary" style="width: 25px"></i> DETAIL</a>
+                                                <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
+                                                </button>
+                                                <a onclick="deleteRow( {{ $item->id }} )" type="button" class="dropdown-item"><i class="fa fa-trash-alt text-danger" style="width: 25px"></i> HAPUS</a>
+                                              </div>
+                                      </div>
+                                      <div class="col-md-8">
+                                        <div class="card-body p-2">
+                                          <h6 class="card-title">
+                                            {{ fullname($item)}} 
+                                            @if ($item->gender == 'laki-laki')
+                                                    <sup><i class="fas fa-mars text-primary"></i></sup>  
+                                                @else
+                                                    <sup><i class="fas fa-venus text-danger"></i></sup>  
+                                                @endif
+                                          </h6>
+                                          {{-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> --}}
+                                          <p class="card-text"><small class="text-muted">{{ $item->information }}</small></p>
+                                          <i class="small">{{ c_listtag($item->tag) }}</i>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                             </div>
                             @empty
                                 <div class="col text-center">
@@ -195,6 +232,7 @@
                                     <option value="{{ $item }}">#{{ $item }}</option>
                                 @endforeach
                             </select>
+                            <input type="checkbox" name="hapustag" value="TRUE"> Hapus Tag
                         </div>
                     </div>
                 </section>

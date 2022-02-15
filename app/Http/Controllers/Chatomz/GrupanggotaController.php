@@ -119,9 +119,31 @@ class GrupanggotaController extends Controller
      */
     public function update(Request $request)
     {
+        $tag = (isset($request->tag)) ? $request->tag : NULL ;
+        // fungsi untuk hapus tag
+        if (isset($request->hapustag)) {
+            Grupanggota::where('id',$request->id)->update([
+                'tag' => NULL
+            ]);
+        }
+        $ganggota   = Grupanggota::find($request->id);
+        if ($ganggota->tag <> NULL) {
+            if (!is_null($tag)) {
+                $tag    = json_decode($ganggota->tag,TRUE);
+                $tag    = array_merge($request->tag,$tag);
+                $tag    = array_unique($tag);
+                $tag    = json_encode($tag);
+            } else {
+                $tag    = $ganggota->tag;
+            }
+        } else {
+            if (!is_null($tag)) {
+                $tag    = json_encode($tag);
+            }
+        }
         Grupanggota::where('id',$request->id)->update([
             'information' => $request->information,
-            'tag' => json_encode($request->tag)
+            'tag' => $tag
         ]);
 
         return redirect()->back()->with('du','Anggota');
