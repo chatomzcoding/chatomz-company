@@ -64,29 +64,38 @@
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
+                                <th width="10%">Aksi</th>
                                 <th>Nama Keluarga</th>
                                 <th>Tgl Pernikahan</th>
                                 <th>Status</th>
-                                <th width="10%">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
                             @forelse ($keluarga as $item)
                             <tr>
-                                    <td class="text-center">{{ $loop->iteration}}</td>
+                                <td class="text-center">{{ $loop->iteration}}</td>
+                                <td class="text-center">
+                                    <form id="data-{{ $item->id }}" action="{{url('/keluarga',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        </form>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <div class="dropdown-menu" role="menu">
+                                                <button type="button" data-toggle="modal"  data-nama_keluarga="{{ $item->nama_keluarga }}"  data-no_kk="{{ $item->no_kk }}"  data-orang_id="{{ $item->orang_id }}" data-tgl_pernikahan="{{ $item->tgl_pernikahan }}" data-keterangan="{{ $item->keterangan }}" data-status_keluarga="{{ $item->status_keluarga }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <i class="fa fa-edit" style="width: 20px;"></i> EDIT
+                                                </button>
+                                            <div class="dropdown-divider"></div>
+                                            <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt w20p"></i> HAPUS</button>
+                                            </div>
+                                        </div>
+                                </td>
                                     <td><a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}">{{ $item->nama_keluarga}}</a></td>
                                     <td>{{ date_indo($item->tgl_pernikahan,'-')}}</td>
                                     <td class="text-center">{{ $item->status_keluarga}}</td>
-                                    <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/keluarga',$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            </form>
-                                        <button type="button" data-toggle="modal"  data-nama_keluarga="{{ $item->nama_keluarga }}"  data-no_kk="{{ $item->no_kk }}"  data-orang_id="{{ $item->orang_id }}" data-tgl_pernikahan="{{ $item->tgl_pernikahan }}" data-keterangan="{{ $item->keterangan }}" data-status_keluarga="{{ $item->status_keluarga }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-                                    </td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -121,13 +130,15 @@
                    </div>
                    <div class="form-group row">
                     <label for="" class="col-md-4">Kepala Keluarga</label>
-                    <select name="orang_id" id="orang_id" class="form-control col-md-8">
-                        @foreach ($kepalakeluarga as $item)
-                            @if (!DbChatomz::cekstatussuami($item->id))
-                                <option value="{{ $item->id}}">{{ fullname($item)}}</option>
-                            @endif
-                        @endforeach
-                    </select>
+                    <div class="col-md-8 p-0">
+                        <select name="orang_id" class="select2bs4" data-width="100%">
+                            @foreach ($kepalakeluarga as $item)
+                                @if (!DbChatomz::cekstatussuami($item->id))
+                                    <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
                     </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">No KK</label>
@@ -183,11 +194,14 @@
                    </div>
                    <div class="form-group row">
                     <label for="" class="col-md-4">Kepala Keluarga</label>
-                    <select name="orang_id" id="orang_id" class="form-control col-md-8">
-                        @foreach ($kepalakeluarga as $item)
-                            <option value="{{ $item->id}}">{{ $item->first_name.' '.$item->last_name}}</option>
-                        @endforeach
-                    </select>
+                    <div class="col-md-8 p-0">
+                        <select name="orang_id" id="orang_id" class="select2bs4" data-width="100%">
+                                <option value="">-- kepala keluarga --</option>
+                            @foreach ($kepalakeluarga as $item)
+                                <option value="{{ $item->id}}">{{ ucwords($item->first_name.' '.$item->last_name)}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">No KK</label>
@@ -249,7 +263,7 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "buttons": ["excel", "pdf"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,

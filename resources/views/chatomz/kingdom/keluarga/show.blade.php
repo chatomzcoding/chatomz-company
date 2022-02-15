@@ -8,7 +8,7 @@
         </h2> --}}
         <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Data Keluarga - {{ $keluarga->nama_keluarga}}</h1>
+              <h1 class="m-0">Data Keluarga - {{ ucwords($keluarga->nama_keluarga)}}</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -34,7 +34,7 @@
             <!-- general form elements -->
             <div class="card">
               <div class="card-header">
-                  <a href="{{ url('/keluarga')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-angle-double-left"></i> Kembali</a>
+                  <a href="{{ url('/keluarga')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-double-left"></i> Kembali</a>
                 @if (isset($pohon['istri']))
                     <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Keluarga </a>
                 @endif
@@ -57,37 +57,46 @@
                             &nbsp;&nbsp;&nbsp;<small>"{{ $keluarga->keterangan }}"</small>
                         @endif
                     </div>
-                    <div class="col-md-8 border p-1">
+                    <div class="col-md-8 p-1">
                         <div class="table-responsive">
                           <table id="example1" class="table table-bordered table-striped">
                               <thead class="text-center">
                                   <tr>
                                       <th width="5%">No</th>
-                                      <th>Hubungan Keluarga</th>
+                                      <th width="10%">Aksi</th>
+                                      <th>Hubungan</th>
                                       <th>Nama Anggota</th>
                                       <th>Urutan</th>
                                       <th>Keterangan</th>
-                                      <th>Aksi</th>
                                   </tr>
                               </thead>
                               <tbody class="text-capitalize">
                                   @forelse ($keluargahubungan as $item)
                                   <tr>
                                           <td class="text-center">{{ $loop->iteration}}</td>
-                                          <td>{{ $item->status}}</td>
-                                          <td><a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}">{{ $item->first_name.' '.$item->last_name}}</a> </td>
-                                          <td class="text-center">{{ $item->urutan}}</td>
-                                          <td>{{ $item->keterangan}}</td>
                                           <td class="text-center">
-                                              <form id="data-{{ $item->id }}" action="{{url('/keluargahubungan',$item->id)}}" method="post">
+                                              <form id="data-{{ $item->id }}" action="{{url('/hubungankeluarga',$item->id)}}" method="post">
                                                   @csrf
                                                   @method('delete')
                                                   </form>
-                                              <button type="button" data-toggle="modal" data-urutan="{{ $item->urutan }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                                  <i class="fa fa-edit"></i>
-                                              </button>
-                                              <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                                  <div class="btn-group">
+                                                    <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
+                                                    <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <button type="button" data-toggle="modal" data-urutan="{{ $item->urutan }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                            <i class="fa fa-edit" style="width: 20px;"></i> EDIT
+                                                        </button>
+                                                    <div class="dropdown-divider"></div>
+                                                    <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt w20p"></i> HAPUS</button>
+                                                    </div>
+                                                </div>
                                           </td>
+                                          <td class="text-center text-uppercase">{{ $item->status}}</td>
+                                          <td><a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}">{{ $item->first_name.' '.$item->last_name}}</a> </td>
+                                          <td class="text-center">{{ $item->urutan}}</td>
+                                          <td>{{ $item->keterangan}}</td>
                                       </tr>
                                   @empty
                                       <tr class="text-center">
@@ -116,7 +125,7 @@
                   {{-- baris kepala keluarga dan istri --}}
                   <div class="row justify-content-center">
                       <div class="col-md-3 pb-0">
-                          <div class="card bg-info mb-0">
+                          <div class="card bg-primary mb-0">
                               <div class="row no-gutters">
                                 <div class="col-md-4">
                                   <a href="{{ url('/orang/'.Crypt::encryptString($pohon['suami']->id))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="card-img" alt="..."></a>
@@ -127,7 +136,7 @@
                                       <small class="text-capitalize">{{ fullname($pohon['suami'])}} 
                                           {{-- cek keturunan keatas --}}
                                           @if ($pohon['ortusuami'])
-                                           <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}"><span><i class="fas fa-angle-up"></i></span></a>
+                                           <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}" class="badge badge-light float-right"><span><i class="fas fa-angle-up text-primary"></i></span></a>
                                           @endif
                                       <br> <i>suami</i></small>
                                     </div>
@@ -137,7 +146,7 @@
                       </div>
                       @if ($pohon['istri'])
                         <div class="col-md-3 pb-0">
-                            <div class="card bg-success mb-0">
+                            <div class="card bg-info mb-0">
                                 <div class="row no-gutters">
                                 <div class="col-md-4">
                                     <a href="{{ url('/orang/'.Crypt::encryptString($pohon['istri']->idorang))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->photo))}}" class="card-img" alt="..."></a>
@@ -146,7 +155,7 @@
                                     <div class="card-body p-2">
                                     <small class="text-capitalize">{{ fullname($pohon['istri'])}}
                                         @if ($pohon['ortuistri'])
-                                        <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}"><span><i class="fas fa-angle-up"></i></span></a>
+                                        <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}" class="badge badge-light float-right"><span><i class="fas fa-angle-up text-info"></i></span></a>
                                     @endif
                                         <br>
                                     <i>istri</i></small>
@@ -204,7 +213,7 @@
                     @foreach ($keluargahubungan as $item)
                         @if ($item->status <> 'istri')
                             <div class="col-md-3">
-                                <div class="card mb-3">
+                                <div class="card bg-success mb-3">
                                     <div class="row no-gutters">
                                     <div class="col-md-4">
                                         <a href="{{ url('/orang/'.Crypt::encryptString($item->idorang))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="..."></a>
@@ -216,10 +225,10 @@
                                                 $keturunan = DbChatomz::cekketurunankeluarga($item->idorang,$item->gender);
                                             @endphp
                                             @if ($keturunan)
-                                                <a href="{{ url('keluarga/'.Crypt::encryptString($keturunan)) }}"><span><i class="fas fa-angle-down"></i></span></a>
+                                                <a href="{{ url('keluarga/'.Crypt::encryptString($keturunan)) }}" class="badge badge-light float-right"><span><i class="fas fa-angle-down text-success"></i></span></a>
                                             @endif
                                             <br>
-                                        <i>Anak {{ $item->urutan }}</i></small>
+                                        Anak {{ $item->urutan }}</small> <br> <small><i>{{ $item->gender }}</i></small>
                                         </div>
                                     </div>
                                     </div>
@@ -237,7 +246,7 @@
         <div class="modal fade" id="tambah">
             <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form action="{{ url('/keluarga')}}" method="post">
+                <form action="{{ url('/hubungankeluarga')}}" method="post">
                     @csrf
                     <input type="hidden" name="keluarga_id" value="{{ $keluarga->id }}">
                     <input type="hidden" name="status" value="anak">
@@ -251,13 +260,15 @@
                     <section class="p-3">
                         <div class="form-group row">
                             <label for="" class="col-md-4">Nama Anggota Keluarga</label>
-                            <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
-                                @foreach ($anggotakeluarga as $item)
-                                    @if ($item->id <> $pohon['suami']->id AND $item->id <> $pohon['istri']->idorang)
-                                    <option value="{{ $item->id}}">{{ fullname($item)}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                            <div class="col-md-8 p-0">
+                                <select name="orang_id" class="select2bs4" data-width="100%">
+                                    @foreach ($anggotakeluarga as $item)
+                                        @if ($item->id <> $pohon['suami']->id AND $item->id <> $pohon['istri']->idorang)
+                                        <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     <div class="form-group row">
                             <label for="" class="col-md-4">Urutan</label>
@@ -281,7 +292,7 @@
     <div class="modal fade" id="tambahistri">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ url('/keluargahubungan')}}" method="post">
+            <form action="{{ url('/hubungankeluarga')}}" method="post">
                 @csrf
                 <input type="hidden" name="keluarga_id" value="{{ $keluarga->id }}">
                 <input type="hidden" name="status" value="istri">
@@ -295,14 +306,16 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                     <div class="form-group row">
-                         <label for="" class="col-md-4">Status Keluarga</label>
-                         <select name="orang_id" id="orang_id" class="form-control col-md-8">
-                             @foreach ($daftaristri as $item)
-                                @if (!DbChatomz::cekstatusistri($item->id))
-                                    <option value="{{ $item->id}}">{{ fullname($item)}}</option>
-                                @endif
-                             @endforeach
-                         </select>
+                         <label for="" class="col-md-4">Nama Istri</label>
+                         <div class="col-md-8 p-0">
+                             <select name="orang_id" class="select2bs4" data-width="100%">
+                                 @foreach ($daftaristri as $item)
+                                    @if (!DbChatomz::cekstatusistri($item->id))
+                                        <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                                    @endif
+                                 @endforeach
+                             </select>
+                         </div>
                     </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
@@ -322,7 +335,7 @@
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('keluargahubungan.update','test')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('hubungankeluarga.update','test')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
             <div class="modal-header">
@@ -427,6 +440,8 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
+                "ordering": false,
+                "searching": false,
                 // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({

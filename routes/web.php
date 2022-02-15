@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Chatomz\HubungankeluargaController;
 use App\Http\Controllers\Chatomz\JejakController;
+use App\Http\Controllers\Chatomz\KeluargaController;
 use App\Http\Controllers\Chatomz\OrangController;
 use App\Http\Controllers\MigrasiController;
 use Illuminate\Support\Facades\Route;
@@ -66,8 +68,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::post('proses/lihat/grup', 'App\Http\Controllers\Chatomz\GrupController@prosesgrup');
         Route::resource('grupanggota', 'App\Http\Controllers\Chatomz\GrupanggotaController');
         Route::resource('pendidikan', 'App\Http\Controllers\Chatomz\PendidikanController');
-        Route::resource('keluarga', 'App\Http\Controllers\Chatomz\KeluargaController');
-        Route::resource('keluargahubungan', 'App\Http\Controllers\Chatomz\HubungankeluargaController');
+        Route::resource('keluarga', KeluargaController::class);
+        Route::resource('hubungankeluarga', HubungankeluargaController::class);
         
         // SISTEM
         Route::resource('visitor', 'App\Http\Controllers\Sistem\VisitorController');

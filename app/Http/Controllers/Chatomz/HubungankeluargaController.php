@@ -86,9 +86,9 @@ class HubungankeluargaController extends Controller
      * @param  \App\Models\Keluargahubungan  $keluargahubungan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Keluargahubungan $keluargahubungan)
+    public function destroy($keluargahubungan)
     {
-        $keluargahubungan->delete();
+        Keluargahubungan::find($keluargahubungan)->delete();
 
         return redirect()->back()->with('dd','Hubungan Keluarga');
     }
