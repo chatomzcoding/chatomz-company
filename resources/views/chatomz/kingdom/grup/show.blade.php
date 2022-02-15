@@ -21,12 +21,17 @@
           <!-- left column -->
           <div class="col-md-12">
             <!-- general form elements -->
+            <form id="data-{{ $grup->id }}" action="{{url('/grup/'.$grup->id)}}" method="post">
+                @csrf
+                @method('delete')
+                </form>
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
                 <a href="{{ url('/grup')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> kembali </a>
-                <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-toggle="modal" data-target="#editgrup"><i class="fas fa-pen"></i> Edit Grup </a>
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Grup </a>
+                <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-toggle="modal" data-target="#editgrup"><i class="fas fa-pen"></i> Edit</a>
+                <button onclick="deleteRow( {{ $grup->id }} )" class="btn btn-outline-danger btn-sm btn-flat pop-info" title="hapus grup"><i class="fas fa-trash-alt"></i> Hapus</button>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota</a>
                 @if ($main['tag'] <> NULL)
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#anggotatag"><i class="fas fa-plus"></i> Tambah Anggota Ke Tag #{{ $main['tag'] }} </a>
                 @endif
@@ -257,13 +262,21 @@
             <div class="modal-body p-3">
                 <input type="hidden" name="id" id="id" value="{{ $grup->id }}">
                 <section class="p-3">
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Grup {!! ireq() !!}</label>
-                        <input type="text" name="name" id="name" value="{{ $grup->name }}" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
+                    <div class="form-group row">
+                         <label for="" class="col-md-4">Nama Grup {!! ireq() !!}</label>
+                         <input type="text" name="name" id="name" value="{{ $grup->name }}" class="form-control col-md-8">
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-md-4">Keterangan</label>
+                        <textarea name="keterangan" id="" cols="30" rows="5" class="form-control col-md-8" required>{{ $grup->keterangan }}</textarea>
+                    </div>
+                    <div class="form-group row">
                         <label for="" class="col-md-4">Data Tag</label>
-                        <textarea name="dtag" id="" cols="30" rows="5" class="form-control col-md-8" required>{{ $grup->dtag }}</textarea>
+                        <textarea name="dtag" id="" cols="30" rows="5" class="form-control col-md-8">{{ $grup->dtag }}</textarea>
+                    </div>
+                    <div class="form-group row">
+                         <label for="" class="col-md-4">Gambar Grup {!! ireq() !!}</label>
+                         <input type="file" name="photo" id="photo" class="form-control col-md-8">
                     </div>
                 </section>
             </div>

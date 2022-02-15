@@ -183,17 +183,29 @@ class GrupController extends Controller
     
     public function update(Request $request)
     {
-        // $dtag  = explode('#',$request->dtag);
-        // unset($dtag[0]); 
-        // $dtag  = array_map('trim',$dtag); 
-        // $dtag  = array_values($dtag); 
-        // $dtag  = json_encode($dtag);
-
-        Grup::where('id',$request->id)->update([
-            'name' => $request->name,
-            'dtag' => $request->dtag,
-        ]);
-
+        $grup   = Grup::find($request->id);
+        if (isset($request->photo)) {
+            $request->validate([
+                'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+            ]);
+            $tujuan_upload = 'public/img/chatomz/grup';
+            $file = $request->file('photo');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $file->move($tujuan_upload,$nama_file);
+            deletefile($tujuan_upload.'/'.$grup->photo);
+            Grup::where('id',$request->id)->update([
+                'name' => $request->name,
+                'keterangan' => $request->keterangan,
+                'photo' => $nama_file,
+                'dtag' => $request->dtag,
+            ]);
+        } else {
+            Grup::where('id',$request->id)->update([
+                'name' => $request->name,
+                'keterangan' => $request->keterangan,
+                'dtag' => $request->dtag,
+            ]);
+        }
         return back()->with('du','Grup');
     }
 
@@ -205,6 +217,9 @@ class GrupController extends Controller
      */
     public function destroy(Grup $grup)
     {
-        //
+        deletefile('img/chatomz/grup/'.$grup->photo);
+        $grup->delete();
+
+        return redirect('grup')->with('dd','Grup');
     }
 }
