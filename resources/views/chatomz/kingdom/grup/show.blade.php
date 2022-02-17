@@ -216,7 +216,7 @@
     {{-- modal edit --}}
     @if (!is_null($main['danggota']))
         <div class="modal fade" id="anggotatag">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ url('grupanggota')}}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -230,7 +230,39 @@
                 <div class="modal-body p-3">
                     <input type="hidden" name="tag[]" id="id" value="{{ $main['tag'] }}">
                     <section class="p-3">
-                        <label for="">Nama Anggota</label>
+                <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPAN DATA</button>
+
+                        <table class="table" id="example1">
+                            <thead>
+                                <tr>
+                                    <th  width="20%"></th>
+                                    <th>Nama</th>
+                                    <th class="text-center">Pilih</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            @foreach ($main['danggota'] as $item)
+                                @if (DbChatomz::cekanggotagruptag($item->id,$main['tag']))
+                                    <tr>
+                                        <td><img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="w-100" alt="..."></td>
+                                        <td>{{ fullname($item)}} 
+                                            @if ($item->gender == 'laki-laki')
+                                                <sup><i class="fas fa-mars text-primary"></i></sup>  
+                                            @else
+                                                <sup><i class="fas fa-venus text-danger"></i></sup>  
+                                            @endif
+                                            <br>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" name="id[]" class="form-control form-control-sm" value="{{ $item->id }}">
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            </tbody>
+                        </table>
+                        {{-- <label for="">Nama Anggota</label>
                         <div class="form-group row">
                             @foreach ($main['danggota'] as $item)
                                 @if (DbChatomz::cekanggotagruptag($item->id,$main['tag']))
@@ -252,12 +284,12 @@
                                     </div>
                                 @endif
                             @endforeach
-                        </div>
+                        </div> --}}
                     </section>
                 </div>
                 <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-                <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> SIMPAN DATA</button>
                 </div>
                 </form>
             </div>
@@ -327,7 +359,8 @@
             $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+                "paging": false,
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
             $('#example2').DataTable({
                 "paging": true,
