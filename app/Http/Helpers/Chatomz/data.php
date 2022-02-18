@@ -34,8 +34,8 @@ if (! function_exists('c_listtag')) {
         if (!is_null($tag)) {
             $html   = NULL;
             $tag = json_decode($tag);
-            foreach ($tag as $k) {
-                $html .= "#".$k.' ';
+            foreach ($tag as $k => $isi) {
+                $html .= $k.' ';
             }
             $result     = $html;
         }
@@ -48,6 +48,28 @@ if (! function_exists('linimasa_icon')) {
         $result     = 'calendar';
         if (!is_null($icon)) {
             $result     = $icon;
+        }
+        return $result;
+    }
+}
+if (! function_exists('get_saved_locations')) {
+    function get_saved_locations()
+    {   
+        $array = [['28.710463464570836','77.30186504296853']];
+        echo json_encode($array);
+        $result     = NULL;
+        return $result;
+    }
+}
+
+if (! function_exists('showpertag')) {
+    function showpertag($data,$tag)
+    {   
+        $result = NULL;
+        if (!is_null($data)) {
+            $tag    = '#'.$tag;
+            $data   = json_decode($data);
+            $result = $data->$tag;
         }
         return $result;
     }

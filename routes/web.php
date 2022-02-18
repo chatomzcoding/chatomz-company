@@ -14,6 +14,7 @@ use App\Http\Controllers\Company\InformasisubController;
 use App\Http\Controllers\MigrasiController;
 use App\Http\Controllers\Sistem\KategoriController;
 use App\Http\Controllers\Sistem\VisitorController;
+use App\Http\Controllers\UjiController;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     
     Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
     Route::resource('user', 'App\Http\Controllers\UserController');
+
+    Route::get('pengujian/{sesi}', [UjiController::class, 'pengujian']);
+    Route::post('simpanmaps', [JejakController::class, 'simpanmaps'])->name('simpanmaps');
 
 });
 

@@ -77,9 +77,16 @@
                                             </a>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a class="dropdown-item" href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><i class="fa fa-user text-primary" style="width: 25px"></i> DETAIL</a>
-                                                    <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
-                                                        <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
-                                                    </button>
+                                                    @if (is_null($main['tag']))
+                                                        <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                            <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
+                                                        </button>
+                                                        
+                                                    @else
+                                                        <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-isi="{{ showpertag($item->tag,$main['tag']) }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                            <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
+                                                        </button>
+                                                    @endif
                                                     <a onclick="deleteRow( {{ $item->id }} )" type="button" class="dropdown-item"><i class="fa fa-trash-alt text-danger" style="width: 25px"></i> HAPUS</a>
                                                 </div>
                                         </div>
@@ -94,9 +101,16 @@
                                                 @endif
                                           </h6>
                                           <br>
-                                            <small class="text-muted">{{ $item->information }} <br>
-                                                <i>{{ c_listtag($item->tag) }}</i>
-                                            </small>
+                                            @if (is_null($main['tag']))
+                                                <small class="text-muted">{{ $item->information }} <br>
+                                                    <i>{{ c_listtag($item->tag) }}</i>
+                                                </small>
+                                                @else
+                                                <small>
+                                                    #{{ $main['tag'] }} <br>
+                                                    <i>{{ showpertag($item->tag,$main['tag']) }}</i>
+                                                </small>
+                                                @endif
                                         </div>
                                       </div>
                                     </div>
@@ -187,21 +201,38 @@
                         <label for="" class="col-md-4">Nama</label>
                         <input type="text" name="nama" id="nama" class="form-control col-md-8" readonly>
                    </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="information" id="information" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tag</label>
-                        <div class="col-md-8 p-0">
-                            <select name="tag[]" id=""  data-placeholder="pilih tag" class="select2bs4" style="width: 100%;" multiple>
-                                @foreach (c_showtag($grup->dtag) as $item)
-                                    <option value="{{ $item }}">#{{ $item }}</option>
-                                @endforeach
-                            </select>
-                            <input type="checkbox" name="hapustag" value="TRUE"> Hapus Tag
-                        </div>
+                   @if (is_null($main['tag']))
+                        <div class="form-group row">
+                            <label for="" class="col-md-4">Keterangan</label>
+                            <input type="text" name="information" id="information" class="form-control col-md-8">
                     </div>
+                       <input type="hidden" name="sesitag" value="ya">
+                       <div class="form-group row">
+                            <label for="" class="col-md-4">Tag</label>
+                            <div class="col-md-8 p-0">
+                                <select name="tag[]" id=""  data-placeholder="pilih tag" class="select2bs4" style="width: 100%;" multiple>
+                                    @foreach (c_showtag($grup->dtag) as $item)
+                                        <option value="{{ $item }}">#{{ $item }}</option>
+                                    @endforeach
+                                </select>
+                                <input type="checkbox" name="hapustag" value="TRUE"> Hapus Tag
+                            </div>
+                        </div>
+                        @else
+                        <input type="hidden" name="sesitag" value="tidak">
+                        <input type="hidden" name="dtag" value="#{{ $main['tag'] }}">
+                            <div class="form-group row">
+                                <label for="" class="col-md-4">Keterangan Tag</label>
+                                <div class="col-md-8 p-0">
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <input type="text" name="isi" id="isi" class="form-control">
+                                        </div>
+                                    </div>
+                                    <input type="checkbox" name="hapusdtag" value="TRUE"> Hapus Tag
+                                </div>
+                            </div>
+                   @endif
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -215,23 +246,22 @@
     <!-- /.modal -->
     {{-- modal edit --}}
     @if (!is_null($main['danggota']))
-        <div class="modal fade" id="anggotatag">
-            <div class="modal-dialog">
+        <div class="modal fade" id="anggotatag"  tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            <div class="modal-dialog"  role="document">
             <div class="modal-content">
                 <form action="{{ url('grupanggota')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="sesi" value="taganggota">
                 <div class="modal-header">
-                <h4 class="modal-title">Tambahkan anggota ke tag #{{ $main['tag'] }}</h4>
+                <h4 class="modal-title"  id="exampleModalScrollableTitle">Tambahkan anggota ke tag #{{ $main['tag'] }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body p-3">
-                    <input type="hidden" name="tag[]" id="id" value="{{ $main['tag'] }}">
+                    <input type="hidden" name="tag" id="id" value="#{{ $main['tag'] }}">
                     <section class="p-3">
-                <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPAN DATA</button>
-
+                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPAN DATA</button>
                         <table class="table" id="example1">
                             <thead>
                                 <tr>
@@ -253,8 +283,9 @@
                                                 <sup><i class="fas fa-venus text-danger"></i></sup>  
                                             @endif
                                             <br>
+                                            <input type="text" name="isi[]" class="form-control form-control-sm" placeholder="keterangan" value="">
                                         </td>
-                                        <td>
+                                        <td> <br>
                                             <input type="checkbox" name="id[]" class="form-control form-control-sm" value="{{ $item->id }}">
                                         </td>
                                     </tr>
@@ -346,12 +377,14 @@
                 var button = $(event.relatedTarget)
                 var information = button.data('information')
                 var nama = button.data('nama')
+                var isi = button.data('isi')
                 var id = button.data('id')
         
                 var modal = $(this)
         
                 modal.find('.modal-body #information').val(information);
                 modal.find('.modal-body #nama').val(nama);
+                modal.find('.modal-body #isi').val(isi);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

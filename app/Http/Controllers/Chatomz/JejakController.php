@@ -96,7 +96,25 @@ class JejakController extends Controller
                             ->get();
         $kategori   = Kategori::all();
         $jejakpoto  = Jejakpoto::where('jejak_id',$jejak->id)->get();
-        return view($this->view.'show', compact('jejak','orang','jejakorang','kategori','jejakpoto'));
+        $maps   = [];
+        $maps = (!is_null($jejak->nilai_lat)) ? [[$jejak->nilai_long,$jejak->nilai_lat]] : $maps ;
+        $maps = array_map('array_values', $maps);
+        // return view($this->view.'maps', compact('jejak','orang','jejakorang','kategori','jejakpoto','maps'));
+        if (isset($_GET['maps'])) {
+            return view($this->view.'maps', compact('jejak','orang','jejakorang','kategori','jejakpoto'));
+        }
+        return view($this->view.'show', compact('jejak','orang','jejakorang','kategori','jejakpoto','maps'));
+    }
+
+    public function simpanmaps(Request $request)
+    {
+        Jejak::where('id',$request->id)->update([
+            'nilai_lat' => $request->lat,
+            'nilai_long' => $request->long,
+        ]);
+
+        // echo json_encode("Inserted Successfully");
+        return back();
     }
 
     /**

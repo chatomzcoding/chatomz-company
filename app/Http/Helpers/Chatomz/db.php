@@ -2,6 +2,7 @@
 namespace App\Http\Helpers\Chatomz;
 
 use App\Models\Grupanggota;
+use App\Models\Jejak;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
 use App\Models\Produkdiskon;
@@ -264,5 +265,19 @@ class DbChatomz {
         }
         return $result;
 
+    }
+
+    // marker
+    public static function get_saved_locations($id){
+        $jejak  = Jejak::find($id);
+        if (!is_null($jejak->nilai_lat)) {
+            $result = [
+                [$jejak->lat,$jejak->long]
+            ];
+            echo json_encode($result);
+        } else {
+            $result = NULL;
+            return $result;
+        }
     }
 }

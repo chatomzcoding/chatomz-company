@@ -39,15 +39,17 @@ class GrupanggotaController extends Controller
         $sesi = (isset($request->sesi)) ? $request->sesi : NULL ;
         switch ($sesi) {
             case 'taganggota':
-                for ($i=0; $i < count($request->id); $i++) { 
+                // dd($request);
+                foreach ($request->id as $key => $id) {
                     // cek apakah sudah ada tag sebelumnya
-                    $id             = $request->id;
-                    $ganggota       = Grupanggota::find($id[$i]);
+                    $ket            = $request->isi;
+                    $nilai          = [$request->tag => $ket[$key]];
+                    $ganggota       = Grupanggota::find($id);
                     if ($ganggota->tag == NULL) {
-                        $tag    = $request->tag; 
+                        $tag    = $nilai; 
                     } else {
                         $tag    = json_decode($ganggota->tag,TRUE);
-                        $tag    = array_merge($request->tag,$tag);
+                        $tag    = array_merge($nilai,$tag);
                     }
 
                     Grupanggota::where('id',$ganggota->id)->update([
@@ -120,6 +122,7 @@ class GrupanggotaController extends Controller
      */
     public function update(Request $request)
     {
+
         $tag = (isset($request->tag)) ? $request->tag : NULL ;
         // fungsi untuk hapus tag
         if (isset($request->hapustag)) {
@@ -128,19 +131,50 @@ class GrupanggotaController extends Controller
             ]);
         }
         $ganggota   = Grupanggota::find($request->id);
-        if ($ganggota->tag <> NULL) {
-            if (!is_null($tag)) {
-                $tag    = json_decode($ganggota->tag,TRUE);
-                $tag    = array_merge($request->tag,$tag);
-                $tag    = array_unique($tag);
-                $tag    = json_encode($tag);
+        if ($request->sesitag == "ya") {
+            if ($ganggota->tag <> NULL) {
+                if (!is_null($tag)) {
+                    $dtag   = [];
+                    $atag   = [];
+                    for ($i=0; $i < count($tag); $i++) {
+                        $dtag = ['#'.$tag[$i] => NULL];
+                        if (is_null($atag)) {
+                            $atag = $dtag;
+                        } else {
+                            $atag   = array_merge($atag,$dtag);
+                        }
+                    }
+                    $tag    = json_decode($ganggota->tag,TRUE);
+                    $tag    = array_merge($atag,$tag);
+                    // $tag    = array_unique($tag);
+                    $tag    = json_encode($tag);
+                } else {
+                    $tag    = $ganggota->tag;
+                }
             } else {
-                $tag    = $ganggota->tag;
+                if (!is_null($tag)) {
+                    $dtag   = [];
+                    $atag   = [];
+                    for ($i=0; $i < count($tag); $i++) {
+                        $dtag = ['#'.$tag[$i] => NULL];
+                        if (is_null($atag)) {
+                            $atag = $dtag;
+                        } else {
+                            $atag   = array_merge($atag,$dtag);
+                        }
+                    }
+                    $tag    = json_encode($atag);
+                }
             }
         } else {
-            if (!is_null($tag)) {
-                $tag    = json_encode($tag);
+            $dtag   = json_decode($ganggota->tag,TRUE);
+            if (isset($request->hapusdtag)) {
+                unset($dtag[$request->dtag]);
+            } else {
+                $dtag[$request->dtag] = $request->isi;
             }
+            $tag  = json_encode($dtag);
+
         }
         Grupanggota::where('id',$request->id)->update([
             'information' => $request->information,
