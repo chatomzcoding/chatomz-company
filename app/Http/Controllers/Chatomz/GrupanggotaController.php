@@ -39,17 +39,16 @@ class GrupanggotaController extends Controller
         $sesi = (isset($request->sesi)) ? $request->sesi : NULL ;
         switch ($sesi) {
             case 'taganggota':
-                // dd($request);
-                foreach ($request->id as $key => $id) {
+                $isi    = $request->isi; 
+                foreach ($request->id as $key => $value) {
                     // cek apakah sudah ada tag sebelumnya
-                    $ket            = $request->isi;
-                    $nilai          = [$request->tag => $ket[$key]];
-                    $ganggota       = Grupanggota::find($id);
+                    $nilai          = [$request->tag => $isi[$value]];
+                    $ganggota       = Grupanggota::find($value);
                     if ($ganggota->tag == NULL) {
                         $tag    = $nilai; 
                     } else {
                         $tag    = json_decode($ganggota->tag,TRUE);
-                        $tag    = array_merge($nilai,$tag);
+                        $tag    = array_merge($nilai,$tag); 
                     }
 
                     Grupanggota::where('id',$ganggota->id)->update([

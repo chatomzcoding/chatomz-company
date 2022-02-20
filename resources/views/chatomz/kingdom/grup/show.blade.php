@@ -283,7 +283,7 @@
                                                 <sup><i class="fas fa-venus text-danger"></i></sup>  
                                             @endif
                                             <br>
-                                            <input type="text" name="isi[]" class="form-control form-control-sm" placeholder="keterangan" value="">
+                                            <input type="text" name="isi[{{ $item->id }}]" class="form-control form-control-sm" placeholder="keterangan" value="">
                                         </td>
                                         <td> <br>
                                             <input type="checkbox" name="id[]" class="form-control form-control-sm" value="{{ $item->id }}">
