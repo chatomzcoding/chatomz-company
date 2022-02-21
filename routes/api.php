@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Informasi\HewanController;
-use App\Http\Controllers\Company\Informasi\HewanController as InformasiHewanController;
+use App\Http\Controllers\Api\KategoriController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('hewan', HewanController::class);
+Route::resource('kategori', KategoriController::class);
 Route::post('coba', 'App\Http\Controllers\Api\Informasi\HewanController@coba');
 
 // chatomz ganteng
