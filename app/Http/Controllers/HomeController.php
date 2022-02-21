@@ -35,7 +35,15 @@ class HomeController extends Controller
                     'keluarga' => $keluarga,
                     'jejak' => $jejak,
                 ];
-                return view('chatomz.admin.dashboard', compact('total','dashboard'));
+
+                // kebutuhan info
+                $ulangtahunbulanini     = Orang::whereMonth('date_birth',ambil_bulan())->orderBy('first_name','ASC')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+                $ulangtahuntanggalini     = Orang::whereMonth('date_birth',ambil_bulan())->whereDay('date_birth',ambil_tgl())->orderBy('first_name','ASC')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+                $info = [
+                    'ulangtahunbulanini' => $ulangtahunbulanini,
+                    'ulangtahuntanggalini' => $ulangtahuntanggalini
+                ];
+                return view('chatomz.admin.dashboard', compact('total','dashboard','info'));
                 break;
             default:
                 return view('dashboard', compact('dashboard'));

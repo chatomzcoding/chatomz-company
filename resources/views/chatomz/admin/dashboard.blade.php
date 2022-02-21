@@ -80,6 +80,7 @@
         </div>
         <!-- ./col -->
       </div>
-      <!-- /.row -->
+      {{-- info orang --}}
+      @include('chatomz.admin.dashboard.infoorang')
     </div><!-- /.container-fluid -->
 </x-app-layout>

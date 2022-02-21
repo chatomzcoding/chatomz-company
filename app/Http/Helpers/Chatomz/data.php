@@ -1,5 +1,27 @@
 <?php 
 
+// get nama lengkap
+if (! function_exists('fullname')) {
+    function fullname($item)
+    {
+        if (!is_null($item)) {
+            $name = $item->first_name . ' ' . $item->last_name.' '.death($item->death);
+            return ucwords($name);
+        }
+    }
+}
+if (! function_exists('gender')) {
+    function gender($gender)
+    {
+        if ($gender == 'laki-laki') {
+            $result = "<sup><i class='fas fa-mars text-primary'></i></sup>";  
+        } else {
+            $result = "<sup><i class='fas fa-venus text-danger'></i></sup>";  
+        }
+        return $result;
+    }
+}
+
 // cek photo null apa tidak
 if (! function_exists('orang_photo')) {
     function orang_photo($photo)

@@ -96,16 +96,7 @@ if (! function_exists('death')) {
     }
 }
 
-// get nama lengkap
-if (! function_exists('fullname')) {
-    function fullname($item)
-    {
-        if (!is_null($item)) {
-            $name = $item->first_name . ' ' . $item->last_name.' '.death($item->death);
-            return ucwords($name);
-        }
-    }
-}
+
 
 // nama negara
 if (! function_exists('countryname')) {
@@ -191,7 +182,7 @@ if (! function_exists('kingdom_statuskeluarga')) {
 if (! function_exists('kingdom_label')) {
     function kingdom_label()
     {
-        $result = ['jejak','informasi'];
+        $result = ['jejak','informasi','wadec'];
         return $result;
     }
 }
