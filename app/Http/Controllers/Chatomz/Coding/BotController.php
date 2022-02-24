@@ -26,7 +26,7 @@ class BotController extends Controller
         if (isset($_GET['cek'])) {
             $jawaban = NULL;
             if (isset($_GET['pertanyaan'])) {
-                $pertanyaan     = $_GET['pertanyaan'];
+                $pertanyaan     = strtolower($_GET['pertanyaan']);
                 $pertanyaan     = str_replace('?','',$pertanyaan);
                 // hapus pertanyaan default
                 $pertanyaan     = str_replace('apa','',$pertanyaan);
