@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Bisnis\WadeController;
 use App\Http\Controllers\Chatomz\BarangController;
+use App\Http\Controllers\Chatomz\Coding\BotController;
 use App\Http\Controllers\Chatomz\GrupanggotaController;
 use App\Http\Controllers\Chatomz\GrupController;
 use App\Http\Controllers\Chatomz\HubungankeluargaController;
@@ -90,6 +92,12 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('informasi', InformasiController::class);
         Route::resource('informasisub', InformasisubController::class);
         Route::resource('merk', 'App\Http\Controllers\Company\MerkController');
+
+        // BISNIS
+        Route::get('wadec',[WadeController::class,'index']);
+
+        // CODING
+        Route::resource('chatomzbot', BotController::class);
 
     });
     

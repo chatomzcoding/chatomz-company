@@ -36,6 +36,42 @@
 </li>
 <li class="nav-item">
   <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-business-time"></i>
+    <p>
+      Coding
+      <i class="fas fa-angle-left right"></i>
+      {{-- <span class="badge badge-info right">6</span> --}}
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('/chatomzbot')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="fas fa-palette nav-icon"></i>
+        <p>Bot</p>
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-business-time"></i>
+    <p>
+      Bisnis
+      <i class="fas fa-angle-left right"></i>
+      {{-- <span class="badge badge-info right">6</span> --}}
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('/wadec')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="fas fa-palette nav-icon"></i>
+        <p>WadeC</p>
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link">
     <i class="nav-icon fas fa-laptop-house"></i>
     <p>
       Asset

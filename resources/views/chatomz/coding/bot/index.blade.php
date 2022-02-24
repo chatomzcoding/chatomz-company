@@ -1,19 +1,16 @@
 @section('title')
-    CHATOMZ - Data Kategori
+    CHATOMZ - Bot
 @endsection
 <x-app-layout>
     <x-slot name="header">
-        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> --}}
         <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Data Kategori</h1>
+              <h1 class="m-0">Data Chatomz Bot</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item active">Daftar Kategori</li>
+                <li class="breadcrumb-item active">Daftar Chatomz Bot</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -27,11 +24,12 @@
             <div class="card">
               <div class="card-header">
                 {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori </a>
+                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Bot </a>
+                <a href="{{ url('chatomzbot?cek=true') }}" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-file"></i> Test Bot </a>
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  <form action="" method="get">
+                  {{-- <form action="" method="get">
                   <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -46,24 +44,24 @@
                             </div>
                         </div>    
                     </div>
-                </form>  
+                </form>   --}}
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
                             <tr>
                                 <th width="5%">No</th>
                                 <th width="10%">Aksi</th>
-                                <th>Label</th>
-                                <th>Nama Kategori</th>
-                                <th>Keterangan</th>
+                                <th>Pertanyaan</th>
+                                <th>Jawaban</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody class="text-capitalize">
-                            @forelse ($kategori as $item)
+                            @forelse ($bots as $item)
                             <tr>
                                     <td class="text-center">{{ $loop->iteration}}</td>
                                     <td class="text-center">
-                                        <form id="data-{{ $item->id }}" action="{{url('/kategori',$item->id)}}" method="post">
+                                        <form id="data-{{ $item->id }}" action="{{url('/chatomzbot',$item->id)}}" method="post">
                                             @csrf
                                             @method('delete')
                                             </form>
@@ -73,7 +71,7 @@
                                                 <span class="sr-only">Toggle Dropdown</span>
                                                 </button>
                                                 <div class="dropdown-menu" role="menu">
-                                                    <button type="button" data-toggle="modal"  data-nama_kategori="{{ $item->nama_kategori }}"  data-keterangan_kategori="{{ $item->keterangan_kategori }}"  data-label="{{ $item->label }}"  data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                    <button type="button" data-toggle="modal"  data-pertanyaan="{{ $item->pertanyaan }}"  data-jawaban="{{ $item->jawaban }}"  data-status="{{ $item->status }}"  data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                         <i class="fa fa-edit" style="width: 20px;"></i> EDIT
                                                     </button>
                                                 <div class="dropdown-divider"></div>
@@ -81,14 +79,22 @@
                                                 </div>
                                             </div>
                                     </td>
-                                    <td class="text-uppercase">{{ $item->label}}</td>
                                     <td>
-                                        {{ $item->nama_kategori}}  <br> 
-                                        @if (!is_null($item->gambar))
-                                            <a href="{{ asset('img/kategori/'.$item->gambar) }}" target="_blank"><img src="{{ asset('img/kategori/'.$item->gambar) }}" alt="" width="150px"></a>
+                                        @if ($item->status == 'valid')
+                                            <ul>
+                                                @foreach (json_decode($item->pertanyaan) as $k)
+                                                    <li>{{ $k }}?</li>
+                                                @endforeach
+                                            </ul>
+                                            
+                                        @else
+                                            {{ $item->pertanyaan }}
                                         @endif
                                     </td>
-                                    <td>{{ $item->keterangan_kategori}}</td>
+                                    <td>
+                                        {{ $item->jawaban}}
+                                    </td>
+                                    <td class="text-center">{{ $item->status}}</td>
                                 </tr>
                             @empty
                                 <tr class="text-center">
@@ -107,10 +113,10 @@
     <div class="modal fade" id="tambah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ url('/kategori')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('/chatomzbot')}}" method="post">
                 @csrf
             <div class="modal-header">
-            <h4 class="modal-title">Tambah Kategori</h4>
+            <h4 class="modal-title">Tambah Pertanyaan</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -118,25 +124,13 @@
             <div class="modal-body p-3">
                 <section class="p-3">
                    <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Kategori {!! ireq() !!}</label>
-                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control col-md-8" required>
+                        <label for="" class="col-md-4">Nama Pertanyaan {!! ireq() !!}</label>
+                        <textarea name="pertanyaan" id="pertanyaan" cols="30" rows="5" class="form-control col-md-8" required></textarea>
                    </div>
                    <div class="form-group row">
-                    <label for="" class="col-md-4">Label {!! ireq() !!}</label>
-                    <select name="label" id="label" class="form-control col-md-8" required>
-                        @foreach (kingdom_label() as $item)
-                            <option value="{{ $item }}">{{ $item }}</option>
-                        @endforeach
-                    </select>
+                       <label for="" class="col-md-4">Jawaban {!! ireq() !!}</label>
+                       <textarea name="jawaban" id="jawaban" cols="30" rows="4" class="form-control col-md-8" required></textarea>
                     </div>
-                   <div class="form-group row">
-                       <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                       <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="4" class="form-control col-md-8" required></textarea>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Gambar</label>
-                        <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
-                   </div>
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -153,11 +147,11 @@
     <div class="modal fade" id="ubah">
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
-            <form action="{{ route('kategori.update','test')}}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('chatomzbot.update','test')}}" method="post">
                 @csrf
                 @method('patch')
             <div class="modal-header">
-            <h4 class="modal-title">Edit Kategori</h4>
+            <h4 class="modal-title">Edit Bot</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -166,25 +160,31 @@
                 <input type="hidden" name="id" id="id">
                 <section class="p-3">
                     <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Kategori {!! ireq() !!}</label>
-                        <input type="text" name="nama_kategori" id="nama_kategori" class="form-control col-md-8" required>
+                        <label for="" class="col-md-4">Nama Pertanyaan {!! ireq() !!}</label>
+                        <textarea name="pertanyaan" id="pertanyaan" cols="30" rows="5" class="form-control col-md-8" required></textarea>
                    </div>
                    <div class="form-group row">
-                    <label for="" class="col-md-4">Label {!! ireq() !!}</label>
-                    <select name="label" id="label" class="form-control col-md-8" required>
-                        @foreach (kingdom_label() as $item)
-                            <option value="{{ $item }}">{{ $item }}</option>
-                        @endforeach
-                    </select>
+                       <label for="" class="col-md-4">Jawaban</label>
+                       <textarea name="jawaban" id="jawaban" cols="30" rows="4" class="form-control col-md-8"></textarea>
                     </div>
                    <div class="form-group row">
-                       <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                       <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="4" class="form-control col-md-8" required></textarea>
+                       <label for="" class="col-md-4">Arahkan ke jawaban</label>
+                       <div class="col-md-8 p-0">
+                           <select name="datajawaban" id="datajawaban" class="form-control select2bs4" data-width="100%" required>
+                               <option value="tidak">tidak ada</option>
+                               @foreach ($botvalid as $item)
+                                   <option value="{{ $item->id }}">{{ $item->jawaban }}</option>
+                               @endforeach
+                           </select>
+                       </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Gambar (opsional)</label>
-                        <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
-                   </div>
+                   <div class="form-group row">
+                       <label for="" class="col-md-4">Status {!! ireq() !!}</label>
+                       <select name="status" id="status" class="form-control col-md-8" required>
+                           <option value="valid">Valid</option>
+                           <option value="proses">Proses</option>
+                       </select>
+                    </div>
                 </section>
             </div>
             <div class="modal-footer justify-content-between">
@@ -202,16 +202,16 @@
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
-                var nama_kategori = button.data('nama_kategori')
-                var label = button.data('label')
-                var keterangan_kategori = button.data('keterangan_kategori')
+                var pertanyaan = button.data('pertanyaan')
+                var jawaban = button.data('jawaban')
+                var status = button.data('status')
                 var id = button.data('id')
         
                 var modal = $(this)
         
-                modal.find('.modal-body #nama_kategori').val(nama_kategori);
-                modal.find('.modal-body #label').val(label);
-                modal.find('.modal-body #keterangan_kategori').val(keterangan_kategori);
+                modal.find('.modal-body #pertanyaan').val(pertanyaan);
+                modal.find('.modal-body #jawaban').val(jawaban);
+                modal.find('.modal-body #status').val(status);
                 modal.find('.modal-body #id').val(id);
             })
         </script>
