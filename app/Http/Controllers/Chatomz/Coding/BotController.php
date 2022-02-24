@@ -36,7 +36,7 @@ class BotController extends Controller
                 $pertanyaan     = trim($pertanyaan); // hapus spasi
                 $db             = Chatomzbot::where('pertanyaan','LIKE','%'.$pertanyaan.'%')->where('status','valid')->first();
                 if ($db) {
-                    $jawaban    = '<strong>'.ucfirst($pertanyaan).'? </strong> '.$db->jawaban;
+                    $jawaban    = '<strong>'.ucfirst($_GET['pertanyaan']).'? </strong> '.$db->jawaban;
                 } else {
                     // jika tidak ada jawaban, maka pertanyaan disimpan untuk bot lebih banyak inspirasi
 
@@ -91,14 +91,18 @@ class BotController extends Controller
                  }
             }
         }
-        $pertanyaan = array_unique($pertanyaan);
-        Chatomzbot::create([
-            'pertanyaan' => json_encode($pertanyaan),
-            'jawaban' => $request->jawaban,
-            'status' => 'valid'
-        ]);
+        if (count($pertanyaan) > 0) {
+            $pertanyaan = array_unique($pertanyaan);
+            Chatomzbot::create([
+                'pertanyaan' => json_encode($pertanyaan),
+                'jawaban' => $request->jawaban,
+                'status' => 'valid'
+            ]);
+            return back()->with('ds','Bot');
+        } else {
+            return back()->with('danger','data sudah ada');
+        }
 
-        return back()->with('ds','Bot');
 
         
     }
