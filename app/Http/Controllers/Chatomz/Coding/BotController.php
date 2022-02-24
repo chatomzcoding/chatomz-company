@@ -27,7 +27,7 @@ class BotController extends Controller
                 $pertanyaan     = trim($pertanyaan);
                 $db             = Chatomzbot::where('pertanyaan','LIKE','%'.$pertanyaan.'%')->where('status','valid')->first();
                 if ($db) {
-                    $jawaban    = $db->jawaban;
+                    $jawaban    = '<strong>'.ucfirst($pertanyaan).'? </strong> '.$db->jawaban;
                 } else {
                     // jika tidak ada jawaban, maka pertanyaan disimpan untuk bot lebih banyak inspirasi
 

@@ -29,19 +29,29 @@
               <div class="card-body">
                     @include('sistem.notifikasi')
                     <div class="container">
-                        @if (!is_null($jawaban))
-                            <div class="callout callout-success">
-                                {{ $jawaban }}
-                            </div>
-                        @endif
+                        <header class="text-center">
+                            <h3>SELAMAT DATANG DI CHATOMZ BOT</h3>
+                            <p>versi 1.0</p>
+                        </header>
+                      
                         <form action="" method="get">
                             <input type="hidden" name="cek">
                             <div class="form-group">
-                                <label for="">tanyakan pada bot</label>
-                                <input type="text" name="pertanyaan" class="form-control">
-                                <button type="submit" class="btn btn-primary mt-3">KIRIM PERTANYAAN</button>
+                                <input type="text" name="pertanyaan" class="form-control" placeholder="ketik pertanyaan disini!" autocomplete="off" autofocus required>
+                            </div>
+                            @if (!is_null($jawaban))
+                                <div class="alert alert-info">
+                                    {!! $jawaban !!}
+                                </div>
+                            @endif
+                            <div class="form-group mt-3 text-center">
+                                <button type="submit" class="btn btn-outline-primary">KIRIM PERTANYAAN</button>
                             </div>
                         </form>
+                        <div class="callout callout-warning">
+                            <strong>Catatan !</strong> <br>
+                            <small>bot ini masih belajar kosa kata dan pertanyaan, bot akan belajar dari pertanyan yang belum dia kuasai <br> terima kasih orang baik :) </small>
+                        </div>
                     </div>
               </div>
             </div>
