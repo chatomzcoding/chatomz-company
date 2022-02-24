@@ -28,7 +28,12 @@ class BotController extends Controller
             if (isset($_GET['pertanyaan'])) {
                 $pertanyaan     = $_GET['pertanyaan'];
                 $pertanyaan     = str_replace('?','',$pertanyaan);
-                $pertanyaan     = trim($pertanyaan);
+                // hapus pertanyaan default
+                $pertanyaan     = str_replace('apa','',$pertanyaan);
+                $pertanyaan     = str_replace('kamu','',$pertanyaan);
+                $pertanyaan     = str_replace('anda','',$pertanyaan);
+                $pertanyaan     = str_replace('dimana','',$pertanyaan);
+                $pertanyaan     = trim($pertanyaan); // hapus spasi
                 $db             = Chatomzbot::where('pertanyaan','LIKE','%'.$pertanyaan.'%')->where('status','valid')->first();
                 if ($db) {
                     $jawaban    = '<strong>'.ucfirst($pertanyaan).'? </strong> '.$db->jawaban;
