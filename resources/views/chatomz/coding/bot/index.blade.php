@@ -29,22 +29,22 @@
               </div>
               <div class="card-body">
                   @include('sistem.notifikasi')
-                  {{-- <form action="" method="get">
-                  <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <select name="label" id="label" class="form-control" onchange="this.form.submit()">
-                                    <option value="semua">-- pilih label --</option>
-                                    @foreach (kingdom_label() as $item)
-                                        <option value="{{ $item }}" @if ($main['filter']['label'] == $item)
-                                            selected
-                                        @endif>{{ strtoupper($item) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>    
-                    </div>
-                </form>   --}}
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <select name="status" class="form-control" onchange="this.form.submit()">
+                                            <option value="valid" @if ($main['filter']['status'] == 'valid')
+                                                selected
+                                            @endif>VALID</option>
+                                            <option value="proses" @if ($main['filter']['status'] == 'proses')
+                                                selected
+                                            @endif>PROSES</option>
+                                    </select>
+                                </div>
+                            </div>    
+                        </div>
+                    </form>  
                   <div class="table-responsive">
                     <table id="example1" class="table table-bordered table-striped">
                         <thead class="text-center">
@@ -164,10 +164,6 @@
                         <textarea name="pertanyaan" id="pertanyaan" cols="30" rows="5" class="form-control col-md-8" required></textarea>
                    </div>
                    <div class="form-group row">
-                       <label for="" class="col-md-4">Jawaban</label>
-                       <textarea name="jawaban" id="jawaban" cols="30" rows="4" class="form-control col-md-8"></textarea>
-                    </div>
-                   <div class="form-group row">
                        <label for="" class="col-md-4">Arahkan ke jawaban</label>
                        <div class="col-md-8 p-0">
                            <select name="datajawaban" id="datajawaban" class="form-control select2bs4" data-width="100%" required>
@@ -177,6 +173,10 @@
                                @endforeach
                            </select>
                        </div>
+                    </div>
+                   <div class="form-group row">
+                       <label for="" class="col-md-4">Jawaban</label>
+                       <textarea name="jawaban" id="jawaban" cols="30" rows="4" class="form-control col-md-8"></textarea>
                     </div>
                    <div class="form-group row">
                        <label for="" class="col-md-4">Status {!! ireq() !!}</label>

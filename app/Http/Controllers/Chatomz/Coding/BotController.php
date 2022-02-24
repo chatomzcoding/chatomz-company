@@ -16,8 +16,12 @@ class BotController extends Controller
     public function index()
     {
         $menu   = 'bot';
+        $status = (isset($_GET['status'])) ? $_GET['status'] : 'valid' ;
         $main   = [
-            'link' => 'chatomzbot'
+            'link' => 'chatomzbot',
+            'filter' => [
+                'status' => $status
+            ]
         ];
         if (isset($_GET['cek'])) {
             $jawaban = NULL;
@@ -44,7 +48,7 @@ class BotController extends Controller
             }
             return view('chatomz.coding.bot.test', compact('menu','main','jawaban'));
         }
-        $bots   = Chatomzbot::all();
+        $bots   = Chatomzbot::where('status',$status)->get();
         $botvalid   = Chatomzbot::where('status','valid')->get();
         return view('chatomz.coding.bot.index', compact('menu','main','bots','botvalid'));
     }

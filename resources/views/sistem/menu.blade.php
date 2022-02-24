@@ -36,7 +36,7 @@
 </li>
 <li class="nav-item">
   <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-business-time"></i>
+    <i class="nav-icon fas fa-code"></i>
     <p>
       Coding
       <i class="fas fa-angle-left right"></i>
@@ -46,7 +46,7 @@
   <ul class="nav nav-treeview">
     <li class="nav-item">
       <a href="{{ url('/chatomzbot')}}" class="nav-link">
-        &nbsp;&nbsp;<i class="fas fa-palette nav-icon"></i>
+        &nbsp;&nbsp;<i class="fas fa-robot nav-icon"></i>
         <p>Bot</p>
       </a>
     </li>
