@@ -13,6 +13,7 @@ use App\Http\Controllers\Chatomz\OrangController;
 use App\Http\Controllers\Chatomz\PendidikanController;
 use App\Http\Controllers\Company\InformasiController;
 use App\Http\Controllers\Company\InformasisubController;
+use App\Http\Controllers\Homepage\LandingController;
 use App\Http\Controllers\MigrasiController;
 use App\Http\Controllers\Sistem\KategoriController;
 use App\Http\Controllers\Sistem\VisitorController;
@@ -30,9 +31,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // HOMEPAGE
-Route::get('/', function(){
-    return redirect('login');
-});
+Route::get('/',[LandingController::class,'index']);
+Route::get('/c/{sesi}',[LandingController::class,'content']);
 
 Route::get('uji/lihat', 'App\Http\Controllers\ApiController@index');
 Route::post('simpanuji', 'App\Http\Controllers\ApiController@simpan');
