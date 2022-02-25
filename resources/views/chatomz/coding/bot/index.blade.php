@@ -190,6 +190,8 @@
                        <select name="status" id="status" class="form-control col-md-8" required>
                            <option value="valid">Valid</option>
                            <option value="proses">Proses</option>
+                           <option value="filter">Kata Filter</option>
+                           <option value="default">Kata Default</option>
                        </select>
                     </div>
                 </section>
