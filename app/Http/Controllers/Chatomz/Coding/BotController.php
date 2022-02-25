@@ -27,28 +27,53 @@ class BotController extends Controller
             $jawaban = NULL;
             if (isset($_GET['pertanyaan'])) {
                 $pertanyaan     = strtolower($_GET['pertanyaan']);
+                $simpan         = $pertanyaan;
                 $pertanyaan     = str_replace('?','',$pertanyaan);
-                // hapus pertanyaan default
-                $pertanyaan     = str_replace('apa','',$pertanyaan);
-                $pertanyaan     = str_replace('kamu','',$pertanyaan);
-                $pertanyaan     = str_replace('anda','',$pertanyaan);
-                $pertanyaan     = str_replace('dimana','',$pertanyaan);
                 $pertanyaan     = trim($pertanyaan); // hapus spasi
+
+                // filter by kata
+                $dbfilter       = Chatomzbot::where('status','filter')->first('jawaban');
+                $dbumum         = Chatomzbot::where('status','default')->first('jawaban');
+                $katafilter     = explode(',',$dbfilter->jawaban);
+                $kataumum       = explode(',',$dbumum->jawaban);
+                $kataumum       = array_map('trim',$kataumum);
+                $katafilter     = array_map('trim',$katafilter);
+                
+                $katapertanyaan = explode(' ',$pertanyaan);
+                $cekfilter      = [];
+                $pertanyaan     = NULL;
+                foreach ($katapertanyaan as $kata) {
+                    if (!in_array($kata,$kataumum)) {
+                        $pertanyaan .= $kata.' ';
+                    }
+                    if (in_array($kata,$katafilter)) {
+                        $cekfilter[] = $kata;
+                    }
+                }
+                $pertanyaan     = trim($pertanyaan); // hapus spasi
+
                 $db             = Chatomzbot::where('pertanyaan','LIKE','%'.$pertanyaan.'%')->where('status','valid')->first();
                 if ($db) {
-                    $jawaban    = '<strong>'.ucfirst($_GET['pertanyaan']).'? </strong> '.$db->jawaban;
+                    $jawaban    = '<strong>'.ucfirst($simpan).'? </strong> '.$db->jawaban;
                 } else {
-                    // jika tidak ada jawaban, maka pertanyaan disimpan untuk bot lebih banyak inspirasi
-
-                    // cek terlebih dahulu apakah pertanyaan sudah ada atau tidak
-                    $cek    = Chatomzbot::where('pertanyaan',$pertanyaan)->first();
-                    if (!$cek) {
-                        Chatomzbot::create([
-                            'pertanyaan' => $pertanyaan,
-                            'status' => 'proses'
-                        ]);
+                    // cek jika ada kata yang perlu di filter
+                    if (count($cekfilter) > 0) {
+                        $cekfilter  = array_unique($cekfilter);
+                        $katajahat  = implode(',',$cekfilter);
+                        $jawaban    = 'maaf pertanyaan anda terdeteksi mengandung kata yang tidak bijak ('.$katajahat.')';
+                    } else {
+                        // cek terlebih dahulu apakah pertanyaan sudah ada atau tidak
+                        $cek    = Chatomzbot::where('pertanyaan',$simpan)->first();
+                        if (!$cek) {
+                            // jika tidak ada jawaban, maka pertanyaan disimpan untuk bot lebih banyak inspirasi
+                            Chatomzbot::create([
+                                'pertanyaan' => $simpan,
+                                'status' => 'proses'
+                            ]);
+                        }
+                        $jawaban    = 'maaf saya tidak mengerti, saya akan mempelajarinya';
                     }
-                    $jawaban    = 'maaf saya tidak mengerti, saya akan mempelajarinya';
+                    
                 }
             }
             return view('chatomz.coding.bot.test', compact('menu','main','jawaban'));
@@ -96,7 +121,7 @@ class BotController extends Controller
             Chatomzbot::create([
                 'pertanyaan' => json_encode($pertanyaan),
                 'jawaban' => $request->jawaban,
-                'status' => 'valid'
+                'status' => $request->status
             ]);
             return back()->with('ds','Bot');
         } else {

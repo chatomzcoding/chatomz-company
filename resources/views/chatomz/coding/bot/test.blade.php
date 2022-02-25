@@ -31,7 +31,7 @@
                     <div class="container">
                         <header class="text-center">
                             <h3>SELAMAT DATANG DI CHATOMZ BOT</h3>
-                            <p>versi 1.0</p>
+                            <p>versi 1.1</p>
                         </header>
                       
                         <form action="" method="get">

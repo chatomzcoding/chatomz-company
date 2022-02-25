@@ -40,6 +40,12 @@
                                             <option value="proses" @if ($main['filter']['status'] == 'proses')
                                                 selected
                                             @endif>PROSES</option>
+                                            <option value="filter" @if ($main['filter']['status'] == 'filter')
+                                                selected
+                                            @endif>KATA FILTER</option>
+                                            <option value="default" @if ($main['filter']['status'] == 'default')
+                                                selected
+                                            @endif>KATA DEFAULT</option>
                                     </select>
                                 </div>
                             </div>    
@@ -115,6 +121,7 @@
           <div class="modal-content">
             <form action="{{ url('/chatomzbot')}}" method="post">
                 @csrf
+                <input type="hidden" name="status" value="{{ $main['filter']['status'] }}">
             <div class="modal-header">
             <h4 class="modal-title">Tambah Pertanyaan</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
