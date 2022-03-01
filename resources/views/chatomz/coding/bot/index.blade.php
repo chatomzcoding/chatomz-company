@@ -40,6 +40,9 @@
                                             <option value="proses" @if ($main['filter']['status'] == 'proses')
                                                 selected
                                             @endif>PROSES</option>
+                                            <option value="pengetahuan" @if ($main['filter']['status'] == 'pengetahuan')
+                                                selected
+                                            @endif>PENGETAHUAN</option>
                                             <option value="filter" @if ($main['filter']['status'] == 'filter')
                                                 selected
                                             @endif>KATA FILTER</option>
@@ -190,6 +193,7 @@
                        <select name="status" id="status" class="form-control col-md-8" required>
                            <option value="valid">Valid</option>
                            <option value="proses">Proses</option>
+                           <option value="pengetahuan">Pengetahuan</option>
                            <option value="filter">Kata Filter</option>
                            <option value="default">Kata Default</option>
                        </select>
