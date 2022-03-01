@@ -144,13 +144,13 @@
       </li>
     </ul>
 </li>
-<li class="nav-item">
+{{-- <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-laptop-house"></i>
     <p>
       Sistem
       <i class="fas fa-angle-left right"></i>
-      {{-- <span class="badge badge-info right">6</span> --}}
+      <span class="badge badge-info right">6</span>
     </p>
   </a>
   <ul class="nav nav-treeview">
@@ -158,6 +158,24 @@
       <a href="{{ url('/visitor')}}" class="nav-link">
         &nbsp;&nbsp;<i class="fas fa-chart-bar"></i>
         <p>Visitor</p>
+      </a>
+    </li>
+  </ul>
+</li> --}}
+<li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-code"></i>
+    <p>
+      Demo
+      <i class="fas fa-angle-left right"></i>
+      {{-- <span class="badge badge-info right">6</span> --}}
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{ url('/demo/grab')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="fas fa-robot nav-icon"></i>
+        <p>Grab</p>
       </a>
     </li>
   </ul>

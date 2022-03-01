@@ -13,6 +13,7 @@ use App\Http\Controllers\Chatomz\OrangController;
 use App\Http\Controllers\Chatomz\PendidikanController;
 use App\Http\Controllers\Company\InformasiController;
 use App\Http\Controllers\Company\InformasisubController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Homepage\LandingController;
 use App\Http\Controllers\MigrasiController;
 use App\Http\Controllers\Sistem\KategoriController;
@@ -48,6 +49,9 @@ Route::get('uji/hapus/{id}', 'App\Http\Controllers\ApiController@hapus');
 // Route::get('/example',[Example::class, 'render'])->name('example');
 
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
+    // DEMO
+    Route::get('/demo/grab', [DemoController::class,'grab']);
+
     // migrasi
     Route::get('/migrasi', [MigrasiController::class,'index']);
 

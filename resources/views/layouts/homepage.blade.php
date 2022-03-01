@@ -50,6 +50,7 @@
 
           @yield('menu')
           {{-- <li><a href="blog.html">Blog</a></li> --}}
+        <li><a class="nav-link scrollto" href="{{ url('login') }}">LOGIN</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
