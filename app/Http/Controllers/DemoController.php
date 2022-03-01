@@ -45,19 +45,19 @@ class DemoController extends Controller
         $simpan = [];
         foreach ($table as $key) {
             $pecah  = explode("(",$key);
-            $jawaban    = str_replace(")",'',$pecah[1]);
-            $jawaban     = strtolower($jawaban);
-            $pertanyaan     = trim($pecah[0]);
+            $pertanyaan    = str_replace(")",'',$pecah[1]);
             $pertanyaan     = strtolower($pertanyaan);
+            $jawaban     = trim($pecah[0]);
+            $jawaban     = strtolower($jawaban);
             // $simpan[] = 'pertanyaan : '.$pertanyaan.' | '.$jawaban;
             // cek apakah pertanyaan sudah ada atau belum
-            $cekbot     = Chatomzbot::where('jawaban',$jawaban)->first();
+            $cekbot     = Chatomzbot::where('pertanyaan','LIKE',"%".$pertanyaan."%")->first();
             if (!$cekbot) {
                 $pertanyaan = [$pertanyaan];
                 Chatomzbot::create([
                     'pertanyaan' => json_encode($pertanyaan),
                     'jawaban' => $jawaban,
-                    'status' => 'pengetahuan',
+                    'status' => 'proses',
                 ]);
                 $pertanyaan = NULL;
             }
