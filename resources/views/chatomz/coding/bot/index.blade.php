@@ -187,11 +187,11 @@
                     </div>
                    <div class="form-group row">
                        <label for="" class="col-md-4">Status {!! ireq() !!}</label>
-                       <select name="status" id="status" class="form-control col-md-8" required>
-                           <option value="valid">Valid</option>
-                           <option value="proses">Proses</option>
-                           <option value="filter">Kata Filter</option>
-                           <option value="default">Kata Default</option>
+                       <select name="status" id="{{ ($main['filter']['status'] == 'proses') ? '' : 'status' }}" class="form-control col-md-8" required>
+                           <option value="valid">VALID</option>
+                           <option value="proses">PROSES</option>
+                           <option value="filter">KATA FILTER</option>
+                           <option value="default">KATA DEFAULT</option>
                        </select>
                     </div>
                 </section>
