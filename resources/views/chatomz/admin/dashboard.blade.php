@@ -1,86 +1,275 @@
-@section('title')
-    DASHBOARD
-@endsection
-<x-app-layout>
-    <x-slot name="header">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">Dashboard</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-    </x-slot>
-    <div class="container-fluid">
-      <div class="row">
-        {{-- informasi update aplikasi --}}
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-info">
-            <div class="inner">
-              <h3>{{ $total['orang']}}</h3>
-
-              <p>Orang</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-user"></i>
-            </div>
-            <a href="{{ url('/orang')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-success">
-            <div class="inner">
-              <h3>{{ $total['grup']}}</h3>
-
-              <p>Grup</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-users"></i>
-              {{-- <i class="ion ion-stats-bars"></i> --}}
-            </div>
-            <a href="{{ url('/grup')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h3>{{ $total['keluarga']}}</h3>
-
-              <p>Keluarga</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-house-user"></i>
-            </div>
-            <a href="{{ url('/keluarga')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-indigo">
-            <div class="inner">
-              <h3>{{ $total['jejak']}}</h3>
-
-              <p>Jejak</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-shoe-prints"></i>
-            </div>
-            <a href="{{ url('/jejak')}}" class="small-box-footer">Lihat Detail <i class="fas fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
+<x-mazer-layout>
+  <x-slot name="title">
+      Dashboard - Chatomz Company
+  </x-slot>
+  <x-slot name="content">
+      <div class="page-heading">
+          <h3>Statistik</h3>
       </div>
-      {{-- info orang --}}
-      @include('chatomz.admin.dashboard.infoorang')
-    </div><!-- /.container-fluid -->
-</x-app-layout>
+      <div class="page-content">
+          <section class="row">
+              <div class="col-12 col-lg-9">
+                  <div class="row">
+                      <div class="col-6 col-lg-3 col-md-6">
+                          <div class="card">
+                              <div class="card-body px-3 py-4-5">
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <div class="stats-icon purple">
+                                              <i class="iconly-boldShow"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <h6 class="text-muted font-semibold">Orang</h6>
+                                          <h6 class="font-extrabold mb-0">{{ $total['orang'] }}</h6>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-6 col-lg-3 col-md-6">
+                          <div class="card">
+                              <div class="card-body px-3 py-4-5">
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <div class="stats-icon blue">
+                                              <i class="iconly-boldProfile"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <h6 class="text-muted font-semibold">Grup</h6>
+                                          <h6 class="font-extrabold mb-0">{{ $total['grup'] }}</h6>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-6 col-lg-3 col-md-6">
+                          <div class="card">
+                              <div class="card-body px-3 py-4-5">
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <div class="stats-icon green">
+                                              <i class="iconly-boldAdd-User"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <h6 class="text-muted font-semibold">Keluarga</h6>
+                                          <h6 class="font-extrabold mb-0">{{ $total['keluarga'] }}</h6>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-6 col-lg-3 col-md-6">
+                          <div class="card">
+                              <div class="card-body px-3 py-4-5">
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <div class="stats-icon red">
+                                              <i class="iconly-boldBookmark"></i>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-8">
+                                          <h6 class="text-muted font-semibold">Jejak</h6>
+                                          <h6 class="font-extrabold mb-0">{{ $total['jejak'] }}</h6>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12">
+                          <div class="card">
+                              <div class="card-header">
+                                  <h4>Profile Visit</h4>
+                              </div>
+                              <div class="card-body">
+                                  <div id="chart-profile-visit"></div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 col-xl-4">
+                          <div class="card">
+                              <div class="card-header">
+                                  <h4>Profile Visit</h4>
+                              </div>
+                              <div class="card-body">
+                                  <div class="row">
+                                      <div class="col-6">
+                                          <div class="d-flex align-items-center">
+                                              <svg class="bi text-primary" width="32" height="32" fill="blue"
+                                                  style="width:10px">
+                                                  <use
+                                                      xlink:href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill')}}" />
+                                              </svg>
+                                              <h5 class="mb-0 ms-3">Europe</h5>
+                                          </div>
+                                      </div>
+                                      <div class="col-6">
+                                          <h5 class="mb-0">862</h5>
+                                      </div>
+                                      <div class="col-12">
+                                          <div id="chart-europe"></div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-6">
+                                          <div class="d-flex align-items-center">
+                                              <svg class="bi text-success" width="32" height="32" fill="blue"
+                                                  style="width:10px">
+                                                  <use
+                                                      xlink:href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill')}}" />
+                                              </svg>
+                                              <h5 class="mb-0 ms-3">America</h5>
+                                          </div>
+                                      </div>
+                                      <div class="col-6">
+                                          <h5 class="mb-0">375</h5>
+                                      </div>
+                                      <div class="col-12">
+                                          <div id="chart-america"></div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-6">
+                                          <div class="d-flex align-items-center">
+                                              <svg class="bi text-danger" width="32" height="32" fill="blue"
+                                                  style="width:10px">
+                                                  <use
+                                                      xlink:href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill')}}" />
+                                              </svg>
+                                              <h5 class="mb-0 ms-3">Indonesia</h5>
+                                          </div>
+                                      </div>
+                                      <div class="col-6">
+                                          <h5 class="mb-0">1025</h5>
+                                      </div>
+                                      <div class="col-12">
+                                          <div id="chart-indonesia"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-12 col-xl-8">
+                          <div class="card">
+                              <div class="card-header">
+                                  <h4>Latest Comments</h4>
+                              </div>
+                              <div class="card-body">
+                                  <div class="table-responsive">
+                                      <table class="table table-hover table-lg">
+                                          <thead>
+                                              <tr>
+                                                  <th>Name</th>
+                                                  <th>Comment</th>
+                                              </tr>
+                                          </thead>
+                                          <tbody>
+                                              <tr>
+                                                  <td class="col-3">
+                                                      <div class="d-flex align-items-center">
+                                                          <div class="avatar avatar-md">
+                                                              <img src="{{ asset('template/mazer/images/faces/5.jpg')}}">
+                                                          </div>
+                                                          <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                                                      </div>
+                                                  </td>
+                                                  <td class="col-auto">
+                                                      <p class=" mb-0">Congratulations on your graduation!</p>
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <td class="col-3">
+                                                      <div class="d-flex align-items-center">
+                                                          <div class="avatar avatar-md">
+                                                              <img src="{{ asset('template/mazer/images/faces/2.jpg')}}">
+                                                          </div>
+                                                          <p class="font-bold ms-3 mb-0">Si Ganteng</p>
+                                                      </div>
+                                                  </td>
+                                                  <td class="col-auto">
+                                                      <p class=" mb-0">Wow amazing design! Can you make another
+                                                          tutorial for
+                                                          this design?</p>
+                                                  </td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-12 col-lg-3">
+                  <div class="card">
+                      <div class="card-body py-4 px-5">
+                          <div class="d-flex align-items-center">
+                              <div class="avatar avatar-xl">
+                                  <img src="{{ asset('template/mazer/images/faces/1.jpg')}}" alt="Face 1">
+                              </div>
+                              <div class="ms-3 name">
+                                  <h5 class="font-bold">John Duck</h5>
+                                  <h6 class="text-muted mb-0">@johnducky</h6>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card">
+                      <div class="card-header">
+                          <h4>Recent Messages</h4>
+                      </div>
+                      <div class="card-content pb-4">
+                          <div class="recent-message d-flex px-4 py-3">
+                              <div class="avatar avatar-lg">
+                                  <img src="{{ asset('template/mazer/images/faces/4.jpg')}}">
+                              </div>
+                              <div class="name ms-4">
+                                  <h5 class="mb-1">Hank Schrader</h5>
+                                  <h6 class="text-muted mb-0">@johnducky</h6>
+                              </div>
+                          </div>
+                          <div class="recent-message d-flex px-4 py-3">
+                              <div class="avatar avatar-lg">
+                                  <img src="{{ asset('template/mazer/images/faces/5.jpg')}}">
+                              </div>
+                              <div class="name ms-4">
+                                  <h5 class="mb-1">Dean Winchester</h5>
+                                  <h6 class="text-muted mb-0">@imdean</h6>
+                              </div>
+                          </div>
+                          <div class="recent-message d-flex px-4 py-3">
+                              <div class="avatar avatar-lg">
+                                  <img src="{{ asset('template/mazer/images/faces/1.jpg')}}">
+                              </div>
+                              <div class="name ms-4">
+                                  <h5 class="mb-1">John Dodol</h5>
+                                  <h6 class="text-muted mb-0">@dodoljohn</h6>
+                              </div>
+                          </div>
+                          <div class="px-4">
+                              <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
+                                  Conversation</button>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card">
+                      <div class="card-header">
+                          <h4>Visitors Profile</h4>
+                      </div>
+                      <div class="card-body">
+                          <div id="chart-visitors-profile"></div>
+                      </div>
+                  </div>
+              </div>
+          </section>
+      </div>
+  </x-slot>
+</x-mazer-layout>
+
+

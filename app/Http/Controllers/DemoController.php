@@ -69,4 +69,9 @@ class DemoController extends Controller
         // $table = str_replace('<b>','',$table);
         return view('demo.grab', compact('table'));
     }
+
+    public function mazer()
+    {
+        return view('sistem.uji.mazer');
+    }
 }

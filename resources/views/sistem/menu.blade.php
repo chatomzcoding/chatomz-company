@@ -178,5 +178,11 @@
         <p>Grab</p>
       </a>
     </li>
+    <li class="nav-item">
+      <a href="{{ url('/demo/mazer')}}" class="nav-link">
+        &nbsp;&nbsp;<i class="fas fa-robot nav-icon"></i>
+        <p>Mazer</p>
+      </a>
+    </li>
   </ul>
 </li>
