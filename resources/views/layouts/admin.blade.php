@@ -271,7 +271,7 @@
                                this.closest('form').submit();">
               <i class="nav-icon fas fa-sign-out-alt"></i><p class="text">Keluar</p></a>
             </form>
-        </li>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -237,8 +237,7 @@ class OrangController extends Controller
         $datagrup       = Grup::orderBy('name','ASC')->get();
         $linimasa       = Linimasa::where('orang_id',$orang->id)->orderby('tanggal','DESC')->get();
 
-        // return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup'));
-        return view('chatomz.kingdom.orang.show2', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup','linimasa'));
+        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup','linimasa'));
     }
 
     /**

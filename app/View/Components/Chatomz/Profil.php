@@ -1,10 +1,11 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Chatomz;
 
+use App\Models\Orang;
 use Illuminate\View\Component;
 
-class Contoh extends Component
+class Profil extends Component
 {
     /**
      * Create a new component instance.
@@ -23,7 +24,7 @@ class Contoh extends Component
      */
     public function render()
     {
-        $nama = 'Firman Setiawan';
-        return view('components.contoh', compact('nama'));
+        $profil     = Orang::find(1);
+        return view('components.chatomz.profil', compact('profil'));
     }
 }

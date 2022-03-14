@@ -30,23 +30,6 @@
                       </div>
                       <div class="card-body">
                           @include('sistem.notifikasi')
-                          {{-- <section class="text-right my-2">
-                              <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-                          </section> --}}
-                          {{-- <section class="mb-3">
-                              <form action="" method="post">
-                                <div class="row">
-                                    <div class="form-group col-md-2">
-                                        <select name="" id="" class="form-control form-control-sm">
-                                            <option value="">-- Semua --</option>
-                                            @foreach (list_status() as $item)
-                                                <option value="{{ $item}}">{{ $item}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-                          </section> --}}
                           <div class="table-responsive">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead class="text-center">
@@ -68,7 +51,7 @@
                                                     @method('delete')
                                                     </form>
                                                     <div class="dropdown">
-                                                        <button class="btn btn-info dropdown-toggle me-1" type="button"
+                                                        <button class="btn btn-primary btn-sm dropdown-toggle me-1" type="button"
                                                             id="dropdownMenuButton" data-bs-toggle="dropdown"
                                                             aria-haspopup="true" aria-expanded="false">
                                                             Aksi

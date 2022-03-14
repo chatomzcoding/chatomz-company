@@ -33,9 +33,8 @@
             @endif
         @endforeach
 
-        <li class="sidebar-title">Forms &amp; Tables</li>
 
-        <li class="sidebar-item  has-sub">
+        {{-- <li class="sidebar-item  has-sub">
             <a href="#" class='sidebar-link'>
                 <i class="bi bi-hexagon-fill"></i>
                 <span>Form Elements</span>
@@ -60,13 +59,29 @@
                     <a href="form-element-textarea.html">Textarea</a>
                 </li>
             </ul>
-        </li>
+        </li> --}}
 
-        <li class="sidebar-item  ">
+        {{-- <li class="sidebar-item">
             <a href="table-datatable.html" class='sidebar-link'>
                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                 <span>Datatable</span>
             </a>
+        </li> --}}
+        <li class="sidebar-title">Sistem</li>
+
+        <li class="sidebar-item">
+            <a href="{{ url('/user/'.Crypt::encryptString(Auth::user()->id).'/edit')}}" class="sidebar-link">
+              <i class="fas fa-user-cog"></i><span>Pengaturan Akun</span>
+            </a>
+        </li>
+        <li class="sidebar-item">
+            <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a href="{{ route('logout') }}"  class="sidebar-link"
+                    onclick="event.preventDefault();
+                            this.closest('form').submit();">
+            <i class="fas fa-sign-out-alt"></i><span>Keluar</span></a>
+        </form>
         </li>
 
     </ul>

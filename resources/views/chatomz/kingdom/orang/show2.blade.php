@@ -14,7 +14,7 @@
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
                 <li class="breadcrumb-item"><a href="{{ url('orang')}}">Daftar Orang</a></li>
-                <li class="breadcrumb-item active">Detail</li>
+                <li class="breadcrumb-item active">Detail4</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->

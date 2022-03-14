@@ -48,7 +48,7 @@ class Menu extends Component
                 ]
             ],
             [
-                'title' => 'Coding',
+                'title' => 'Karya',
                 'icon' => 'bi bi-file-earmark-spreadsheet-fill',
                 'sub' => TRUE,
                 'submenu' => [
