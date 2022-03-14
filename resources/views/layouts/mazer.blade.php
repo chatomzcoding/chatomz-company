@@ -10,10 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('template/mazer/css/bootstrap.css')}}">
 
+    <link rel="stylesheet" href="{{ asset('template/mazer/vendors/simple-datatables/style.css')}}">
+
+
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/iconly/bold.css')}}">
 
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
+    {{-- font --}}
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.css')}}">
+    <link rel="stylesheet" href="{{ asset('template/mazer/vendors/fontawesome/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/mazer/css/app.css')}}">
     <link rel="shortcut icon" href="{{ asset('template/mazer/images/favicon.svg')}}" type="image/x-icon">
 </head>
@@ -25,10 +30,10 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ asset('template/mazer/images/logo/logo.png')}}" alt="Logo" srcset=""></a>
+                            <a href="{{ url('/dashboard') }}"><img src="{{ asset('template/mazer/images/logo/logo.png')}}" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                            <a href="{{ url('/dashboard') }}" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                         </div>
                     </div>
                 </div>
@@ -65,6 +70,14 @@
     <script src="{{ asset('template/mazer/js/pages/dashboard.js')}}"></script>
 
     <script src="{{ asset('template/mazer/js/main.js')}}"></script>
+
+    <script src="{{ asset('template/mazer/vendors/simple-datatables/simple-datatables.js')}}"></script>
+    <script src="{{ asset('template/mazer/vendors/fontawesome/all.min.js')}}"></script>
+    <script>
+        // Simple Datatable
+        let table1 = document.querySelector('#example1');
+        let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
 </body>
 
 </html>
