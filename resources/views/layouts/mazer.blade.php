@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-               <x-sidebar/>
+               <x-menu/>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
         </div>
