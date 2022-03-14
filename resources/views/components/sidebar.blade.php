@@ -8,7 +8,7 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        @foreach ($menu as $item)
+        {{-- @foreach ($menu as $item)
             @if ($item['sub'])
                 <li class="sidebar-item has-sub">
                     <a href="#" class='sidebar-link'>
@@ -31,7 +31,7 @@
                     </a>
                 </li>
             @endif
-        @endforeach
+        @endforeach --}}
 
         <li class="sidebar-title">Forms &amp; Tables</li>
 
