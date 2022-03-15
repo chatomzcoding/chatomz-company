@@ -1,107 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Masuk Terlebih dahulu</title>
-
-  <link rel="shortcut icon" href="{{ asset('/img/bunefit-v2.png')}}">
-  
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/fontawesome-free/css/all.min.css')}}">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('template/admin/lte/dist/css/adminlte.min.css')}}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="shortcut icon" href="{{ asset('img/bunefit-v2.png') }}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('template/mazer/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.css')}}">
+    <link rel="stylesheet" href="{{ asset('template/mazer/css/app.css')}}">
+    <link rel="stylesheet" href="{{ asset('template/mazer/css/pages/auth.css')}}">
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <!-- /.login-logo -->
-  <div class="card card-outline card-primary">
-    <div class="card-header">
-      {{-- <a href="#" class="h1"><b>Chatomz</b>Company</a> --}}
-      <section class="p-3 m-3">
-        <img src="{{ asset('/img/logo-bunefit.png')}}" alt="" class="img-fluid">
-      </section>
+
+<body>
+    <div id="auth">
+
+        <div class="row h-100">
+            <div class="col-lg-5 col-12">
+                <div id="auth-left">
+                    <div class="auth-logo">
+                        <a href="{{ url('/') }}"><img src="{{ asset('img/logo-bunefit.png') }}" alt="Logo"></a>
+                    </div>
+                    <h1 class="auth-title">Masuk</h1>
+                    {{-- <p class="auth-subtitle mb-5">Silahkan masuk terlebih dahulu.</p> --}}
+                    @if (session('status'))
+                        <div class="mb-4 font-medium text-sm text-green-600">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('login') }}" method="post">
+                      @csrf
+                        <div class="form-group position-relative has-icon-left mb-2">
+                            <input type="text" name="email" class="form-control form-control-xl" placeholder="Username">
+                            <div class="form-control-icon">
+                                <i class="bi bi-person"></i>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative has-icon-left mb-2">
+                            <input type="password" name="password" class="form-control form-control-xl" placeholder="Password">
+                            <div class="form-control-icon">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                        </div>
+                        {{-- <div class="form-check form-check-lg d-flex align-items-end">
+                            <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label text-gray-600" for="flexCheckDefault">
+                                Keep me logged in
+                            </label>
+                        </div> --}}
+                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">MASUK</button>
+                    </form>
+                    {{-- <div class="text-center mt-5 text-lg fs-4">
+                        <p class="text-gray-600">Don't have an account? <a href="auth-register.html"
+                                class="font-bold">Sign
+                                up</a>.</p>
+                        <p><a class="font-bold" href="auth-forgot-password.html">Forgot password?</a>.</p>
+                    </div> --}}
+                </div>
+            </div>
+            <div class="col-lg-7 d-none d-lg-block">
+                <div id="auth-right">
+
+                </div>
+            </div>
+        </div>
+
     </div>
-    <div class="card-body">
-      {{-- <p class="login-box-msg">silahkan </p> --}}
-      @if (session('status'))
-            <div class="mb-4 font-medium text-sm text-green-600">
-                {{ session('status') }}
-            </div>
-        @endif
-
-      <form action="{{ route('login') }}" method="post">
-        @csrf
-        <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email" autofocus>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            {{-- <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div> --}}
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-outline-primary btn-block">MASUK</button>
-            <br>
-          </div>
-          <div class="col-12">
-            <a href="{{ url('/')}}"><i class="fas fa-angle-left"></i> kembali ke Halaman Depan</a>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
-
-      {{-- <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
-      </div> --}}
-      <!-- /.social-auth-links -->
-
-      {{-- <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
-      </p>
-      <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
-      </p> --}}
-    </div>
-    <!-- /.card-body -->
-  </div>
-  <!-- /.card -->
-</div>
-<!-- /.login-box -->
-
-<!-- jQuery -->
-<script src="{{ asset('template/admin/lte/plugins/jquery/jquery.min.js')}}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('template/admin/lte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('template/admin/lte/dist/js/adminlte.min.js')}}"></script>
 </body>
-</html>
 
+</html>

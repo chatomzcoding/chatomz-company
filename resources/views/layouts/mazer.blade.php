@@ -12,6 +12,8 @@
 
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/simple-datatables/style.css')}}">
 
+    <link rel="stylesheet" href="{{ asset('template/mazer/vendors/sweetalert2/sweetalert2.min.css')}}">
+
 
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/iconly/bold.css')}}">
 
@@ -69,10 +71,15 @@
     <script src="{{ asset('template/mazer/vendors/apexcharts/apexcharts.js')}}"></script>
     <script src="{{ asset('template/mazer/js/pages/dashboard.js')}}"></script>
 
-    <script src="{{ asset('template/mazer/js/main.js')}}"></script>
-
     <script src="{{ asset('template/mazer/vendors/simple-datatables/simple-datatables.js')}}"></script>
     <script src="{{ asset('template/mazer/vendors/fontawesome/all.min.js')}}"></script>
+    <script src="{{ asset('template/mazer/js/extensions/sweetalert2.js')}}"></script>
+    <script src="{{ asset('template/mazer/vendors/sweetalert2/sweetalert2.all.min.js')}}"></script>
+
+    <script src="{{ asset('template/mazer/js/main.js')}}"></script>
+    
+    {{-- js chatomz custom --}}
+    {{-- <script src="{{ asset('js/chatomz.js')}}"></script> --}}
     <script>
         // Simple Datatable
         let table1 = document.querySelector('#example1');

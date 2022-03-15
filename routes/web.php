@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Bisnis\ProdukController;
 use App\Http\Controllers\Bisnis\WadeController;
 use App\Http\Controllers\Chatomz\BarangController;
 use App\Http\Controllers\Chatomz\Coding\BotController;
@@ -51,7 +52,6 @@ Route::get('uji/hapus/{id}', 'App\Http\Controllers\ApiController@hapus');
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // DEMO
     Route::get('/demo/grab', [DemoController::class,'grab']);
-    Route::get('/demo/mazer', [DemoController::class,'mazer']);
 
     // migrasi
     Route::get('/migrasi', [MigrasiController::class,'index']);
@@ -97,8 +97,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('informasi', InformasiController::class);
         Route::resource('informasisub', InformasisubController::class);
         Route::resource('merk', 'App\Http\Controllers\Company\MerkController');
-
+        
         // BISNIS
+        Route::resource('produk', ProdukController::class);
         Route::get('wadec',[WadeController::class,'index']);
 
         // CODING
