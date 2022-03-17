@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/u6140596/public_html/chatomz
+    - export DEPLOYPATH=/home/u1662612/public_html/sistem
     - /bin/cp -R routes $DEPLOYPATH
     - /bin/cp -R resources $DEPLOYPATH
     - /bin/cp -R app $DEPLOYPATH
