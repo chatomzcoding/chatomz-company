@@ -40,7 +40,7 @@
                                     @foreach ($dlabel as $item)
                                         <option value="{{ $item->nama_kategori }}" @if ($main['filter']['label'] == $item->nama_kategori)
                                             selected
-                                        @endif>{{ strtoupper($item) }}</option>
+                                        @endif>{{ strtoupper($item->nama_kategori) }}</option>
                                     @endforeach
                                 </select>
                             </div>
