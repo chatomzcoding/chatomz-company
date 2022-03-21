@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Informasi;
 use App\Http\Controllers\Controller;
 use App\Models\Hewan;
 use App\Models\Hewanjenis;
+use App\Models\Informasi;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
 class HewanController extends Controller
@@ -16,7 +18,12 @@ class HewanController extends Controller
      */
     public function index()
     {
-        return Hewan::orderBy('nama','ASC')->get();
+        $kategori   = Kategori::where('nama_kategori','hewan')->first();
+        if ($kategori) {
+            return Informasi::where('kategori_id',$kategori->id)->orderBy('nama','ASC')->get();
+        } else {
+            return NULL;
+        }
     }
 
     /**

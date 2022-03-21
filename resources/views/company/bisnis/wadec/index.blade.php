@@ -26,13 +26,11 @@
                     <div class="card">
                       <div class="card-header">
                         <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Produk</a>
-                        <button id="footer2" class="btn btn-outline-primary btn-lg btn-block">With
-                            Footer</button>
                       </div>
                       <div class="card-body">
                           <x-sistem.notifikasi/>
                           <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="example1" class="table">
                                 <thead class="text-center">
                                     <tr>
                                         <th width="5%">No</th>
@@ -60,6 +58,9 @@
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                             {{-- <a href="{{ url('/orang/'.Crypt::encryptString($item->id).'/edit')}}" class="dropdown-item text-success"><i class="fas fa-pen" style="width: 20px;"></i> EDIT</a> --}}
+                                                            <button type="button" data-bs-toggle="modal"  data-nama_produk="{{ $item->nama_produk }}" data-harga="{{ $item->harga }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                                <i class="fa fa-edit"></i> EDIT
+                                                            </button>
                                                     <div class="dropdown-divider"></div>
                                                     <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt w20p"></i> HAPUS</button>
                                                         </div>
@@ -150,5 +151,88 @@
              </div>
          </div>
      </div>
+         <div class="modal fade text-left modal-borderless" id="ubah"
+         tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
+         aria-hidden="true">
+         <div class="modal-dialog modal-dialog-scrollable" role="document">
+             <div class="modal-content">
+                 <form action="{{ url('produk.update','id') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('patch')
+                    <input type="hidden" name="aplikasi" value="wadec">
+                 <div class="modal-header">
+                     <h5 class="modal-title">Ubah Data Produk</h5>
+                     <button type="button" class="close rounded-pill"
+                         data-bs-dismiss="modal" aria-label="Close">
+                         <i data-feather="x"></i>
+                     </button>
+                 </div>
+                 <div class="modal-body">
+                    <section>
+                        <label>Nama Produk : </label>
+                        <div class="form-group">
+                            <input type="text" name="nama_produk" id="nama_produk" placeholder="Masukkan nama produk"
+                                class="form-control" value="{{ old('nama_produk') }}" required>
+                        </div>
+                        <label>Harga Produk : </label>
+                        <div class="form-group">
+                            <input type="text" name="harga" id="harga" placeholder="Masukkan harga produk"
+                                class="form-control" value="{{ old('harga') }}" required>
+                        </div>
+                        <label>Stok Produk : </label>
+                        <div class="form-group">
+                            <input type="number" min="1" name="stok"
+                                class="form-control" value="{{ old('stok') }}" required>
+                        </div>
+                        <label>Kategori : </label>
+                        <div class="form-group">
+                            <select name="kategori_id" id="" class="form-control" required>
+                                @foreach ($kategori as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <label>Keterangan : </label>
+                        <div class="form-group">
+                            <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control" required></textarea>
+                        </div>
+                        <label>Poto Produk : </label>
+                        <div class="form-group">
+                            <input type="file" name="poto_produk"
+                                class="form-control" required>
+                        </div>
+                    </section>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-light-primary"
+                         data-bs-dismiss="modal">
+                         <i class="bx bx-x d-block d-sm-none"></i>
+                         <span class="d-none d-sm-block">Close</span>
+                     </button>
+                     <button type="submit" class="btn btn-primary ml-1">
+                         <i class="bx bx-check d-block d-sm-none"></i>
+                         <span class="d-none d-sm-block"><i class="bi bi-save"></i> SIMPAN</span>
+                     </button>
+                 </div>
+                 </form>
+             </div>
+         </div>
+     </div>
+    </x-slot>
+    <x-slot name="kodejs">
+        <script>
+            $('#ubah').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var nama_produk = button.data('nama_produk')
+                var harga = button.data('harga')
+                var id = button.data('id')
+        
+                var modal = $(this)
+        
+                modal.find('.modal-body #nama_produk').val(nama_produk);
+                modal.find('.modal-body #harga').val(harga);
+                modal.find('.modal-body #id').val(id);
+            })
+        </script>
     </x-slot>
 </x-mazer-layout>

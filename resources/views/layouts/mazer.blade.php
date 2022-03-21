@@ -85,6 +85,7 @@
         let table1 = document.querySelector('#example1');
         let dataTable = new simpleDatatables.DataTable(table1);
     </script>
+    {{ $kodejs ?? '' }}
 </body>
 
 </html>

@@ -38,7 +38,7 @@ class HomeController extends Controller
 
                 // kebutuhan info
                 $ulangtahunbulanini     = Orang::whereMonth('date_birth',ambil_bulan())->orderBy('first_name','ASC')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
-                $ulangtahuntanggalini     = Orang::whereMonth('date_birth',ambil_bulan())->whereDay('date_birth',ambil_tgl())->orderBy('first_name','ASC')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+                $ulangtahuntanggalini     = Orang::whereMonth('date_birth',ambil_bulan())->whereDay('date_birth',ambil_tgl())->orderBy('first_name','ASC')->limit(3)->get(['id','first_name','last_name','gender','death','photo','date_birth']);
                 $info = [
                     'ulangtahunbulanini' => $ulangtahunbulanini,
                     'ulangtahuntanggalini' => $ulangtahuntanggalini
