@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Hewan;
 use App\Models\Hewanjenis;
 use App\Models\Informasi;
+use App\Models\Informasisub;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 
@@ -55,9 +56,9 @@ class HewanController extends Controller
      */
     public function show($hewan)
     {
-        $hewan  = Hewan::find($hewan);
+        $hewan  = Informasi::find($hewan);
         if ($hewan) {
-            $jenis  = Hewanjenis::where('hewan_id',$hewan->id)->get();
+            $jenis  = Informasisub::where('informasi_id',$hewan->id)->get();
             $data   = [
                 'hewan' => $hewan,
                 'jenis' => $jenis,
