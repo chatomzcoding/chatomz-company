@@ -27,7 +27,9 @@ class KategoriController extends Controller
             ]
         ];
 
-        return view('chatomz.admin.kategori.index', compact('main','kategori'));
+        $dlabel     = Kategori::where('label','label')->orderBy('nama_kategori')->get();
+
+        return view('chatomz.admin.kategori.index', compact('main','kategori','dlabel'));
     }
 
     /**

@@ -37,8 +37,8 @@
                             <div class="form-group">
                                 <select name="label" id="label" class="form-control" onchange="this.form.submit()">
                                     <option value="semua">-- pilih label --</option>
-                                    @foreach (kingdom_label() as $item)
-                                        <option value="{{ $item }}" @if ($main['filter']['label'] == $item)
+                                    @foreach ($dlabel as $item)
+                                        <option value="{{ $item->nama_kategori }}" @if ($main['filter']['label'] == $item->nama_kategori)
                                             selected
                                         @endif>{{ strtoupper($item) }}</option>
                                     @endforeach
@@ -124,8 +124,8 @@
                    <div class="form-group row">
                     <label for="" class="col-md-4">Label {!! ireq() !!}</label>
                     <select name="label" id="label" class="form-control col-md-8" required>
-                        @foreach (kingdom_label() as $item)
-                            <option value="{{ $item }}">{{ $item }}</option>
+                        @foreach ($dlabel as $item)
+                            <option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
                         @endforeach
                     </select>
                     </div>
@@ -172,8 +172,8 @@
                    <div class="form-group row">
                     <label for="" class="col-md-4">Label {!! ireq() !!}</label>
                     <select name="label" id="label" class="form-control col-md-8" required>
-                        @foreach (kingdom_label() as $item)
-                            <option value="{{ $item }}">{{ $item }}</option>
+                        @foreach ($dlabel as $item)
+                            <option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
                         @endforeach
                     </select>
                     </div>
