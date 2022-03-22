@@ -17,7 +17,7 @@
         <div class="container d-block">
             <a href="javascript:history.back()"><i class="bi bi-chevron-left"></i></a>
             <a class="navbar-brand ms-4" href="{{ url('dashboard') }}">
-                <img src="{{ asset('template/mazer/images/logo/logo.png')}}">
+                <img src="{{ asset('img/admin/info/'.$info->bg_produk)}}">
             </a>
         </div>
     </nav>

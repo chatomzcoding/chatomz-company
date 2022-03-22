@@ -248,6 +248,12 @@
           </section>
       </div>
   </x-slot>
+
+  <x-slot name="kodejs">
+        <script src="{{ asset('template/mazer/vendors/apexcharts/apexcharts.js')}}"></script>
+        <script src="{{ asset('template/mazer/js/pages/dashboard.js')}}"></script>
+  </x-slot>
+
 </x-mazer-layout>
 
 

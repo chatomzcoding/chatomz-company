@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Infowebsite;
 use Illuminate\View\Component;
 
 class MazerLayout extends Component
@@ -23,6 +24,7 @@ class MazerLayout extends Component
      */
     public function render()
     {
-        return view('layouts.mazer');
+        $info   = Infowebsite::first();
+        return view('layouts.mazer', compact('info'));
     }
 }

@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $title }}</title>
+    <title>{{ $title ?? ''}}</title>
 
+    <link rel="shortcut icon" href="{{ asset('img/admin/info/'.$info->logo_brand)}}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('template/mazer/css/bootstrap.css')}}">
 
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/simple-datatables/style.css')}}">
 
-    <link rel="stylesheet" href="{{ asset('template/mazer/vendors/sweetalert2/sweetalert2.min.css')}}">
-
+    {{-- <link rel="stylesheet" href="{{ asset('template/mazer/vendors/sweetalert2/sweetalert2.min.css')}}"> --}}
 
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/iconly/bold.css')}}">
 
@@ -22,7 +22,9 @@
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/fontawesome/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/mazer/css/app.css')}}">
-    <link rel="shortcut icon" href="{{ asset('template/mazer/images/favicon.svg')}}" type="image/x-icon">
+
+    <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
+    <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
 </head>
 
 <body>
@@ -32,7 +34,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="{{ url('/dashboard') }}"><img src="{{ asset('template/mazer/images/logo/logo.png')}}" alt="Logo" srcset=""></a>
+                            <a href="{{ url('/dashboard') }}"><img src="{{ asset('img/admin/info/'.$info->bg_produk)}}" width="120px" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="{{ url('/dashboard') }}" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -49,43 +51,33 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-            {{ $content }}
+            {{ $content ?? ''}}
            
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2021 &copy; Mazer</p>
+                        <p>{{ ambil_tahun() }} &copy; Chatomz Company</p>
                     </div>
                     <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
+                        <p>Created by Firman Chatomz</p>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
+    <script src="{{ asset('template/mazer/vendors/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('template/mazer/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{ asset('template/mazer/js/bootstrap.bundle.min.js')}}"></script>
 
-    <script src="{{ asset('template/mazer/vendors/apexcharts/apexcharts.js')}}"></script>
-    <script src="{{ asset('template/mazer/js/pages/dashboard.js')}}"></script>
-
-    <script src="{{ asset('template/mazer/vendors/simple-datatables/simple-datatables.js')}}"></script>
     <script src="{{ asset('template/mazer/vendors/fontawesome/all.min.js')}}"></script>
-    <script src="{{ asset('template/mazer/js/extensions/sweetalert2.js')}}"></script>
-    <script src="{{ asset('template/mazer/vendors/sweetalert2/sweetalert2.all.min.js')}}"></script>
 
     <script src="{{ asset('template/mazer/js/main.js')}}"></script>
-    
+
     {{-- js chatomz custom --}}
-    {{-- <script src="{{ asset('js/chatomz.js')}}"></script> --}}
-    <script>
-        // Simple Datatable
-        let table1 = document.querySelector('#example1');
-        let dataTable = new simpleDatatables.DataTable(table1);
-    </script>
+    <script src="{{ asset('js/chatomz.js')}}"></script>
     {{ $kodejs ?? '' }}
+   
 </body>
 
 </html>

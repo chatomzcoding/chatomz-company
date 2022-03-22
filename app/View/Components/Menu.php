@@ -26,7 +26,7 @@ class Menu extends Component
         $menu   = [
             [
                 'title' => 'Kingdomz',
-                'icon' => 'bi bi-file-earmark-spreadsheet-fill',
+                'icon' => 'bi bi-building',
                 'sub' => TRUE,
                 'submenu' => [
                     [
@@ -49,7 +49,7 @@ class Menu extends Component
             ],
             [
                 'title' => 'Karya',
-                'icon' => 'bi bi-file-earmark-spreadsheet-fill',
+                'icon' => 'bi bi-award',
                 'sub' => TRUE,
                 'submenu' => [
                     [
@@ -60,7 +60,7 @@ class Menu extends Component
             ],
             [
                 'title' => 'Bisnis',
-                'icon' => 'bi bi-file-earmark-spreadsheet-fill',
+                'icon' => 'bi bi-shop',
                 'sub' => TRUE,
                 'submenu' => [
                     [
@@ -71,7 +71,7 @@ class Menu extends Component
             ],
             [
                 'title' => 'Asset',
-                'icon' => 'bi bi-file-earmark-spreadsheet-fill',
+                'icon' => 'bi bi-tv',
                 'sub' => TRUE,
                 'submenu' => [
                     [
@@ -82,7 +82,7 @@ class Menu extends Component
             ],
             [
                 'title' => 'Admin',
-                'icon' => 'bi bi-file-earmark-spreadsheet-fill',
+                'icon' => 'bi bi-person-square',
                 'sub' => TRUE,
                 'submenu' => [
                     [
@@ -101,7 +101,7 @@ class Menu extends Component
             ],
             [
                 'title' => 'Demo',
-                'icon' => 'bi bi-file-earmark-spreadsheet-fill',
+                'icon' => 'bi bi-app-indicator',
                 'sub' => TRUE,
                 'submenu' => [
                     [

@@ -81,7 +81,7 @@ class InfowebsiteController extends Controller
             $file = $request->file('logo_brand');
             
             $logo_brand = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/admin/info';
+            $tujuan_upload = 'public/img/admin/info';
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$logo_brand);
             deletefile($tujuan_upload.'/'.$infowebsite->logo_brand);
@@ -97,7 +97,7 @@ class InfowebsiteController extends Controller
             $file = $request->file('bg_produk');
             
             $bg_produk = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/admin/info';
+            $tujuan_upload = 'public/img/admin/info';
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$bg_produk);
             deletefile($tujuan_upload.'/'.$infowebsite->bg_produk);

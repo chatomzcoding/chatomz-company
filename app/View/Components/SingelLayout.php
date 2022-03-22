@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Infowebsite;
 use Illuminate\View\Component;
 
 class SingelLayout extends Component
@@ -25,6 +26,7 @@ class SingelLayout extends Component
      */
     public function render()
     {
-        return view('layouts.single');
+        $info   = Infowebsite::first();
+        return view('layouts.single', compact('info'));
     }
 }

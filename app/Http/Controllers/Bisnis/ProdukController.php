@@ -47,9 +47,9 @@ class ProdukController extends Controller
         Produk::create([
             'nama_produk' => $request->nama_produk,
             'stok' => $request->stok,
-            'harga' => $request->harga,
+            'harga' => default_nilai($request->harga),
             'kategori_id' => $request->kategori_id,
-            'deskripsi' => $request->keterangan,
+            'deskripsi' => $request->deskripsi,
             'aplikasi' => $request->aplikasi,
             'poto_produk' => $nama_file,
         ]);
@@ -86,9 +86,32 @@ class ProdukController extends Controller
      * @param  \App\Models\Produk  $produk
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Produk $produk)
+    public function update(Request $request)
     {
-        //
+        $produk     = Produk::find($request->id);
+        if (isset($request->poto_produk)) {
+            $request->validate([
+                'poto_produk' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+            ]);
+            $tujuan_upload = 'public/img/company/bisnis';
+            $file = $request->file('poto_produk');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $file->move($tujuan_upload,$nama_file);
+            deletefile($tujuan_upload.'/'.$produk->poto_produk);
+        } else {
+            $nama_file  = $produk->poto_produk;
+        }
+
+        Produk::where('id',$produk->id)->update([
+            'nama_produk' => $request->nama_produk,
+            'stok' => $request->stok,
+            'harga' => default_nilai($request->harga),
+            'kategori_id' => $request->kategori_id,
+            'deskripsi' => $request->deskripsi,
+            'poto_produk' => $nama_file,
+        ]);
+
+        return redirect()->back()->with('du','Produk');
     }
 
     /**
@@ -99,6 +122,10 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        //
+        $tujuan_upload = 'public/img/company/bisnis';
+        deletefile($tujuan_upload.'/'.$produk->poto_produk);
+        $produk->delete();
+
+        return redirect()->back()->with('dd','Produk');
     }
 }

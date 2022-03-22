@@ -39,6 +39,7 @@
                                         <th>Nama Produk</th>
                                         <th>Harga Produk</th>
                                         <th>Kategori</th>
+                                        <th>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody class="text-capitalize">
@@ -58,7 +59,7 @@
                                                         </button>
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                             {{-- <a href="{{ url('/orang/'.Crypt::encryptString($item->id).'/edit')}}" class="dropdown-item text-success"><i class="fas fa-pen" style="width: 20px;"></i> EDIT</a> --}}
-                                                            <button type="button" data-bs-toggle="modal"  data-nama_produk="{{ $item->nama_produk }}" data-harga="{{ $item->harga }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                            <button type="button" data-bs-toggle="modal"  data-nama_produk="{{ $item->nama_produk }}" data-harga="{{ $item->harga }}" data-stok="{{ $item->stok }}" data-kategori_id="{{ $item->kategori_id }}" data-deskripsi="{{ $item->deskripsi }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
                                                                 <i class="fa fa-edit"></i> EDIT
                                                             </button>
                                                     <div class="dropdown-divider"></div>
@@ -70,6 +71,7 @@
                                             <td>{{ $item->nama_produk}}</td>
                                             <td>{{ rupiah($item->harga)}}</td>
                                             <td>{{ $item->nama_kategori}}</td>
+                                            <td>{{ $item->deskripsi}}</td>
                                         </tr>
                                     @empty
                                         <tr class="text-center">
@@ -85,9 +87,7 @@
             </section>
         </div>
          <!--BorderLess Modal Modal -->
-         <div class="modal fade text-left modal-borderless" id="tambah"
-         tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-         aria-hidden="true">
+         <div class="modal fade text-left modal-borderless" id="tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
          <div class="modal-dialog modal-dialog-scrollable" role="document">
              <div class="modal-content">
                  <form action="{{ url('produk') }}" method="POST" enctype="multipart/form-data">
@@ -96,43 +96,38 @@
                  <div class="modal-header">
                      <h5 class="modal-title">Tambah Produk Baru</h5>
                      <button type="button" class="close rounded-pill"
-                         data-bs-dismiss="modal" aria-label="Close">
-                         <i data-feather="x"></i>
+                         data-bs-dismiss="modal" aria-label="Close"> <i data-feather="x"></i>
                      </button>
                  </div>
                  <div class="modal-body">
                     <section>
                         <label>Nama Produk : </label>
                         <div class="form-group">
-                            <input type="text" name="nama_produk" placeholder="Masukkan nama produk"
-                                class="form-control" value="{{ old('nama_produk') }}" required>
+                            <input type="text" name="nama_produk" placeholder="Masukkan nama produk" class="form-control" value="{{ old('nama_produk') }}" required>
                         </div>
                         <label>Harga Produk : </label>
                         <div class="form-group">
-                            <input type="text" name="harga" placeholder="Masukkan harga produk"
-                                class="form-control" value="{{ old('harga') }}" required>
+                            <input type="text" name="harga" id="rupiah" placeholder="Masukkan harga produk" class="form-control" value="{{ old('harga') }}" required>
                         </div>
                         <label>Stok Produk : </label>
                         <div class="form-group">
-                            <input type="number" min="1" name="stok"
-                                class="form-control" value="{{ old('stok') }}" required>
+                            <input type="number" min="1" name="stok" id="stok" class="form-control" value="{{ old('stok') }}" required>
                         </div>
                         <label>Kategori : </label>
                         <div class="form-group">
                             <select name="kategori_id" id="" class="form-control" required>
                                 @foreach ($kategori as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <label>Keterangan : </label>
                         <div class="form-group">
-                            <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control" required></textarea>
+                            <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control" required></textarea>
                         </div>
                         <label>Poto Produk : </label>
                         <div class="form-group">
-                            <input type="file" name="poto_produk"
-                                class="form-control" required>
+                            <input type="file" name="poto_produk" class="form-control" required>
                         </div>
                     </section>
                  </div>
@@ -151,12 +146,10 @@
              </div>
          </div>
      </div>
-         <div class="modal fade text-left modal-borderless" id="ubah"
-         tabindex="-1" role="dialog" aria-labelledby="myModalLabel1"
-         aria-hidden="true">
+         <div class="modal fade text-left modal-borderless" id="ubah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
          <div class="modal-dialog modal-dialog-scrollable" role="document">
              <div class="modal-content">
-                 <form action="{{ url('produk.update','id') }}" method="POST" enctype="multipart/form-data">
+                 <form action="{{ route('produk.update','id') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('patch')
                     <input type="hidden" name="aplikasi" value="wadec">
@@ -168,21 +161,19 @@
                      </button>
                  </div>
                  <div class="modal-body">
+                     <input type="hidden" name="id" id="id">
                     <section>
                         <label>Nama Produk : </label>
                         <div class="form-group">
-                            <input type="text" name="nama_produk" id="nama_produk" placeholder="Masukkan nama produk"
-                                class="form-control" value="{{ old('nama_produk') }}" required>
+                            <input type="text" name="nama_produk" id="nama_produk" placeholder="Masukkan nama produk" class="form-control" value="{{ old('nama_produk') }}" required>
                         </div>
                         <label>Harga Produk : </label>
                         <div class="form-group">
-                            <input type="text" name="harga" id="harga" placeholder="Masukkan harga produk"
-                                class="form-control" value="{{ old('harga') }}" required>
+                            <input type="text" name="harga" id="rupiah1" placeholder="Masukkan harga produk" class="form-control" value="{{ old('harga') }}" required>
                         </div>
                         <label>Stok Produk : </label>
                         <div class="form-group">
-                            <input type="number" min="1" name="stok"
-                                class="form-control" value="{{ old('stok') }}" required>
+                            <input type="number" min="1" name="stok" id="stok" class="form-control" value="{{ old('stok') }}" required>
                         </div>
                         <label>Kategori : </label>
                         <div class="form-group">
@@ -194,12 +185,11 @@
                         </div>
                         <label>Keterangan : </label>
                         <div class="form-group">
-                            <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control" required></textarea>
+                            <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control" required></textarea>
                         </div>
                         <label>Poto Produk : </label>
                         <div class="form-group">
-                            <input type="file" name="poto_produk"
-                                class="form-control" required>
+                            <input type="file" name="poto_produk" class="form-control">
                         </div>
                     </section>
                  </div>
@@ -220,17 +210,30 @@
      </div>
     </x-slot>
     <x-slot name="kodejs">
+        <script src="{{ asset('template/mazer/vendors/simple-datatables/simple-datatables.js')}}"></script>
+
+        <script>
+           // Simple Datatable
+           let table1 = document.querySelector('#example1');
+           let dataTable = new simpleDatatables.DataTable(table1);
+       </script>
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
                 var nama_produk = button.data('nama_produk')
                 var harga = button.data('harga')
+                var stok = button.data('stok')
+                var kategori_id = button.data('kategori_id')
+                var deskripsi = button.data('deskripsi')
                 var id = button.data('id')
         
                 var modal = $(this)
         
                 modal.find('.modal-body #nama_produk').val(nama_produk);
-                modal.find('.modal-body #harga').val(harga);
+                modal.find('.modal-body #rupiah1').val(harga);
+                modal.find('.modal-body #stok').val(stok);
+                modal.find('.modal-body #kategori_id').val(kategori_id);
+                modal.find('.modal-body #deskripsi').val(deskripsi);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

@@ -71,7 +71,7 @@
 
         <li class="sidebar-item">
             <a href="{{ url('/user/'.Crypt::encryptString(Auth::user()->id).'/edit')}}" class="sidebar-link">
-              <i class="fas fa-user-cog"></i><span>Pengaturan Akun</span>
+              <i class="bi bi-gear"></i> <span>Pengaturan Akun</span>
             </a>
         </li>
         <li class="sidebar-item">
@@ -80,7 +80,7 @@
             <a href="{{ route('logout') }}"  class="sidebar-link"
                     onclick="event.preventDefault();
                             this.closest('form').submit();">
-            <i class="fas fa-sign-out-alt"></i><span>Keluar</span></a>
+            <i class="bi bi-box-arrow-right"></i><span>Keluar</span></a>
         </form>
         </li>
 
