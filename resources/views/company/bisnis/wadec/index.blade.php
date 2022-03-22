@@ -1,25 +1,8 @@
-<x-mazer-layout>
-    <x-slot name="title">
-        Company - Wadec
-    </x-slot>
+<x-mazer-layout title="Company - Wadec">
     <x-slot name="content">
         <div class="page-heading">
-            <div class="page-title">
-                <div class="row">
-                    <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Data Produk Wadec</h3>
-                        <p class="text-subtitle text-muted">daftar produk wall decoration chatomz</p>
-                    </div>
-                    <div class="col-12 col-md-6 order-md-2 order-first">
-                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Daftar Produk</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
-            </div>
+            <x-header head="Data Produk Wadec" p="daftar produk wall decoration chatomz" active="Daftar Produk">
+            </x-header>
             <section class="section">
                 <div class="row">
                   <div class="col-md-12">
@@ -28,7 +11,6 @@
                         <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Produk</a>
                       </div>
                       <div class="card-body">
-                          <x-sistem.notifikasi/>
                           <div class="table-responsive">
                             <table id="example1" class="table">
                                 <thead class="text-center">
@@ -86,128 +68,72 @@
                 </div>
             </section>
         </div>
-         <!--BorderLess Modal Modal -->
-         <div class="modal fade text-left modal-borderless" id="tambah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-scrollable" role="document">
-             <div class="modal-content">
-                 <form action="{{ url('produk') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <input type="hidden" name="aplikasi" value="wadec">
-                 <div class="modal-header">
-                     <h5 class="modal-title">Tambah Produk Baru</h5>
-                     <button type="button" class="close rounded-pill"
-                         data-bs-dismiss="modal" aria-label="Close"> <i data-feather="x"></i>
-                     </button>
-                 </div>
-                 <div class="modal-body">
-                    <section>
-                        <label>Nama Produk : </label>
-                        <div class="form-group">
-                            <input type="text" name="nama_produk" placeholder="Masukkan nama produk" class="form-control" value="{{ old('nama_produk') }}" required>
-                        </div>
-                        <label>Harga Produk : </label>
-                        <div class="form-group">
-                            <input type="text" name="harga" id="rupiah" placeholder="Masukkan harga produk" class="form-control" value="{{ old('harga') }}" required>
-                        </div>
-                        <label>Stok Produk : </label>
-                        <div class="form-group">
-                            <input type="number" min="1" name="stok" id="stok" class="form-control" value="{{ old('stok') }}" required>
-                        </div>
-                        <label>Kategori : </label>
-                        <div class="form-group">
-                            <select name="kategori_id" id="" class="form-control" required>
-                                @foreach ($kategori as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <label>Keterangan : </label>
-                        <div class="form-group">
-                            <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control" required></textarea>
-                        </div>
-                        <label>Poto Produk : </label>
-                        <div class="form-group">
-                            <input type="file" name="poto_produk" class="form-control" required>
-                        </div>
-                    </section>
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-light-primary"
-                         data-bs-dismiss="modal">
-                         <i class="bx bx-x d-block d-sm-none"></i>
-                         <span class="d-none d-sm-block">Close</span>
-                     </button>
-                     <button type="submit" class="btn btn-primary ml-1">
-                         <i class="bx bx-check d-block d-sm-none"></i>
-                         <span class="d-none d-sm-block"><i class="bi bi-save"></i> SIMPAN</span>
-                     </button>
-                 </div>
-                 </form>
-             </div>
-         </div>
-     </div>
-         <div class="modal fade text-left modal-borderless" id="ubah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-scrollable" role="document">
-             <div class="modal-content">
-                 <form action="{{ route('produk.update','id') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('patch')
-                    <input type="hidden" name="aplikasi" value="wadec">
-                 <div class="modal-header">
-                     <h5 class="modal-title">Ubah Data Produk</h5>
-                     <button type="button" class="close rounded-pill"
-                         data-bs-dismiss="modal" aria-label="Close">
-                         <i data-feather="x"></i>
-                     </button>
-                 </div>
-                 <div class="modal-body">
-                     <input type="hidden" name="id" id="id">
-                    <section>
-                        <label>Nama Produk : </label>
-                        <div class="form-group">
-                            <input type="text" name="nama_produk" id="nama_produk" placeholder="Masukkan nama produk" class="form-control" value="{{ old('nama_produk') }}" required>
-                        </div>
-                        <label>Harga Produk : </label>
-                        <div class="form-group">
-                            <input type="text" name="harga" id="rupiah1" placeholder="Masukkan harga produk" class="form-control" value="{{ old('harga') }}" required>
-                        </div>
-                        <label>Stok Produk : </label>
-                        <div class="form-group">
-                            <input type="number" min="1" name="stok" id="stok" class="form-control" value="{{ old('stok') }}" required>
-                        </div>
-                        <label>Kategori : </label>
-                        <div class="form-group">
-                            <select name="kategori_id" id="" class="form-control" required>
-                                @foreach ($kategori as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <label>Keterangan : </label>
-                        <div class="form-group">
-                            <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control" required></textarea>
-                        </div>
-                        <label>Poto Produk : </label>
-                        <div class="form-group">
-                            <input type="file" name="poto_produk" class="form-control">
-                        </div>
-                    </section>
-                 </div>
-                 <div class="modal-footer">
-                     <button type="button" class="btn btn-light-primary"
-                         data-bs-dismiss="modal">
-                         <i class="bx bx-x d-block d-sm-none"></i>
-                         <span class="d-none d-sm-block">Close</span>
-                     </button>
-                     <button type="submit" class="btn btn-primary ml-1">
-                         <i class="bx bx-check d-block d-sm-none"></i>
-                         <span class="d-none d-sm-block"><i class="bi bi-save"></i> SIMPAN</span>
-                     </button>
-                 </div>
-                 </form>
-             </div>
-         </div>
-     </div>
+        <x-modalsimpan judul="Tambah Produk Baru" link="produk">
+            <section>
+                <input type="hidden" name="aplikasi" value="wadec">
+                <label>Nama Produk : </label>
+                <div class="form-group">
+                    <input type="text" name="nama_produk" placeholder="Masukkan nama produk" class="form-control" value="{{ old('nama_produk') }}" required>
+                </div>
+                <label>Harga Produk : </label>
+                <div class="form-group">
+                    <input type="text" name="harga" id="rupiah" placeholder="Masukkan harga produk" class="form-control" value="{{ old('harga') }}" required>
+                </div>
+                <label>Stok Produk : </label>
+                <div class="form-group">
+                    <input type="number" min="1" name="stok" id="stok" class="form-control" value="{{ old('stok') }}" required>
+                </div>
+                <label>Kategori : </label>
+                <div class="form-group">
+                    <select name="kategori_id" id="" class="form-control" required>
+                        @foreach ($kategori as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <label>Keterangan : </label>
+                <div class="form-group">
+                    <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control" required></textarea>
+                </div>
+                <label>Poto Produk : </label>
+                <div class="form-group">
+                    <input type="file" name="poto_produk" class="form-control" required>
+                </div>
+            </section>
+        </x-modalsimpan>
+
+        <x-modalubah judul="Ubah Data Produk" link="produk">
+            <section>
+                <label>Nama Produk : </label>
+                <div class="form-group">
+                    <input type="text" name="nama_produk" id="nama_produk" placeholder="Masukkan nama produk" class="form-control" value="{{ old('nama_produk') }}" required>
+                </div>
+                <label>Harga Produk : </label>
+                <div class="form-group">
+                    <input type="text" name="harga" id="rupiah1" placeholder="Masukkan harga produk" class="form-control" value="{{ old('harga') }}" required>
+                </div>
+                <label>Stok Produk : </label>
+                <div class="form-group">
+                    <input type="number" min="1" name="stok" id="stok" class="form-control" value="{{ old('stok') }}" required>
+                </div>
+                <label>Kategori : </label>
+                <div class="form-group">
+                    <select name="kategori_id" id="" class="form-control" required>
+                        @foreach ($kategori as $item)
+                        <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <label>Keterangan : </label>
+                <div class="form-group">
+                    <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control" required></textarea>
+                </div>
+                <label>Poto Produk : </label>
+                <div class="form-group">
+                    <input type="file" name="poto_produk" class="form-control">
+                </div>
+            </section>
+        </x-modalubah>
     </x-slot>
     <x-slot name="kodejs">
         <script src="{{ asset('template/mazer/vendors/simple-datatables/simple-datatables.js')}}"></script>

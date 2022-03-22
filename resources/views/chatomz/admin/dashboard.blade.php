@@ -1,7 +1,4 @@
-<x-mazer-layout>
-  <x-slot name="title">
-      Dashboard - Chatomz Company
-  </x-slot>
+<x-mazer-layout title="Dashboard - Chatomz Company">
   <x-slot name="content">
       <div class="page-heading">
           <h3>Statistik</h3>

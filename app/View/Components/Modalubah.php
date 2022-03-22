@@ -2,21 +2,22 @@
 
 namespace App\View\Components;
 
-use App\Models\Infowebsite;
 use Illuminate\View\Component;
 
-class MazerLayout extends Component
+class Modalubah extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $title;
+    public $judul;
+    public $link;
 
-    public function __construct($title='Admin')
+    public function __construct($judul="ubah data",$link='')
     {
-        $this->title = $title;
+        $this->judul = $judul;
+        $this->link = $link;
     }
 
     /**
@@ -26,7 +27,6 @@ class MazerLayout extends Component
      */
     public function render()
     {
-        $info   = Infowebsite::first();
-        return view('layouts.mazer', compact('info'));
+        return view('components.modalubah');
     }
 }

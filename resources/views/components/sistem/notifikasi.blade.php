@@ -44,14 +44,14 @@
     @if (session('du'))
         <div class="alert alert-success alert-dismissible fade show text-white" role="alert">
             <h5>Berhasil!</h5>
-            <p>Data {{ session('du') }} telah ditambahkan</p>
+            <p>Data {{ session('du') }} telah diperbaharui</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
     @if (session('dd'))
         <div class="alert alert-danger alert-dismissible fade show text-white" role="alert">
             <h5>Berhasil!</h5>
-            <p>Data {{ session('dd') }} telah ditambahkan</p>
+            <p>Data {{ session('dd') }} telah dihapus</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif

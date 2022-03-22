@@ -2,21 +2,24 @@
 
 namespace App\View\Components;
 
-use App\Models\Infowebsite;
 use Illuminate\View\Component;
 
-class MazerLayout extends Component
+class Header extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $title;
+    public $head;
+    public $p;
+    public $active;
 
-    public function __construct($title='Admin')
+    public function __construct($head="judul header",$p=null,$active="halaman")
     {
-        $this->title = $title;
+        $this->head = $head;
+        $this->p = $p;
+        $this->active = $active;
     }
 
     /**
@@ -26,7 +29,6 @@ class MazerLayout extends Component
      */
     public function render()
     {
-        $info   = Infowebsite::first();
-        return view('layouts.mazer', compact('info'));
+        return view('components.header');
     }
 }

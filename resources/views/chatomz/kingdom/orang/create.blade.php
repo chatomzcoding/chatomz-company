@@ -6,6 +6,7 @@
         <div class="card mt-3">
             <div class="card-header">
                 <h4 class="card-title"><i class="bi bi-plus-circle-fill"></i> Tambah Orang</h4>
+                <button type="button" data-bs-toggle="modal" data-bs-target="#tambah">tambah</button>
             </div>
             <div class="card-body">
                 <x-sistem.notifikasi/>

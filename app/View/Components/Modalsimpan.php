@@ -2,21 +2,23 @@
 
 namespace App\View\Components;
 
-use App\Models\Infowebsite;
 use Illuminate\View\Component;
 
-class MazerLayout extends Component
+class Modalsimpan extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $title;
 
-    public function __construct($title='Admin')
+    public $judul;
+    public $link;
+
+    public function __construct($judul,$link)
     {
-        $this->title = $title;
+        $this->link = $link;
+        $this->judul = $judul;
     }
 
     /**
@@ -26,7 +28,6 @@ class MazerLayout extends Component
      */
     public function render()
     {
-        $info   = Infowebsite::first();
-        return view('layouts.mazer', compact('info'));
+        return view('components.modalsimpan');
     }
 }

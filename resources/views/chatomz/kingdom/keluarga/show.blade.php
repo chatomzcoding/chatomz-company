@@ -1,114 +1,88 @@
-@section('title')
-    CHATOMZ - Data Keluarga {{ $keluarga->nama_keluarga}}
-@endsection
-<x-app-layout>
-    <x-slot name="header">
-        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> --}}
-        <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">Data Keluarga - {{ ucwords($keluarga->nama_keluarga)}}</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('keluarga')}}">Daftar Keluarga</a></li>
-                <li class="breadcrumb-item active">Daftar Anggota Keluarga</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
+<x-singel-layout>
+    <x-slot name="title">
+        CHATOMZ - Data Keluarga {{ $keluarga->nama_keluarga}}
     </x-slot>
-
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div> --}}
-    <div class="container-fluid">
+    <x-slot name="content">
         <div class="row">
-          <!-- left column -->
-          <div class="col-md-12">
-            <!-- general form elements -->
-            <div class="card">
-              <div class="card-header">
-                  <a href="{{ url('/keluarga')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-double-left"></i> Kembali</a>
-                @if (isset($pohon['istri']))
-                    <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota Keluarga </a>
-                @endif
-                <a href="#" data-toggle="modal" data-target="#editkeluarga" class="btn btn-outline-success btn-flat btn-sm"><i class="fas fa-pen"></i> Edit Keluarga</a>
-              </div>
-              <div class="card-body">
-                  @include('sistem.notifikasi')
-                  <div class="row">
-                    <div class="col-md-4">
-                        @if (!is_null($keluarga->no_kk))
-                            <strong>No. Kartu Keluarga</strong><br>
-                            <small>{{ $keluarga->no_kk }}</small>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        @if (isset($pohon['istri']))
+                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"> Tambah Anggota Keluarga </a>
                         @endif
-                        @if (!is_null($keluarga->tgl_pernikahan))
-                            <strong>Tanggal Pernikahan</strong><br>
-                            &nbsp;&nbsp;&nbsp;<small>{{ date_indo($keluarga->tgl_pernikahan) }}</small><br>
-                        @endif
-                        @if (!is_null($keluarga->keterangan))
-                            <strong>Keterangan</strong><br>
-                            &nbsp;&nbsp;&nbsp;<small>"{{ $keluarga->keterangan }}"</small>
-                        @endif
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#editkeluarga" class="btn btn-outline-success btn-flat btn-sm"> Edit Keluarga</a>
                     </div>
-                    <div class="col-md-8 p-1">
-                        <div class="table-responsive">
-                          <table id="example1" class="table table-bordered table-striped">
-                              <thead class="text-center">
-                                  <tr>
-                                      <th width="5%">No</th>
-                                      <th width="10%">Aksi</th>
-                                      <th>Hubungan</th>
-                                      <th>Nama Anggota</th>
-                                      <th>Urutan</th>
-                                      <th>Keterangan</th>
-                                  </tr>
-                              </thead>
-                              <tbody class="text-capitalize">
-                                  @forelse ($keluargahubungan as $item)
-                                  <tr>
-                                          <td class="text-center">{{ $loop->iteration}}</td>
-                                          <td class="text-center">
-                                              <form id="data-{{ $item->id }}" action="{{url('/hubungankeluarga',$item->id)}}" method="post">
-                                                  @csrf
-                                                  @method('delete')
-                                                  </form>
-                                                  <div class="btn-group">
-                                                    <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
-                                                    <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                    </button>
-                                                    <div class="dropdown-menu" role="menu">
-                                                        <button type="button" data-toggle="modal" data-urutan="{{ $item->urutan }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                                            <i class="fa fa-edit" style="width: 20px;"></i> EDIT
-                                                        </button>
-                                                    <div class="dropdown-divider"></div>
-                                                    <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt w20p"></i> HAPUS</button>
-                                                    </div>
-                                                </div>
-                                          </td>
-                                          <td class="text-center text-uppercase">{{ $item->status}}</td>
-                                          <td><a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}">{{ $item->first_name.' '.$item->last_name}}</a> </td>
-                                          <td class="text-center">{{ $item->urutan}}</td>
-                                          <td>{{ $item->keterangan}}</td>
-                                      </tr>
-                                  @empty
-                                      <tr class="text-center">
-                                          <td colspan="6">tidak ada data</td>
-                                      </tr>
-                                  @endforelse
-                          </table>
-                      </div>
+                    <div class="card-body">
+                        <x-sistem.notifikasi/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                @if (!is_null($keluarga->no_kk))
+                                    <strong>No. Kartu Keluarga</strong><br>
+                                    &nbsp;&nbsp;&nbsp;<small>{{ $keluarga->no_kk }}</small> <br>
+                                @endif
+                                @if (!is_null($keluarga->tgl_pernikahan))
+                                    <strong>Tanggal Pernikahan</strong><br>
+                                    &nbsp;&nbsp;&nbsp;<small>{{ date_indo($keluarga->tgl_pernikahan) }}</small><br>
+                                @endif
+                                @if (!is_null($keluarga->keterangan))
+                                    <strong>Keterangan</strong><br>
+                                    &nbsp;&nbsp;&nbsp;<small>"{{ $keluarga->keterangan }}"</small>
+                                @endif
+                            </div>
+                            <div class="col-md-8 p-1">
+                                <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th width="5%">No</th>
+                                            <th width="10%">Aksi</th>
+                                            <th>Hubungan</th>
+                                            <th>Nama Anggota</th>
+                                            <th>Urutan</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-capitalize">
+                                        @forelse ($keluargahubungan as $item)
+                                        <tr>
+                                                <td class="text-center">{{ $loop->iteration}}</td>
+                                                <td class="text-center">
+                                                    <form id="data-{{ $item->id }}" action="{{url('/hubungankeluarga',$item->id)}}" method="post">
+                                                        @csrf
+                                                        @method('delete')
+                                                        </form>
+                                                        <div class="dropdown">
+                                                            <button class="btn btn-primary btn-sm dropdown-toggle me-1" type="button"
+                                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false">
+                                                                Aksi
+                                                            </button>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                {{-- <a href="{{ url('/orang/'.Crypt::encryptString($item->id).'/edit')}}" class="dropdown-item text-success"><i class="fas fa-pen" style="width: 20px;"></i> EDIT</a> --}}
+                                                                <button type="button" data-bs-toggle="modal"   data-urutan="{{ $item->urutan }}" data-keterangan="{{ $item->keterangan }}" data-status="{{ $item->status }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                                    <i class="fa fa-edit"></i> EDIT
+                                                                </button>
+                                                        <div class="dropdown-divider"></div>
+                                                        <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt w20p"></i> HAPUS</button>
+                                                            </div>
+                                                        </div>
+                                                </td>
+                                                <td class="text-center text-uppercase">{{ $item->status}}</td>
+                                                <td><a href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}">{{ $item->first_name.' '.$item->last_name}}</a> </td>
+                                                <td class="text-center">{{ $item->urutan}}</td>
+                                                <td>{{ $item->keterangan}}</td>
+                                            </tr>
+                                        @empty
+                                            <tr class="text-center">
+                                                <td colspan="6">tidak ada data</td>
+                                            </tr>
+                                        @endforelse
+                                </table>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-              </div>
-            </div>
+                </div>
           </div>
           <div class="col-md-12">
             <!-- general form elements -->
@@ -116,9 +90,9 @@
               <div class="card-header">
                   <strong>Pohon Keluarga</strong> 
                   @if ($keluarga->status_keluarga == 'menikah')
-                      <span class="badge badge-info float-right">Status Pernikahan {{ $keluarga->status_keluarga }}</span>
+                      <span class="badge badge-info float-end-end">Status Pernikahan {{ $keluarga->status_keluarga }}</span>
                     @else
-                      <span class="badge badge-warning float-right">Status Pernikahan {{ $keluarga->status_keluarga }}</span>
+                      <span class="badge badge-warning float-end-end">Status Pernikahan {{ $keluarga->status_keluarga }}</span>
                   @endif
               </div>
               <div class="card-body">
@@ -131,12 +105,12 @@
                                   <a href="{{ url('/orang/'.Crypt::encryptString($pohon['suami']->id))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="card-img" alt="..."></a>
                                 </div>
                                 <div class="col-md-8">
-                                  <div class="card-body p-2">
+                                  <div class="card-body p-2 text-white">
                                       
                                       <small class="text-capitalize">{{ fullname($pohon['suami'])}} 
                                           {{-- cek keturunan keatas --}}
                                           @if ($pohon['ortusuami'])
-                                           <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}" class="badge badge-light float-right"><span><i class="fas fa-angle-up text-primary"></i></span></a>
+                                           <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}" class="badge badge-light float-end"><span><i class="bi bi-arrow-up-right"></i></span></a>
                                           @endif
                                       <br> <i>suami</i></small>
                                     </div>
@@ -152,10 +126,10 @@
                                     <a href="{{ url('/orang/'.Crypt::encryptString($pohon['istri']->idorang))}}" target="_blank"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->photo))}}" class="card-img" alt="..."></a>
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card-body p-2">
+                                    <div class="card-body p-2 text-white">
                                     <small class="text-capitalize">{{ fullname($pohon['istri'])}}
                                         @if ($pohon['ortuistri'])
-                                        <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}" class="badge badge-light float-right"><span><i class="fas fa-angle-up text-info"></i></span></a>
+                                        <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}" class="badge badge-light float-end"><span><i class="bi bi-arrow-up-right"></i></span></a>
                                     @endif
                                         <br>
                                     <i>istri</i></small>
@@ -172,7 +146,7 @@
                                     <img src="{{ asset('/img/istri.png')}}" class="card-img" alt="...">
                                 </div>
                                 <div class="col-md-8">
-                                    <div class="card-body p-2">
+                                    <div class="card-body p-2 text-white">
                                     <small class="text-capitalize">Belum ada Data
                                     </small><br>
                                     <a href="#" data-target="#tambahistri" data-toggle="modal" class="btn btn-outline-light btn-sm">Tambahkan Istri</a>
@@ -209,7 +183,7 @@
                         @endfor
                     @endif
                 </div>
-                <div class="row justify-content-center">
+                <div class="row justify-content-center text-white">
                     @foreach ($keluargahubungan as $item)
                         @if ($item->status <> 'istri')
                             <div class="col-md-3">
@@ -225,10 +199,10 @@
                                                 $keturunan = DbChatomz::cekketurunankeluarga($item->idorang,$item->gender);
                                             @endphp
                                             @if ($keturunan)
-                                                <a href="{{ url('keluarga/'.Crypt::encryptString($keturunan)) }}" class="badge badge-light float-right"><span><i class="fas fa-angle-down text-success"></i></span></a>
+                                                <a href="{{ url('keluarga/'.Crypt::encryptString($keturunan)) }}" class="badge badge-light float-end"><span><i class="bi bi-arrow-down-left"></i></span></a>
                                             @endif
                                             <br>
-                                        Anak {{ $item->urutan }}</small> <br> <small><i>{{ $item->gender }}</i></small>
+                                        Anak {{ $item->urutan }} | <i>{{ $item->gender }}</i></small>
                                         </div>
                                     </div>
                                     </div>
@@ -241,7 +215,6 @@
             </div>
           </div>
         </div>
-    </div>
     @if (isset($pohon['istri']))
         <div class="modal fade" id="tambah">
             <div class="modal-dialog modal-lg">
@@ -272,11 +245,15 @@
                         </div>
                     <div class="form-group row">
                             <label for="" class="col-md-4">Urutan</label>
-                            <input type="number" name="urutan" id="urutan" class="form-control col-md-8">
+                            <div class="col-md-8 p-0">
+                                <input type="number" name="urutan" id="urutan" class="form-control">
+                            </div>
                     </div>
                     <div class="form-group row">
                             <label for="" class="col-md-4">Keterangan</label>
-                            <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
+                            <div class="col-md-8 p-0">
+                                <input type="text" name="keterangan" id="keterangan" class="form-control">
+                            </div>
                     </div>
                     </section>
                 </div>
@@ -366,16 +343,16 @@
         </div>
     </div>
     {{-- modal edit --}}
-    <div class="modal fade" id="editkeluarga">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade text-left modal-borderless" id="editkeluarga" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
           <div class="modal-content">
             <form action="{{ route('keluarga.update','test')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('patch')
             <div class="modal-header">
             <h4 class="modal-title">Edit Keluarga</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+            <button type="button" class="close rounded-pill"
+                data-bs-dismiss="modal" aria-label="Close"> <i data-feather="x"></i>
             </button>
             </div>
             <div class="modal-body p-3">
@@ -392,7 +369,7 @@
                    </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Tanggal Pernikahan</label>
-                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
+                        <input type="date" name="tgl_pernikahan" value="{{ $keluarga->tgl_pernikahan }}" class="form-control col-md-8">
                    </div>
                    <div class="form-group row">
                         <label for="" class="col-md-4">Keterangan</label>
@@ -420,8 +397,8 @@
     </div>
     <!-- /.modal -->
 
-    @section('script')
-        
+    </x-slot>
+    <x-slot name="kodejs">
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -436,25 +413,5 @@
                 modal.find('.modal-body #id').val(id);
             })
         </script>
-        <script>
-            $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "ordering": false,
-                "searching": false,
-                // "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-            });
-        </script>
-    @endsection
-
-</x-app-layout>
+    </x-slot>
+</x-singel-layout>

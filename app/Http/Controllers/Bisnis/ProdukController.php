@@ -111,7 +111,7 @@ class ProdukController extends Controller
             'poto_produk' => $nama_file,
         ]);
 
-        return redirect()->back()->with('du','Produk');
+        return back()->with('du','Produk');
     }
 
     /**
