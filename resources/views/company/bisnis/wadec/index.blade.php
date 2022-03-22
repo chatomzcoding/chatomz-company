@@ -1,4 +1,4 @@
-<x-mazer-layout title="Company - Wadec">
+<x-mazer-layout title="Company - Wadec" alert="TRUE" datatables="TRUE">
     <x-slot name="content">
         <div class="page-heading">
             <x-header head="Data Produk Wadec" p="daftar produk wall decoration chatomz" active="Daftar Produk">
@@ -29,25 +29,11 @@
                                     <tr>
                                             <td class="text-center">{{ $loop->iteration}}</td>
                                             <td class="text-center">
-                                                <form id="data-{{ $item->id }}" action="{{url('/produk',$item->id)}}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    </form>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-primary btn-sm dropdown-toggle me-1" type="button"
-                                                            id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false">
-                                                            Aksi
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            {{-- <a href="{{ url('/orang/'.Crypt::encryptString($item->id).'/edit')}}" class="dropdown-item text-success"><i class="fas fa-pen" style="width: 20px;"></i> EDIT</a> --}}
-                                                            <button type="button" data-bs-toggle="modal"  data-nama_produk="{{ $item->nama_produk }}" data-harga="{{ $item->harga }}" data-stok="{{ $item->stok }}" data-kategori_id="{{ $item->kategori_id }}" data-deskripsi="{{ $item->deskripsi }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
-                                                                <i class="fa fa-edit"></i> EDIT
-                                                            </button>
-                                                    <div class="dropdown-divider"></div>
-                                                    <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt w20p"></i> HAPUS</button>
-                                                        </div>
-                                                    </div>
+                                                <x-aksi :id="$item->id" link="produk">
+                                                    <button type="button" data-bs-toggle="modal"  data-nama_produk="{{ $item->nama_produk }}" data-harga="{{ $item->harga }}" data-stok="{{ $item->stok }}" data-kategori_id="{{ $item->kategori_id }}" data-deskripsi="{{ $item->deskripsi }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                        <i class="fa fa-edit"></i> EDIT {{ $item->id }}
+                                                    </button>
+                                                </x-aksi>
                                             </td>
                                             <td><img src="{{ asset('img/company/bisnis/'.$item->poto_produk) }}" alt="" width="150px"></td>
                                             <td>{{ $item->nama_produk}}</td>
@@ -136,13 +122,6 @@
         </x-modalubah>
     </x-slot>
     <x-slot name="kodejs">
-        <script src="{{ asset('template/mazer/vendors/simple-datatables/simple-datatables.js')}}"></script>
-
-        <script>
-           // Simple Datatable
-           let table1 = document.querySelector('#example1');
-           let dataTable = new simpleDatatables.DataTable(table1);
-       </script>
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)

@@ -32,6 +32,7 @@
         </div>
     </nav>
     <div class="container">
+        <x-sistem.notifikasi/>
         {{ $content ?? '' }}
     </div>
     <script src="{{ asset('template/mazer/vendors/jquery/jquery.min.js')}}"></script>
@@ -44,7 +45,7 @@
     {{ $kodejs ?? '' }}
 
     
-<script>
+    <script>
     $(function () {
       //Initialize Select2 Elements
       $('.select2bs4').select2({

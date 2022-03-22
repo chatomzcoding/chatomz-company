@@ -13,7 +13,6 @@
                         <a href="#" data-bs-toggle="modal" data-bs-target="#editkeluarga" class="btn btn-outline-success btn-flat btn-sm"> Edit Keluarga</a>
                     </div>
                     <div class="card-body">
-                        <x-sistem.notifikasi/>
                         <div class="row">
                             <div class="col-md-4">
                                 @if (!is_null($keluarga->no_kk))
@@ -31,7 +30,7 @@
                             </div>
                             <div class="col-md-8 p-1">
                                 <div class="table-responsive">
-                                <table id="example1" class="table table-bordered table-striped">
+                                <table id="example1" class="table table-bordered">
                                     <thead class="text-center">
                                         <tr>
                                             <th width="5%">No</th>
@@ -308,41 +307,19 @@
         </div>
         </div>
     </div>
-    {{-- modal edit --}}
-    <div class="modal fade" id="ubah">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ route('hubungankeluarga.update','test')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                @method('patch')
-            <div class="modal-header">
-            <h4 class="modal-title">Edit Anggota Keluarga</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <input type="hidden" name="id" id="id">
-                <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Urutan</label>
-                        <input type="number" name="urutan" id="urutan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    {{-- modal edit --}}
+    
+<x-modalubah judul="Edit Anggota Keluarga" link="hubungankeluarga">
+    <section class="p-3">
+        <div class="form-group row">
+            <label for="" class="col-md-4">Urutan</label>
+            <input type="number" name="urutan" id="urutan" class="form-control col-md-8">
+       </div>
+       <div class="form-group row">
+            <label for="" class="col-md-4">Keterangan</label>
+            <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
+       </div>
+    </section>
+</x-modalubah>
     <div class="modal fade text-left modal-borderless" id="editkeluarga" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
           <div class="modal-content">
@@ -356,9 +333,9 @@
             </button>
             </div>
             <div class="modal-body p-3">
-                <input type="hidden" name="id" value="{{  $keluarga->id }}">
-                <input type="hidden" name="orang_id" value="{{ $keluarga->orang_id }}">
                 <section class="p-3">
+                    <input type="hidden" name="id" value="{{  $keluarga->id }}">
+                    <input type="hidden" name="orang_id" value="{{ $keluarga->orang_id }}">
                     <div class="form-group row">
                         <label for="" class="col-md-4">Nama Keluarga</label>
                         <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" value="{{ $keluarga->nama_keluarga }}" required>

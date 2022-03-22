@@ -13,10 +13,16 @@ class MazerLayout extends Component
      * @return void
      */
     public $title;
+    public $datatables;
+    public $alert;
+    public $select;
 
-    public function __construct($title='Admin')
+    public function __construct($title='Admin',$datatables=FALSE,$alert=FALSE,$select=FALSE)
     {
         $this->title = $title;
+        $this->datatables = $datatables;
+        $this->alert = $alert;
+        $this->select = $select;
     }
 
     /**

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('template/mazer/css/bootstrap.css')}}">
 
-    <link rel="stylesheet" href="{{ asset('template/mazer/vendors/simple-datatables/style.css')}}">
-
-    {{-- <link rel="stylesheet" href="{{ asset('template/mazer/vendors/sweetalert2/sweetalert2.min.css')}}"> --}}
+    @if ($datatables)
+        <link rel="stylesheet" href="{{ asset('template/mazer/vendors/simple-datatables/style.css')}}">
+    @endif
 
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/iconly/bold.css')}}">
 
@@ -23,8 +22,18 @@
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/fontawesome/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/mazer/css/app.css')}}">
 
-    <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
-    <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
+    @if ($alert)
+        <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
+        <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
+    @endif
+
+    @if ($select)
+        <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/select2/css/select2.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+    @endif
+
+    {{ $head ?? '' }}
+
 </head>
 
 <body>
@@ -74,8 +83,28 @@
 
     <script src="{{ asset('template/mazer/js/main.js')}}"></script>
 
+    @if ($datatables)
+        <script src="{{ asset('template/mazer/vendors/simple-datatables/simple-datatables.js')}}"></script>
+        <script>
+            // Simple Datatable
+            let table1 = document.querySelector('#example1');
+            let dataTable = new simpleDatatables.DataTable(table1);
+        </script>
+    @endif
+
     {{-- js chatomz custom --}}
     <script src="{{ asset('js/chatomz.js')}}"></script>
+
+    @if ($select)
+        <script src="{{ asset('template/admin/lte/plugins/select2/js/select2.full.min.js')}}"></script>
+        <script>
+            $(function () {
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+            });
+        </script>
+    @endif
     {{ $kodejs ?? '' }}
    
 </body>

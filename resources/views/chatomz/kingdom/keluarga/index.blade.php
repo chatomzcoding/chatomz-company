@@ -1,242 +1,133 @@
-@section('title')
-    CHATOMZ - Daftar Keluarga
-@endsection
-<x-app-layout>
-    <x-slot name="header">
-        {{-- <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2> --}}
-        <div class="row mb-2">
-            <div class="col-sm-6">
-              <h1 class="m-0">Data Keluarga</h1>
-            </div><!-- /.col -->
-            <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ route('dashboard')}}">Beranda</a></li>
-                <li class="breadcrumb-item active">Daftar Keluarga</li>
-              </ol>
-            </div><!-- /.col -->
-          </div><!-- /.row -->
-    </x-slot>
-
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-jet-welcome />
-            </div>
-        </div>
-    </div> --}}
-    <div class="container-fluid">
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-12">
-            <!-- general form elements -->
-            <div class="card">
-              <div class="card-header">
-                {{-- <h3 class="card-title">Daftar Unit</h3> --}}
-                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Keluarga </a>
-                {{-- <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Orang Baru </a> --}}
-                {{-- <a href="#" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-print"></i> Cetak</a> --}}
-                {{-- <a href="#" class="btn btn-outline-dark btn-flat btn-sm"><i class="fas fa-print"></i> Unduh</a> --}}
-                {{-- <a href="#" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> Bersihkan Filter</a> --}}
-              </div>
-              <div class="card-body">
-                  @include('sistem.notifikasi')
-                  {{-- <section class="text-right my-2">
-                      <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-                  </section> --}}
-                  {{-- <section class="mb-3">
-                      <form action="" method="post">
-                        <div class="row">
-                            <div class="form-group col-md-2">
-                                <select name="" id="" class="form-control form-control-sm">
-                                    <option value="">-- Semua --</option>
-                                    @foreach (list_status() as $item)
-                                        <option value="{{ $item}}">{{ $item}}</option>
-                                    @endforeach
-                                </select>
+<x-mazer-layout title="CHATOMZ - Daftar Keluarga" datatables="TRUE" select="TRUE" alert="TRUE">
+    <x-slot name="content">
+        <div class="page-heading">
+            <x-header head="Data Keluarga" active="Daftar Keluarga">
+            </x-header>
+            <section class="section">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                        <div class="card-header">
+                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Keluarga </a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th width="5%">No</th>
+                                            <th width="10%">Aksi</th>
+                                            <th>Nama Keluarga</th>
+                                            <th>Tgl Pernikahan</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-capitalize">
+                                        @forelse ($keluarga as $item)
+                                        <tr>
+                                            <td class="text-center">{{ $loop->iteration}}</td>
+                                            <td class="text-center">
+                                                <x-aksi :id="$item->id" link="keluarga">
+                                                    <button type="button" data-bs-toggle="modal"  data-nama_keluarga="{{ $item->nama_keluarga }}"  data-no_kk="{{ $item->no_kk }}"  data-orang_id="{{ $item->orang_id }}" data-tgl_pernikahan="{{ $item->tgl_pernikahan }}" data-keterangan="{{ $item->keterangan }}" data-status_keluarga="{{ $item->status_keluarga }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                        <i class="fa fa-edit" style="width: 20px;"></i> EDIT
+                                                    </button>
+                                                </x-aksi>
+                                            </td>
+                                                <td><a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}">{{ $item->nama_keluarga}}</a></td>
+                                                <td>{{ date_indo($item->tgl_pernikahan,'-')}}</td>
+                                                <td class="text-center">{{ $item->status_keluarga}}</td>
+                                            </tr>
+                                        @empty
+                                            <tr class="text-center">
+                                                <td colspan="5">tidak ada data</td>
+                                            </tr>
+                                        @endforelse
+                                </table>
                             </div>
                         </div>
-                    </form>
-                  </section> --}}
-                  <div class="table-responsive">
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead class="text-center">
-                            <tr>
-                                <th width="5%">No</th>
-                                <th width="10%">Aksi</th>
-                                <th>Nama Keluarga</th>
-                                <th>Tgl Pernikahan</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-capitalize">
-                            @forelse ($keluarga as $item)
-                            <tr>
-                                <td class="text-center">{{ $loop->iteration}}</td>
-                                <td class="text-center">
-                                    <form id="data-{{ $item->id }}" action="{{url('/keluarga',$item->id)}}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        </form>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-info btn-sm btn-flat">Aksi</button>
-                                            <button type="button" class="btn btn-info btn-sm btn-flat dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                            <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <div class="dropdown-menu" role="menu">
-                                                <button type="button" data-toggle="modal"  data-nama_keluarga="{{ $item->nama_keluarga }}"  data-no_kk="{{ $item->no_kk }}"  data-orang_id="{{ $item->orang_id }}" data-tgl_pernikahan="{{ $item->tgl_pernikahan }}" data-keterangan="{{ $item->keterangan }}" data-status_keluarga="{{ $item->status_keluarga }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
-                                                    <i class="fa fa-edit" style="width: 20px;"></i> EDIT
-                                                </button>
-                                            <div class="dropdown-divider"></div>
-                                            <button onclick="deleteRow( {{ $item->id }} )" class="dropdown-item text-danger"><i class="fas fa-trash-alt w20p"></i> HAPUS</button>
-                                            </div>
-                                        </div>
-                                </td>
-                                    <td><a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}">{{ $item->nama_keluarga}}</a></td>
-                                    <td>{{ date_indo($item->tgl_pernikahan,'-')}}</td>
-                                    <td class="text-center">{{ $item->status_keluarga}}</td>
-                                </tr>
-                            @empty
-                                <tr class="text-center">
-                                    <td colspan="5">tidak ada data</td>
-                                </tr>
-                            @endforelse
-                    </table>
+                        </div>
+                    </div>
                 </div>
-              </div>
-            </div>
-          </div>
+            </section>
         </div>
-    </div>
-    {{-- modal --}}
-    {{-- modal tambah --}}
-    <div class="modal fade" id="tambah">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/keluarga')}}" method="post">
-                @csrf
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Keluarga</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Keluarga</label>
-                        <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                    <label for="" class="col-md-4">Kepala Keluarga</label>
-                    <div class="col-md-8 p-0">
-                        <select name="orang_id" class="select2bs4" data-width="100%">
-                            @foreach ($kepalakeluarga as $item)
-                                @if (!DbChatomz::cekstatussuami($item->id))
-                                    <option value="{{ $item->id}}">{{ fullname($item)}}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-                    </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">No KK</label>
-                        <input type="text" name="no_kk" id="no_kk" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tanggal Pernikahan</label>
-                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Status Keluarga</label>
-                        <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
-                            @foreach (kingdom_statuskeluarga() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-    <!-- /.modal -->
-
-    {{-- modal edit --}}
-    <div class="modal fade" id="ubah">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ route('keluarga.update','test')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                @method('patch')
-            <div class="modal-header">
-            <h4 class="modal-title">Edit Keluarga</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <input type="hidden" name="id" id="id">
-                <section class="p-3">
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Keluarga</label>
-                        <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                    <label for="" class="col-md-4">Kepala Keluarga</label>
-                    <div class="col-md-8 p-0">
-                        <select name="orang_id" id="orang_id" class="select2bs4" data-width="100%">
-                                <option value="">-- kepala keluarga --</option>
-                            @foreach ($kepalakeluarga as $item)
-                                <option value="{{ $item->id}}">{{ ucwords($item->first_name.' '.$item->last_name)}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">No KK</label>
-                        <input type="text" name="no_kk" id="no_kk" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tanggal Pernikahan</label>
-                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Status Keluarga</label>
-                        <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
-                            @foreach (kingdom_statuskeluarga() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
-            </div>
-            </form>
-        </div>
-        </div>
-    </div>
-    <!-- /.modal -->
-
-    @section('script')
+        <x-modalsimpan judul="Tambah Keluarga" link="keluarga">
+            <section class="p-3">
+                <div class="form-group">
+                     <label for="">Nama Keluarga {!! ireq() !!}</label>
+                     <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Kepala Keluarga {!! ireq() !!}</label>
+                    <select name="orang_id" class="select2bs4" data-width="100%" required>
+                        @foreach ($kepalakeluarga as $item)
+                            @if (!DbChatomz::cekstatussuami($item->id))
+                                <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                 </div>
+                <div class="form-group">
+                     <label for="">No KK</label>
+                     <input type="text" name="no_kk" id="no_kk" class="form-control">
+                </div>
+                <div class="form-group">
+                     <label for="">Tanggal Pernikahan</label>
+                     <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control">
+                </div>
+                <div class="form-group">
+                     <label for="">Keterangan</label>
+                     <input type="text" name="keterangan" id="keterangan" class="form-control">
+                </div>
+                <div class="form-group">
+                     <label for="">Status Keluarga {!! ireq() !!}</label>
+                     <select name="status_keluarga" id="status_keluarga" class="form-control" required>
+                         @foreach (kingdom_statuskeluarga() as $item)
+                             <option value="{{ $item}}">{{ $item}}</option>
+                         @endforeach
+                     </select>
+                </div>
+             </section>
+        </x-modalsimpan>
         
+        <x-modalubah judul="Edit Keluarga" link="keluarga">
+            <section class="p-3">
+                <div class="form-group">
+                    <label for="">Nama Keluarga {!! ireq() !!}</label>
+                    <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control" required>
+               </div>
+               <div class="form-group">
+                    <label for="">Kepala Keluarga {!! ireq() !!}</label>
+                    <select name="orang_id" id="orang_id" class="select2bs4" data-width="100%" required>
+                            <option value="">-- kepala keluarga --</option>
+                        @foreach ($kepalakeluarga as $item)
+                            <option value="{{ $item->id}}">{{ ucwords($item->first_name.' '.$item->last_name)}}</option>
+                        @endforeach
+                    </select>
+                </div>
+               <div class="form-group">
+                    <label for="">No KK</label>
+                    <input type="text" name="no_kk" id="no_kk" class="form-control">
+               </div>
+               <div class="form-group">
+                    <label for="">Tanggal Pernikahan</label>
+                    <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control">
+               </div>
+               <div class="form-group">
+                    <label for="">Keterangan</label>
+                    <input type="text" name="keterangan" id="keterangan" class="form-control">
+               </div>
+               <div class="form-group">
+                    <label for="">Status Keluarga {!! ireq() !!}</label>
+                    <select name="status_keluarga" id="status_keluarga" class="form-control" required>
+                        @foreach (kingdom_statuskeluarga() as $item)
+                            <option value="{{ $item}}">{{ $item}}</option>
+                        @endforeach
+                    </select>
+               </div>
+            </section>
+        </x-modalubah>
+    </x-slot>
+    <x-slot name="kodejs">
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -259,23 +150,5 @@
                 modal.find('.modal-body #id').val(id);
             })
         </script>
-        <script>
-            $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["excel", "pdf"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-            });
-        </script>
-    @endsection
-
-</x-app-layout>
+    </x-slot>
+</x-mazer-layout>
