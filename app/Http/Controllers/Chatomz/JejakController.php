@@ -26,7 +26,7 @@ class JejakController extends Controller
     public function index()
     {
         $jejak      = Jejak::orderby('tanggal','desc')->get();
-        $kategori   = Kategori::all();
+        $kategori   = Kategori::where('label','jejak')->orderBy('nama_kategori','ASC')->get();
         return view($this->view.'index', compact('jejak','kategori'));
     }
 
@@ -96,14 +96,7 @@ class JejakController extends Controller
                             ->get();
         $kategori   = Kategori::all();
         $jejakpoto  = Jejakpoto::where('jejak_id',$jejak->id)->get();
-        $maps   = [];
-        $maps = (!is_null($jejak->nilai_lat)) ? [[$jejak->nilai_long,$jejak->nilai_lat]] : $maps ;
-        $maps = array_map('array_values', $maps);
-        // return view($this->view.'maps', compact('jejak','orang','jejakorang','kategori','jejakpoto','maps'));
-        if (isset($_GET['maps'])) {
-            return view($this->view.'maps', compact('jejak','orang','jejakorang','kategori','jejakpoto'));
-        }
-        return view($this->view.'show', compact('jejak','orang','jejakorang','kategori','jejakpoto','maps'));
+        return view($this->view.'show', compact('jejak','orang','jejakorang','kategori','jejakpoto'));
     }
 
     public function simpanmaps(Request $request)

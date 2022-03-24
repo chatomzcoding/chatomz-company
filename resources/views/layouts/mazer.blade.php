@@ -78,6 +78,7 @@
     <script src="{{ asset('template/mazer/vendors/jquery/jquery.min.js')}}"></script>
     <script src="{{ asset('template/mazer/vendors/perfect-scrollbar/perfect-scrollbar.min.js')}}"></script>
     <script src="{{ asset('template/mazer/js/bootstrap.bundle.min.js')}}"></script>
+    
 
     <script src="{{ asset('template/mazer/vendors/fontawesome/all.min.js')}}"></script>
 

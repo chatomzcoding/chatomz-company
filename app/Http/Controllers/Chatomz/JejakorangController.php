@@ -72,9 +72,13 @@ class JejakorangController extends Controller
      * @param  \App\Models\Jejakorang  $jejakorang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jejakorang $jejakorang)
+    public function update(Request $request)
     {
-        //
+        Jejakorang::where('id',$request->id)->update([
+            'ket_orang' => $request->ket_orang
+        ]);
+
+        return back()->with('du','Orang terlibat');
     }
 
     /**
@@ -88,6 +92,6 @@ class JejakorangController extends Controller
         $jejakorang = Jejakorang::find($jejakorang);
         $orang  = Orang::find($jejakorang->orang_id);
         $jejakorang->delete();
-        return redirect()->back()->with('ddc',fullname($orang).' telah dihapus');
+        return redirect()->back()->with('du',fullname($orang));
     }
 }
