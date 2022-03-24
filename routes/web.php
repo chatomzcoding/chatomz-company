@@ -73,8 +73,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('jejakpoto', 'App\Http\Controllers\Chatomz\JejakpotoController');
         Route::resource('orang', OrangController::class);
         Route::resource('linimasa', LinimasaController::class);
-        Route::get('lihat/orangpoto/{sesi}', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
-        Route::post('proses/lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@prosesorangpoto');
+        Route::get('lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
         Route::post('cariorang', 'App\Http\Controllers\Chatomz\OrangController@cariorang');
 
 

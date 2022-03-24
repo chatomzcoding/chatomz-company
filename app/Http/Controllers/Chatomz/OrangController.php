@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Chatomz;
 
 use App\Http\Controllers\Controller;
 use App\Models\Grup;
-use App\Models\Grupanggota;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
 use App\Models\Linimasa;
@@ -13,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Swift;
 
 class OrangController extends Controller
 {
@@ -59,10 +57,10 @@ class OrangController extends Controller
         return json_decode($json, TRUE);
     }
 
-    public function orangpoto($sesi)
+    public function orangpoto()
     {
         $datasemua  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->orderBy('first_name','ASC')->get();
-        if ($sesi == 'semua') {
+        if (!isset($_GET['kelamin'])) {
             $kelamin        = 'semua';
             $perkawinan     = 'semua';
             $kematian       = 'semua';
@@ -70,21 +68,23 @@ class OrangController extends Controller
             $usia2           = 100;
             $orang  = $datasemua;
         } else {
-            // pecahkan data parameter
-            $sesi   = explode('_',$sesi);
-
+            $kelamin        = $_GET['kelamin'];
+            $perkawinan        = $_GET['perkawinan'];
+            $kematian        = $_GET['kematian'];
+            $usia_awal        = $_GET['usia_awal'];
+            $usia_akhir        = $_GET['usia_akhir'];
             // cek kelamin
-            if ($sesi[0] == 'semua' AND $sesi[1] == 'semua') {
+            if ($kelamin == 'semua' AND $perkawinan == 'semua') {
                 $orang = $datasemua;
             } else {
                 // cek jika kelamin semua dan perkawinan bukan semua
-                if ($sesi[0] == 'semua') {
-                    $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('marital_status',$sesi[1])->orderBy('first_name','ASC')->get();
+                if ($kelamin == 'semua') {
+                    $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('marital_status',$perkawinan)->orderBy('first_name','ASC')->get();
                 } else {
-                    if ($sesi[1] == 'semua') {
-                        $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('gender',$sesi[0])->orderBy('first_name','ASC')->get();
+                    if ($perkawinan == 'semua') {
+                        $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('gender',$kelamin)->orderBy('first_name','ASC')->get();
                     } else {
-                        $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('gender',$sesi[0])->where('marital_status',$sesi[1])->orderBy('first_name','ASC')->get();
+                        $orang  = Orang::select('id','date_birth','first_name','last_name','gender','photo','death')->where('gender',$kelamin)->where('marital_status',$perkawinan)->orderBy('first_name','ASC')->get();
                     }
                 }
             }
@@ -93,24 +93,24 @@ class OrangController extends Controller
             foreach ($orang as $item) {
                 $usia = kingdom_umur($item->date_birth);
                 // cek kematian
-                if ($sesi[4] == 'semua') {
-                    if ($usia >= $sesi[2] AND $usia <= $sesi[3] ) {
+                if ($kematian == 'semua') {
+                    if ($usia >= $usia_awal AND $usia <= $usia_akhir ) {
                         $data[] = $item;
                     }
                 } else {
-                    if ($item->death == $sesi[4]) {
-                        if ($usia >= $sesi[2] AND $usia <= $sesi[3] ) {
+                    if ($item->death == $kematian) {
+                        if ($usia >= $usia_awal AND $usia <= $usia_akhir ) {
                             $data[] = $item;
                         }
                     }                    
                 }
             }
-            $kematian   = $sesi[4];
+            $kematian   = $kematian;
             $orang      = $data;
-            $kelamin    = $sesi[0];
-            $perkawinan = $sesi[1];
-            $usia1 = $sesi[2];
-            $usia2 = $sesi[3];
+            $kelamin    = $kelamin;
+            $perkawinan = $perkawinan;
+            $usia1 = $usia_awal;
+            $usia2 = $usia_akhir;
         }
 
         $sesi = [
@@ -122,11 +122,6 @@ class OrangController extends Controller
         ];
         
         return view('chatomz.kingdom.orang.lihatpoto', compact('orang','sesi'));
-    }
-
-    public function prosesorangpoto(Request $request)
-    {
-        return redirect('/lihat/orangpoto/'.$request->kelamin.'_'.$request->perkawinan.'_'.$request->usia1.'_'.$request->usia2.'_'.$request->kematian);
     }
 
     /**

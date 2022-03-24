@@ -38,7 +38,7 @@
                                             <td><img src="{{ asset('img/company/bisnis/'.$item->poto_produk) }}" alt="" width="150px"></td>
                                             <td>{{ $item->nama_produk}}</td>
                                             <td>{{ rupiah($item->harga)}}</td>
-                                            <td>{{ $item->nama_kategori}}</td>
+                                            <td>{{ $item->kategori->nama_kategori}}</td>
                                             <td>{{ $item->deskripsi}}</td>
                                         </tr>
                                     @empty

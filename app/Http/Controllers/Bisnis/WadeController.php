@@ -12,11 +12,7 @@ class WadeController extends Controller
 {
     public function index()
     {
-        $produk     = DB::table('produk')
-                        ->join('kategori','produk.kategori_id','=','kategori.id')
-                        ->select('produk.*','kategori.nama_kategori')
-                        ->where('produk.aplikasi','wadec')
-                        ->get();
+        $produk     = Produk::with('kategori')->where('aplikasi','wadec')->orderBy('nama_produk')->get();
         $kategori   = Kategori::where('label','wadec')->get();
         return view('company.bisnis.wadec.index', compact('produk','kategori'));
     }
