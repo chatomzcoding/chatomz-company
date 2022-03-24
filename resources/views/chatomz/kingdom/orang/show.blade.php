@@ -36,7 +36,6 @@
                                     @else
                                         <sup><i class="fas fa-venus text-danger"></i></sup>  
                                     @endif <small class="float-end fst-italic">{{ age($orang->date_birth,'Bulan')}}</small></h5>
-                                    <p class="text-muted text-center">{{ $orang->job_status }}</p>
                                     <p class="card-text">
                                        {{ $orang->note }}
                                     </p>
@@ -126,7 +125,14 @@
                                                 </p>
                                             </div>
                                             <hr>
-                                            <strong><i class="fas fa-heart mr-1"></i> Status Perkawinan</strong>
+                                            <strong><i class="bi-person mr-1"></i> Status Pekerjaan</strong>
+                                            <div class="py-0 px-3">
+                                                <p class="text-muted">
+                                                  {{ $orang->job_status}}
+                                                </p>
+                                            </div>
+                                            <hr>
+                                            <strong><i class="bi-heart mr-1"></i> Status Perkawinan</strong>
                                             <div class="py-0 px-3">
                                                 <p class="text-muted">
                                                   {{ $orang->marital_status}}
@@ -630,7 +636,7 @@
                 @endif
                 @if ($item->status == 'anak')
                     <div class="col-md-12">
-                        <div class="card bg-secondary">
+                        <div class="card bg-success">
                             <div class="row no-gutters">
                             <div class="col-md-4">
                                 <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">

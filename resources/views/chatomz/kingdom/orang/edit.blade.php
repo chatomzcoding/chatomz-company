@@ -8,7 +8,6 @@
                 <h4 class="card-title">Edit - {{ fullname($orang) }}</h4>
             </div>
             <div class="card-body">
-                @include('sistem.notifikasi')
                 <form method="post" action="{{ url('/orang/'.$orang->id)}}" enctype="multipart/form-data">
                   @csrf
                   @method('patch')

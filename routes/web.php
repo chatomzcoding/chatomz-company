@@ -18,6 +18,7 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Homepage\LandingController;
 use App\Http\Controllers\MigrasiController;
 use App\Http\Controllers\Sistem\KategoriController;
+use App\Http\Controllers\Sistem\UnsilController;
 use App\Http\Controllers\Sistem\VisitorController;
 use App\Http\Controllers\UjiController;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     // Route Admin & Chatomz
     Route::middleware(['admin'])->group(function () {
+        Route::get('unsil',[UnsilController::class, 'index']);
+        Route::post('simpanmahasiswa',[UnsilController::class, 'simpan']);
         Route::resource('info-website', 'App\Http\Controllers\Admin\InfowebsiteController');
         // Chatomz
         // barang
