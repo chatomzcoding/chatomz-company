@@ -1,4 +1,4 @@
-<x-mazer-layout>
+<x-mazer-layout alert="TRUE">
     <x-slot name="title">
         CHATOMZ - Detail Orang
     </x-slot>
@@ -26,14 +26,16 @@
                     <div class="col-4">
                         <div class="card">
                             <div class="card-content">
-                                <img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" class="card-img-top img-fluid"
+                                <a href="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" target="_blank">
+                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" class="card-img-top img-fluid"
                                     alt="singleminded">
+                                </a>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ fullname($orang) }}  @if ($orang->gender == 'laki-laki')
                                         <sup><i class="fas fa-mars text-primary"></i></sup>  
                                     @else
                                         <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                    @endif</h5>
+                                    @endif <small class="float-end fst-italic">{{ age($orang->date_birth,'Bulan')}}</small></h5>
                                     <p class="text-muted text-center">{{ $orang->job_status }}</p>
                                     <p class="card-text">
                                        {{ $orang->note }}
@@ -50,20 +52,20 @@
                                             </button>
                                         </a>
                                         @if (Auth::user()->level == 'admin')
-                                            <a href="#" data-toggle="modal" data-target="#grup">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#grup">
                                                 <button type="button" class="btn btn-icon btn-round btn-info pop-info" title="anggota grup">
                                                     <i class="far fa-id-card"></i>
                                                 </button>
                                             </a>
                                         @endif
                                         @if ($orang->marital_status == 'sudah' || count($keluarga) > 0)
-                                            <a href="#" data-toggle="modal" data-target="#keluarga">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#keluarga">
                                                 <button type="button" class="btn btn-icon btn-round btn-secondary pop-info" title="lihat silsilah keluarga">
                                                     <i class="fas fa-sitemap"></i>
                                                 </button>
                                             </a>
                                             @endif
-                                        <a href="#" data-toggle="modal" data-target="#linimasa">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#linimasa">
                                             <button type="button" class="btn btn-icon btn-round bg-primary pop-info text-white" title="tambah lini masa">
                                                 <i class="fas fa-stream"></i>
                                             </button>
@@ -71,10 +73,6 @@
                                     </p>
                                 </div>
                             </div>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Grup | {{ count($anggotagrup) }}</li>
-                                <li class="list-group-item">Usia | {{ age($orang->date_birth,'Bulan')}}</li>
-                            </ul>
                         </div>
                     </div>
                     <div class="col-8">
@@ -82,10 +80,10 @@
                             <div class="card-header">
                                 <div class="float-end">
                                     @if (!is_null($tombol['back']))
-                                    <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['back']->id))}}"  data-toggle="tooltip" title="sebelumnya"><i class="fas fa-angle-left"></i></a></span>
+                                    <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['back']->id))}}"  data-bs-toggle="tooltip" title="sebelumnya"><i class="fas fa-angle-left"></i></a></span>
                                     @endif
                                     @if (!is_null($tombol['next']))
-                                        <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['next']->id))}}" data-toggle="tooltip" title="selanjutnya">
+                                        <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['next']->id))}}" data-bs-toggle="tooltip" title="selanjutnya">
                                         <i class="fas fa-angle-right"></i></a></span><span class="float-right">&nbsp;&nbsp;&nbsp;</span>
                                     @endif 
                                 </div>
@@ -108,33 +106,40 @@
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="home" role="tabpanel"
                                         aria-labelledby="home-tab">
-                                        <strong><i class="fas fa-address-book"></i> Alamat</strong>
-                          
-                                        <p class="text-muted">
-                                          {{ $orang->home_address }}
-                                        </p>
-                                        <hr>
-                                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Lahir</strong>
-                        
-                                        <p class="text-muted">{{ $orang->place_birth.', '.date_indo($orang->date_birth)}}</p>
-                                        <hr>
-                                        <strong><i class="fas fa-pray"></i> Agama</strong>
-                                        <p class="text-muted">
-                                          {{ $orang->religion}}
-                                        </p>
-                                        <hr>
-                                        <strong><i class="fas fa-heart mr-1"></i> Status Perkawinan</strong>
-                                        <p class="text-muted">
-                                          {{ $orang->marital_status}}
-                                      </p>
-                                      
+                                        <div class="p-3">
+                                            <strong><i class="fas fa-address-book"></i> Alamat</strong>
+                                            <div class="py-0 px-3">
+                                                <p class="text-muted">
+                                                  {{ $orang->home_address }}
+                                                </p>
+                                            </div>
+                                            <hr>
+                                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Lahir</strong>
+                                            <div class="py-0 px-3">
+                                                  <p class="text-muted">{{ $orang->place_birth.', '.date_indo($orang->date_birth)}}</p>
+                                            </div>
+                                            <hr>
+                                            <strong><i class="fas fa-pray"></i> Agama</strong>
+                                            <div class="py-0 px-3">
+                                                <p class="text-muted">
+                                                  {{ $orang->religion}}
+                                                </p>
+                                            </div>
+                                            <hr>
+                                            <strong><i class="fas fa-heart mr-1"></i> Status Perkawinan</strong>
+                                            <div class="py-0 px-3">
+                                                <p class="text-muted">
+                                                  {{ $orang->marital_status}}
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="profile" role="tabpanel"
                                         aria-labelledby="profile-tab">
                                         @if (is_null($kontak))
                                         <div class="text-center m-3 p-3">
                                             <p><i> Data kontak belum ada </i></p>
-                                            <a href="#" class="btn btn-secondary btn-sm" data-target="#tambahkontak" data-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i> tambahkan</a>
+                                            <a href="#" class="btn btn-secondary btn-sm" data-bs-target="#tambahkontak" data-bs-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i> tambahkan</a>
                                         </div>
                                     @else
                                         <table class="table mt-3">
@@ -193,7 +198,7 @@
                                                     </tr>
                                                 @endif
                                                 <tr>
-                                                    <td colspan="2" class="text-right">
+                                                    <td colspan="2">
                                                         <a href="{{ url('/kontak/'.Crypt::encryptString($kontak->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> EDIT KONTAK</a>
                                                     </td>
                                                 </tr>
@@ -206,7 +211,7 @@
                                         @if (is_null($pendidikan))
                                         <div class="text-center m-3 p-3">
                                             <p class="font-italic">Data pendidikan belum tersedia</p>
-                                            <a href="#" class="btn btn-secondary btn-sm" data-target="#tambahpendidikan" data-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i>  tambahkan</a>
+                                            <a href="#" class="btn btn-secondary btn-sm" data-bs-target="#tambahpendidikan" data-bs-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i>  tambahkan</a>
                                         </div>
                                     @else
                                         <table class="table mt-3">
@@ -296,7 +301,7 @@
                                                 </tr>
                                                 @endif
                                                 <tr>
-                                                    <td colspan="2" class="text-right">
+                                                    <td colspan="2">
                                                         <a href="{{ url('/pendidikan/'.Crypt::encryptString($pendidikan->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> EDIT PENDIDIKAN</a>
                                                     </td>
                                                 </tr>
@@ -311,572 +316,433 @@
                     </div>
                 </div>
             </section>
-    {{-- modal --}}
-    {{-- modal tambah --}}
-    <div class="modal fade" id="tambahpendidikan">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/pendidikan')}}" method="post">
-                @csrf
-                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Pendidikan</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small small">TK/TPA</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="tk">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">SD</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="sd">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">SMP/MTS</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="smp">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">SMA/SMK/MA</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="sma">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Jenjang Diploma</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="d">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Jenjang S1</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="s1">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Jenjang S2</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="s2">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Jenjang S3</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="s3">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Pesantren</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="pesantren">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Sekolah Dirumah</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="homescholl">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Boarding Scholl</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="boardingscholl">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Bimbingan Belajar</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="bimbel">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Kursus</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="kursus">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Informasi Singkat</label>
-                                <textarea name="information" id="" cols="30" rows="4" class="form-control col-md-8"></textarea>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="tambahkontak">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/kontak')}}" method="post">
-                @csrf
-                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Kontak</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">No Telepon Seluler</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="no_hp" placeholder="input number phone celluler">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">No Telepon Rumah</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="no_tel" placeholder="input number phone home">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">No Whatsapp</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="no_wa" placeholder="input number whatsapp">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">No Telepon Kantor</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="no_office" placeholder="input number office phone">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Alamat E-mail</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="email" placeholder="input email address">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Alamat E-mail Kantor</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="office_email" placeholder="input email office address">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Link Facebook</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="fb" placeholder="input link facebook">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Link Twitter</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="tw" placeholder="input link twitter">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Link Instagram</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="ig" placeholder="input link instagram">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Website</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="web" placeholder="input website">
-                            </div>
-                            <div class="row form-group">
-                                <label for="" class="col-md-4 pt-2 small">Line</label>
-                                <input type="text" class="form-control form-control-sm col-md-8" name="line" placeholder="input account line">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="keluarga">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title">Riwayat Keluarga</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="row p-3">
-                    @if (count($suami) > 0)
-                        @foreach ($suami as $item)
-                        <div class="col-md-6">
-                            <div class="card bg-info">
-                                <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" class="card-img" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body p-2">
-                                    <small class="text-capitalize">{{ fullname($orang)}}
-                                        <br>
-                                    <i>Kepala Keluarga</i> | {{ $item->nama_keluarga }}</small> <br>
-                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id)) }}" class="btn btn-outline-light btn-sm">Lihat Keluarga</a>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    @else
-                        {{-- jika laki laki dan sudah kawin maka munculkan tambahkan keluarga --}}
-                        @if ($orang->gender == 'laki-laki' AND $orang->marital_status == 'sudah')
-                        <section class="col-md-12 text-center">
-                            <small class="font-italic">Memenuhi syarat menjadi kepala keluarga</small> <br>
-                            {{-- <a href="{{ url('/keluarga/create') }}" class="btn btn-primary btn-sm">Tambahkan keluarga baru</a> --}}
-                            <a href="#" data-toggle="modal" data-target="#tambah" class="btn btn-primary btn-sm">Tambahkan keluarga baru</a>
-                        </section>
-                        @endif
-                    @endif
-
-                    @if (count($keluarga) == 0)
-                        @if ($orang->gender == 'perempuan' AND $orang->marital_status == 'sudah')
-                            <section class="col-md-12 text-center">
-                                <small class="font-italic">Memenuhi syarat menjadi seorang istri</small> <br>
-                                <a href="#" data-toggle="modal" data-target="#tambahkeluarga" class="btn btn-primary btn-sm">Tambahkan keluarga</a>
-                            </section>
-                        @endif
-                    @endif
-                  
-                    @foreach ($keluarga as $item)
-                    @if ($item->status == 'istri')
-                        <div class="col-md-6">
-                            <div class="card bg-success">
-                                <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body p-2">
-                                    <small class="text-capitalize">{{ fullname($item)}}
-                                        <br>
-                                    <i>{{ $item->status }}</i> | {{ $item->nama_keluarga }}</small> <br>
-                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="btn btn-outline-light btn-sm">Lihat Keluarga</a>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    @if ($item->status == 'anak')
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body p-2">
-                                    <small class="text-capitalize">{{ fullname($item)}}
-                                        <br>
-                                    <i>{{ $item->status .' - '. $item->urutan }}</i> | {{ $item->nama_keluarga }}</small> <br>
-                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="btn btn-outline-success btn-sm">Lihat Keluarga</a>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                    
-                @endforeach
-                </section>
-            </div>
-            <div class="modal-footer text-right">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            {{-- <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button> --}}
-            </div>
-        </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="tambah">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/keluarga')}}" method="post">
-                @csrf
-                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Keluarga</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Keluarga</label>
-                        <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">No KK</label>
-                        <input type="text" name="no_kk" id="no_kk" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tanggal Pernikahan</label>
-                        <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Status Keluarga</label>
-                        <select name="status_keluarga" id="status_keluarga" class="form-control col-md-8">
-                            @foreach (kingdom_statuskeluarga() as $item)
-                                <option value="{{ $item}}">{{ $item}}</option>
-                            @endforeach
-                        </select>
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="ubahlinimasa">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ route('linimasa.update','test')}}" method="post">
-                @csrf
-                @method('patch')
-            <div class="modal-header">
-            <h4 class="modal-title">Edit Lini Masa</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <input type="hidden" id="id" name="id">
-                <section class="p-3">
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tanggal {!! ireq() !!}</label>
-                        <input type="date" name="tanggal" id="tanggal" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Jam</label>
-                        <input type="time" name="jam" id="jam" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Lini Masa {!! ireq() !!}</label>
-                        <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                        <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control col-md-8" required></textarea>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Icon</label>
-                        <input type="text" name="icon" id="icon" value="calendar" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tag</label>
-                        <input type="text" name="tag" id="tag" class="form-control col-md-8">
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> SIMPAN PERUBAHAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="linimasa">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/linimasa')}}" method="post">
-                @csrf
-                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Lini Masa</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tanggal {!! ireq() !!}</label>
-                        <input type="date" name="tanggal" id="tanggal" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Jam</label>
-                        <input type="time" name="jam" id="jam" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Lini Masa {!! ireq() !!}</label>
-                        <input type="text" name="nama" id="nama" class="form-control col-md-8" required>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                        <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control col-md-8" required></textarea>
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Icon</label>
-                        <input type="text" name="icon" id="icon" value="calendar" class="form-control col-md-8">
-                   </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Tag</label>
-                        <input type="text" name="tag" id="tag" class="form-control col-md-8">
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="tambahkeluarga">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/keluargahubungan')}}" method="post">
-                @csrf
-                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
-                <input type="hidden" name="status" value="istri">
-                <input type="hidden" name="urutan" value="1">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Keluarga</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="form-group row">
-                         <label for="" class="col-md-4">Daftar Keluarga</label>
-                         <select name="keluarga_id" id="keluarga_id" class="form-control col-md-8">
-                             @foreach ($daftarkeluarga as $item)
-                                 <option value="{{ $item->id}}">{{ $item->nama_keluarga}}</option>
-                             @endforeach
-                         </select>
-                    </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-    <div class="modal fade" id="grup">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-            <h4 class="modal-title">Anggota Grup</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="row p-2">
-                   @foreach ($anggotagrup as $item)
-                   <div class="col-md-4">
-                    <div class="card">
-                        <a href="{{ url('grup/'.Crypt::encryptString($item->grup_id))}}"><img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" class="card-img-top" alt="..."></a>
-                        <div class="card-body p-1 text-center">
-                          <p class="small text-capitalize">{{ $item->name}}</p>
-                          <small class="text-muted">{{ $item->information }}</small>
-                        </div>
-                        <div class="card-footer">
-                            <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
-                                @csrf
-                                @method('delete')
-                            </form>
-                            <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
-                            <button type="button" data-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                        </div>
-                      </div>
-                    </div>
-                   @endforeach
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button class="btn btn-primary" data-toggle="modal" data-target="#tambahgrup"><i class="fas fa-save"></i> TAMBAH GRUP</button>
-            </div>
-        </div>
-        </div>
-    </div>
-    <!-- /.modal -->
-    <div class="modal fade" id="tambahgrup">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/grupanggota')}}" method="post">
-                @csrf
-                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
-                <input type="hidden" name="sesi" value="anggotalist">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambah Grup</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <p>ceklis bila ingin dimasukkan kedalam grup</p>
-                    @foreach ($datagrup as $item)
-                        @if (!DbChatomz::cekstatusgrup($item->id,$orang->id))
-                            <div class="row form-group">
-                                <div class="col-md-6">
-                                    <input type="checkbox" name="grup_id[]" value="{{ $item->id }}"> <span class="text-uppercase">{{ $item->name }}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="text" name="information[]" class="form-control" placeholder="masukkan informasi">
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
-
-        {{-- modal edit --}}
-        <div class="modal fade" id="ubah">
+            
+        {{-- MODAL --}}
+        <div class="modal fade" id="ubahlinimasa">
             <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <form action="{{ route('grupanggota.update','test')}}" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                <form action="{{ route('linimasa.update','test')}}" method="post">
                     @csrf
                     @method('patch')
                 <div class="modal-header">
-                <h4 class="modal-title">Edit Anggota</h4>
+                <h4 class="modal-title">Edit Lini Masa</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body p-3">
-                    <input type="hidden" name="id" id="id">
+                    <input type="hidden" id="id" name="id">
                     <section class="p-3">
-                       <div class="form-group row">
-                            <label for="" class="col-md-4">Keterangan</label>
-                            <input type="text" name="information" id="information" class="form-control col-md-8">
-                       </div>
+                        <div class="form-group">
+                            <label for="">Tanggal {!! ireq() !!}</label>
+                            <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jam</label>
+                            <input type="time" name="jam" id="jam" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Nama Lini Masa {!! ireq() !!}</label>
+                            <input type="text" name="nama" id="nama" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Keterangan {!! ireq() !!}</label>
+                            <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Icon</label>
+                            <input type="text" name="icon" id="icon" value="calendar" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Tag</label>
+                            <input type="text" name="tag" id="tag" class="form-control">
+                        </div>
                     </section>
                 </div>
                 <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-                <button type="submit" class="btn btn-success"><i class="fas fa-pen"></i> SIMPAN PERUBAHAN</button>
+                <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> SIMPAN PERUBAHAN</button>
                 </div>
-                </form>
+            </form>
             </div>
             </div>
         </div>
-        <!-- /.modal -->
+        <div class="modal fade" id="tambahgrup">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <form action="{{ url('/grupanggota')}}" method="post">
+                    @csrf
+                    <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+                    <input type="hidden" name="sesi" value="anggotalist">
+                <div class="modal-header">
+                <h4 class="modal-title">Tambah Grup</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body p-3">
+                    <section class="p-3">
+                        <p>ceklis bila ingin dimasukkan kedalam grup</p>
+                        @foreach ($datagrup as $item)
+                            @if (!DbChatomz::cekstatusgrup($item->id,$orang->id))
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <input type="checkbox" name="grup_id[]" value="{{ $item->id }}"> <span class="text-uppercase">{{ $item->name }}</span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="information[]" class="form-control" placeholder="masukkan informasi">
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </section>
+                </div>
+                <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
+                </div>
+            </form>
+            </div>
+            </div>
+        </div>
+        {{-- tambah pendidikan --}}
+        <x-modalsimpan judul="tambah pendidikan" link="pendidikan" id="tambahpendidikan" size="modal-lg">
+            <section class="p-3">
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">TK/TPA</label>
+                            <input type="text" class="form-control form-control-sm" name="tk">
+                        </div>
+                        <div class="form-group">
+                            <label for="">SD</label>
+                            <input type="text" class="form-control form-control-sm" name="sd">
+                        </div>
+                        <div class="form-group">
+                            <label for="">SMP/MTS</label>
+                            <input type="text" class="form-control form-control-sm" name="smp">
+                        </div>
+                        <div class="form-group">
+                            <label for="">SMA/SMK/MA</label>
+                            <input type="text" class="form-control form-control-sm" name="sma">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jenjang Diploma</label>
+                            <input type="text" class="form-control form-control-sm" name="d">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jenjang S1</label>
+                            <input type="text" class="form-control form-control-sm" name="s1">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jenjang S2</label>
+                            <input type="text" class="form-control form-control-sm" name="s2">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Jenjang S3</label>
+                            <input type="text" class="form-control form-control-sm" name="s3">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">Pesantren</label>
+                            <input type="text" class="form-control form-control-sm" name="pesantren">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Sekolah Dirumah</label>
+                            <input type="text" class="form-control form-control-sm" name="homescholl">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Boarding Scholl</label>
+                            <input type="text" class="form-control form-control-sm" name="boardingscholl">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Bimbingan Belajar</label>
+                            <input type="text" class="form-control form-control-sm" name="bimbel">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Kursus</label>
+                            <input type="text" class="form-control form-control-sm" name="kursus">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Informasi Singkat</label>
+                            <textarea name="information" id="" cols="30" rows="4" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </x-modalsimpan>
+
+        {{-- tambah kontak --}}
+        <x-modalsimpan judul="tambah kontak" link="kontak" id="tambahkontak" size="modal-lg">
+            <section class="p-3">
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="">No Telepon Seluler</label>
+                            <input type="text" class="form-control form-control-sm" name="no_hp" placeholder="input number phone celluler">
+                        </div>
+                        <div class="form-group">
+                            <label for="">No Telepon Rumah</label>
+                            <input type="text" class="form-control form-control-sm" name="no_tel" placeholder="input number phone home">
+                        </div>
+                        <div class="form-group">
+                            <label for="">No Whatsapp</label>
+                            <input type="text" class="form-control form-control-sm" name="no_wa" placeholder="input number whatsapp">
+                        </div>
+                        <div class="form-group">
+                            <label for="">No Telepon Kantor</label>
+                            <input type="text" class="form-control form-control-sm" name="no_office" placeholder="input number office phone">
+                        </div>
+                        <div class="row form-group">
+                            <label for="">Alamat E-mail</label>
+                            <input type="text" class="form-control form-control-sm" name="email" placeholder="input email address">
+                        </div>
+                        <div class="row form-group">
+                            <label for="">Alamat E-mail Kantor</label>
+                            <input type="text" class="form-control form-control-sm" name="office_email" placeholder="input email office address">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row form-group">
+                            <label for="">Link Facebook</label>
+                            <input type="text" class="form-control form-control-sm" name="fb" placeholder="input link facebook">
+                        </div>
+                        <div class="row form-group">
+                            <label for="">Link Twitter</label>
+                            <input type="text" class="form-control form-control-sm" name="tw" placeholder="input link twitter">
+                        </div>
+                        <div class="row form-group">
+                            <label for="">Link Instagram</label>
+                            <input type="text" class="form-control form-control-sm" name="ig" placeholder="input link instagram">
+                        </div>
+                        <div class="row form-group">
+                            <label for="">Website</label>
+                            <input type="text" class="form-control form-control-sm" name="web" placeholder="input website">
+                        </div>
+                        <div class="row form-group">
+                            <label for="">Line</label>
+                            <input type="text" class="form-control form-control-sm" name="line" placeholder="input account line">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </x-modalsimpan>
+
+        {{-- tambah lini masa --}}
+        <x-modalsimpan judul="tambah linimasa" link="linimasa" id="linimasa">
+            <section class="p-3">
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+                <div class="form-group">
+                    <label for="">Tanggal {!! ireq() !!}</label>
+                    <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Jam</label>
+                    <input type="time" name="jam" id="jam" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Nama Lini Masa {!! ireq() !!}</label>
+                    <input type="text" name="nama" id="nama" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Keterangan {!! ireq() !!}</label>
+                    <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="">Icon</label>
+                    <input type="text" name="icon" id="icon" value="calendar" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Tag</label>
+                    <input type="text" name="tag" id="tag" class="form-control">
+                </div>
+            </section>
+        </x-modalsimpan>
+
+        {{-- modal keluarga --}}
+        <x-modal judul="Riwayat Keluarga" id="keluarga">
+            <section class="row p-3">
+                @if (count($suami) > 0)
+                    @foreach ($suami as $item)
+                        <div class="col-md-12">
+                            <div class="card bg-primary">
+                                <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-2 text-white">
+                                        <small class="text-capitalize">{{ fullname($orang)}}
+                                        <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id)) }}" class="float-end text-white p-2"><i class="bi bi-arrow-up-right"></i></a>
+                                        <br>
+                                        <i>Kepala Keluarga</i> <br> {{ $item->nama_keluarga }}</small>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    {{-- jika laki laki dan sudah kawin maka munculkan tambahkan keluarga --}}
+                    @if ($orang->gender == 'laki-laki' AND $orang->marital_status == 'sudah')
+                    <section class="col-md-12 text-center mb-3">
+                        <small class="font-italic">Memenuhi syarat menjadi kepala keluarga</small> <br>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#tambah" class="btn btn-primary btn-sm">Tambahkan keluarga baru</a>
+                    </section>
+                    @endif
+                @endif
+
+                @if (count($keluarga) == 0)
+                    @if ($orang->gender == 'perempuan' AND $orang->marital_status == 'sudah' AND count($daftarkeluarga) > 0)
+                        <section class="col-md-12 text-center">
+                            <small class="font-italic">Memenuhi syarat menjadi seorang istri</small> <br>
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#tambahkeluarga" class="btn btn-primary btn-sm">Tambahkan keluarga</a>
+                        </section>
+                    @else
+                        <section class="text-center">
+                            <small class="font-italic">belum ada keluarga yang dibuat</small>
+                        </section>
+                    @endif
+                @endif
+                
+                @foreach ($keluarga as $item)
+                @if ($item->status == 'istri')
+                    <div class="col-md-12">
+                        <div class="card bg-info">
+                            <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-2 text-white">
+                                    <small class="text-capitalize">{{ fullname($item)}}
+                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="float-end text-white p-2"><i class="bi bi-arrow-up-right"></i></a>
+                                    <br>
+                                <i>{{ $item->status }}</i> <br> {{ $item->nama_keluarga }}</small>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @if ($item->status == 'anak')
+                    <div class="col-md-12">
+                        <div class="card bg-secondary">
+                            <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-2 text-white">
+                                    <small class="text-capitalize">{{ fullname($item)}}
+                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="float-end text-white p-2"><i class="bi bi-arrow-up-right"></i></a>
+                                    <br>
+                                <i>{{ $item->status .' - '. $item->urutan }}</i> <br> {{ $item->nama_keluarga }}</small>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @endforeach
+            </section>
+        </x-modal>
+
+        {{-- anggota grup --}}
+        <x-modal judul="Anggota grup" id="grup" size="modal-lg">
+            <section class="row p-2">
+                @foreach ($anggotagrup as $item)
+                <div class="col-md-4">
+                <div class="card">
+                    <a href="{{ url('grup/'.Crypt::encryptString($item->grup_id))}}"><img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" class="card-img-top" alt="..."></a>
+                    <div class="card-body p-1 text-center">
+                        <p class="small text-capitalize">{{ $item->name}}</p>
+                        <small class="text-muted">{{ $item->information }}</small>
+                    </div>
+                    <div class="card-footer">
+                        <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
+                            @csrf
+                            @method('delete')
+                        </form>
+                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
+                        <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </div>
+                    </div>
+                </div>
+                @endforeach
+            </section>
+        </x-modal>
+
+        {{-- ubah anggota grup --}}
+        <x-modalubah judul="Edit Anggota" link="grupanggota">
+            <input type="hidden" name="id" id="id">
+            <section class="p-3">
+                <div class="form-group">
+                    <label for="">Keterangan</label>
+                    <input type="text" name="information" id="information" class="form-control">
+                </div>
+            </section>
+        </x-modalubah>
+
+        {{-- tambah keluarga baru (suami) --}}
+        <x-modalsimpan judul="Tambah Keluarga Baru" link="keluarga">
+            <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+            <section class="p-3">
+                <div class="form-group">
+                    <label for="">Nama Keluarga</label>
+                    <input type="text" name="nama_keluarga" id="nama_keluarga" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">No KK</label>
+                    <input type="text" name="no_kk" id="no_kk" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Tanggal Pernikahan</label>
+                    <input type="date" name="tgl_pernikahan" id="tgl_pernikahan" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Keterangan</label>
+                    <input type="text" name="keterangan" id="keterangan" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Status Keluarga</label>
+                    <select name="status_keluarga" id="status_keluarga" class="form-control">
+                        @foreach (kingdom_statuskeluarga() as $item)
+                            <option value="{{ $item}}">{{ $item}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </section>
+        </x-modalsimpan>
+
+        <x-modalsimpan judul="Tambah Keluarga" link="keluargahubungan" id="tambahkeluarga">
+            <section class="p-3">
+                <input type="hidden" name="orang_id" value="{{ $orang->id }}">
+                <input type="hidden" name="status" value="istri">
+                <input type="hidden" name="urutan" value="1">
+                <div class="form-group">
+                        <label for="">Daftar Keluarga</label>
+                        <select name="keluarga_id" id="keluarga_id" class="form-control">
+                            @foreach ($daftarkeluarga as $item)
+                                <option value="{{ $item->id}}">{{ $item->nama_keluarga}}</option>
+                            @endforeach
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Keterangan</label>
+                    <input type="text" name="keterangan" id="keterangan" class="form-control">
+                </div>
+            </section>
+        </x-modalsimpan>
+
     </x-slot>
 
-
-    {{-- @section('script')
-        
+    <x-slot name="kodejs">
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
@@ -911,23 +777,5 @@
                 modal.find('.modal-body #id').val(id);
             })
         </script>
-        <script>
-            $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-            });
-        </script>
-    @endsection --}}
-
+    </x-slot>
 </x-mazer-layout>

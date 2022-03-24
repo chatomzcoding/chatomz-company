@@ -148,7 +148,7 @@
                                     <div class="card-body p-2 text-white">
                                     <small class="text-capitalize">Belum ada Data
                                     </small><br>
-                                    <a href="#" data-target="#tambahistri" data-toggle="modal" class="btn btn-outline-light btn-sm">Tambahkan Istri</a>
+                                    <a href="#" data-bs-target="#tambahistri" data-bs-toggle="modal" class="btn btn-outline-light btn-sm">Tambahkan Istri</a>
                                     </div>
                                 </div>
                                 </div>
@@ -265,48 +265,27 @@
             </div>
         </div>
     @endif
-    <div class="modal fade" id="tambahistri">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <form action="{{ url('/hubungankeluarga')}}" method="post">
-                @csrf
-                <input type="hidden" name="keluarga_id" value="{{ $keluarga->id }}">
-                <input type="hidden" name="status" value="istri">
-                <input type="hidden" name="urutan" value="1">
-            <div class="modal-header">
-            <h4 class="modal-title">Tambahkan Istri</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+    <x-modalsimpan judul="Tambahkan Istri" link="hubungankeluarga" id="tambahistri">
+        <section class="p-3">
+            <input type="hidden" name="keluarga_id" value="{{ $keluarga->id }}">
+            <input type="hidden" name="status" value="istri">
+            <input type="hidden" name="urutan" value="1">
+            <div class="form-group">
+                <label for="">Nama Istri</label>
+                <select name="orang_id" class="select2bs4" data-width="100%">
+                    @foreach ($daftaristri as $item)
+                    @if (!DbChatomz::cekstatusistri($item->id))
+                        <option value="{{ $item->id}}">{{ fullname($item)}}</option>
+                    @endif
+                    @endforeach
+                </select>
             </div>
-            <div class="modal-body p-3">
-                <section class="p-3">
-                    <div class="form-group row">
-                         <label for="" class="col-md-4">Nama Istri</label>
-                         <div class="col-md-8 p-0">
-                             <select name="orang_id" class="select2bs4" data-width="100%">
-                                 @foreach ($daftaristri as $item)
-                                    @if (!DbChatomz::cekstatusistri($item->id))
-                                        <option value="{{ $item->id}}">{{ fullname($item)}}</option>
-                                    @endif
-                                 @endforeach
-                             </select>
-                         </div>
-                    </div>
-                   <div class="form-group row">
-                        <label for="" class="col-md-4">Keterangan</label>
-                        <input type="text" name="keterangan" id="keterangan" class="form-control col-md-8">
-                   </div>
-                </section>
-            </div>
-            <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-            </div>
-        </form>
-        </div>
-        </div>
-    </div>
+           <div class="form-group">
+                <label for="">Keterangan</label>
+                <input type="text" name="keterangan" id="keterangan" class="form-control">
+           </div>
+        </section>
+    </x-modalsimpan>
     
 <x-modalubah judul="Edit Anggota Keluarga" link="hubungankeluarga">
     <section class="p-3">

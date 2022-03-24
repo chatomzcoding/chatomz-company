@@ -4,24 +4,21 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Modalsimpan extends Component
+class Modal extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-
     public $judul;
-    public $link;
     public $id;
     public $size;
 
-    public function __construct($judul,$link,$id="tambah",$size="")
+    public function __construct($judul,$id="modal",$size="")
     {
-        $this->link = $link;
-        $this->judul = $judul;
         $this->id = $id;
+        $this->judul = $judul;
         $this->size = $size;
     }
 
@@ -32,6 +29,6 @@ class Modalsimpan extends Component
      */
     public function render()
     {
-        return view('components.modalsimpan');
+        return view('components.modal');
     }
 }
