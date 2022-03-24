@@ -58,7 +58,7 @@ if (! function_exists('kingdom_jk')) {
 if (! function_exists('kingdom_goldar')) {
     function kingdom_goldar()
     {
-        $result = ['A','B','AB','O'];
+        $result = ['a','b','ab','o','none'];
         return $result;
     }
 }

@@ -87,7 +87,7 @@
                                       @foreach (kingdom_goldar() as $item)
                                       <option value="{{ $item}}" @if ($item == $orang->blood_type)
                                           selected
-                                      @endif>{{ $item}}</option>
+                                      @endif>{{ strtoupper($item)}}</option>
                                       @endforeach
                                   </select>
                           </div>

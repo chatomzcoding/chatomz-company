@@ -152,14 +152,6 @@ if (! function_exists('kingdom_jk')) {
     }
 }
 
-// daftar agama yang di akui di indonesia
-if (! function_exists('kingdom_goldar')) {
-    function kingdom_goldar()
-    {
-        $result = ['a','b','ab','o','none'];
-        return $result;
-    }
-}
 
 // daftar agama yang di akui di indonesia
 if (! function_exists('kingdom_jjgpendidikan')) {
