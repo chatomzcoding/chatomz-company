@@ -18,7 +18,16 @@
                                                 <form action="{{ url('unsil') }}" method="get">
                                                     <tr>
                                                         <th>NPM</th>
-                                                        <td><input type="number" name="npm" value="{{ $result['MhswID']}}" class="form-control"></td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="col-md-10">
+                                                                    <input type="number" name="npm" value="{{ $result['MhswID']}}" class="form-control">
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <button type="submit" class="btn btn-primary">CARI</button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
                                                     </tr>
                                                 </form>
                                                 <form action="{{ url('simpanmahasiswa') }}" method="post">
@@ -72,7 +81,7 @@
                                                 @forelse ($orang as $item)
                                                 <tr>
                                                     <th>Nama</th>
-                                                    <td><a href="{{ url('orang/'.Crypt::encryptString($item->id)) }}" target="_blank">{{ fullname($item) }}</a> <br> {{ $item->home_address }} <br> {{ $item->date_birth }}</td>
+                                                    <td><a href="{{ url('orang/'.Crypt::encryptString($item->id).'/edit') }}" target="_blank">{{ fullname($item) }}</a> <br> {{ $item->home_address }} <br> {{ $item->date_birth }}</td>
                                                 </tr>
                                                 @empty
                                                 @endforelse
