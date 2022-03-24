@@ -6,16 +6,14 @@
         <div class="card mt-3">
             <div class="card-header">
                 <h4 class="card-title"><i class="bi bi-plus-circle-fill"></i> Tambah Orang</h4>
-                <button type="button" data-bs-toggle="modal" data-bs-target="#tambah">tambah</button>
             </div>
             <div class="card-body">
-                <x-sistem.notifikasi/>
                 <form method="post" action="{{ url('/orang')}}" enctype="multipart/form-data">
                   @csrf
                   <div class="row">
                       <div class="col-md-6 p-4">
                           <div class="row mb-2">
-                                <label for="inlineinput" class="col-md-4 col-form-label">Nama Awal</label>
+                                <label for="inlineinput" class="col-md-4 col-form-label">Nama Awal {!! ireq() !!}</label>
                                 <div class="col-8">
                                     <input type="text" class="form-control" name="first_name" value="{{ old('first_name')}}" id="inlineinput" required>
                                 </div>

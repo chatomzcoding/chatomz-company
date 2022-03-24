@@ -43,7 +43,7 @@
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
-                            <a href="{{ url('/dashboard') }}"><img src="{{ asset('img/admin/info/'.$info->bg_produk)}}" width="120px" alt="Logo" srcset=""></a>
+                            <a href="{{ url('/dashboard') }}"><img src="{{ asset('img/admin/info/'.$info->bg_produk)}}" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="{{ url('/dashboard') }}" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>

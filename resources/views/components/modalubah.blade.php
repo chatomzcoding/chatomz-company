@@ -1,4 +1,4 @@
-<div class="modal fade text-left modal-borderless" id="ubah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+<div class="modal fade text-left modal-borderless" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <form action="{{ route($link.'.update','id') }}" method="POST" enctype="multipart/form-data">
@@ -12,7 +12,9 @@
                 </button>
             </div>
             <div class="modal-body">
+                @if ($id == 'ubah')
                 <input type="hidden" name="id" id="id">
+                @endif
                 {{ $slot }}
             </div>
             <div class="modal-footer">

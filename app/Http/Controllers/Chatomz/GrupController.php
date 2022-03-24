@@ -114,7 +114,21 @@ class GrupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+        ]);
+        $tujuan_upload = 'public/img/chatomz/grup';
+        $file = $request->file('photo');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $file->move($tujuan_upload,$nama_file);
+        Grup::create([
+            'name' => $request->name,
+            'created_year' => $request->created_year,
+            'keterangan' => $request->keterangan,
+            'photo' => $nama_file,
+            'dtag' => $request->dtag,
+        ]);
+        return back()->with('ds','Grup');
     }
 
     /**

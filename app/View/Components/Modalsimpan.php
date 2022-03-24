@@ -14,11 +14,13 @@ class Modalsimpan extends Component
 
     public $judul;
     public $link;
+    public $id;
 
-    public function __construct($judul,$link)
+    public function __construct($judul,$link,$id="tambah")
     {
         $this->link = $link;
         $this->judul = $judul;
+        $this->id = $id;
     }
 
     /**

@@ -1,4 +1,4 @@
-<x-mazer-layout>
+<x-mazer-layout datatables="TRUE" select="TRUE">
     <x-slot name="title">
         CHATOMZ - Daftar Orang
     </x-slot>
