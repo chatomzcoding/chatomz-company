@@ -1,7 +1,13 @@
 <div class="sidebar-menu">
     <ul class="menu">
-        <li class="sidebar-title">Menu</li>
-
+        <form action="{{ url('cariorang') }}" method="post">
+            @csrf
+            <div class="input-group input-group-sm">
+                <input class="form-control form-control-navbar" name="nama" type="search" placeholder="Cari Nama Orang" aria-label="Search">
+              </div>
+        </form>
+        <hr>
+        <li class="sidebar-title mt-0">Menu</li>
         <li class="sidebar-item active ">
             <a href="{{ url('dashboard') }}" class='sidebar-link'>
                 <i class="bi bi-grid-fill"></i>
@@ -34,7 +40,7 @@
         @endforeach
 
 
-        <li class="sidebar-title">Sistem</li>
+        <li class="sidebar-title my-2">Sistem</li>
 
         <li class="sidebar-item">
             <a href="{{ url('/user/'.Crypt::encryptString(Auth::user()->id).'/edit')}}" class="sidebar-link">

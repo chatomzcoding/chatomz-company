@@ -40,7 +40,7 @@
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
+                <div class="sidebar-header py-0">
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <a href="{{ url('/dashboard') }}"><img src="{{ asset('img/admin/info/'.$info->bg_produk)}}" alt="Logo" srcset=""></a>

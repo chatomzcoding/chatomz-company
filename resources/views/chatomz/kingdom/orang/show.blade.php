@@ -30,53 +30,56 @@
                                     <img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" class="card-img-top img-fluid"
                                     alt="singleminded">
                                 </a>
-                                <div class="card-body">
+                                <div class="card-body py-2">
                                     <h5 class="card-title">{{ fullname($orang) }}  @if ($orang->gender == 'laki-laki')
                                         <sup><i class="fas fa-mars text-primary"></i></sup>  
                                     @else
                                         <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                    @endif <small class="float-end fst-italic">{{ age($orang->date_birth,'Bulan')}}</small></h5>
-                                    <p class="card-text">
-                                       {{ $orang->note }}
+                                    @endif </h5>
+                                    <span>{{ age($orang->date_birth,'Bulan')}}</span>
+                                    <p class="card-text fst-italic">
+                                       "{{ $orang->note }}"
                                     </p>
-                                    <p class="demo text-center">
-                                        <form id="data-{{ $orang->id }}" action="{{url('/orang/'.$orang->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            </form>
+                                    <form id="data-{{ $orang->id }}" action="{{url('/orang/'.$orang->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                    <hr>
+                                    <div class="d-flex justify-content-center">
+                                        <section class="p-1">
                                             <button onclick="deleteRow( {{ $orang->id }} )" class="btn btn-icon btn-round btn-danger pop-info" title="hapus orang"><i class="fas fa-trash-alt"></i></button>
-                                        <a href="{{ url('orang/'.Crypt::encryptString($orang->id).'/edit')}}" style="display: inline;">
-                                            <button type="button" class="btn btn-icon btn-round btn-success pop-info" title="Edit Orang">
-                                                <i class="fas fa-pen"></i>
-                                            </button>
-                                        </a>
+                                        </section>
+                                        <section class="p-1">
+                                            <a href="{{ url('orang/'.Crypt::encryptString($orang->id).'/edit')}}" class="btn btn-icon btn-round btn-success pop-info" title="Edit Orang">
+                                                    <i class="fas fa-pen"></i></a>
+                                        </section>
                                         @if (Auth::user()->level == 'admin')
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#grup">
-                                                <button type="button" class="btn btn-icon btn-round btn-info pop-info" title="anggota grup">
-                                                    <i class="far fa-id-card"></i>
-                                                </button>
-                                            </a>
+                                            <section class="p-1">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#grup">
+                                                    <button type="button" class="btn btn-icon btn-round btn-info pop-info" title="anggota grup">
+                                                        <i class="far fa-id-card"></i>
+                                                    </button>
+                                                </a>
+                                            </section>
                                         @endif
                                         @if ($orang->marital_status == 'sudah' || count($keluarga) > 0)
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#keluarga">
-                                                <button type="button" class="btn btn-icon btn-round btn-secondary pop-info" title="lihat silsilah keluarga">
-                                                    <i class="fas fa-sitemap"></i>
-                                                </button>
-                                            </a>
-                                            @endif
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#linimasa">
-                                            <button type="button" class="btn btn-icon btn-round bg-primary pop-info text-white" title="tambah lini masa">
-                                                <i class="fas fa-stream"></i>
-                                            </button>
-                                        </a>
-                                    </p>
+                                            <section class="p-1">
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#keluarga" class="btn btn-icon btn-round btn-secondary pop-info" title="lihat silsilah keluarga">
+                                                        <i class="fas fa-sitemap"></i></a>
+                                            </section>
+                                        @endif
+                                        <section class="p-1">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#linimasa"  class="btn btn-icon btn-round bg-primary pop-info text-white" title="tambah lini masa">
+                                                    <i class="fas fa-stream"></i></a>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-8">
                         <div class="card">
-                            <div class="card-header">
+                            <div class="card-header p-2">
                                 <div class="float-end">
                                     @if (!is_null($tombol['back']))
                                     <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['back']->id))}}"  data-bs-toggle="tooltip" title="sebelumnya"><i class="fas fa-angle-left"></i></a></span>

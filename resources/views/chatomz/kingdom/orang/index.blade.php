@@ -29,7 +29,6 @@
                         <a href="{{ url('/lihat/orangpoto')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> View Photo</a>
                       </div>
                       <div class="card-body">
-                          @include('sistem.notifikasi')
                           <div class="table-responsive">
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead class="text-center">
