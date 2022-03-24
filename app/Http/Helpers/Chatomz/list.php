@@ -156,7 +156,7 @@ if (! function_exists('kingdom_jk')) {
 if (! function_exists('kingdom_goldar')) {
     function kingdom_goldar()
     {
-        $result = ['a','b','ab','o','tidak tahu'];
+        $result = ['a','b','ab','o','none'];
         return $result;
     }
 }
