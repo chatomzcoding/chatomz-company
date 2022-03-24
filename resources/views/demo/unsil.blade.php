@@ -21,7 +21,7 @@
                                                         <td>
                                                             <div class="row">
                                                                 <div class="col-md-10">
-                                                                    <input type="number" name="npm" value="{{ $result['MhswID']}}" class="form-control">
+                                                                    <input type="number" name="npm" value="{{ $result['MhswID']}}" class="form-control" autofocus>
                                                                 </div>
                                                                 <div class="col-md-2">
                                                                     <button type="submit" class="btn btn-primary">CARI</button>
