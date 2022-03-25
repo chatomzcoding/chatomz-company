@@ -1,10 +1,12 @@
 <div class="sidebar-menu">
     <ul class="menu">
-        <form action="{{ url('cariorang') }}" method="post">
+        <form action="{{ url('pencarian') }}" method="get">
             @csrf
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" name="nama" type="search" placeholder="Cari Nama Orang" aria-label="Search">
-              </div>
+            <input type="hidden" name="s" value="carinama">
+            <div class="input-group mb-3">
+                <input type="text" name="nama" class="form-control" placeholder="cari dengan nama..." aria-label="cari dengan nama..." aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi-search"></i></button>
+            </div>
         </form>
         <hr>
         <li class="sidebar-title mt-0">Menu</li>

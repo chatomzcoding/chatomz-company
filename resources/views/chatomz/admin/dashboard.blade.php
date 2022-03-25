@@ -216,7 +216,7 @@
                           <h4>Ulang Tahun Hari ini</h4>
                       </div>
                       <div class="card-content pb-4">
-                          @foreach ($info['ulangtahuntanggalini'] as $item)
+                          @forelse ($info['ulangtahuntanggalini'] as $item)
                             <div class="recent-message d-flex px-4 py-3">
                                 <div class="avatar avatar-lg">
                                     <img src="{{ asset('img/chatomz/orang/'.orang_photo($item->photo))}}">
@@ -226,11 +226,20 @@
                                     {{-- <h6 class="text-muted mb-0">@johnducky</h6> --}}
                                 </div>
                             </div>
-                          @endforeach
-                          
-                          <div class="px-4">
-                              <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Selengkapnya</button>
+                          @empty
+                          <div class="text-center">
+                              <small>tidak ada</small>
                           </div>
+                          @endforelse
+                          @if (count($info['ulangtahuntanggalini']))
+                            <div class="px-4">
+                                <form action="{{ url('pencarian') }}" method="get">
+                                    @csrf
+                                    <input type="hidden" name="s" value="ulangtahuntanggalini">
+                                    <button type="submit" class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Selengkapnya</button>
+                                </form>
+                            </div>
+                          @endif
                       </div>
                   </div>
                   <div class="card">

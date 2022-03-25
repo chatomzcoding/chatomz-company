@@ -77,7 +77,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('orang', OrangController::class);
         Route::resource('linimasa', LinimasaController::class);
         Route::get('lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
-        Route::post('cariorang', 'App\Http\Controllers\Chatomz\OrangController@cariorang');
+        Route::get('pencarian', [OrangController::class, 'pencarian']);
 
 
         Route::get('lihat/statistik', 'App\Http\Controllers\HomeController@statistik');
