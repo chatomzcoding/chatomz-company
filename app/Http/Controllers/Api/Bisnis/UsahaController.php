@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Bisnis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kategori;
+use App\Models\Usaha;
 use Illuminate\Http\Request;
 
-class KategoriController extends Controller
+class UsahaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +16,11 @@ class KategoriController extends Controller
     public function index()
     {
         if (chatomz_token()) {
-            $label = (isset($_GET['label'])) ? $_GET['label'] : 'semua' ;
-            if ($label == 'semua') {
-                return Kategori::orderBy('nama_kategori','ASC')->get();
-            } else {
-                return Kategori::where('label',$label)->orderBy('nama_kategori','ASC')->get();
-            }
+            $data = [
+                'data' => Usaha::orderBy('nama_usaha','ASC')->get(),
+                'link_gambar' => 'public/img/company/bisnis/usaha'
+            ];
+            return $data; 
         }
     }
 
@@ -49,10 +48,10 @@ class KategoriController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Kategori  $kategori
+     * @param  \App\Models\Usaha  $usaha
      * @return \Illuminate\Http\Response
      */
-    public function show(Kategori $kategori)
+    public function show(Usaha $usaha)
     {
         //
     }
@@ -60,10 +59,10 @@ class KategoriController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Kategori  $kategori
+     * @param  \App\Models\Usaha  $usaha
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kategori $kategori)
+    public function edit(Usaha $usaha)
     {
         //
     }
@@ -72,10 +71,10 @@ class KategoriController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Kategori  $kategori
+     * @param  \App\Models\Usaha  $usaha
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request, Usaha $usaha)
     {
         //
     }
@@ -83,10 +82,10 @@ class KategoriController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Kategori  $kategori
+     * @param  \App\Models\Usaha  $usaha
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kategori $kategori)
+    public function destroy(Usaha $usaha)
     {
         //
     }

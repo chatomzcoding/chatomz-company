@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\Bisnis\ProdukController;
+use App\Http\Controllers\Api\Bisnis\UsahaController;
 use App\Http\Controllers\Api\Informasi\HewanController;
 use App\Http\Controllers\Api\KategoriController;
 use Illuminate\Http\Request;
@@ -19,6 +21,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// BISNIS
+Route::resource('usaha', UsahaController::class);
+Route::resource('produk', ProdukController::class);
 
 Route::resource('hewan', HewanController::class);
 Route::resource('kategori', KategoriController::class);

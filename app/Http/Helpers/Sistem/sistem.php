@@ -10,6 +10,20 @@ if (! function_exists('apikey_chatomz')) {
         }
     }
 }
+if (! function_exists('chatomz_token')) {
+    function chatomz_token($getapikey=NULL,$chatomztoken='$2y$10$TPl2v.H1BlYpim.WIgxpa.KHjlXdhVWREbsP1NWs21k46Jn9JEskW'){
+        if (is_null($getapikey)) {
+            $token = (isset($_GET['token'])) ? $_GET['token'] : NULL ;
+        } else {
+            $token = $getapikey;
+        }
+        if ($chatomztoken == $token) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+}
 if (! function_exists('cek_internet')) {
     function cek_internet(){
         $connected = @fsockopen("www.google.com", 80);
