@@ -82,7 +82,7 @@
                 <div class="form-group">
                     <textarea name="bidang" id="bidang" cols="30" rows="3" class="form-control" required>{{ old('bidang') }}</textarea>
                 </div>
-                <label>Poto Lokasi : </label>
+                <label>Logo Usaha : </label>
                 <div class="form-group">
                     <input type="file" name="gambar_lokasi" class="form-control">
                 </div>
@@ -119,7 +119,7 @@
                 <div class="form-group">
                     <textarea name="bidang" id="bidang" cols="30" rows="3" class="form-control" required>{{ old('bidang') }}</textarea>
                 </div>
-                <label>Poto Lokasi : </label>
+                <label>Logo Usaha : </label>
                 <div class="form-group">
                     <input type="file" name="gambar_lokasi" class="form-control">
                 </div>

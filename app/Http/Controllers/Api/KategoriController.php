@@ -18,10 +18,15 @@ class KategoriController extends Controller
         if (chatomz_token()) {
             $label = (isset($_GET['label'])) ? $_GET['label'] : 'semua' ;
             if ($label == 'semua') {
-                return Kategori::orderBy('nama_kategori','ASC')->get();
+                $kategori = Kategori::orderBy('nama_kategori','ASC')->get();
             } else {
-                return Kategori::where('label',$label)->orderBy('nama_kategori','ASC')->get();
+                $kategori = Kategori::where('label',$label)->orderBy('nama_kategori','ASC')->get();
             }
+
+            return [
+                'data' => $kategori,
+                'link_gambar' => 'public/img/kategori'
+            ];
         }
     }
 

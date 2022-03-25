@@ -16,8 +16,14 @@ class ProdukController extends Controller
     public function index()
     {
         if (chatomz_token()) {
+            $limit  = (isset($_GET['limit'])) ? $_GET['limit'] : 0;
+            if ($limit == 0) {
+                $produk = Produk::orderBy('nama_produk','ASC')->get();
+            } else {
+                $produk = Produk::orderBy('nama_produk','ASC')->limit($limit)->get();
+            }
             $data = [
-                'data' => Produk::orderBy('nama_produk','ASC')->get(),
+                'data' => $produk,
                 'link_gambar' => 'public/img/company/bisnis'
             ];
             return $data; 

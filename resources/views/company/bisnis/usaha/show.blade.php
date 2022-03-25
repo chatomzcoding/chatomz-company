@@ -86,7 +86,7 @@
                                                             <tr>
                                                                 <th>No</th>
                                                                 <th>Aksi</th>
-                                                                <th>Poto Produk</th>
+                                                                <th>Logo Usaha</th>
                                                                 <th>Nama Produk</th>
                                                                 <th>Harga Produk</th>
                                                                 <th>Stok Produk</th>
@@ -157,7 +157,7 @@
                     <div class="form-group">
                         <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control" required></textarea>
                     </div>
-                    <label>Poto Produk : </label>
+                    <label>Logo Usaha : </label>
                     <div class="form-group">
                         <input type="file" name="poto_produk" class="form-control" required>
                     </div>
@@ -189,7 +189,7 @@
                     <div class="form-group">
                         <textarea name="deskripsi" id="deskripsi" cols="30" rows="3" class="form-control" required></textarea>
                     </div>
-                    <label>Poto Produk : </label>
+                    <label>Logo Usaha : </label>
                     <div class="form-group">
                         <input type="file" name="poto_produk" class="form-control">
                     </div>
@@ -226,7 +226,7 @@
                     <div class="form-group">
                         <textarea name="bidang" id="bidang" cols="30" rows="3" class="form-control" required>{{ old('bidang') }}</textarea>
                     </div>
-                    <label>Poto Lokasi : </label>
+                    <label>Logo Usaha : </label>
                     <div class="form-group">
                         <input type="file" name="gambar_lokasi" class="form-control">
                     </div>

@@ -1,5 +1,17 @@
 <?php
 
+if (! function_exists('cek_internet')) {
+    function cek_internet(){
+        $connected = @fsockopen("www.google.com", 80);
+        if ($connected){
+         $is_conn = true; //jika koneksi tersambung
+         fclose($connected);
+        }else{
+         $is_conn = false; //jika koneksi gagal
+        }
+        return $is_conn;
+       }
+}
 if (! function_exists('apikey_chatomz')) {
     function apikey_chatomz($getapikey){
         $apikey = '$2y$10$yA4qXnZzEIjaW7WE2so98O4oJORl//OVdJIDLiAU8yWaAQk804sCK';
@@ -10,6 +22,7 @@ if (! function_exists('apikey_chatomz')) {
         }
     }
 }
+
 if (! function_exists('chatomz_token')) {
     function chatomz_token($getapikey=NULL,$chatomztoken='$2y$10$TPl2v.H1BlYpim.WIgxpa.KHjlXdhVWREbsP1NWs21k46Jn9JEskW'){
         if (is_null($getapikey)) {
@@ -23,18 +36,6 @@ if (! function_exists('chatomz_token')) {
             return FALSE;
         }
     }
-}
-if (! function_exists('cek_internet')) {
-    function cek_internet(){
-        $connected = @fsockopen("www.google.com", 80);
-        if ($connected){
-         $is_conn = true; //jika koneksi tersambung
-         fclose($connected);
-        }else{
-         $is_conn = false; //jika koneksi gagal
-        }
-        return $is_conn;
-       }
 }
 
 // disabled link
