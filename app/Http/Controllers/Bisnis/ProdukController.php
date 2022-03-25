@@ -45,6 +45,7 @@ class ProdukController extends Controller
         $file->move($tujuan_upload,$nama_file);
 
         Produk::create([
+            'usaha_id' => $request->usaha_id,
             'nama_produk' => $request->nama_produk,
             'stok' => $request->stok,
             'harga' => default_nilai($request->harga),

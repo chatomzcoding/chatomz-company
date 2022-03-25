@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Bisnis\ProdukController;
+use App\Http\Controllers\Bisnis\UsahaController;
 use App\Http\Controllers\Bisnis\WadeController;
 use App\Http\Controllers\Chatomz\BarangController;
 use App\Http\Controllers\Chatomz\Coding\BotController;
@@ -102,6 +103,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // BISNIS
         Route::resource('produk', ProdukController::class);
+        Route::resource('usaha', UsahaController::class);
         Route::get('wadec',[WadeController::class,'index']);
 
         // CODING

@@ -66,6 +66,10 @@ class Menu extends Component
                     [
                         'title' => 'Wadec',
                         'link' => 'wadec',
+                    ],
+                    [
+                        'title' => 'Usaha',
+                        'link' => 'usaha',
                     ]
                 ]
             ],
