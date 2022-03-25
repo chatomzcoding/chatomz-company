@@ -57,6 +57,7 @@
         <x-modalsimpan judul="Tambah Produk Baru" link="produk">
             <section>
                 <input type="hidden" name="aplikasi" value="wadec">
+                <input type="hidden" name="usaha_id" value="1">
                 <label>Nama Produk : </label>
                 <div class="form-group">
                     <input type="text" name="nama_produk" placeholder="Masukkan nama produk" class="form-control" value="{{ old('nama_produk') }}" required>
