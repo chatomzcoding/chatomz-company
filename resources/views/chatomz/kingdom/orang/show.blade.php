@@ -77,7 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-4">
+                    <div class="col-lg-8 col-md-8">
                         <div class="card">
                             <div class="card-header p-2">
                                 <div class="float-end">

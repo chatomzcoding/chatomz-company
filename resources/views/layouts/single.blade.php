@@ -11,21 +11,21 @@
     <link rel="stylesheet" href="{{ asset('template/mazer/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{ asset('template/mazer/css/app.css')}}">
-  <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
 
   <script src="{{ asset('vendor/sweetalert/sweetalert.min.js')}}"></script>
   <script src="{{ asset('vendor/sweetalert/sweetalert2.css')}}"></script>
 
 <!-- Select2 -->
-<link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/select2/css/select2.min.css')}}">
-<link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+{{-- <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/select2/css/select2.min.css')}}"> --}}
+{{-- <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}"> --}}
 
 </head>
 
 <body>
     <nav class="navbar navbar-light">
         <div class="container d-block">
-            <a href="javascript:history.back()"><i class="bi bi-chevron-left"></i></a>
+            <a href="{{ url($back) }}"><i class="bi bi-chevron-left"></i></a>
             <a class="navbar-brand ms-4" href="{{ url('dashboard') }}">
                 <img src="{{ asset('img/admin/info/'.$info->bg_produk)}}">
             </a>
@@ -37,7 +37,7 @@
     </div>
     <script src="{{ asset('template/mazer/vendors/jquery/jquery.min.js')}}"></script>
     <!-- Select2 -->
-    <script src="{{ asset('template/admin/lte/plugins/select2/js/select2.full.min.js')}}"></script>
+    {{-- <script src="{{ asset('template/admin/lte/plugins/select2/js/select2.full.min.js')}}"></script> --}}
 
     <script src="{{ asset('template/mazer/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('js/chatomz.js')}}"></script>

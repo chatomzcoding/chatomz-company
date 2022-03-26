@@ -43,7 +43,13 @@ class HomeController extends Controller
                     'ulangtahunbulanini' => $ulangtahunbulanini,
                     'ulangtahuntanggalini' => $ulangtahuntanggalini
                 ];
-                return view('chatomz.admin.dashboard', compact('total','dashboard','info'));
+                $jumlahlakilaki     = Orang::where('gender','laki-laki')->count();
+                $meninggal              = Orang::where('death','alm')->count();
+                $jumlahperempuan    = $orang - $jumlahlakilaki;
+                $hidup    = $orang - $meninggal;
+                $gender = [$jumlahlakilaki,$jumlahperempuan];
+                $kematian = [$hidup,$meninggal];
+                return view('chatomz.admin.dashboard', compact('total','dashboard','info','gender','kematian'));
                 break;
             default:
                 return view('dashboard', compact('dashboard'));

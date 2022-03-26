@@ -2,21 +2,23 @@
 
 namespace App\View\Components;
 
-use App\Models\Infowebsite;
 use Illuminate\View\Component;
 
-class SingelLayout extends Component
+class tombolstatistik extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $back;
-
-    public function __construct($back='dashboard')
+    public $teks;
+    public $s;
+    public $ds;
+    public function __construct($teks='klik disini',$s,$ds)
     {
-        $this->back = $back;
+        $this->teks = $teks;
+        $this->ds = $ds;
+        $this->s = $s;
     }
 
     /**
@@ -26,7 +28,6 @@ class SingelLayout extends Component
      */
     public function render()
     {
-        $info   = Infowebsite::first();
-        return view('layouts.single', compact('info'));
+        return view('components.tombolstatistik');
     }
 }

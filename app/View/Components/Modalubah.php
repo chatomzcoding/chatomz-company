@@ -14,12 +14,14 @@ class Modalubah extends Component
     public $judul;
     public $link;
     public $id;
+    public $size;
 
-    public function __construct($judul="ubah data",$link='',$id="ubah")
+    public function __construct($judul="ubah data",$link='',$id="ubah",$size="")
     {
         $this->judul = $judul;
         $this->link = $link;
         $this->id = $id;
+        $this->size = $size;
     }
 
     /**

@@ -19,6 +19,7 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Homepage\LandingController;
 use App\Http\Controllers\MigrasiController;
 use App\Http\Controllers\Sistem\KategoriController;
+use App\Http\Controllers\Sistem\StatistikController;
 use App\Http\Controllers\Sistem\UnsilController;
 use App\Http\Controllers\Sistem\VisitorController;
 use App\Http\Controllers\UjiController;
@@ -94,6 +95,8 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         // SISTEM
         Route::resource('visitor', VisitorController::class);
         Route::resource('kategori', KategoriController::class);
+        Route::get('statistik/orang',[StatistikController::class,'orang']);
+    
         
         // Company
         // informasi

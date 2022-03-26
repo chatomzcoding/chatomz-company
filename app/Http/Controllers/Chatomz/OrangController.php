@@ -176,6 +176,10 @@ class OrangController extends Controller
                 $judul  = 'Ulang tahun tanggal '.ambil_tgl().' bulan '.bulan_indo();
                 $orang     = Orang::whereMonth('date_birth',ambil_bulan())->whereDay('date_birth',ambil_tgl())->orderBy('first_name','ASC')->limit(3)->get(['id','first_name','last_name','gender','death','photo','date_birth']);
                 break;
+            
+            case 'statistik':
+                $orang  = Orang::all();
+                break;
 
             default:
                 return redirect('dashboard')->with('danger','tidak ada apa apa');
@@ -247,9 +251,9 @@ class OrangController extends Controller
      * @param  \App\Models\Orang  $orang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Orang $orang)
+    public function update(Request $request)
     {
-
+        $orang  = Orang::find($request->id);
        if (isset($request->photo)) {
             // validation form photo
             $request->validate([
@@ -266,26 +270,43 @@ class OrangController extends Controller
         } else {
             $nama_file = $orang->photo;
         }
-        Orang::where('id',$orang->id)->update([
-            'first_name'  => $request->first_name,
-            'last_name'  => $request->last_name,
-            'nick_name' => $request->nick_name,
-            'place_birth' => $request->place_birth,
-            'date_birth' => $request->date_birth,
-            'gender' => $request->gender,
-            'home_address' => $request->home_address,
-            'current_address' => $request->current_address,
-            'religion' => $request->religion,
-            'blood_type' => $request->blood_type,
-            'nasionality' => $request->nasionality,
-            'job_status' => $request->job_status,
-            'marital_status' => $request->marital_status,
-            'status_group' => $request->status_group,
-            'photo' => $nama_file,
-            'death' => $request->death,
-            'note' => $request->note,
-        ]);
-        return redirect('orang/'.Crypt::encryptString($orang->id))->with('du','Orang');
+        if (isset($request->perbaharui)) {
+            Orang::where('id',$orang->id)->update([
+                'place_birth' => $request->place_birth,
+                'date_birth' => $request->date_birth,
+                'gender' => $request->gender,
+                'home_address' => $request->home_address,
+                'blood_type' => $request->blood_type,
+                'marital_status' => $request->marital_status,
+                'status_group' => $request->status_group,
+                'photo' => $nama_file,
+                'death' => $request->death,
+                'note' => $request->note,
+            ]);
+            return back()->with('du','Orang');
+        } else {
+            Orang::where('id',$orang->id)->update([
+                'first_name'  => $request->first_name,
+                'last_name'  => $request->last_name,
+                'nick_name' => $request->nick_name,
+                'place_birth' => $request->place_birth,
+                'date_birth' => $request->date_birth,
+                'gender' => $request->gender,
+                'home_address' => $request->home_address,
+                'current_address' => $request->current_address,
+                'religion' => $request->religion,
+                'blood_type' => $request->blood_type,
+                'nasionality' => $request->nasionality,
+                'job_status' => $request->job_status,
+                'marital_status' => $request->marital_status,
+                'status_group' => $request->status_group,
+                'photo' => $nama_file,
+                'death' => $request->death,
+                'note' => $request->note,
+            ]);
+            return redirect('orang/'.Crypt::encryptString($orang->id))->with('du','Orang');
+        }
+        
     }
 
     /**

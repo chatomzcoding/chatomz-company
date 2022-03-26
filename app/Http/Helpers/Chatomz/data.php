@@ -10,6 +10,23 @@ if (! function_exists('fullname')) {
         }
     }
 }
+// status aktif tombol
+if (! function_exists('aktiftombol')) {
+    function aktiftombol($s,$ds,$d=NULL,$dd=null)
+    {
+        $result = NULL;
+        if (is_null($d)) {
+            if ($s == $ds) {
+                $result = 'active';
+            }
+        } else {
+            if ($s == $ds AND $d == $dd) {
+                $result = 'active';
+            }
+        }
+        return $result;
+    }
+}
 if (! function_exists('gender')) {
     function gender($gender)
     {

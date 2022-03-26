@@ -27,6 +27,7 @@
                       <div class="card-header">
                         <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Orang Baru </a>
                         <a href="{{ url('/lihat/orangpoto')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-sync"></i> View Photo</a>
+                        <a href="{{ url('/statistik/orang')}}" class="btn btn-outline-info btn-flat btn-sm"><i class="fas fa-chart"></i> Statistik</a>
                       </div>
                       <div class="card-body">
                           <div class="table-responsive">

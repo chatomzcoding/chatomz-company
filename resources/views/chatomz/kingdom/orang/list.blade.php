@@ -1,7 +1,7 @@
 <x-mazer-layout title="CHATOMZ - DETAIL GRUP" select="TRUE" alert="TRUE">
     <x-slot name="content">
         <div class="page-heading">
-            <x-header :head="$judul">
+            <x-header :head="$judul ?? ''">
             </x-header>
             <div class="section">
                 <div class="row">

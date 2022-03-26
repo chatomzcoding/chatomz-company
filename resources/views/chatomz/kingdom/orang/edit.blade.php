@@ -1,7 +1,4 @@
-<x-singel-layout url="orang">
-    <x-slot name="title">
-        Contoh
-    </x-slot>
+<x-singel-layout back="orang" title="edit orang">
     <x-slot name="content">
         <div class="card mt-5">
             <div class="card-header">
