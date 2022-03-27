@@ -26,21 +26,21 @@
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="kelengkapandata" role="tabpanel"
                                 aria-labelledby="kelengkapandata-tab">
-                                <x-taborang :orang="$data['kelengkapandata']" id="sesidata" tab="tabdata" konten="data" showchart="chartbiodata">
+                                <x-taborang :orang="$data['kelengkapandata']" id="sesidata" tab="tabdata" konten="data" photo="" showchart="chartbiodata">
                                 </x-taborang>
                             </div>
                             <div class="tab-pane fade" id="fasekehidupan" role="tabpanel"
                                 aria-labelledby="fasekehidupan-tab">
-                                <x-taborang :orang="$data['fasekehidupan']" id="sesifase" tab="tabfase" konten="fase" showchart="chartfase"></x-taborang>
+                                <x-taborang :orang="$data['fasekehidupan']" id="sesifase" tab="tabfase" konten="fase" photo="" showchart="chartfase"></x-taborang>
                             </div>
                             <div class="tab-pane fade" id="statusagama" role="tabpanel"
                                 aria-labelledby="statusagama-tab">
-                               <x-taborang :orang="$data['agama']" id="sesiagama" tab="tabagama" photo="FALSE">
+                               <x-taborang :orang="$data['agama']" id="sesiagama" tab="tabagama" photo="FALSE" showchart="">
                                 </x-taborang>
                             </div>
                             <div class="tab-pane fade" id="v-goldar" role="tabpanel"
                                 aria-labelledby="v-goldar-tab">
-                                <x-taborang :orang="$data['goldar']" id="sesigoldar" tab="tabgoldar" showchart="chartgoldar">
+                                <x-taborang :orang="$data['goldar']" id="sesigoldar" tab="tabgoldar" showchart="chartgoldar" photo="">
                                 </x-taborang>
                             </div>
                         </div>
