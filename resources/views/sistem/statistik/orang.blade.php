@@ -35,12 +35,12 @@
                             </div>
                             <div class="tab-pane fade" id="statusagama" role="tabpanel"
                                 aria-labelledby="statusagama-tab">
-                               <x-taborang :orang="$data['agama']" id="sesiagama" tab="tabagama" photo="FALSE" showchart="">
+                               <x-taborang :orang="$data['agama']" id="sesiagama" tab="tabagama" photo="FALSE" showchart="" konten="">
                                 </x-taborang>
                             </div>
                             <div class="tab-pane fade" id="v-goldar" role="tabpanel"
                                 aria-labelledby="v-goldar-tab">
-                                <x-taborang :orang="$data['goldar']" id="sesigoldar" tab="tabgoldar" showchart="chartgoldar" photo="">
+                                <x-taborang :orang="$data['goldar']" id="sesigoldar" tab="tabgoldar" konten="" showchart="chartgoldar" photo="">
                                 </x-taborang>
                             </div>
                         </div>
