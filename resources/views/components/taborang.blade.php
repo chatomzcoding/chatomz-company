@@ -17,7 +17,7 @@
                 <div class="col-md-12 text-center">
                     <div class="card">
                         <div class="card-body">
-                            <div id="{{ $showchart }}"></div>
+                            <div id="{{ $showchart ?? '' }}"></div>
                         </div>
                     </div>
                 </div>
