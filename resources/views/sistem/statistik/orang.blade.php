@@ -8,66 +8,6 @@
                 </p>
             </div>
             <div class="card-body">
-                {{-- <div class="row">
-                    <div class="col-lg-3 col-md-4 col-sm-6 text-left">
-                        <x-tombolstatistik teks="jenis kelamin" :s="$s" ds="jk"/>
-                        <x-tombolstatistik teks="fase kehidupan manusia" :s="$s" ds="fasemanusia"/>
-                        <x-tombolstatistik teks="kelengkapan data" :s="$s" ds="biodata"/>
-                    </div>
-                    <div class="col-lg-9 col-md-8 col-sm-6">
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                            @foreach ($data as $j => $d)
-                                <li class="nav-item" role="presentation">
-                                    <a class="nav-link @if ($loop->iteration == 1)
-                                    active
-                                    @endif" id="{{ $loop->iteration }}-tab" data-bs-toggle="tab" href="#tab{{ $loop->iteration }}"
-                                        role="tab" aria-controls="tab{{ $loop->iteration }}" aria-selected="true">{{ $j }} <span class="badge bg-primary">{{ count($d) }}</span></a>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <div class="tab-content" id="myTabContent">
-                            @foreach ($data as $j => $d)
-                                <div class="tab-pane fade @if ($loop->iteration == 1)
-                                    show active
-                                    @endif" id="tab{{ $loop->iteration }}" role="tabpanel" aria-labelledby="home-tab">
-                                    <div class="row d-flex align-items-stretch mt-4">
-                                        @forelse ($d as $item)
-                                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
-                                                <div class="card mb-3 w-100">
-                                                    <div class="row no-gutters">
-                                                    <div class="col-md-4">
-                                                        <a href="{{ url('/orang/'.Crypt::encryptString($item->id))}}" target="_blank">
-                                                            <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-8">
-                                                        <div class="card-body p-0">
-                                                        <h6 class="card-title" style="font-size: 14px">
-                                                            {{ fullname($item)}} 
-                                                            @if ($item->gender == 'laki-laki')
-                                                                    <sup><i class="fas fa-mars text-primary"></i></sup>  
-                                                                @else
-                                                                    <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                                                @endif
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#ubah" data-id="{{ $item->id }}" data-date_birth="{{ $item->date_birth }}" data-gender="{{ $item->gender }}" data-note="{{ $item->note }}" data-marital_status="{{ $item->marital_status }}" data-status_group="{{ $item->status_group }}" data-home_address="{{ $item->home_address }}" data-place_birth="{{ $item->place_birth }}" data-blood_type="{{ $item->blood_type }}" data-death="{{ $item->death }}" ><i class="bi-pencil float-end text-success"></i></a>
-                                                        </h6>
-                                                        <small style="font-size: 11px">{{ $item->home_address }}</small>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @empty
-                                            <div class="col text-center">
-                                                <i>Data tidak ada</i>
-                                            </div>
-                                        @endforelse
-                                    </div>                                 
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="row">
                     <div class="col-3">
                         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
@@ -78,144 +18,30 @@
                             <a class="nav-link" id="fasekehidupan-tab" data-bs-toggle="pill"
                                 href="#fasekehidupan" role="tab" aria-controls="fasekehidupan"
                                 aria-selected="false">Fase Kehidupan</a>
-                            {{-- <a class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
-                                href="#v-pills-messages" role="tab" aria-controls="v-pills-messages"
-                                aria-selected="false">Messages</a>
-                            <a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-                                href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
-                                aria-selected="false">Settings</a> --}}
+                            <a class="nav-link" id="statusagama-tab" data-bs-toggle="pill" href="#statusagama" role="tab" aria-controls="statusagama" aria-selected="false">Agama</a>
+                            <a class="nav-link" id="v-goldar-tab" data-bs-toggle="pill" href="#v-goldar" role="tab" aria-controls="v-goldar"aria-selected="false">Golongan Darah</a>
                         </div>
                     </div>
                     <div class="col-9">
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="kelengkapandata" role="tabpanel"
                                 aria-labelledby="kelengkapandata-tab">
-                                <section>
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        @foreach ($data['kelengkapandata'] as $j => $d)
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link @if ($loop->iteration == 1)
-                                                active
-                                                @endif" id="{{ $loop->iteration }}-tab" data-bs-toggle="tab" href="#tab{{ $loop->iteration }}"
-                                                    role="tab" aria-controls="tab{{ $loop->iteration }}" aria-selected="true">{{ $j }} <span class="badge bg-primary">{{ count($d) }}</span></a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <div class="tab-content" id="myTabContent">
-                                        @foreach ($data['kelengkapandata'] as $j => $d)
-                                            <div class="tab-pane fade @if ($loop->iteration == 1)
-                                                show active
-                                                @endif" id="tab{{ $loop->iteration }}" role="tabpanel" aria-labelledby="home-tab">
-                                                <div class="row d-flex align-items-stretch mt-4">
-                                                    @forelse ($d as $item)
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
-                                                            <div class="card mb-3 w-100">
-                                                                <div class="row no-gutters">
-                                                                <div class="col-md-4">
-                                                                    <a href="{{ url('/orang/'.Crypt::encryptString($item->id))}}" target="_blank">
-                                                                        <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-8">
-                                                                    <div class="card-body p-0">
-                                                                    <h6 class="card-title" style="font-size: 14px">
-                                                                        {{ fullname($item)}} 
-                                                                        @if ($item->gender == 'laki-laki')
-                                                                                <sup><i class="fas fa-mars text-primary"></i></sup>  
-                                                                            @else
-                                                                                <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                                                            @endif
-                                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#ubah" data-id="{{ $item->id }}" data-date_birth="{{ $item->date_birth }}" data-gender="{{ $item->gender }}" data-note="{{ $item->note }}" data-marital_status="{{ $item->marital_status }}" data-status_group="{{ $item->status_group }}" data-home_address="{{ $item->home_address }}" data-place_birth="{{ $item->place_birth }}" data-blood_type="{{ $item->blood_type }}" data-death="{{ $item->death }}" ><i class="bi-pencil float-end text-success"></i></a>
-                                                                    </h6>
-                                                                    <small style="font-size: 11px">{{ $item->home_address }}</small>
-                                                                    </div>
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @empty
-                                                        <div class="col text-center">
-                                                            <i>Data tidak ada</i>
-                                                        </div>
-                                                    @endforelse
-                                                </div>                                 
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </section>
+                                <x-taborang :orang="$data['kelengkapandata']" id="sesidata" tab="tabdata" konten="data" showchart="chartbiodata">
+                                </x-taborang>
                             </div>
                             <div class="tab-pane fade" id="fasekehidupan" role="tabpanel"
                                 aria-labelledby="fasekehidupan-tab">
-                                <section>
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        @foreach ($data['fasekehidupan'] as $j => $d)
-                                            <li class="nav-item" role="presentation">
-                                                <a class="nav-link @if ($loop->iteration == 1)
-                                                active
-                                                @endif" id="{{ $loop->iteration }}-tab" data-bs-toggle="tab" href="#fase{{ $loop->iteration }}"
-                                                    role="tab" aria-controls="fase{{ $loop->iteration }}" aria-selected="true">{{ $j }} <span class="badge bg-primary">{{ count($d) }}</span></a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                    <div class="tab-content" id="myTabContent">
-                                        @foreach ($data['fasekehidupan'] as $j => $d)
-                                            <div class="tab-pane fade @if ($loop->iteration == 1)
-                                                show active
-                                                @endif" id="fase{{ $loop->iteration }}" role="tabpanel" aria-labelledby="home-tab">
-                                                <div class="row d-flex align-items-stretch mt-4">
-                                                    @forelse ($d as $item)
-                                                        <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
-                                                            <div class="card mb-3 w-100">
-                                                                <div class="row no-gutters">
-                                                                <div class="col-md-4">
-                                                                    <a href="{{ url('/orang/'.Crypt::encryptString($item->id))}}" target="_blank">
-                                                                        <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-8">
-                                                                    <div class="card-body p-0">
-                                                                    <h6 class="card-title" style="font-size: 14px">
-                                                                        {{ fullname($item)}} 
-                                                                        @if ($item->gender == 'laki-laki')
-                                                                                <sup><i class="fas fa-mars text-primary"></i></sup>  
-                                                                            @else
-                                                                                <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                                                            @endif
-                                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#ubah" data-id="{{ $item->id }}" data-date_birth="{{ $item->date_birth }}" data-gender="{{ $item->gender }}" data-note="{{ $item->note }}" data-marital_status="{{ $item->marital_status }}" data-status_group="{{ $item->status_group }}" data-home_address="{{ $item->home_address }}" data-place_birth="{{ $item->place_birth }}" data-blood_type="{{ $item->blood_type }}" data-death="{{ $item->death }}" ><i class="bi-pencil float-end text-success"></i></a>
-                                                                    </h6>
-                                                                    <small style="font-size: 11px">{{ $item->home_address }}</small>
-                                                                    </div>
-                                                                </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @empty
-                                                        <div class="col text-center">
-                                                            <i>Data tidak ada</i>
-                                                        </div>
-                                                    @endforelse
-                                                </div>                                 
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </section>
+                                <x-taborang :orang="$data['fasekehidupan']" id="sesifase" tab="tabfase" konten="fase" showchart="chartfase"></x-taborang>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
-                                aria-labelledby="v-pills-messages-tab">
-                                Integer pretium dolor at sapien laoreet ultricies. Fusce congue et
-                                lorem id
-                                convallis. Nulla volutpat tellus nec
-                                molestie finibus. In nec odio tincidunt eros finibus ullamcorper. Ut
-                                sodales,
-                                dui nec posuere finibus, nisl sem aliquam
-                                metus, eu accumsan lacus felis at odio.
+                            <div class="tab-pane fade" id="statusagama" role="tabpanel"
+                                aria-labelledby="statusagama-tab">
+                               <x-taborang :orang="$data['agama']" id="sesiagama" tab="tabagama" photo="FALSE">
+                                </x-taborang>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
-                                aria-labelledby="v-pills-settings-tab">
-                                Sed lacus quam, convallis quis condimentum ut, accumsan congue
-                                massa.
-                                Pellentesque et quam vel massa pretium ullamcorper
-                                vitae eu tortor.
+                            <div class="tab-pane fade" id="v-goldar" role="tabpanel"
+                                aria-labelledby="v-goldar-tab">
+                                <x-taborang :orang="$data['goldar']" id="sesigoldar" tab="tabgoldar" showchart="chartgoldar">
+                                </x-taborang>
                             </div>
                         </div>
                     </div>
@@ -227,6 +53,10 @@
         <input type="hidden" name="perbaharui" value="TRUE">
         <section class="p-3 row">
             <div class="col">
+                <div class="form-group">
+                    <label for="inlineinput">Nama Lengkap</label>
+                        <input type="text" class="form-control" id="nama" readonly>
+                </div>
                 <div class="form-group">
                     <label for="inlineinput">Alamat Rumah</label>
                         <textarea name="home_address" id="home_address" cols="30" rows="3" class="form-control"></textarea>
@@ -296,6 +126,7 @@
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
+                var nama = button.data('nama')
                 var home_address = button.data('home_address')
                 var place_birth = button.data('place_birth')
                 var date_birth = button.data('date_birth')
@@ -309,6 +140,7 @@
         
                 var modal = $(this)
         
+                modal.find('.modal-body #nama').val(nama);
                 modal.find('.modal-body #home_address').val(home_address);
                 modal.find('.modal-body #place_birth').val(place_birth);
                 modal.find('.modal-body #date_birth').val(date_birth);
@@ -321,6 +153,76 @@
                 modal.find('.modal-body #id').val(id);
             })
         </script>
+        <script src="{{ asset('template/mazer/vendors/apexcharts/apexcharts.js')}}"></script>
+        <script type="text/javascript">
+            let dataagama  = {
+                series: [40,50],
+                labels: ['Laki-laki', 'Perempuan'],
+                colors: ['#435ebe','#55c6e8'],
+                chart: {
+                    type: 'donut',
+                    width: '100%',
+                    height:'350px'
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '30%'
+                        }
+                    }
+                }
+            }
+            let datafase  = {
+                series: @json($chart['fase']['data']),
+                labels: @json($chart['fase']['label']),
+                // colors: ['#435ebe','#55c6e8'],
+                chart: {
+                    type: 'donut',
+                    width: '100%',
+                    height:'500px'
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '30%'
+                        }
+                    }
+                }
+            }
+            let datagoldar  = {
+                series: @json($chart['goldar']['data']),
+                labels: @json($chart['goldar']['label']),
+                // colors: ['#435ebe','#55c6e8'],
+                chart: {
+                    type: 'donut',
+                    width: '100%',
+                    height:'500px'
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '30%'
+                        }
+                    }
+                }
+            }
+            var chartbiodata = new ApexCharts(document.getElementById('chartbiodata'), dataagama)
+            var chartfase = new ApexCharts(document.getElementById('chartfase'), datafase)
+            var chartgoldar = new ApexCharts(document.getElementById('chartgoldar'), datagoldar)
+            chartbiodata.render()
+            chartgoldar.render()
+        </script>
+       
     </x-slot>
+
 
 </x-singel-layout>

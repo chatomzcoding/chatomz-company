@@ -20,32 +20,35 @@ class StatistikController extends Controller
             $tua = [];
             $lansia = [];
         // kelengkapan data
-        $alamat = [];
-        $pekerjaan = [];
-        $tempat = [];
-        $tanggal = [];
-        $note = [];
-        $photo = [];
+        $biodata    = [
+            'home_address' => 'tempat tinggal',
+            'job_status' => 'pekerjaan',
+            'place_birth' => 'tempat lahir',
+            'date_birth' => 'tanggal lahir',
+            'note' => 'catatan'
+        ];
+        // agama
+        $islam =kingdom_agama();
+        // goldar
+        $goldar     = kingdom_goldar();
                 foreach ($orang as $item) {
-                    if (is_null($item->home_address) || $item->home_address == '') {
-                        $alamat[] = $item;
+                    for ($i=0; $i < count($goldar); $i++) { 
+                        if ($goldar[$i] == $item->blood_type) {
+                            $dgoldar[$goldar[$i]][] = $item;
+                        }                        
                     }
-                    if (is_null($item->job_status) || $item->job_status == '') {
-                        $pekerjaan[] = $item;
+                    for ($i=0; $i < count($islam); $i++) { 
+                        if ($islam[$i] == $item->religion) {
+                            $dislam[$islam[$i]][] = $item;
+                        }                        
                     }
-                    if (is_null($item->place_birth) || $item->place_birth == '') {
-                        $tempat[] = $item;
+                   
+                    foreach ($biodata as $key => $value) {
+                        $field  = $key;
+                        if (is_null($item->$field) || $item->$field == '') {
+                            $dbiodata[$value][] = $item;
+                        }                        
                     }
-                    if (is_null($item->date_birth) || $item->date_birth == '') {
-                        $tanggal[] = $item;
-                    }
-                    if (is_null($item->note) || $item->note == '') {
-                        $note[] = $item;
-                    }
-                    if (is_null($item->photo) || $item->photo == '') {
-                        $photo[] = $item;
-                    }
-
                     if (!is_null($item->date_birth)) {
                         $umur = explode(' ',age($item->date_birth));
                         $u      = $umur[0];
@@ -68,14 +71,8 @@ class StatistikController extends Controller
                 }
                 $data   = 
                 [ 
-                    'kelengkapandata' => [
-                        'alamat' => $alamat,
-                        'pekerjaan' => $pekerjaan,
-                        'tempat lahir' => $tempat,
-                        'tanggal lahir' => $tanggal,
-                        'Catatan' => $note,
-                        'photo' => $photo
-                    ],
+                    'goldar' => $dgoldar,
+                    'kelengkapandata' => $dbiodata,
                     'fasekehidupan' => [
                         'bayi' => $bayi,
                         'kanak' => $kanak,
@@ -84,8 +81,28 @@ class StatistikController extends Controller
                         'dewasa' => $dewasa,
                         'tua' => $tua,
                         'lansia' => $lansia
-                    ]
+                    ],
+                    'agama' => $dislam
                 ];
-        return view('sistem.statistik.orang', compact('data'));
+        $datafase = [];
+        foreach ($data['fasekehidupan'] as $key => $value) {
+            $datafase[] = count($value);
+        }
+        $datagoldar = [];
+        foreach ($data['goldar'] as $key => $value) {
+            $datagoldar[] = count($value);
+        }
+
+        $chart  = [
+            'fase' => [
+                'label' => ['bayi','kanak-kanak','anak','remaja','dewasa','tua','lansia'],
+                'data' => $datafase
+            ],
+            'goldar' => [
+                'label' => $goldar,
+                'data' => $datagoldar
+            ]
+        ];
+        return view('sistem.statistik.orang', compact('data','chart'));
     }
 }

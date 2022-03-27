@@ -1,26 +1,9 @@
 <?php 
-
 // name label for reminders
 if (! function_exists('list_status')) {
     function list_status()
     {
         $result = ['aktif','tidak aktif'];
-        return $result;
-    }
-}
-// name label for reminders
-if (! function_exists('list_leveluser')) {
-    function list_leveluser()
-    {
-        $result = ['admin','seller','konsumen'];
-        return $result;
-    }
-}
-// name label for reminders
-if (! function_exists('reminderlabel')) {
-    function reminderlabel()
-    {
-        $result = ['wedding','birthday','graduation','task','holiday','other'];
         return $result;
     }
 }
@@ -43,8 +26,6 @@ if (! function_exists('iconstatusfamily')) {
         return $result;
     }
 }
-
-
 
 
 // cek umur
@@ -97,93 +78,11 @@ if (! function_exists('death')) {
 }
 
 
-
-// nama negara
-if (! function_exists('countryname')) {
-    function countryname()
-    {
-        $result = ['indonesia','singapura','malaysia'];
-        return $result;
-    }
-}
-
-// nama negara
-if (! function_exists('kingdom_opsi_submenu')) {
-    function kingdom_opsi_submenu()
-    {
-        $result = ['ya','tidak','db','kategori','sub_kategori'];
-        return $result;
-    }
-}
-
-// type chart
-if (! function_exists('kingdom_type_chart')) {
-    function kingdom_type_chart()
-    {
-        $result = ['pie','bar'];
-        return $result;
-    }
-}
-// daftar agama yang di akui di indonesia
-if (! function_exists('kingdom_agama')) {
-    function kingdom_agama()
-    {
-        $result = ['islam','protestan','katolik','hindu','buddha','khonghucu'];
-        return $result;
-    }
-}
-// type chart
-if (! function_exists('kingdom_jk')) {
-    function kingdom_jk($versi=null)
-    {
-        switch ($versi) {
-            case '1':
-                $result = ['laki - laki','perempuan'];
-            break;
-            case '2':
-                $result = ['perempuan','laki - laki'];
-            break;
-            
-            default:
-                $result = ['laki - laki','perempuan','lainnya'];
-                break;
-        }
-        return $result;
-    }
-}
-
-
-// daftar agama yang di akui di indonesia
-if (! function_exists('kingdom_jjgpendidikan')) {
-    function kingdom_jjgpendidikan()
-    {
-        $result = ['Tidak Sekolah','SD','SMP/MTS','SMA/SMK/MA','Akademi','Perguruan Tinggi'];
-        return $result;
-    }
-}
-
 // daftar agama yang di akui di indonesia
 if (! function_exists('kingdom_statuskeluarga')) {
     function kingdom_statuskeluarga()
     {
         $result = ['menikah','bercerai','talak'];
-        return $result;
-    }
-}
-// daftar agama yang di akui di indonesia
-if (! function_exists('kingdom_label')) {
-    function kingdom_label()
-    {
-        $result = ['jejak','informasi','wadec'];
-        return $result;
-    }
-}
-
-// daftar list posisi iklan
-if (! function_exists('kingdom_posisiiklan')) {
-    function kingdom_posisiiklan()
-    {
-        $result = ['market-atas','market-bawah','market-samping'];
         return $result;
     }
 }

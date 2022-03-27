@@ -86,7 +86,9 @@
                               <label for="inlineinput" class="col-md-4 col-form-label">Agama</label>
                               <div class="col-8">
                                   <select name="religion" id="" class="form-control">
-                                      <option value="islam">Islam</option>
+                                      @foreach (kingdom_agama() as $item)
+                                      <option value="{{ $item }}">{{ strtoupper($item) }}</option>
+                                      @endforeach
                                   </select>
                             </div>
                           </div>
@@ -94,11 +96,9 @@
                               <label for="inlineinput" class="col-md-4 col-form-label">Golongan Darah</label>
                               <div class="col-8">
                                   <select name="blood_type" id="" class="form-control">
-                                      <option value="none" >none</option>
-                                      <option value="a" >A</option>
-                                      <option value="b" >B</option>
-                                      <option value="ab" >AB</option>
-                                      <option value="o">O</option>
+                                      @foreach (kingdom_goldar() as $item)
+                                        <option value="{{ $item }}">{{ strtoupper($item) }}</option>
+                                      @endforeach
                                   </select>
                             </div>
                           </div>

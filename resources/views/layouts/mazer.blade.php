@@ -36,7 +36,7 @@
 
 </head>
 
-<body>
+<body style="font-family: Arial, Helvetica, sans-serif">
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">

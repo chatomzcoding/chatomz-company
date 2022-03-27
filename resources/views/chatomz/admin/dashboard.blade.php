@@ -258,7 +258,6 @@
 
   <x-slot name="kodejs">
         <script src="{{ asset('template/mazer/vendors/apexcharts/apexcharts.js')}}"></script>
-        {{-- <script src="{{ asset('template/mazer/js/pages/dashboard.js')}}"></script> --}}
         <script type="text/javascript">
             var optionsProfileVisit = {
                 annotations: {
