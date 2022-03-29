@@ -1,7 +1,7 @@
 <x-mazer-layout title="API UNSIL">
     <x-slot name="content">
         <div class="page-heading">
-            <x-header head="Data Mahasiswa" active="Get Data"></x-header>
+            <x-header head="Data Mahasiswa - {{ $result['Nama']}}" active="Get Data"></x-header>
             <div class="section">
                 <div class="row">
                     <div class="col-md-12">
@@ -9,16 +9,15 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="{{  $result['FotoUrl']}}" alt="" class="img-fluid">
+                                    <img src="{{  $result['FotoUrl']}}" alt="" class="img-fluid" width="100%">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="table-responsive">
-                                        <table class="table table-striped">
+                                        <table class="table">
                                             <tbody>
                                                 <form action="{{ url('unsil') }}" method="get">
                                                     <tr>
-                                                        <th>NPM</th>
-                                                        <td>
+                                                        <td colspan="4">
                                                             <div class="row">
                                                                 <div class="col-md-10">
                                                                     <input type="number" name="npm" value="{{ $result['MhswID']}}" class="form-control" autofocus>
@@ -33,45 +32,42 @@
                                                 <form action="{{ url('simpanmahasiswa') }}" method="post">
                                                     @csrf
                                                     <input type="hidden" name="poto" value="{{ $result['FotoUrl']}}">
+                                                    <input type="hidden" name="nama" value="{{ $result['Nama']}}">
                                                 <tr>
-                                                    <th>Nama</th>
-                                                    <td><input type="text" name="nama" class="form-control" value="{{ $result['Nama']}}"> </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                    <th>Tanggal lahir</th>
-                                                    <td><input type="date" name="date_birth" class="form-control" value="{{ $result['TanggalLahir']}}"></td>
+                                                    <td colspan="4"><input type="text" name="home_address" class="form-control" value="{{ $result['Alamat']}}"> </td>
                                                 </tr>
                                                 @php
                                                     $gender = ($result['Kelamin'] == 1) ? 'laki-laki' : 'perempuan';
                                                 @endphp
                                                 <tr>
-                                                    <th>Kelamin</th>
-                                                    <td><input type="text" name="gender" class="form-control" value="{{ $gender}}"> </td>
+                                                    <td><input type="date" name="date_birth" class="form-control" value="{{ $result['TanggalLahir']}}"></td>
+                                                    <td colspan="3">
+                                                        <select name="gender" id="" class="form-control">
+                                                            <option value="laki-laki">Laki - laki</option>
+                                                            <option value="perempuan">Perempuan</option>
+                                                            <option value="lainnya">Lainnya</option>
+                                                        </select>    
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Alamat</th>
-                                                    <td><input type="text" name="home_address" class="form-control" value="{{ $result['Alamat']}}"> </td>
+                                                    <td>
+                                                        <select name="religion" id="" class="form-control">
+                                                            @foreach (kingdom_agama() as $item)
+                                                                <option value="{{ $item }}">{{ strtoupper($item) }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </td>
+                                                    <td colspan="3">
+                                                        <select name="marital_status" id="" class="form-control">
+                                                            <option value="belum" >Belum Kawin</option>
+                                                            <option value="sudah">Sudah Kawin</option>
+                                                            <option value="pernah">Pernah Kawin</option>
+                                                        </select>
+                                                        <input type="hidden" name="note" class="form-control" value="{{ $result['Handphone']}}">
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Agama</th>
-                                                    <td><input type="text" name="religion" class="form-control" value="islam"></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Status Perkawinan</th>
-                                                    <td><input type="text" name="marital_status" class="form-control" value="belum"></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Handphone</th>
-                                                    <td><input type="text" name="no_hp" class="form-control" value="{{ $result['Handphone']}}"> </td>
-                                                </tr>
-                                                {{-- <tr>
-                                                    <th>Status</th>
-                                                    <td><input type="text" name="" class="form-control"> {{ $result['StatusMhswID']}}</td>
-                                                </tr> --}}
-                                                <tr>
-                                                    <th></th>
-                                                    <td><button type="submit" class="btn btn-primary float-end">SIMPAN</button></td>
+                                                    <td colspan="4"><button type="submit" class="btn btn-primary float-end">SIMPAN</button></td>
                                                 </tr>
                                                 </form>
                                                 @php
@@ -80,8 +76,10 @@
                                                 @endphp
                                                 @forelse ($orang as $item)
                                                 <tr>
-                                                    <th>Nama</th>
-                                                    <td><a href="{{ url('orang/'.Crypt::encryptString($item->id).'/edit') }}" target="_blank">{{ fullname($item) }}</a> <br> {{ $item->home_address }} <br> {{ $item->date_birth }}</td>
+                                                    <th>
+                                                        <img src="{{ asset('img/chatomz/orang/'.orang_photo($item->photo)) }}" alt="" width="70px">
+                                                    </th>
+                                                    <td class="small"><a href="{{ url('orang/'.Crypt::encryptString($item->id).'/edit') }}" target="_blank">{{ fullname($item) }}</a><span class="float-end">{{ $item->date_birth }}</span> <br> {{ $item->home_address }} <br> </td>
                                                 </tr>
                                                 @empty
                                                 @endforelse

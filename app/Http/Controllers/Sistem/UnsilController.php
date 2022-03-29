@@ -51,8 +51,8 @@ class UnsilController extends Controller
         }
         
         Orang::create([
-            'first_name' => $first_name,
-            'last_name' => $last_name,
+            'first_name' => strtolower($first_name),
+            'last_name' => strtolower($last_name),
             'gender' => $request->gender,
             'religion' => $request->religion,
             'date_birth' => $request->date_birth,
@@ -60,7 +60,8 @@ class UnsilController extends Controller
             'blood_type' => 'none',
             'nasionality' => 'indonesia',
             'status_group' => 'available',
-            'home_address' => $request->home_address,
+            'home_address' => strtolower($request->home_address),
+            'note' => $request->note,
         ]);
 
         return back()->with('ds','Orang');
