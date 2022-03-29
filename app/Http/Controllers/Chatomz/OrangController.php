@@ -266,7 +266,9 @@ class OrangController extends Controller
             $tujuan_upload = 'public/img/chatomz/orang';
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$nama_file);
-            deletefile($tujuan_upload.'/'.$orang->photo);
+            if (!is_null($orang->photo)) {
+                deletefile($tujuan_upload.'/'.$orang->photo);
+            }
         } else {
             $nama_file = $orang->photo;
         }
