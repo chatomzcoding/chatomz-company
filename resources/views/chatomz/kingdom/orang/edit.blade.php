@@ -8,6 +8,7 @@
                 <form method="post" action="{{ url('/orang/'.$orang->id)}}" enctype="multipart/form-data">
                   @csrf
                   @method('patch')
+                  <input type="hidden" name="id" value="{{ $orang->id }}">
                   <div class="row">
                       <div class="col-md-6 p-4">
                           <div class="form-group row">
