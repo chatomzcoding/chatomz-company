@@ -10,9 +10,47 @@ class UnsilController extends Controller
 {
     public function index()
     {
-        $npm = (isset($_GET['npm'])) ? $_GET['npm'] : '147006136' ;
-        $result = self::getnpm($npm)['data'];
-        return view('demo.unsil', compact('result'));
+        $s = (isset($_GET['s'])) ? $_GET['s'] : NULL ;
+        switch ($s) {
+            case 'many':
+                $npm = (isset($_GET['npm'])) ? $_GET['npm'] : '147006136' ;
+                $angka = (isset($_GET['angka'])) ? $_GET['angka'] : 5 ;
+                $batas  = $npm + $angka;
+                $list   = [];
+                for ($i=$npm; $i < $batas; $i++) { 
+                    $result = self::getnpm($i)['data'];
+                    $dnama  = explode(' ',$result['Nama']);
+                    $first_name = $dnama[0];
+                    if (count($dnama) == 1) {
+                        $last_name = $dnama[0];
+                        $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->Orwhere('last_name','LIKE','%'.$last_name.'%')->get();
+                    } else {
+                        $last_name = $dnama[1];
+                        $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->where('last_name','LIKE','%'.$last_name.'%')->get();
+                    }
+                    $list[] = [
+                        'orang' => $orang,
+                        'unsil' => $result
+                    ];
+                }
+                return view('demo.unsilmany', compact('list','npm','angka','batas'));
+                break;
+            
+            default:
+                $npm = (isset($_GET['npm'])) ? $_GET['npm'] : '147006136' ;
+                $result = self::getnpm($npm)['data'];
+                $dnama  = explode(' ',$result['Nama']);
+                $first_name = $dnama[0];
+                if (count($dnama) == 1) {
+                    $last_name = $dnama[0];
+                    $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->Orwhere('last_name','LIKE','%'.$last_name.'%')->get();
+                } else {
+                    $last_name = $dnama[1];
+                    $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->where('last_name','LIKE','%'.$last_name.'%')->get();
+                }
+                return view('demo.unsil', compact('result','orang'));
+                break;
+        }
     }
 
     public function getnpm($npm)
@@ -23,8 +61,6 @@ class UnsilController extends Controller
                 "verify_peer_name"=>false,
             ),
         );  
-        
-        // $response = file_get_contents("https://maps.co.weber.ut.us/arcgis/rest/services/SDE_composite_locator/GeocodeServer/findAddressCandidates?Street=&SingleLine=3042+N+1050+W&outFields=*&outSR=102100&searchExtent=&f=json", false, stream_context_create($arrContextOptions));
         
         $json = file_get_contents("https://simak.unsil.ac.id/api/v1/mahasiswa/".$npm,false, stream_context_create($arrContextOptions));
         // $mahasiswa[] = json_decode($json, TRUE);

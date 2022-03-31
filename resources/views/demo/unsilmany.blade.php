@@ -7,41 +7,45 @@
                     <div class="col-md-12">
                         <div class="card">
                         <div class="card-body">
+                            <form action="{{ url('unsil') }}" method="get">
+                                <input type="hidden" name="s" value="many">
+                                <div class="row mb-4">
+                                    <div class="col-md-3">
+                                        <input type="number" name="npm" value="{{ $npm}}" class="form-control" autofocus>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="number" value="{{ $batas}}" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input type="number" name="angka" value="{{ $angka}}" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-primary btn-block">CARI</button>
+                                    </div>
+                                </div>
+                            </form>
+                            @foreach ($list as $item)
                             <div class="row">
                                 <div class="col-md-4">
-                                    <img src="{{  $result['FotoUrl']}}" alt="" class="img-fluid" width="100%">
+                                    <img src="{{  $item['unsil']['FotoUrl']}}" alt="" class="img-fluid" width="100%">
                                 </div>
                                 <div class="col-md-8">
-                                    <h3 class="p-2 pb-0">{{ $result['Nama']}} <a href="{{ url('unsil?s=many&angka=5') }}" class="float-end btn btn-info btn-sm">Many</a></h3>
+                                    <h3 class="p-2 pb-0">{{ $item['unsil']['Nama'].' - '.$item['unsil']['MhswID']}}</h3>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <tbody>
-                                                <form action="{{ url('unsil') }}" method="get">
-                                                    <tr>
-                                                        <td colspan="4">
-                                                            <div class="row">
-                                                                <div class="col-md-10">
-                                                                    <input type="number" name="npm" value="{{ $result['MhswID']}}" class="form-control" autofocus>
-                                                                </div>
-                                                                <div class="col-md-2">
-                                                                    <button type="submit" class="btn btn-primary btn-block">CARI</button>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </form>
                                                 <form action="{{ url('simpanmahasiswa') }}" method="post">
                                                     @csrf
-                                                    <input type="hidden" name="poto" value="{{ $result['FotoUrl']}}">
-                                                    <input type="hidden" name="nama" value="{{ $result['Nama']}}">
+                                                    <input type="hidden" name="poto" value="{{ $item['unsil']['FotoUrl']}}">
+                                                    <input type="hidden" name="nama" value="{{ $item['unsil']['Nama']}}">
                                                 <tr>
-                                                    <td colspan="4"><input type="text" name="home_address" class="form-control" value="{{ $result['Alamat']}}"> </td>
+                                                    <td colspan="4"><input type="text" name="home_address" class="form-control" value="{{ $item['unsil']['Alamat']}}"> </td>
                                                 </tr>
                                                 @php
-                                                    $gender = ($result['Kelamin'] == 1) ? 'laki-laki' : 'perempuan';
+                                                    $gender = ($item['unsil']['Kelamin'] == 1) ? 'laki-laki' : 'perempuan';
                                                 @endphp
                                                 <tr>
-                                                    <td><input type="date" name="date_birth" class="form-control" value="{{ $result['TanggalLahir']}}"></td>
+                                                    <td><input type="date" name="date_birth" class="form-control" value="{{ $item['unsil']['TanggalLahir']}}"></td>
                                                     <td colspan="3">
                                                         <select name="gender" id="" class="form-control">
                                                             <option value="laki-laki">Laki - laki</option>
@@ -53,8 +57,8 @@
                                                 <tr>
                                                     <td>
                                                         <select name="religion" id="" class="form-control">
-                                                            @foreach (kingdom_agama() as $item)
-                                                                <option value="{{ $item }}">{{ strtoupper($item) }}</option>
+                                                            @foreach (kingdom_agama() as $key)
+                                                                <option value="{{ $key }}">{{ strtoupper($key) }}</option>
                                                             @endforeach
                                                         </select>
                                                     </td>
@@ -64,19 +68,19 @@
                                                             <option value="sudah">Sudah Kawin</option>
                                                             <option value="pernah">Pernah Kawin</option>
                                                         </select>
-                                                        <input type="hidden" name="note" class="form-control" value="{{ $result['Handphone']}}">
+                                                        <input type="hidden" name="note" class="form-control" value="{{ $item['unsil']['Handphone']}}">
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="4"><button type="submit" class="btn btn-primary float-end">SIMPAN</button></td>
+                                                    <td colspan="4"><button type="submit" class="btn btn-primary float-end">SIMPAN </button></td>
                                                 </tr>
                                                 </form>
-                                                @forelse ($orang as $item)
+                                                @forelse ($item['orang'] as $key)
                                                 <tr>
                                                     <th>
-                                                        <img src="{{ asset('img/chatomz/orang/'.orang_photo($item->photo)) }}" alt="" width="70px">
+                                                        <img src="{{ asset('img/chatomz/orang/'.orang_photo($key->photo)) }}" alt="" width="70px">
                                                     </th>
-                                                    <td class="small"><a href="{{ url('orang/'.Crypt::encryptString($item->id).'/edit') }}" target="_blank">{{ fullname($item) }}</a><span class="float-end">{{ $item->date_birth }}</span> <br> {{ $item->home_address }} <br> </td>
+                                                    <td class="small"><a href="{{ url('orang/'.Crypt::encryptString($key->id).'/edit') }}" target="_blank">{{ fullname($key) }}</a><span class="float-end">{{ $key->date_birth }}</span> <br> {{ $key->home_address }} <br> </td>
                                                 </tr>
                                                 @empty
                                                 @endforelse
@@ -85,6 +89,8 @@
                                     </div>
                                 </div>  
                             </div>
+                            <hr>
+                            @endforeach
                         </div>
                         </div>
                     </div>
