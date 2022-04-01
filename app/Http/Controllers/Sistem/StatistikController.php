@@ -29,12 +29,19 @@ class StatistikController extends Controller
         ];
         // agama
         $islam =kingdom_agama();
+        // agama
+        $jk = ['laki-laki','perempuan'];
         // goldar
         $goldar     = kingdom_goldar();
                 foreach ($orang as $item) {
                     for ($i=0; $i < count($goldar); $i++) { 
                         if ($goldar[$i] == $item->blood_type) {
                             $dgoldar[$goldar[$i]][] = $item;
+                        }                        
+                    }
+                    for ($i=0; $i < count($jk); $i++) { 
+                        if ($jk[$i] == $item->gender) {
+                            $djk[$jk[$i]][] = $item;
                         }                        
                     }
                     for ($i=0; $i < count($islam); $i++) { 
@@ -72,6 +79,7 @@ class StatistikController extends Controller
                 $data   = 
                 [ 
                     'goldar' => $dgoldar,
+                    'jk' => $djk,
                     'kelengkapandata' => $dbiodata,
                     'fasekehidupan' => [
                         'bayi' => $bayi,
@@ -92,6 +100,10 @@ class StatistikController extends Controller
         foreach ($data['goldar'] as $key => $value) {
             $datagoldar[] = count($value);
         }
+        $datajk = [];
+        foreach ($data['jk'] as $key => $value) {
+            $datajk[] = count($value);
+        }
 
         $chart  = [
             'fase' => [
@@ -101,6 +113,10 @@ class StatistikController extends Controller
             'goldar' => [
                 'label' => $goldar,
                 'data' => $datagoldar
+            ],
+            'jk' => [
+                'label' => $jk,
+                'data' => $datajk
             ]
         ];
         return view('sistem.statistik.orang', compact('data','chart'));

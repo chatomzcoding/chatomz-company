@@ -30,7 +30,6 @@
                         <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
                             <div class="card mb-3 w-100">
                                 <div class="row no-gutters">
-                                    {{ $photo ?? '' }}
                                     @if ($photo == 'aktif')
                                         <div class="col-md-4">
                                             <a href="{{ url('/orang/'.Crypt::encryptString($item->id))}}" target="_blank">

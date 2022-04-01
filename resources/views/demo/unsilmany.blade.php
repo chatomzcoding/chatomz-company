@@ -50,8 +50,12 @@
                                                     <td><input type="date" name="date_birth" class="form-control" value="{{ $item['unsil']['TanggalLahir']}}"></td>
                                                     <td colspan="3">
                                                         <select name="gender" id="" class="form-control">
-                                                            <option value="laki-laki">Laki - laki</option>
-                                                            <option value="perempuan">Perempuan</option>
+                                                            <option value="laki-laki" @if ($gender == 'laki-laki')
+                                                                selected
+                                                            @endif>Laki - laki</option>
+                                                            <option value="perempuan" @if ($gender == 'perempuan')
+                                                            selected
+                                                        @endif>Perempuan</option>
                                                             <option value="lainnya">Lainnya</option>
                                                         </select>    
                                                     </td>

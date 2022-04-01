@@ -20,6 +20,7 @@
                                 aria-selected="false">Fase Kehidupan</a>
                             <a class="nav-link" id="statusagama-tab" data-bs-toggle="pill" href="#statusagama" role="tab" aria-controls="statusagama" aria-selected="false">Agama</a>
                             <a class="nav-link" id="v-goldar-tab" data-bs-toggle="pill" href="#v-goldar" role="tab" aria-controls="v-goldar"aria-selected="false">Golongan Darah</a>
+                            <a class="nav-link" id="v-jk-tab" data-bs-toggle="pill" href="#v-jk" role="tab" aria-controls="v-jk"aria-selected="false">Jenis Kelamin</a>
                         </div>
                     </div>
                     <div class="col-9">
@@ -31,7 +32,7 @@
                             </div>
                             <div class="tab-pane fade" id="fasekehidupan" role="tabpanel"
                                 aria-labelledby="fasekehidupan-tab">
-                                <x-taborang :orang="$data['fasekehidupan']" id="sesifase" tab="tabfase" konten="fase" photo="" showchart="chartfase"></x-taborang>
+                                <x-taborang :orang="$data['fasekehidupan']" id="sesifase" tab="tabfase" konten="fase" showchart="chartfase" photo="aktif" showchart="chartfase"></x-taborang>
                             </div>
                             <div class="tab-pane fade" id="statusagama" role="tabpanel"
                                 aria-labelledby="statusagama-tab">
@@ -41,6 +42,11 @@
                             <div class="tab-pane fade" id="v-goldar" role="tabpanel"
                                 aria-labelledby="v-goldar-tab">
                                 <x-taborang :orang="$data['goldar']" id="sesigoldar" tab="tabgoldar" konten="" showchart="chartgoldar" photo="">
+                                </x-taborang>
+                            </div>
+                            <div class="tab-pane fade" id="v-jk" role="tabpanel"
+                                aria-labelledby="v-jk-tab">
+                                <x-taborang :orang="$data['jk']" id="sesijk" tab="tabjk" konten="" showchart="chartjk" photo="aktif">
                                 </x-taborang>
                             </div>
                         </div>
@@ -215,11 +221,34 @@
                     }
                 }
             }
+            let datajk  = {
+                series: @json($chart['jk']['data']),
+                labels: @json($chart['jk']['label']),
+                // colors: ['#435ebe','#55c6e8'],
+                chart: {
+                    type: 'donut',
+                    width: '100%',
+                    height:'500px'
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '30%'
+                        }
+                    }
+                }
+            }
             var chartbiodata = new ApexCharts(document.getElementById('chartbiodata'), dataagama)
             var chartfase = new ApexCharts(document.getElementById('chartfase'), datafase)
             var chartgoldar = new ApexCharts(document.getElementById('chartgoldar'), datagoldar)
+            var chartjk = new ApexCharts(document.getElementById('chartjk'), datajk)
             chartbiodata.render()
             chartgoldar.render()
+            chartfase.render()
+            chartjk.render()
         </script>
        
     </x-slot>
