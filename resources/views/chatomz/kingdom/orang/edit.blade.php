@@ -137,10 +137,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="inlineinput">Photo</label>
-                                        <div class="col-md-8">
-                                            <input type="file" name="photo" class="form-control">
-                                            <span class="text-danger small">input jika ingin mengubah photo</span>
-                                        </div>
+                                        <input type="file" name="photo" class="form-control">
+                                        <span class="text-danger small">input jika ingin mengubah photo</span>
                                     </div>
                                 </div>
                           </div>
