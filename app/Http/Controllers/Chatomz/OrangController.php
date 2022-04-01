@@ -131,14 +131,14 @@ class OrangController extends Controller
             $nama_file = NULL;
         }
         Orang::create([
-            'first_name'  => $request->first_name,
-            'last_name'  => $request->last_name,
-            'nick_name' => $request->nick_name,
-            'place_birth' => $request->place_birth,
+            'first_name'  => strtolower($request->first_name),
+            'last_name'  => strtolower($request->last_name),
+            'nick_name' => strtolower($request->nick_name),
+            'place_birth' => strtolower($request->place_birth),
             'date_birth' => $request->date_birth,
             'gender' => $request->gender,
-            'home_address' => $request->home_address,
-            'current_address' => $request->current_address,
+            'home_address' => strtolower($request->home_address),
+            'current_address' => strtolower($request->current_address),
             'religion' => $request->religion,
             'blood_type' => $request->blood_type,
             'nasionality' => $request->nasionality,
@@ -147,7 +147,7 @@ class OrangController extends Controller
             'status_group' => $request->status_group,
             'photo' => $nama_file,
             'death' => $request->death,
-            'note' => $request->note,
+            'note' => strtolower($request->note),
         ]);
         $orang = Orang::latest()->first();
 
@@ -286,14 +286,14 @@ class OrangController extends Controller
             return back()->with('du','Orang');
         } else {
             Orang::where('id',$orang->id)->update([
-                'first_name'  => $request->first_name,
-                'last_name'  => $request->last_name,
-                'nick_name' => $request->nick_name,
-                'place_birth' => $request->place_birth,
+                'first_name'  => strtolower($request->first_name),
+                'last_name'  => strtolower($request->last_name),
+                'nick_name' => strtolower($request->nick_name),
+                'place_birth' => strtolower($request->place_birth),
                 'date_birth' => $request->date_birth,
                 'gender' => $request->gender,
-                'home_address' => $request->home_address,
-                'current_address' => $request->current_address,
+                'home_address' => strtolower($request->home_address),
+                'current_address' => strtolower($request->current_address),
                 'religion' => $request->religion,
                 'blood_type' => $request->blood_type,
                 'nasionality' => $request->nasionality,
@@ -302,7 +302,7 @@ class OrangController extends Controller
                 'status_group' => $request->status_group,
                 'photo' => $nama_file,
                 'death' => $request->death,
-                'note' => $request->note,
+                'note' => strtolower($request->note),
             ]);
             return redirect('orang/'.Crypt::encryptString($orang->id))->with('du','Orang');
         }

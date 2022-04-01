@@ -48,13 +48,21 @@ class Menu extends Component
                 ]
             ],
             [
-                'title' => 'Karya',
+                'title' => 'Big Data',
                 'icon' => 'bi bi-award',
                 'sub' => TRUE,
                 'submenu' => [
                     [
                         'title' => 'Bot',
                         'link' => 'chatomzbot',
+                    ],
+                    [
+                        'title' => 'Grab',
+                        'link' => 'demo/grab',
+                    ],
+                    [
+                        'title' => 'Unsil',
+                        'link' => 'unsil',
                     ]
                 ]
             ],
@@ -102,22 +110,7 @@ class Menu extends Component
                         'link' => 'kategori',
                     ]
                 ]
-            ],
-            [
-                'title' => 'Demo',
-                'icon' => 'bi bi-app-indicator',
-                'sub' => TRUE,
-                'submenu' => [
-                    [
-                        'title' => 'Grab',
-                        'link' => 'demo/grab',
-                    ],
-                    [
-                        'title' => 'Unsil',
-                        'link' => 'unsil',
-                    ],
-                ]
-            ],
+            ]
         ];
         return view('components.menu', compact('menu'));
     }

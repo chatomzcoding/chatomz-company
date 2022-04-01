@@ -100,6 +100,7 @@ class UnsilController extends Controller
             'note' => $request->note,
         ]);
 
-        return back()->with('ds','Orang');
+        // return back()->with('ds','Orang');
+        return redirect('unsil?s=many&npm='.$request->npm.'&angka='.$request->angka)->with('ds','Orang');
     }
 }

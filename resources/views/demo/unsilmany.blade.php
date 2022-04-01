@@ -38,6 +38,8 @@
                                                     @csrf
                                                     <input type="hidden" name="poto" value="{{ $item['unsil']['FotoUrl']}}">
                                                     <input type="hidden" name="nama" value="{{ $item['unsil']['Nama']}}">
+                                                    <input type="hidden" name="npm" value="{{ $item['unsil']['MhswID']}}">
+                                                    <input type="hidden" name="angka" value="{{ $angka }}">
                                                 <tr>
                                                     <td colspan="4"><input type="text" name="home_address" class="form-control" value="{{ $item['unsil']['Alamat']}}"> </td>
                                                 </tr>
