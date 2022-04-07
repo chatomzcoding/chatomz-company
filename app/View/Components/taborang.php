@@ -17,8 +17,10 @@ class taborang extends Component
     public $photo;
     public $konten;
     public $showchart;
+    public $m;
+    public $t;
 
-    public function __construct($orang,$id,$tab,$photo='aktif',$konten=null,$showchart=null)
+    public function __construct($orang,$id,$tab,$photo='aktif',$konten=null,$showchart=null,$m=1,$t=1)
     {
         $this->orang = $orang;
         $this->id = $id;
@@ -26,6 +28,8 @@ class taborang extends Component
         $this->photo = $photo;
         $this->konten = $konten;
         $this->showchart = $showchart;
+        $this->m = $m;
+        $this->t = $t;
     }
 
     /**

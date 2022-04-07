@@ -12,7 +12,7 @@
         @endforeach
     </ul>
     <div class="tab-content" id="{{ $id }}content">
-        <div class="tab-pane fade show active" id="{{ $id}}-chart" role="tabpanel" aria-labelledby="home-tab">
+        <div class="tab-pane fade {{ statusmenustatistik($t,0) }}" id="{{ $id}}-chart" role="tabpanel" aria-labelledby="home-tab">
             <div class="row d-flex align-items-stretch mt-2">
                 <div class="col-md-12 text-center">
                     <div class="card">
@@ -24,7 +24,7 @@
             </div>                                 
         </div>
         @foreach ($orang as $j => $d)
-            <div class="tab-pane fade" id="{{ $tab.$loop->iteration }}" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade {{ statusmenustatistik($t,1) }}" id="{{ $tab.$loop->iteration }}" role="tabpanel" aria-labelledby="home-tab">
                 <div class="row d-flex align-items-stretch mt-4">
                     @forelse ($d as $item)
                         <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
@@ -49,7 +49,7 @@
                                                     @else
                                                         <sup><i class="fas fa-venus text-danger"></i></sup>  
                                                     @endif
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#ubah" data-id="{{ $item->id }}" data-nama="{{ fullname($item) }}" data-date_birth="{{ $item->date_birth }}" data-gender="{{ $item->gender }}" data-note="{{ $item->note }}" data-marital_status="{{ $item->marital_status }}" data-status_group="{{ $item->status_group }}" data-home_address="{{ $item->home_address }}" data-place_birth="{{ $item->place_birth }}" data-blood_type="{{ $item->blood_type }}" data-death="{{ $item->death }}" ><i class="bi-pencil float-end text-success"></i></a>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#ubah" data-id="{{ $item->id }}" data-m="{{ $m }}" data-nama="{{ fullname($item) }}" data-date_birth="{{ $item->date_birth }}" data-gender="{{ $item->gender }}" data-note="{{ $item->note }}" data-marital_status="{{ $item->marital_status }}" data-status_group="{{ $item->status_group }}" data-home_address="{{ $item->home_address }}" data-place_birth="{{ $item->place_birth }}" data-blood_type="{{ $item->blood_type }}" data-death="{{ $item->death }}" ><i class="bi-pencil float-end text-success"></i></a>
                                             </h6>
                                             @if ($konten == 'fase')
                                                 <small style="font-size: 12px">{{ date_indo($item->date_birth) }}

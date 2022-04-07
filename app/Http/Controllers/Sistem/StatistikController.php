@@ -10,6 +10,9 @@ class StatistikController extends Controller
 {
     public function orang()
     {
+        // class keaktifan tab dan menu
+        $m = (isset($_GET['m'])) ? $_GET['m'] : 1 ;
+        $t = (isset($_GET['t'])) ? $_GET['t'] : 0 ;
         $orang  = Orang::orderBy('first_name','ASC')->get();
         // fase kehidupan
             $bayi = [];
@@ -119,6 +122,6 @@ class StatistikController extends Controller
                 'data' => $datajk
             ]
         ];
-        return view('sistem.statistik.orang', compact('data','chart'));
+        return view('sistem.statistik.orang', compact('data','chart','m','t'));
     }
 }

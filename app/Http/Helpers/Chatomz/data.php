@@ -38,6 +38,16 @@ if (! function_exists('gender')) {
         return $result;
     }
 }
+if (! function_exists('statusmenustatistik')) {
+    function statusmenustatistik($m,$posisi)
+    {
+        $result = NULL;
+        if ($m == $posisi) {
+            $result = "show active";
+        }
+        return $result;
+    }
+}
 
 // cek photo null apa tidak
 if (! function_exists('orang_photo')) {
