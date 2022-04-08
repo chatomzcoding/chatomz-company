@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
-use App\Models\Gadgethandphone;
 use App\Models\Informasi;
 use App\Models\Informasisub;
 use App\Models\Kategori;
-use App\Models\Merk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -20,25 +18,30 @@ class InformasiController extends Controller
      */
     public function index()
     {
-        $id         = Crypt::decrypt($_GET['k']);
-        $kategori   = Kategori::find($id);
-        $data       = Informasi::where('kategori_id',$id)->get();
-        switch ($kategori->nama_kategori) {
-            case 'otomotif':
-                return view('company.informasi.otomotif.index', compact('kategori','data'));
-                break;
-
-            case 'hewan':
-                return view('company.informasi.hewan.index', compact('kategori','data'));
-                break;
-            case 'gadget':
-                return view('company.informasi.gadget.index', compact('kategori','data'));
-                break;
-            
-            default:
-                # code...
-                break;
+        $kategori_id = (isset($_GET['id'])) ? $_GET['id'] : 'semua' ;
+        if ($kategori_id == 'semua') {
+            $kategori   = Kategori::where('label','informasi')->get();
+            return view('company.informasi.index', compact('kategori'));
+        } else {
+            $kategori   = Kategori::find($kategori_id);
+            $data       = Informasi::where('kategori_id',$kategori->id)->get();
+            switch ($kategori->nama_kategori) {
+                case 'hewan':
+                    return view('company.informasi.hewan.index', compact('kategori','data'));
+                    break;
+                case 'otomotif':
+                    return view('company.informasi.otomotif.index', compact('kategori','data'));
+                    break;
+                case 'gadget':
+                    return view('company.informasi.gadget.index', compact('kategori','data'));
+                    break;
+                
+                default:
+                    return redirect('informasi');
+                    break;
+            }
         }
+        
 
     }
 

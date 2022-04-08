@@ -56,13 +56,17 @@ class Menu extends Component
                         'title' => 'Bot',
                         'link' => 'chatomzbot',
                     ],
-                    [
-                        'title' => 'Grab',
-                        'link' => 'demo/grab',
-                    ],
+                    // [
+                    //     'title' => 'Grab',
+                    //     'link' => 'demo/grab',
+                    // ],
                     [
                         'title' => 'Unsil',
                         'link' => 'unsil',
+                    ],
+                    [
+                        'title' => 'Informasi',
+                        'link' => 'informasi',
                     ]
                 ]
             ],
