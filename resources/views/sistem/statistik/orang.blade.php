@@ -27,26 +27,26 @@
                         <div class="tab-content" id="v-pills-tabContent">
                             <div class="tab-pane fade {{ statusmenustatistik($m,1) }}" id="kelengkapandata" role="tabpanel"
                                 aria-labelledby="kelengkapandata-tab">
-                                <x-taborang :orang="$data['kelengkapandata']" id="sesidata" tab="tabdata" konten="data" photo="" showchart="chartbiodata" m="1">
+                                <x-taborang :orang="$data['kelengkapandata']" id="sesidata" tab="tabdata" konten="data" photo="" showchart="chartbiodata" m="1" :t="$t">
                                 </x-taborang>
                             </div>
                             <div class="tab-pane fade {{ statusmenustatistik($m,2) }}" id="fasekehidupan" role="tabpanel"
                                 aria-labelledby="fasekehidupan-tab">
-                                <x-taborang :orang="$data['fasekehidupan']" id="sesifase" tab="tabfase" konten="fase" showchart="chartfase" photo="aktif" showchart="chartfase" m="2"></x-taborang>
+                                <x-taborang :orang="$data['fasekehidupan']" id="sesifase" tab="tabfase" konten="fase" showchart="chartfase" photo="aktif" showchart="chartfase" m="2" :t="$t"></x-taborang>
                             </div>
                             <div class="tab-pane fade {{ statusmenustatistik($m,3) }}" id="statusagama" role="tabpanel"
                                 aria-labelledby="statusagama-tab">
-                               <x-taborang :orang="$data['agama']" id="sesiagama" tab="tabagama" photo="FALSE" showchart="" konten=""  m="3">
+                               <x-taborang :orang="$data['agama']" id="sesiagama" tab="tabagama" photo="FALSE" showchart="" konten=""  m="3" :t="$t">
                                 </x-taborang>
                             </div>
                             <div class="tab-pane fade {{ statusmenustatistik($m,4) }}" id="v-goldar" role="tabpanel"
                                 aria-labelledby="v-goldar-tab">
-                                <x-taborang :orang="$data['goldar']" id="sesigoldar" tab="tabgoldar" konten="" showchart="chartgoldar" photo="" m="4">
+                                <x-taborang :orang="$data['goldar']" id="sesigoldar" tab="tabgoldar" konten="" showchart="chartgoldar" photo="" m="4" :t="$t">
                                 </x-taborang>
                             </div>
                             <div class="tab-pane fade {{ statusmenustatistik($m,5) }}" id="v-jk" role="tabpanel"
                                 aria-labelledby="v-jk-tab">
-                                <x-taborang :orang="$data['jk']" id="sesijk" tab="tabjk" konten="" showchart="chartjk" photo="aktif"  m="5">
+                                <x-taborang :orang="$data['jk']" id="sesijk" tab="tabjk" konten="" showchart="chartjk" photo="aktif"  m="5" :t="$t">
                                 </x-taborang>
                             </div>
                         </div>
@@ -54,10 +54,11 @@
                 </div>
             </div>
         </div>
-    {{-- ubah anggota grup --}}
+    {{-- ubah data orang --}}
     <x-modalubah judul="Edit Orang" link="orang" size="modal-lg">
         <input type="hidden" name="perbaharui" value="TRUE">
         <input type="hidden" name="m" id="m">
+        <input type="hidden" name="t" id="t">
         <section class="p-3 row">
             <div class="col">
                 <div class="form-group">
@@ -135,6 +136,7 @@
                 var button = $(event.relatedTarget)
                 var nama = button.data('nama')
                 var m = button.data('m')
+                var t = button.data('t')
                 var home_address = button.data('home_address')
                 var place_birth = button.data('place_birth')
                 var date_birth = button.data('date_birth')
@@ -150,6 +152,7 @@
         
                 modal.find('.modal-body #nama').val(nama);
                 modal.find('.modal-body #m').val(m);
+                modal.find('.modal-body #t').val(t);
                 modal.find('.modal-body #home_address').val(home_address);
                 modal.find('.modal-body #place_birth').val(place_birth);
                 modal.find('.modal-body #date_birth').val(date_birth);
@@ -255,6 +258,4 @@
         </script>
        
     </x-slot>
-
-
 </x-singel-layout>

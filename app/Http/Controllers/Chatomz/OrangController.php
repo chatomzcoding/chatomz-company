@@ -299,7 +299,7 @@ class OrangController extends Controller
                 'death' => $request->death,
                 'note' => $request->note,
             ]);
-            return redirect('statistik/orang?m='.$request->m)->with('du','Orang');
+            return redirect('statistik/orang?m='.$request->m.'&t='.$request->t)->with('du','Orang');
         } else {
             Orang::where('id',$orang->id)->update([
                 'first_name'  => strtolower($request->first_name),
