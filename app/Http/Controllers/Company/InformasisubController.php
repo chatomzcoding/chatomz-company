@@ -36,7 +36,43 @@ class InformasisubController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        switch ($request->sesi) {
+            case 'hewan':
+                $tujuan_upload = 'public/img/company/informasi/hewan';
+                $detail     = [
+                    'nama_sub' => $request->nama_sub,
+                    'nama_latin' => $request->nama_latin,
+                    'lama_hidup' => $request->lama_hidup,
+                    'pemakan' => $request->pemakan,
+                    'klasifikasi' => $request->klasifikasi,
+                    'tentang' => $request->tentang,
+                ];
+                $notif  = 'jenis hewan';
+                break;
+                
+            default:
+                return back();
+                break;
+        }
+
+        if (isset($request->gambar_sub)) {
+            $request->validate([
+                'gambar_sub' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+            ]);
+            $file = $request->file('gambar_sub');
+            $gambar_sub = time()."_".$file->getClientOriginalName();
+            $file->move($tujuan_upload,$gambar_sub);
+        } else {
+            $gambar_sub = NULL;
+        }
+        Informasisub::create([
+            'informasi_id' => $request->informasi_id,
+            'nama_sub' => $request->nama_sub,
+            'gambar_sub' => $gambar_sub,
+            'detail_sub' => json_encode($detail)
+        ]);
+
+        return back()->with('du',$notif);
     }
 
     /**
@@ -68,9 +104,46 @@ class InformasisubController extends Controller
      * @param  \App\Models\Informasisub  $informasisub
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Informasisub $informasisub)
+    public function update(Request $request)
     {
-        //
+        $informasi = Informasisub::find($request->id);
+        switch ($request->sesi) {
+            case 'hewan':
+                $tujuan_upload = 'public/img/company/informasi/hewan';
+                $detail     = [
+                    'nama_sub' => $request->nama_sub,
+                    'nama_latin' => $request->nama_latin,
+                    'lama_hidup' => $request->lama_hidup,
+                    'pemakan' => $request->pemakan,
+                    'klasifikasi' => $request->klasifikasi,
+                    'tentang' => $request->tentang,
+                ];
+                $notif  = 'jenis hewan';
+                break;
+                
+            default:
+                return back();
+                break;
+        }
+
+        if (isset($request->gambar_sub)) {
+            $request->validate([
+                'gambar_sub' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+            ]);
+            $file = $request->file('gambar_sub');
+            $gambar_sub = time()."_".$file->getClientOriginalName();
+            $file->move($tujuan_upload,$gambar_sub);
+            deletefile($tujuan_upload.'/'.$informasi->gambar_sub);
+        } else {
+            $gambar_sub = $informasi->gambar_sub;
+        }
+        Informasisub::where('id',$request->id)->update([
+            'nama_sub' => $request->nama_sub,
+            'gambar_sub' => $gambar_sub,
+            'detail_sub' => json_encode($detail)
+        ]);
+
+        return back()->with('du',$notif);
     }
 
     /**

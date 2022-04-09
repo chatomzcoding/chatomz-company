@@ -1,7 +1,4 @@
-<x-mazer-layout datatables="TRUE" select="TRUE">
-    <x-slot name="title">
-        CHATOMZ - Daftar Orang
-    </x-slot>
+<x-mazer-layout title="CHATOMZ - Daftar Orang" datatables="TRUE" select="TRUE">
     <x-slot name="content">
         <div class="page-heading">
             <div class="page-title">

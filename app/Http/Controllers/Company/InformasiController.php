@@ -75,13 +75,12 @@ class InformasiController extends Controller
     public function show(Informasi $informasi)
     {
         $kategori   = Kategori::find($informasi->kategori_id);
-        $sub        = Informasisub::where('informasi_id',$informasi->id)->get();
         switch ($kategori->nama_kategori) {
             case 'hewan':
-                return view('company.informasi.hewan.show', compact('informasi','sub'));
+                return view('company.informasi.hewan.show', compact('informasi'));
                 break;
             case 'gadget':
-                return view('company.informasi.gadget.show', compact('informasi','sub'));
+                return view('company.informasi.gadget.show', compact('informasi'));
                 break;
             
             default:
@@ -108,9 +107,41 @@ class InformasiController extends Controller
      * @param  \App\Models\Informasi  $informasi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Informasi $informasi)
+    public function update(Request $request)
     {
-        //
+        $informasi = Informasi::find($request->id);
+        switch ($request->sesi) {
+            case 'hewan':
+                $tujuan_upload = 'public/img/company/informasi/hewan';
+                $detail     = [
+                    'nama_latin' => $request->nama_latin,
+                    'tentang' => $request->tentang,
+                ];
+                break;
+                
+            default:
+                return back();
+                break;
+        }
+
+        if (isset($request->gambar)) {
+            $request->validate([
+                'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+            ]);
+            $file = $request->file('gambar');
+            $gambar = time()."_".$file->getClientOriginalName();
+            $file->move($tujuan_upload,$gambar);
+            deletefile($tujuan_upload.'/'.$informasi->gambar);
+        } else {
+            $gambar = $informasi->gambar;
+        }
+        Informasi::where('id',$request->id)->update([
+            'nama' => $request->nama,
+            'gambar' => $gambar,
+            'detail' => json_encode($detail)
+        ]);
+
+        return back()->with('du','Hewan');
     }
 
     /**
@@ -121,6 +152,15 @@ class InformasiController extends Controller
      */
     public function destroy(Informasi $informasi)
     {
-        //
+        switch ($informasi->kategori->namakategori) {
+            case 'hewan':
+                $tujuan_upload = 'public/img/company/informasi/hewan';
+                deletefile($tujuan_upload.'/'.$informasi->gambar);
+                break;
+        }
+
+        $informasi->delete();
+
+        return back()->with('dd','Hewan');
     }
 }

@@ -12,4 +12,14 @@ class Informasi extends Model
     protected $table = 'informasi';
 
     protected $guarded = [];
+
+    public function informasisub()
+    {
+        return $this->hasMany(Informasisub::class);
+    }
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
+    }
 }
