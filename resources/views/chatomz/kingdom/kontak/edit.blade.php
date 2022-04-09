@@ -14,7 +14,6 @@
                                 <a href="{{ url('/orang')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar orang</a>
                             </div>
                             <div class="card-body">
-                                @include('sistem.notifikasi')
                                 <form method="post" action="{{ url('/kontak/'.$kontak->id)}}">
                                     @csrf
                                     @method('patch')

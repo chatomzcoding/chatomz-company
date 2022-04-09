@@ -8,6 +8,7 @@ use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
 use App\Models\Linimasa;
 use App\Models\Orang;
+use App\Models\Riwayat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -228,7 +229,22 @@ class OrangController extends Controller
                             ->get();
         $datagrup       = Grup::orderBy('name','ASC')->get();
         $linimasa       = Linimasa::where('orang_id',$orang->id)->orderby('tanggal','DESC')->get();
-
+        // save riwayat dilihat
+        // cek jika sudah dilihat
+        $cekriwayat = Riwayat::where('kode','lihatorang')->where('nilai',$orang->id)->first();
+        if ($cekriwayat) {
+            Riwayat::where('id',$cekriwayat->id)->update([
+                'tanggal' => tgl_sekarang(),
+                'detail' => 'lihat profil'
+            ]);
+        } else {
+            Riwayat::create([
+                'kode' => 'lihatorang',
+                'tanggal' => tgl_sekarang(),
+                'nilai' => $orang->id,
+                'detail' => 'lihat profil'
+            ]);
+        }
         return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup','linimasa'));
     }
 

@@ -7,6 +7,7 @@ use App\Models\Jejak;
 use App\Models\Keluarga;
 use App\Models\Orang;
 use App\Models\Pendidikan;
+use App\Models\Riwayat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +50,10 @@ class HomeController extends Controller
                 $hidup    = $orang - $meninggal;
                 $gender = [$jumlahlakilaki,$jumlahperempuan];
                 $kematian = [$hidup,$meninggal];
-                return view('chatomz.admin.dashboard', compact('total','dashboard','info','gender','kematian'));
+                $data       = [
+                    'riwayatlihatorang' => Riwayat::where('kode','lihatorang')->limit(3)->latest()->get()
+                ];
+                return view('chatomz.admin.dashboard', compact('total','dashboard','info','gender','kematian','data'));
                 break;
             default:
                 return view('dashboard', compact('dashboard'));

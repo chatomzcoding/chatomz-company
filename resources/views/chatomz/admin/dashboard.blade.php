@@ -157,46 +157,39 @@
                       <div class="col-12 col-xl-8">
                           <div class="card">
                               <div class="card-header">
-                                  <h4>Latest Comments</h4>
+                                  <h4>Terakhir Dilihat</h4>
                               </div>
                               <div class="card-body">
                                   <div class="table-responsive">
                                       <table class="table table-hover table-lg">
-                                          <thead>
+                                          {{-- <thead>
                                               <tr>
-                                                  <th>Name</th>
+                                                  <th>Nama</th>
                                                   <th>Comment</th>
                                               </tr>
-                                          </thead>
+                                          </thead> --}}
                                           <tbody>
+                                              @forelse ($data['riwayatlihatorang'] as $item)
+                                                <tr>
+                                                    <td class="col-2">
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="avatar avatar-md">
+                                                                <a href="{{ url('orang/'.Crypt::encryptString($item->orang->id)) }}"><img src="{{ asset('img/chatomz/orang/'.$item->orang->photo)}}"></a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-auto">
+                                                        <p class=" mb-0">{{ fullname($item->orang) }}</p>
+                                                        <i>{{ $item->detail }}</i>
+                                                    </td>
+                                                </tr>
+                                              @empty
                                               <tr>
-                                                  <td class="col-3">
-                                                      <div class="d-flex align-items-center">
-                                                          <div class="avatar avatar-md">
-                                                              <img src="{{ asset('template/mazer/images/faces/5.jpg')}}">
-                                                          </div>
-                                                          <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                      </div>
-                                                  </td>
-                                                  <td class="col-auto">
-                                                      <p class=" mb-0">Congratulations on your graduation!</p>
+                                                  <td colspan="2" class="text-center">
+                                                     <i>belum ada data</i>
                                                   </td>
                                               </tr>
-                                              <tr>
-                                                  <td class="col-3">
-                                                      <div class="d-flex align-items-center">
-                                                          <div class="avatar avatar-md">
-                                                              <img src="{{ asset('template/mazer/images/faces/2.jpg')}}">
-                                                          </div>
-                                                          <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                      </div>
-                                                  </td>
-                                                  <td class="col-auto">
-                                                      <p class=" mb-0">Wow amazing design! Can you make another
-                                                          tutorial for
-                                                          this design?</p>
-                                                  </td>
-                                              </tr>
+                                              @endforelse
                                           </tbody>
                                       </table>
                                   </div>

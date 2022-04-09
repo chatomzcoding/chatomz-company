@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Chatomz;
 use App\Http\Controllers\Controller;
 use App\Models\Orang;
 use App\Models\Pendidikan;
+use App\Models\Riwayat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -92,7 +93,7 @@ class PendidikanController extends Controller
             'kursus' => $request->kursus,
             'information' => $request->information,
         ]);
-
+        
         return redirect('/orang/'.Crypt::encryptString($pendidikan->orang_id))->with('du','Pendidikan');
     }
 
