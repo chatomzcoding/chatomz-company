@@ -6,7 +6,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <header class="bg-white mb-2 p-2 rounded">
-                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Hewan </a>
+                            <a href="{{ url('informasi') }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="bi-arrow-left"></i> Kembali </a>
+                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus"></i> Tambah Hewan </a>
                         </header>
                     </div>
                     <div class="col-md-12">
