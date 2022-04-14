@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\Informasi;
 use App\Models\Informasisub;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class InformasisubController extends Controller
      */
     public function create()
     {
-        //
+        $informasi  = Informasi::find($_GET['id']);
+        return view('company.informasi.gadget.create',compact('informasi'));
     }
 
     /**
@@ -48,6 +50,44 @@ class InformasisubController extends Controller
                     'tentang' => $request->tentang,
                 ];
                 $notif  = 'jenis hewan';
+                break;
+            case 'gadget':
+                $tujuan_upload = 'public/img/company/informasi/gadget';
+                $detail     = [
+                    'tentang' => $request->tentang,
+                    'network' => $request->network,
+                    'kamera' => [
+                        'main' => $request->main,
+                        'ultrawide' => $request->ultrawide,
+                        'micro' => $request->micro,
+                        'depth' => $request->depth,
+                    ],
+                    'layar' => [
+                        'type' => $request->type_layar,
+                        'size' => $request->size,
+                        'resolusi' => $request->resolusi,
+                    ],
+                    'platform' => [
+                        'os' => $request->os,
+                        'chipset' => $request->chipset,
+                        'cpu' => $request->cpu,
+                        'gpu' => $request->gpu,
+                    ],
+                    'baterai' => [
+                        'type' => $request->type_baterai,
+                        'charging' => $request->charging,
+                    ],
+                    'body' => [
+                        'dimensi' => $request->dimensi,
+                        'berat' => $request->berat,
+                        'sim' => $request->sim,
+                    ],
+                    'memori' => [
+                        'internal' => $request->internal,
+                        'ram' => $request->ram,
+                    ]
+                ];
+                $notif  = 'jenis gadget';
                 break;
                 
             default:
@@ -72,7 +112,7 @@ class InformasisubController extends Controller
             'detail_sub' => json_encode($detail)
         ]);
 
-        return back()->with('du',$notif);
+        return redirect('informasi/'.$request->informasi_id)->with('ds',$notif);
     }
 
     /**
@@ -94,7 +134,7 @@ class InformasisubController extends Controller
      */
     public function edit(Informasisub $informasisub)
     {
-        //
+        return view('company.informasi.gadget.edit',compact('informasisub'));
     }
 
     /**
@@ -120,6 +160,44 @@ class InformasisubController extends Controller
                 ];
                 $notif  = 'jenis hewan';
                 break;
+                case 'gadget':
+                    $tujuan_upload = 'public/img/company/informasi/gadget';
+                    $detail     = [
+                        'tentang' => $request->tentang,
+                        'network' => $request->network,
+                        'kamera' => [
+                            'main' => $request->main,
+                            'ultrawide' => $request->ultrawide,
+                            'macro' => $request->macro,
+                            'depth' => $request->depth,
+                        ],
+                        'layar' => [
+                            'type' => $request->type_layar,
+                            'size' => $request->size,
+                            'resolusi' => $request->resolusi,
+                        ],
+                        'platform' => [
+                            'os' => $request->os,
+                            'chipset' => $request->chipset,
+                            'cpu' => $request->cpu,
+                            'gpu' => $request->gpu,
+                        ],
+                        'baterai' => [
+                            'type' => $request->type_baterai,
+                            'charging' => $request->charging,
+                        ],
+                        'body' => [
+                            'dimensi' => $request->dimensi,
+                            'berat' => $request->berat,
+                            'sim' => $request->sim,
+                        ],
+                        'memori' => [
+                            'internal' => $request->internal,
+                            'ram' => $request->ram,
+                        ]
+                    ];
+                    $notif  = 'jenis gadget';
+                    break;
                 
             default:
                 return back();
@@ -143,7 +221,7 @@ class InformasisubController extends Controller
             'detail_sub' => json_encode($detail)
         ]);
 
-        return back()->with('du',$notif);
+        return redirect('informasi/'.$informasi->informasi_id)->with('du',$notif);
     }
 
     /**

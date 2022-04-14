@@ -12,4 +12,9 @@ class Informasisub extends Model
     protected $table = 'informasi_sub';
 
     protected $guarded = [];
+
+    public function informasi()
+    {
+        return $this->belongsTo(Informasi::class);
+    }
 }

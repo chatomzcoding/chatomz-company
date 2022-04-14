@@ -7,7 +7,7 @@
                   <div class="col-md-12">
                         <header class="p-2 mb-2">
                             <a href="{{ url('informasi?id='.$informasi->kategori_id) }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="bi-arrow-left"></i> Kembali </a>
-                            <a href="{{ url('gadgethandphone/create') }}" class="btn btn-outline-primary btn-flat btn-sm"><i class="bi-plus"></i> Tambah Data </a>
+                            <a href="{{ url('informasisub/create?id='.$informasi->id) }}" class="btn btn-outline-primary btn-flat btn-sm"><i class="bi-plus"></i> Tambah Data </a>
                         </header>
                         <div class="row d-flex align-items-stretch">
                             @foreach ($informasi->informasisub as $item)
@@ -39,7 +39,7 @@
                                                 @csrf
                                                 @method('delete')
                                             </form>
-                                                <a href="{{ url('informasisub/'.Crypt::encrypt($item->id).'/edit') }}" class="btn btn-outline-light btn-sm">
+                                                <a href="{{ url('informasisub/'.$item->id.'/edit') }}" class="btn btn-outline-light btn-sm">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-light btn-sm"><i class="fas fa-trash-alt"></i></button>
