@@ -154,6 +154,9 @@ class InformasisubController extends Controller
      */
     public function destroy(Informasisub $informasisub)
     {
-        //
+        deletefile('public/img/company/informasi/gadget/'.$informasisub->gambar_sub);
+        $informasisub->delete();
+
+        return back()->with('dd','Sub Informasi');
     }
 }
