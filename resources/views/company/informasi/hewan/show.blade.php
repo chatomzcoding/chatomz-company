@@ -7,10 +7,49 @@
         </div>
         <div class="section">
             <header class="bg-white p-2 rounded mb-2">
-                <a href="{{ url('informasi?k='.Crypt::encrypt($informasi->kategori_id)) }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali </a>
+                <a href="{{ url('informasi?id='.$informasi->kategori_id) }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali </a>
                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Jenis </a>
                 <span class="float-end font-italic">{{ count($informasi->informasisub)}} jenis {{ $informasi->nama}}</span>
             </header>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-content">
+                            <a href="{{ asset('img/company/informasi/hewan/'.$informasi->gambar)}}" target="_blank"><img src="{{ asset('img/company/informasi/hewan/'.$informasi->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        @php
+                            $detail = json_decode($informasi->detail); 
+                        @endphp
+                        <div class="card-content">
+                        <section class="text-center py-2">
+                            {{ ucwords($informasi->nama)}} <br>
+                            @if (isset($detail->nama_latin))
+                                <i>{{ $detail->nama_latin}}</i>
+                            @endif
+                        </section>
+                        </div>
+                        <div class="card-footer bg-primary p-1">
+                            <div class="text-center">
+                                <form id="data-{{ $informasi->id }}" action="{{url('/informasi',$informasi->id)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                </form>
+                                <a href="{{ url('/informasi/'.$informasi->id)}}" class="btn btn-sm btn-outline-light">
+                                    <i class="fas fa-list"></i> <span>{{ count($informasi->informasisub) }}</span>
+                                </a>
+                                    <button type="button" data-bs-toggle="modal"  data-nama="{{ $informasi->nama }}"  data-nama_latin="{{ $detail->nama_latin }}"  data-tentang="{{ $detail->tentang }}" data-id="{{ $informasi->id }}" data-bs-target="#ubah" title="" class="btn btn-outline-light btn-sm" data-original-title="Edit Task">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                <button onclick="deleteRow( {{ $informasi->id }} )" class="btn btn-outline-light btn-sm"><i class="fas fa-trash-alt"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="row">
@@ -18,18 +57,24 @@
                             <div class="col-12 col-sm-4 col-md-4">
                                 <div class="card">
                                     <div class="card-content">
-                                                <a href="{{ asset('img/company/informasi/hewan/'.$item->gambar_sub)}}" target="_blank"><img src="{{ asset('img/company/informasi/hewan/'.$item->gambar_sub)}}" alt="user-avatar" class="card-img-top img-fluid"></a>
-                                                <strong>
-                                                    {{ ucwords($item->nama_sub)}}
-                                                    @php
-                                                        $detail = json_decode($item->detail_sub);
-                                                    @endphp 
-                                                    @if (!is_null($detail->nama_latin))
-                                                        <i>({{ $detail->nama_latin}})</i>
-                                                    @endif
-                                                </strong>
-                                            {{-- <p class="text-muted text-sm text-justify">{{ Str::substr($detail->tentang, 0, 130)}}. . . </p>     --}}
-                                            <p class="text-muted text-sm text-justify small">{{ $detail->tentang }}</p>    
+                                            <a href="{{ asset('img/company/informasi/hewan/'.$item->gambar_sub)}}" target="_blank"><img src="{{ asset('img/company/informasi/hewan/'.$item->gambar_sub)}}" alt="user-avatar" class="card-img-top img-fluid"></a>
+                                            <section class="p-2">
+                                                <div class="text-center">
+                                                    <strong>
+                                                        {{ ucwords($item->nama_sub)}}
+                                                        @php
+                                                            $detail = json_decode($item->detail_sub);
+                                                        @endphp 
+                                                    </strong>
+                                                    <br>
+                                                    <small>
+                                                        @if (isset($detail->nama_latin))
+                                                            <i>{{ $detail->nama_latin}}</i>
+                                                        @endif
+                                                    </small>
+                                                </div>
+                                                <p class="text-muted text-sm text-justify">{{ Str::substr($detail->tentang, 0, 100)}}. . . </p>    
+                                            </section>
                                     </div>
                                     <div class="card-footer p-0">
                                             <ul class="list-group list-group-horizontal text-center p-0 rounded-0">

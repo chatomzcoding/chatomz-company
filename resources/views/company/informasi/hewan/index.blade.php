@@ -22,7 +22,7 @@
                                     <section class="text-center py-2">
                                         {{ ucwords($item->nama)}} <br>
                                         @if (isset($detail->nama_latin))
-                                            <i>({{ $detail->nama_latin}})</i>
+                                            <i>{{ $detail->nama_latin}}</i>
                                         @endif
                                     </section>
                                     </div>
@@ -49,45 +49,27 @@
                   </div>
             </div>
         </div>
-        <div class="modal fade" id="tambah">
-            <div class="modal-dialog modal-lg">
-              <div class="modal-content">
-                <form action="{{ url('/hewan')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                <div class="modal-header">
-                <h4 class="modal-title">Tambah Hewan</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <x-modalsimpan judul="Tambah Data Hewan" link="informasi">
+            <input type="hidden" name="sesi" value="hewan">
+            <section class="p-3">
+                <div class="form-group row">
+                     <label for="" class="col-md-4">Nama Hewan</label>
+                     <input type="text" name="nama" id="nama" class="form-control col-md-8" value="{{ old('nama')}}" required>
                 </div>
-                <div class="modal-body p-3">
-                    <section class="p-3">
-                       <div class="form-group row">
-                            <label for="" class="col-md-4">Nama Hewan</label>
-                            <input type="text" name="nama" id="nama" class="form-control col-md-8" value="{{ old('nama')}}" required>
-                       </div>
-                       <div class="form-group row">
-                            <label for="" class="col-md-4">Nama Latin</label>
-                            <input type="text" name="nama_latin" id="nama_latin" class="form-control col-md-8"  value="{{ old('nama_latin')}}">
-                       </div>
-                       <div class="form-group row">
-                           <label for="" class="col-md-4">Tentang</label>
-                           <input type="text" name="tentang" id="tentang" class="form-control col-md-8"  value="{{ old('tentang')}}" required>
-                        </div>
-                        <div class="form-group row">
-                             <label for="" class="col-md-4">Gambar</label>
-                             <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
-                        </div>
-                    </section>
+                <div class="form-group row">
+                     <label for="" class="col-md-4">Nama Latin</label>
+                     <input type="text" name="nama_latin" id="nama_latin" class="form-control col-md-8"  value="{{ old('nama_latin')}}">
                 </div>
-                <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">TUTUP</button>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> SIMPAN</button>
-                </div>
-            </form>
-            </div>
-            </div>
-        </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Tentang</label>
+                    <input type="text" name="tentang" id="tentang" class="form-control col-md-8"  value="{{ old('tentang')}}" required>
+                 </div>
+                 <div class="form-group row">
+                      <label for="" class="col-md-4">Gambar</label>
+                      <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
+                 </div>
+             </section>
+        </x-modalsimpan>
         <x-modalubah judul="Ubah Data Informasi Hewan" link="informasi">
             <section class="p-3">
                 <input type="hidden" name="sesi" value="hewan">

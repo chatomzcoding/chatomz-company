@@ -63,7 +63,38 @@ class InformasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        switch ($request->sesi) {
+            case 'hewan':
+                $tujuan_upload = 'public/img/company/informasi/hewan';
+                $detail     = [
+                    'nama_latin' => $request->nama_latin,
+                    'tentang' => $request->tentang,
+                ];
+                $kategori   = Kategori::where('nama_kategori','hewan')->first();
+                $notif  = 'Infomasi Hewan';
+                break;
+                
+            default:
+                return back();
+                break;
+        }
+        if ($kategori) {
+            $request->validate([
+                'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+            ]);
+            $file = $request->file('gambar');
+            $gambar = time()."_".$file->getClientOriginalName();
+            $file->move($tujuan_upload,$gambar);
+    
+            Informasi::create([
+                'kategori_id' => $kategori->id,
+                'nama' => $request->nama,
+                'gambar' => $gambar,
+                'detail' => json_encode($detail)
+            ]);
+    
+            return back()->with('ds',$notif);
+        }
     }
 
     /**
@@ -87,6 +118,8 @@ class InformasiController extends Controller
                 # code...
                 break;
         }
+
+       
     }
 
     /**
@@ -117,6 +150,7 @@ class InformasiController extends Controller
                     'nama_latin' => $request->nama_latin,
                     'tentang' => $request->tentang,
                 ];
+                $notif = 'Informasi Hewan';
                 break;
                 
             default:
@@ -141,7 +175,7 @@ class InformasiController extends Controller
             'detail' => json_encode($detail)
         ]);
 
-        return back()->with('du','Hewan');
+        return back()->with('du',$notif);
     }
 
     /**
