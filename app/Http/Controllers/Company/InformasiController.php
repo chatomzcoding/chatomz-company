@@ -24,7 +24,7 @@ class InformasiController extends Controller
             return view('company.informasi.index', compact('kategori'));
         } else {
             $kategori   = Kategori::find($kategori_id);
-            $data       = Informasi::where('kategori_id',$kategori->id)->get();
+            $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('nama','ASC')->get();
             switch ($kategori->nama_kategori) {
                 case 'hewan':
                     return view('company.informasi.hewan.index', compact('kategori','data'));
@@ -34,6 +34,9 @@ class InformasiController extends Controller
                     break;
                 case 'gadget':
                     return view('company.informasi.gadget.index', compact('kategori','data'));
+                    break;
+                case 'film':
+                    return view('company.informasi.film.index', compact('kategori','data'));
                     break;
                 
                 default:
@@ -72,6 +75,67 @@ class InformasiController extends Controller
                 ];
                 $kategori   = Kategori::where('nama_kategori','hewan')->first();
                 $notif  = 'Infomasi Hewan';
+                break;
+            case 'film':
+                $notif = 'Informasi Film';
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => 'http://www.omdbapi.com/?apikey=d7039757&s='.$request->cari,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                ));
+
+                $response = curl_exec($curl);
+
+                curl_close($curl);
+                $data = json_decode($response);
+
+                $kategori   = Kategori::where('nama_kategori','film')->first();
+
+                foreach ($data->Search as $key) {
+                    $judul = $key->Title;
+                    $gambar = $key->Poster;
+                    $tahun = $key->Year;
+                    $id = $key->imdbID;
+                    $type = $key->Type;
+
+                    // cek apakah sudah ada di server atau belum
+                    $cekinformasi = Informasi::where('nama',$judul)->where('gambar',$gambar)->first();
+                    if (!$cekinformasi) {
+                        $curl = curl_init();
+
+                        curl_setopt_array($curl, array(
+                        CURLOPT_URL => 'http://www.omdbapi.com/?apikey=d7039757&i='.$id,
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_ENCODING => '',
+                        CURLOPT_MAXREDIRS => 10,
+                        CURLOPT_TIMEOUT => 0,
+                        CURLOPT_FOLLOWLOCATION => true,
+                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                        CURLOPT_CUSTOMREQUEST => 'GET',
+                        ));
+        
+                        $response = curl_exec($curl);
+        
+                        curl_close($curl);
+
+                        Informasi::create([
+                            'kategori_id' => $kategori->id,
+                            'nama' => $judul,
+                            'gambar' => $gambar,
+                            'detail' => $response
+                        ]);
+                    }
+
+                }
+                return back()->with('ds',$notif);
+                
                 break;
                 
             default:
@@ -112,6 +176,9 @@ class InformasiController extends Controller
                 break;
             case 'gadget':
                 return view('company.informasi.gadget.show', compact('informasi'));
+                break;
+            case 'film':
+                return view('company.informasi.film.show', compact('informasi'));
                 break;
             
             default:
