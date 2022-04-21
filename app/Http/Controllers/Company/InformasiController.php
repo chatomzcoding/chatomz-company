@@ -44,6 +44,10 @@ class InformasiController extends Controller
                     $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('id','DESC')->get();
                     return view('company.informasi.film.index', compact('kategori','data'));
                     break;
+                case 'masakan':
+                    $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('id','DESC')->get();
+                    return view('company.informasi.masakan.index', compact('kategori','data'));
+                    break;
                 
                 default:
                     return redirect('informasi');
@@ -84,21 +88,8 @@ class InformasiController extends Controller
                 break;
             case 'film':
                 $notif = 'Informasi Film';
-                $curl = curl_init();
-                curl_setopt_array($curl, array(
-                CURLOPT_URL => 'http://www.omdbapi.com/?apikey=d7039757&s='.$request->cari.'&page='.$request->page,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                ));
-
-                $response = curl_exec($curl);
-
-                curl_close($curl);
+                $link = 'http://www.omdbapi.com/?apikey=d7039757&s='.$request->cari.'&page='.$request->page;
+                $response = datajson($link);
                 $data = json_decode($response);
 
                 $kategori   = Kategori::where('nama_kategori','film')->first();
@@ -106,15 +97,12 @@ class InformasiController extends Controller
                 foreach ($data->Search as $key) {
                     $judul = $key->Title;
                     $gambar = $key->Poster;
-                    $tahun = $key->Year;
                     $id = $key->imdbID;
-                    $type = $key->Type;
 
                     // cek apakah sudah ada di server atau belum
                     $cekinformasi = Informasi::where('nama',$judul)->where('gambar',$gambar)->first();
                     if (!$cekinformasi) {
                         $curl = curl_init();
-
                         curl_setopt_array($curl, array(
                         CURLOPT_URL => 'http://www.omdbapi.com/?apikey=d7039757&i='.$id,
                         CURLOPT_RETURNTRANSFER => true,
@@ -135,11 +123,35 @@ class InformasiController extends Controller
                             'gambar' => $namafile,
                             'detail' => $response
                         ]);
-
                     }
-
                 }
                 return redirect('informasi?id='.$kategori->id.'&total='.$data->totalResults)->with('ds',$notif);
+                break;
+            case 'masakan':
+                echo 'masakan';
+                // echo $request->cari;
+                // $link       = 'https://masak-apa.tomorisakura.vercel.app/api/search/?q='.$request->cari;
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => 'https://masak-apa.tomorisakura.vercel.app/api/recipes',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                ));
+
+                $response = curl_exec($curl);
+
+                curl_close($curl);
+                echo $response;
+                die();
+                // $response   = datajson($link);
+                // $data       = json_decode($response);
+                // dd($data);
                 break;
                 
             default:
@@ -160,7 +172,6 @@ class InformasiController extends Controller
                 'gambar' => $gambar,
                 'detail' => json_encode($detail)
             ]);
-    
             return back()->with('ds',$notif);
         }
     }
