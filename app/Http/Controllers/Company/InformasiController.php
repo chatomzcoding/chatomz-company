@@ -128,30 +128,30 @@ class InformasiController extends Controller
                 return redirect('informasi?id='.$kategori->id.'&total='.$data->totalResults)->with('ds',$notif);
                 break;
             case 'masakan':
-                echo 'masakan';
-                // echo $request->cari;
-                // $link       = 'https://masak-apa.tomorisakura.vercel.app/api/search/?q='.$request->cari;
-                $curl = curl_init();
-
-                curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://masak-apa.tomorisakura.vercel.app/api/recipes',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-                ));
-
-                $response = curl_exec($curl);
-
-                curl_close($curl);
-                echo $response;
-                die();
-                // $response   = datajson($link);
-                // $data       = json_decode($response);
+                $notif      = 'Masakan';
+                $kategori   = Kategori::where('nama_kategori','masakan')->first();
+                $link       = 'https://masak-apa.tomorisakura.vercel.app/api/search/?q='.$request->cari;
+                $response   = datajson($link);
+                $data       = json_decode($response);
                 // dd($data);
+                foreach ($data->results as $key) {
+                    // "title": "Resep Sushi Roll Isi Ayam Mayones, Camilan Favorit Baru",
+                    // "thumb": "https://www.masakapahariini.com/wp-content/uploads/2019/06/sushi-roll-ayam-mayones-400x240.jpg",
+                    // "key": "resep-sushi-roll-isi-ayam-mayones-pedas",
+                    // "times": "30mnt",
+                    // "serving": "4 Porsi",
+                    // "difficulty": "Cukup Rumit"
+                    $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
+                    $response   = datajson($link);
+                    $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
+                    Informasi::create([
+                        'kategori_id' => $kategori->id,
+                        'nama' => $key->title,
+                        'gambar' => $namafile,
+                        'detail' => $response
+                    ]);
+                }
+                return redirect('informasi?id='.$kategori->id)->with('ds',$notif);
                 break;
                 
             default:
