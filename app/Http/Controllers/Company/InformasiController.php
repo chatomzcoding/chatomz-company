@@ -36,6 +36,7 @@ class InformasiController extends Controller
                     return view('company.informasi.gadget.index', compact('kategori','data'));
                     break;
                 case 'film':
+                    $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('id','DESC')->get();
                     return view('company.informasi.film.index', compact('kategori','data'));
                     break;
                 
