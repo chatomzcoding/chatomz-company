@@ -80,9 +80,8 @@ class InformasiController extends Controller
             case 'film':
                 $notif = 'Informasi Film';
                 $curl = curl_init();
-
                 curl_setopt_array($curl, array(
-                CURLOPT_URL => 'http://www.omdbapi.com/?apikey=d7039757&s='.$request->cari,
+                CURLOPT_URL => 'http://www.omdbapi.com/?apikey=d7039757&s='.$request->cari.'&page='.$request->page,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -135,8 +134,7 @@ class InformasiController extends Controller
                     }
 
                 }
-                return back()->with('ds',$notif);
-                
+                return redirect('informasi?id='.$kategori->id.'&total='.$data->totalResults)->with('ds',$notif);
                 break;
                 
             default:

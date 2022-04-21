@@ -8,6 +8,9 @@
                         <header class="bg-white mb-2 p-2 rounded">
                             <a href="{{ url('informasi') }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="bi-arrow-left"></i> Kembali </a>
                             <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus"></i> Tambah Film </a>
+                            @if (isset($_GET['total']))
+                                <span class="float-end">Total Pencarian {{ $_GET['total'] }}</span>
+                            @endif
                         </header>
                     </div>
                     <div class="col-md-12">
@@ -57,11 +60,11 @@
                      <label for="" class="col-md-4">Cari Judul Film</label>
                      <input type="text" name="cari" id="cari" class="form-control col-md-8" value="{{ old('cari')}}" required>
                 </div>
-                {{--
                 <div class="form-group row">
-                     <label for="" class="col-md-4">Nama Latin</label>
-                     <input type="text" name="nama_latin" id="nama_latin" class="form-control col-md-8"  value="{{ old('nama_latin')}}">
+                     <label for="" class="col-md-4">Page</label>
+                     <input type="number" name="page" id="page" class="form-control col-md-8"  value="1">
                 </div>
+                {{--
                 <div class="form-group row">
                     <label for="" class="col-md-4">Tentang</label>
                     <input type="text" name="tentang" id="tentang" class="form-control col-md-8"  value="{{ old('tentang')}}" required>
