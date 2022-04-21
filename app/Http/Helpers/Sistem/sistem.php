@@ -1,5 +1,19 @@
 <?php
 
+if (! function_exists('unduhgambar')) {
+    function unduhgambar($folder,$namafile=null,$url){
+        if (is_null($namafile)) {
+            $namafile = time();
+        }
+        $namafile   = $namafile.'.png';
+        $folder     = 'public/img/'.$folder.'/';
+        $img        = $folder.$namafile; 
+        copy('public/img/gambar.png',$img);
+        file_put_contents($img, file_get_contents($url));
+        return $namafile;
+    }
+}
+
 if (! function_exists('cek_internet')) {
     function cek_internet(){
         $connected = @fsockopen("www.google.com", 80);

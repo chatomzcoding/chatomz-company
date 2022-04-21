@@ -24,6 +24,11 @@ class InformasiController extends Controller
             return view('company.informasi.index', compact('kategori'));
         } else {
             $kategori   = Kategori::find($kategori_id);
+            // hapus semua
+            if (isset($_GET['hapus'])) {
+                Informasi::where('kategori_id',$kategori->id)->delete();
+                return redirect('informasi?id='.$kategori->id)->with('dd','Daftar '.$kategori->nama_kategori);
+            }
             $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('nama','ASC')->get();
             switch ($kategori->nama_kategori) {
                 case 'hewan':
@@ -122,15 +127,15 @@ class InformasiController extends Controller
                         ));
         
                         $response = curl_exec($curl);
-        
                         curl_close($curl);
-
+                        $namafile  = unduhgambar('company/informasi/film',$judul.'-'.$id,$gambar);
                         Informasi::create([
                             'kategori_id' => $kategori->id,
                             'nama' => $judul,
-                            'gambar' => $gambar,
+                            'gambar' => $namafile,
                             'detail' => $response
                         ]);
+
                     }
 
                 }

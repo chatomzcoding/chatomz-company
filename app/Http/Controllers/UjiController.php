@@ -28,9 +28,13 @@ class UjiController extends Controller
                 return view('sistem.uji.maps', compact('data'));
                 // return view('sistem.uji.marker', compact('data'));
                 break;
-            
+            case 'index':
+                $url = 'https://www.masakapahariini.com/wp-content/uploads/2020/07/Tumis-Telur-Kecap-400x240.jpg';
+                unduhgambar('user','bandung',$url);
+                break;
+
             default:
-                # code...
+                
                 break;
         }
     }

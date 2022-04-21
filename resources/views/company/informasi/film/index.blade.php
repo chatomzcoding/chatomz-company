@@ -1,13 +1,14 @@
 <x-mazer-layout title="DUNIA FILM" alert="TRUE">
     <x-slot name="content">
         <div class="page-heading">
-            <x-header head="Data Informasi Hewan" active="Daftar Hewan"></x-header>
+            <x-header head="Data Informasi Film" active="Daftar Hewan"></x-header>
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
                         <header class="bg-white mb-2 p-2 rounded">
                             <a href="{{ url('informasi') }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="bi-arrow-left"></i> Kembali </a>
                             <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus"></i> Tambah Film </a>
+                            <button data-bs-toggle="modal" data-bs-target="#hapus" class="btn btn-outline-danger btn-sm"><i class="bi-trash"></i> Hapus Semua</button>
                             @if (isset($_GET['total']))
                                 <span class="float-end">Total Pencarian {{ $_GET['total'] }}</span>
                             @endif
@@ -22,9 +23,9 @@
                                         $detail = json_decode($item->detail); 
                                     @endphp
                                     <div class="card-content">
-                                        <a href="{{ $item->gambar}}" target="_blank"><img src="{{ $item->gambar}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                                        <a href="{{ url('public/img/company/informasi/film/'.$item->gambar)}}" target="_blank"><img src="{{ url('public/img/company/informasi/film/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                     <section class="text-center py-2">
-                                        {{ ucwords($item->nama)}} <br>
+                                        {{ ucwords($item->gambar)}} <br>
                                         @if (isset($detail->Year))
                                             <i>{{ $detail->Year}}</i>
                                         @endif
@@ -53,6 +54,11 @@
                   </div>
             </div>
         </div>
+        <x-modal judul="Hapus Semua Data" id="hapus">
+            <section class="text-center">
+                <a href="{{ url('informasi?id='.$kategori->id.'&hapus=TRUE') }}" class="btn btn-danger btn-sm">Hapus Semua</a>
+            </section>
+        </x-modal>
         <x-modalsimpan judul="Tambah Data Film" link="informasi">
             <input type="hidden" name="sesi" value="film">
             <section class="p-3">
@@ -64,15 +70,6 @@
                      <label for="" class="col-md-4">Page</label>
                      <input type="number" name="page" id="page" class="form-control col-md-8"  value="1">
                 </div>
-                {{--
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Tentang</label>
-                    <input type="text" name="tentang" id="tentang" class="form-control col-md-8"  value="{{ old('tentang')}}" required>
-                 </div>
-                 <div class="form-group row">
-                      <label for="" class="col-md-4">Gambar</label>
-                      <input type="file" name="gambar" id="gambar" class="form-control col-md-8" required>
-                 </div> --}}
              </section>
         </x-modalsimpan>
         <x-modalubah judul="Ubah Data Informasi Hewan" link="informasi">
