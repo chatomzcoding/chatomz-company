@@ -7,7 +7,7 @@
                     <div class="col-md-12">
                         <header class="bg-white mb-2 p-2 rounded">
                             <a href="{{ url('informasi') }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="bi-arrow-left"></i> Kembali </a>
-                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus"></i> Tambah Film </a>
+                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus"></i> Tambah Masakan </a>
                             <button data-bs-toggle="modal" data-bs-target="#hapus" class="btn btn-outline-danger btn-sm"><i class="bi-trash"></i> Hapus Semua</button>
                             {{-- @if (isset($_GET['total']))
                                 <span class="float-end">Total Pencarian {{ $_GET['total'] }}</span>
@@ -25,7 +25,7 @@
                                     <div class="card-content">
                                         <a href="{{ url('public/img/company/informasi/masakan/'.$item->gambar)}}" target="_blank"><img src="{{ url('public/img/company/informasi/masakan/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                     <section class="text-center py-2">
-                                        {{ ucwords($item->gambar)}} <br>
+                                        {{ ucwords($item->nama)}} <br>
                                         {{-- @if (isset($detail->Year))
                                             <i>{{ $detail->Year}}</i>
                                         @endif --}}
