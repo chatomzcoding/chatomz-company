@@ -25,9 +25,15 @@
                                         <hr>
                                         <section class="p-2 small">
                                             <dd>
-                                                <dl>Untuk {{ $detail->servings }}</dl>
-                                                <dl>Estimasi Pembuatan {{ $detail->times }}</dl>
-                                                <dl>Tingkat Resep {{ $detail->dificulty }}</dl>
+                                                @if (isset($detail->servings))
+                                                    <dl>Untuk {{ $detail->servings }}</dl>
+                                                @endif
+                                                @if (isset($detail->times))
+                                                    <dl>Estimasi Pembuatan {{ $detail->times }}</dl>
+                                                @endif
+                                                @if (isset($detail->dificulty))
+                                                    <dl>Tingkat Resep {{ $detail->dificulty }}</dl>
+                                                @endif
                                             </dd>
                                         </section>
                                     </div>

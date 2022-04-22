@@ -219,12 +219,13 @@ class InformasiController extends Controller
                         foreach ($data->results as $key) {
                             $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
                             $response   = datajson($link);
+                            $response   = json_decode($response);
                             $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
                             Informasi::create([
                                 'kategori_id' => $kategori->id,
                                 'nama' => $key->title,
                                 'gambar' => $namafile,
-                                'detail' => $response
+                                'detail' => json_encode($response->result)
                             ]);
                         }
                         return redirect('informasi?id='.$kategori->id)->with('ds',$notif);
