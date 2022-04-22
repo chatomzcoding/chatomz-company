@@ -16,9 +16,10 @@ class InformasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $kategori_id = (isset($_GET['id'])) ? $_GET['id'] : 'semua' ;
+        $page = (isset($_GET['page'])) ? $_GET['page'] : 'index' ;
         if ($kategori_id == 'semua') {
             $kategori   = Kategori::where('label','informasi')->get();
             return view('company.informasi.index', compact('kategori'));
@@ -45,8 +46,47 @@ class InformasiController extends Controller
                     return view('company.informasi.film.index', compact('kategori','data'));
                     break;
                 case 'masakan':
-                    $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('id','DESC')->get();
-                    return view('company.informasi.masakan.index', compact('kategori','data'));
+                    if ($page == 'index') {
+                        $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('id','DESC')->get();
+                        return view('company.informasi.masakan.index', compact('kategori','data'));
+                    } else {
+                        // cek apakah session sesuai dengan key
+                        if($request->session()->has('listresep')){
+                            $response = $request->session()->get('listresep');
+                            if ($response['key'] <> $_GET['cari']) {
+                                $response = $request->session()->forget('listresep');
+                            }
+                        }
+                        // jika session ada dipanggil, jika tidak ada maka buat sessio baru
+                        if($request->session()->has('listresep')){
+                            $response   = $response['data'];
+                        }else{
+                            $link       = 'https://masak-apa.tomorisakura.vercel.app/api/search/?q='.$_GET['cari'];
+                            $response   = datajson($link);
+                            $simpanresep= ['key' => $_GET['cari'],'data' => $response];
+                            $request->session()->put('listresep',$simpanresep);
+                        }
+                        $result       = json_decode($response);
+                        // cek data yang sudah disimpan dan belum
+                        $data   = [];
+                        foreach ($result->results as $key) {
+                            $cekdata = Informasi::where('nama',$key->title)->where('gambar',$key->key.'.png')->first();
+                            if ($cekdata) {
+                                $data[] = [
+                                    'status' => TRUE,
+                                    'data' => $key
+                                ];
+                            } else {
+                                $data[] = [
+                                    'status' => FALSE,
+                                    'data' => $key
+                                ];
+                            }
+                        }
+                        $key    = $_GET['cari'];
+                        return view('company.informasi.masakan.create', compact('kategori','data','key'));
+                    }
+                    
                     break;
                 
                 default:
@@ -91,32 +131,17 @@ class InformasiController extends Controller
                 $link = 'http://www.omdbapi.com/?apikey=d7039757&s='.$request->cari.'&page='.$request->page;
                 $response = datajson($link);
                 $data = json_decode($response);
-
                 $kategori   = Kategori::where('nama_kategori','film')->first();
-
                 foreach ($data->Search as $key) {
                     $judul = $key->Title;
                     $gambar = $key->Poster;
                     $id = $key->imdbID;
-
                     // cek apakah sudah ada di server atau belum
                     $cekinformasi = Informasi::where('nama',$judul)->where('gambar',$gambar)->first();
                     if (!$cekinformasi) {
-                        $curl = curl_init();
-                        curl_setopt_array($curl, array(
-                        CURLOPT_URL => 'http://www.omdbapi.com/?apikey=d7039757&i='.$id,
-                        CURLOPT_RETURNTRANSFER => true,
-                        CURLOPT_ENCODING => '',
-                        CURLOPT_MAXREDIRS => 10,
-                        CURLOPT_TIMEOUT => 0,
-                        CURLOPT_FOLLOWLOCATION => true,
-                        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                        CURLOPT_CUSTOMREQUEST => 'GET',
-                        ));
-        
-                        $response = curl_exec($curl);
-                        curl_close($curl);
-                        $namafile  = unduhgambar('company/informasi/film',$judul.'-'.$id,$gambar);
+                        $link       = 'http://www.omdbapi.com/?apikey=d7039757&i='.$id;
+                        $response   = datajson($link);
+                        $namafile   = unduhgambar('company/informasi/film',$judul.'-'.$id,$gambar);
                         Informasi::create([
                             'kategori_id' => $kategori->id,
                             'nama' => $judul,
@@ -130,28 +155,43 @@ class InformasiController extends Controller
             case 'masakan':
                 $notif      = 'Masakan';
                 $kategori   = Kategori::where('nama_kategori','masakan')->first();
-                $link       = 'https://masak-apa.tomorisakura.vercel.app/api/search/?q='.$request->cari;
-                $response   = datajson($link);
-                $data       = json_decode($response);
-                // dd($data);
-                foreach ($data->results as $key) {
-                    // "title": "Resep Sushi Roll Isi Ayam Mayones, Camilan Favorit Baru",
-                    // "thumb": "https://www.masakapahariini.com/wp-content/uploads/2019/06/sushi-roll-ayam-mayones-400x240.jpg",
-                    // "key": "resep-sushi-roll-isi-ayam-mayones-pedas",
-                    // "times": "30mnt",
-                    // "serving": "4 Porsi",
-                    // "difficulty": "Cukup Rumit"
-                    $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
+                if (isset($request->page)) {
+                    $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$request->key;
                     $response   = datajson($link);
-                    $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
+                    $response   = json_decode($response);
+                    $namafile   = unduhgambar('company/informasi/masakan',$request->key,$request->thumb);
                     Informasi::create([
                         'kategori_id' => $kategori->id,
-                        'nama' => $key->title,
+                        'nama' => $request->title,
                         'gambar' => $namafile,
-                        'detail' => $response
+                        'detail' => json_encode($response->results)
                     ]);
+                    return back()->with('ds','resep '.$request->title);
+                } else {
+                    $link       = 'https://masak-apa.tomorisakura.vercel.app/api/search/?q='.$request->cari;
+                    $response   = datajson($link);
+                    $data       = json_decode($response);
+                    if (count($data->results) > 0) {
+                        foreach ($data->results as $key) {
+                           
+                            $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
+                            $response   = datajson($link);
+                            $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
+                            Informasi::create([
+                                'kategori_id' => $kategori->id,
+                                'nama' => $key->title,
+                                'gambar' => $namafile,
+                                'detail' => $response
+                            ]);
+                        }
+                        return redirect('informasi?id='.$kategori->id)->with('ds',$notif);
+                        # code...
+                    } else {
+                        return redirect('informasi?id='.$kategori->id)->with('danger','Informasi dengan key "'.$request->cari.'" tidak ditemukan!');
+                    }
                 }
-                return redirect('informasi?id='.$kategori->id)->with('ds',$notif);
+                
+                
                 break;
                 
             default:
@@ -195,9 +235,13 @@ class InformasiController extends Controller
             case 'film':
                 return view('company.informasi.film.show', compact('informasi'));
                 break;
+            case 'masakan':
+                $detail     = json_decode($informasi->detail);
+                return view('company.informasi.masakan.show', compact('informasi','detail'));
+                break;
             
             default:
-                # code...
+                echo 'halaman belum ada';
                 break;
         }
 
@@ -268,15 +312,11 @@ class InformasiController extends Controller
      */
     public function destroy(Informasi $informasi)
     {
-        switch ($informasi->kategori->namakategori) {
-            case 'hewan':
-                $tujuan_upload = 'public/img/company/informasi/hewan';
-                deletefile($tujuan_upload.'/'.$informasi->gambar);
-                break;
-        }
+        $filegambar = 'public/img/company/informasi/'.$informasi->kategori->nama_kategori.'/'.$informasi->gambar;
+        deletefile($filegambar);
 
         $informasi->delete();
 
-        return back()->with('dd','Hewan');
+        return back()->with('dd',$informasi->kategori->namakategori);
     }
 }
