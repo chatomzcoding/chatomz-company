@@ -19,7 +19,7 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-content">
-                                        <a href="{{ $informasi->gambar}}" target="_blank"><img src="{{ $informasi->gambar}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                                        <a href="{{ asset('img/company/informasi/film/'.$informasi->gambar)}}" target="_blank"><img src="{{ asset('img/company/informasi/film/'.$informasi->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                     <section class="text-center py-2">
                                         {{ ucwords($informasi->nama)}} <br>
                                     </section>
