@@ -46,7 +46,7 @@ class InformasiController extends Controller
                         // cek apakah session sesuai dengan key
                         if($request->session()->has('listfilm')){
                             $response = $request->session()->get('listfilm');
-                            if ($response['key'] <> $_GET['cari']) {
+                            if ($response['key'] <> $_GET['cari'] AND $response['page'] == $page) {
                                 $response = $request->session()->forget('listfilm');
                             }
                         }
@@ -56,32 +56,29 @@ class InformasiController extends Controller
                         }else{
                             $link = 'http://www.omdbapi.com/?apikey=d7039757&s='.$request->cari.'&page='.$request->page;
                             $response   = datajson($link);
-                            $simpanresep= ['key' => $_GET['cari'],'data' => $response];
+                            $simpanresep= ['key' => $_GET['cari'],'page'=>  $request->page, 'data' => $response];
                             $request->session()->put('listfilm',$simpanresep);
                         }
                         $result       = json_decode($response);
-                        // cek data yang sudah disimpan dan belum
-                        $data   = [];
-                        foreach ($result->Search as $key) {
-                            $judul = $key->Title;
-                            $id = $key->imdbID;
-                            $gambar     = $judul.'-'.$id.'.png';
-                            // cek apakah sudah ada di server atau belum
-                            $cekdata = Informasi::where('nama',$judul)->where('gambar',$gambar)->first();
-                            if ($cekdata) {
-                                $data[] = [
-                                    'status' => TRUE,
-                                    'data' => $key
-                                ];
-                            } else {
-                                $data[] = [
-                                    'status' => FALSE,
-                                    'data' => $key
-                                ];
+                        $data       = [];
+                        $simpan     = [];
+                        if ($result->Response == 'True') {
+                            // cek data yang sudah disimpan dan belum
+                            foreach ($result->Search as $key) {
+                                $judul = $key->Title;
+                                $id = $key->imdbID;
+                                $gambar     = $judul.'-'.$id.'.png';
+                                // cek apakah sudah ada di server atau belum
+                                $cekdata = Informasi::where('nama',$judul)->where('gambar',$gambar)->first();
+                                if ($cekdata) {
+                                    $simpan[] = $key;
+                                } else {
+                                    $data[] = $key;
+                                }
                             }
                         }
                         $key    = $_GET['cari'];
-                        return view('company.informasi.film.create', compact('kategori','data','key'));
+                        return view('company.informasi.film.create', compact('kategori','data','simpan','key'));
                     }
                     break;
                 case 'masakan':
@@ -108,22 +105,17 @@ class InformasiController extends Controller
                         $result       = json_decode($response);
                         // cek data yang sudah disimpan dan belum
                         $data   = [];
+                        $simpan   = [];
                         foreach ($result->results as $key) {
                             $cekdata = Informasi::where('nama',$key->title)->where('gambar',$key->key.'.png')->first();
                             if ($cekdata) {
-                                $data[] = [
-                                    'status' => TRUE,
-                                    'data' => $key
-                                ];
+                                $simpan[] = $key;
                             } else {
-                                $data[] = [
-                                    'status' => FALSE,
-                                    'data' => $key
-                                ];
+                                $data[] = $key;
                             }
                         }
                         $key    = $_GET['cari'];
-                        return view('company.informasi.masakan.create', compact('kategori','data','key'));
+                        return view('company.informasi.masakan.create', compact('kategori','data','simpan','key'));
                     }
                     
                     break;
@@ -180,21 +172,21 @@ class InformasiController extends Controller
                     ]);
                     return back()->with('ds',$request->title);
                 } else {
-                    $link = 'http://www.omdbapi.com/?apikey=d7039757&s='.$request->cari.'&page='.$request->page;
-                    $response = datajson($link);
-                    $data = json_decode($response);
+                    $response = $request->session()->get('listfilm');
+                    $data = json_decode($response['data']);
                     foreach ($data->Search as $key) {
                         $judul = $key->Title;
-                        $gambar = $key->Poster;
                         $id = $key->imdbID;
+                        $linkgambar = $key->Poster;
                         // cek apakah sudah ada di server atau belum
+                        $gambar         = $judul.'-'.$id.'.png';
                         $cekinformasi = Informasi::where('nama',$judul)->where('gambar',$gambar)->first();
                         if (!$cekinformasi) {
                             $link       = 'http://www.omdbapi.com/?apikey=d7039757&i='.$id;
                             $response   = datajson($link);
-                            $namafile   = unduhgambar('company/informasi/film',$judul.'-'.$id,$gambar);
+                            $namafile   = unduhgambar('company/informasi/film',$judul.'-'.$id,$linkgambar);
                             Informasi::create([
-                                'kategori_id' => $kategori->id,
+                                'kategori_id' => $request->kategori_id,
                                 'nama' => $judul,
                                 'gambar' => $namafile,
                                 'detail' => $response
@@ -221,12 +213,10 @@ class InformasiController extends Controller
                     ]);
                     return back()->with('ds','resep '.$request->title);
                 } else {
-                    $link       = 'https://masak-apa.tomorisakura.vercel.app/api/search/?q='.$request->cari;
-                    $response   = datajson($link);
-                    $data       = json_decode($response);
+                    $response = $request->session()->get('listresep');
+                    $data       = json_decode($response['data']);
                     if (count($data->results) > 0) {
                         foreach ($data->results as $key) {
-                           
                             $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
                             $response   = datajson($link);
                             $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
@@ -238,7 +228,6 @@ class InformasiController extends Controller
                             ]);
                         }
                         return redirect('informasi?id='.$kategori->id)->with('ds',$notif);
-                        # code...
                     } else {
                         return redirect('informasi?id='.$kategori->id)->with('danger','Informasi dengan key "'.$request->cari.'" tidak ditemukan!');
                     }

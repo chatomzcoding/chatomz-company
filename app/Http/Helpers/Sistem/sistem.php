@@ -2,15 +2,20 @@
 
 if (! function_exists('unduhgambar')) {
     function unduhgambar($folder,$namafile=null,$url){
-        if (is_null($namafile)) {
-            $namafile = time();
+        if (filter_var($url, FILTER_VALIDATE_URL) === FALSE) {
+            return NULL;
+        } else {
+            if (is_null($namafile)) {
+                $namafile = time();
+            }
+            $namafile   = $namafile.'.png';
+            $namafile   = str_replace(":",'',$namafile); // bug ketika ada : data string terbelah
+            $folder     = 'public/img/'.$folder.'/';
+            $img        = $folder.$namafile; 
+            copy('public/img/gambar.png',$img);
+            file_put_contents($img, file_get_contents($url));
+            return $namafile;
         }
-        $namafile   = $namafile.'.png';
-        $folder     = 'public/img/'.$folder.'/';
-        $img        = $folder.$namafile; 
-        copy('public/img/gambar.png',$img);
-        file_put_contents($img, file_get_contents($url));
-        return $namafile;
     }
 }
 if (! function_exists('datajson')) {

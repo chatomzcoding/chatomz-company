@@ -20,7 +20,11 @@
                                         $detail = json_decode($item->detail); 
                                     @endphp
                                     <div class="card-content">
-                                        <a href="{{ url('/informasi/'.$item->id)}}"><img src="{{ url('public/img/company/informasi/film/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                                        @if (is_null($item->gambar))
+                                            <img src="{{ url('public/img/null.png')}}" alt="user-avatar" class="card-img-top img-fluid"> <br>
+                                        @else
+                                            <a href="{{ url('/informasi/'.$item->id)}}"><img src="{{ url('public/img/company/informasi/film/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                                        @endif
                                     <section class="text-center py-2">
                                         {{ ucwords($item->gambar)}} <br>
                                         @if (isset($detail->Year))

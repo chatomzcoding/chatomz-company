@@ -12,39 +12,67 @@
                         </header>
                     </div>
                     <div class="col-md-12">
+                        <section class="p-2">
+                            <form action="{{ url('informasi') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="sesi" value="masakan">
+                                <input type="hidden" name="kategori_id" value="{{ $kategori->id }}">
+                                <div class="form-group text-right">
+                                    <button type="submit" class="btn btn-primary btn-sm"><i class="bi-save"></i> SIMPAN HASIL PENCARIAN</button>
+                                </div>
+                            </form>
+                        </section>
                         <div class="row">
                             @forelse ($data as $item)
                                 <div class="col-12 col-sm-4 col-md-3">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <a href="{{ $item['data']->thumb}}" target="_blank"><img src="{{ $item['data']->thumb}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
-                                    <section class="text-center py-2 small">
-                                        {{ ucwords($item['data']->title)}}
-                                    </section>
-                                    </div>
-                                    <div class="card-footer p-0">
-                                        @if ($item['status'])
-                                            <button class="btn btn-success btn-sm btn-block"><i class="bi-save"></i> TERSIMPAN</button>
-                                        @else
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <a href="{{ $item->thumb}}" target="_blank"><img src="{{ $item->thumb}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                                        <section class="text-center py-2 small">
+                                            {{ ucwords($item->title)}}
+                                        </section>
+                                        </div>
+                                        <div class="card-footer p-0">
                                             <form action="{{ url('informasi') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="sesi" value="masakan">
                                                 <input type="hidden" name="page" value="singel">
-                                                <input type="hidden" name="thumb" value="{{ $item['data']->thumb }}">
-                                                <input type="hidden" name="title" value="{{ $item['data']->title }}">
-                                                <input type="hidden" name="key" value="{{ $item['data']->key }}">
+                                                <input type="hidden" name="thumb" value="{{ $item->thumb }}">
+                                                <input type="hidden" name="title" value="{{ $item->title }}">
+                                                <input type="hidden" name="key" value="{{ $item->key }}">
                                                 <input type="hidden" name="kategori_id" value="{{ $kategori->id }}">
                                                 <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi-save"></i> SIMPAN</button>
                                             </form>
-                                        @endif
+                                        </div>
                                     </div>
                                 </div>
+                            @empty
+                                <section class="text-center">
+                                    <i>data tidak ditemukan</i>
+                                </section>
+                            @endforelse
+                        </div>
+                        <hr>
+                        <div class="row">
+                            @forelse ($simpan as $item)
+                                <div class="col-12 col-sm-4 col-md-3">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <a href="{{ $item->thumb}}" target="_blank"><img src="{{ $item->thumb}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                                        <section class="text-center py-2 small">
+                                            {{ ucwords($item->title)}}
+                                        </section>
+                                        </div>
+                                        <div class="card-footer p-0">
+                                            <button class="btn btn-success btn-sm btn-block"><i class="bi-save"></i> TERSIMPAN</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                @empty
-                                  <section class="text-center">
-                                      <i>data tidak ditemukan</i>
-                                  </section>
-                                @endforelse
+                            @empty
+                                <section class="text-center">
+                                    <i>data tidak ditemukan</i>
+                                </section>
+                            @endforelse
                         </div>
                     </div>
                   </div>
