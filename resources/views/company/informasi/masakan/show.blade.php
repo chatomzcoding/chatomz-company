@@ -17,8 +17,10 @@
                                         <a href="{{ asset('img/company/informasi/masakan/'.$informasi->gambar)}}" target="_blank"><img src="{{ asset('img/company/informasi/masakan/'.$informasi->gambar) }}" alt="gambar masakan" class="card-img-top img-fluid"></a> <br>
                                         <section class="text-center py-2">
                                             {{ ucwords($informasi->nama)}} <br>
-                                       <small>Resep Dari {{ $detail->author->user }}</small><br>
-                                       <small>{{ $detail->author->datePublished }}</small>
+                                            @if (isset($detail->author))
+                                                <small>Resep Dari {{ $detail->author->user }}</small><br>
+                                                <small>{{ $detail->author->datePublished }}</small>
+                                            @endif
                                         </section>
                                         <hr>
                                         <section class="p-2 small">
