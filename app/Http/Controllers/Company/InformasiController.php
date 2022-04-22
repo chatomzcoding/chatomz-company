@@ -225,7 +225,7 @@ class InformasiController extends Controller
                                 'kategori_id' => $kategori->id,
                                 'nama' => $key->title,
                                 'gambar' => $namafile,
-                                'detail' => json_encode($response->result)
+                                'detail' => json_encode($response->results)
                             ]);
                         }
                         return redirect('informasi?id='.$kategori->id)->with('ds',$notif);
