@@ -36,7 +36,7 @@
                                             <form action="{{ url('informasi') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="sesi" value="masakan">
-                                                <input type="hidden" name="page" value="singel">
+                                                <input type="hidden" name="s" value="satu">
                                                 <input type="hidden" name="thumb" value="{{ $item->thumb }}">
                                                 <input type="hidden" name="title" value="{{ $item->title }}">
                                                 <input type="hidden" name="key" value="{{ $item->key }}">

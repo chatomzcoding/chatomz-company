@@ -7,7 +7,7 @@
                     <div class="col-md-12">
                         <div class="row d-flex align-items-stretch">
                             @foreach ($kategori as $item)
-                                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
+                                <div class=" col-sm-4 col-md-3 d-flex align-items-stretch">
                                     <div class="card">
                                         <div class="card-content">
                                             <a href="{{ url('/informasi?id='.$item->id)}}"><img src="{{ asset('/img/kategori/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a>

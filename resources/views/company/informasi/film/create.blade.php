@@ -36,7 +36,7 @@
                                             <form action="{{ url('informasi') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="sesi" value="film">
-                                                <input type="hidden" name="page" value="singel">
+                                                <input type="hidden" name="s" value="satu">
                                                 <input type="hidden" name="gambar" value="{{ $item->Poster }}">
                                                 <input type="hidden" name="title" value="{{ $item->Title }}">
                                                 <input type="hidden" name="id" value="{{ $item->imdbID }}">

@@ -124,3 +124,42 @@ if (! function_exists('showpertag')) {
     }
 }
 
+// HELPER INFORMASI
+if (! function_exists('informasiListTag')) {
+    function informasiListTag($listtag)
+    {   
+        $result = [];
+        if (!is_null($listtag)) {
+            $a_listtag = explode('#',$listtag);
+            for ($i=0; $i < count($a_listtag); $i++) { 
+                if ($a_listtag[$i] <> '') {
+                    $result[] = trim($a_listtag[$i]);
+                }
+            }
+        }
+        return $result;
+    }
+}
+if (! function_exists('informasiTagAktif')) {
+    function informasiTagAktif($data,$tag)
+    {   
+        $result = 'info';
+        if ($data == $tag) {
+            $result = 'primary';
+        }
+        return $result;
+    }
+}
+if (! function_exists('informasiShowTag')) {
+    function informasiShowTag($tag)
+    {   
+        $result = NULL;
+        $data = informasiListTag($tag);
+        if (count($data) > 0) {
+            for ($i=0; $i < count($data); $i++) { 
+                $result .= '#'.$data[$i].' ';
+            }
+        }
+        return $result;
+    }
+}
