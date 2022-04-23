@@ -35,6 +35,7 @@
                                             <th width="10%">Aksi</th>
                                             <th>Label</th>
                                             <th>Nama Kategori</th>
+                                            <th>List Tag</th>
                                             <th>Keterangan</th>
                                         </tr>
                                     </thead>
@@ -44,7 +45,7 @@
                                                 <td class="text-center">{{ $loop->iteration}}</td>
                                                 <td class="text-center">
                                                     <x-aksi :id="$item->id" link="kategori">
-                                                        <button type="button" data-bs-toggle="modal"  data-nama_kategori="{{ $item->nama_kategori }}"  data-keterangan_kategori="{{ $item->keterangan_kategori }}"  data-label="{{ $item->label }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                        <button type="button" data-bs-toggle="modal"  data-nama_kategori="{{ $item->nama_kategori }}"  data-keterangan_kategori="{{ $item->keterangan_kategori }}"  data-label="{{ $item->label }}" data-list_tag="{{ $item->list_tag }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                             <i class="fa fa-edit" style="width: 20px;"></i> EDIT
                                                         </button>
                                                     </x-aksi>
@@ -56,11 +57,12 @@
                                                         <a href="{{ asset('img/kategori/'.$item->gambar) }}" target="_blank"><img src="{{ asset('img/kategori/'.$item->gambar) }}" alt="" width="150px"></a>
                                                     @endif
                                                 </td>
+                                                <td>{{ $item->list_tag}}</td>
                                                 <td>{{ $item->keterangan_kategori}}</td>
                                             </tr>
                                         @empty
                                             <tr class="text-center">
-                                                <td colspan="5">tidak ada data</td>
+                                                <td colspan="6">tidak ada data</td>
                                             </tr>
                                         @endforelse
                                 </table>
@@ -85,14 +87,18 @@
                             <option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
                         @endforeach
                     </select>
-                    </div>
+                </div>
                 <div class="form-group row">
                     <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                    <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="4" class="form-control col-md-8" required></textarea>
-                    </div>
-                    <div class="form-group row">
-                        <label for="" class="col-md-4">Gambar</label>
-                        <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
+                    <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">List Tag</label>
+                    <textarea name="list_tag" id="list_tag" cols="30" rows="3" class="form-control col-md-8"></textarea>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Gambar</label>
+                    <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
                 </div>
                 </section>
         </x-modalsimpan>
@@ -112,7 +118,11 @@
                 </div>
             <div class="form-group row">
                 <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="4" class="form-control col-md-8" required></textarea>
+                <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">List Tag</label>
+                    <textarea name="list_tag" id="list_tag" cols="30" rows="3" class="form-control col-md-8"></textarea>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-md-4">Gambar (opsional)</label>
@@ -128,11 +138,13 @@
                 var nama_kategori = button.data('nama_kategori')
                 var label = button.data('label')
                 var keterangan_kategori = button.data('keterangan_kategori')
+                var list_tag = button.data('list_tag')
                 var id = button.data('id')
                 var modal = $(this)
                 modal.find('.modal-body #nama_kategori').val(nama_kategori);
                 modal.find('.modal-body #label').val(label);
                 modal.find('.modal-body #keterangan_kategori').val(keterangan_kategori);
+                modal.find('.modal-body #list_tag').val(list_tag);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

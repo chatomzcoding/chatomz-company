@@ -69,6 +69,7 @@ class KategoriController extends Controller
             'nama_kategori' => strtolower($request->nama_kategori),
             'label' => strtolower($request->label),
             'keterangan_kategori' => $request->keterangan_kategori,
+            'list_tag' => $request->list_tag,
             'gambar' => $nama_file,
         ]);
 
@@ -126,6 +127,7 @@ class KategoriController extends Controller
             'nama_kategori' => strtolower($request->nama_kategori),
             'label' => strtolower($request->label),
             'keterangan_kategori' => $request->keterangan_kategori,
+            'list_tag' => $request->list_tag,
             'gambar' => $nama_file,
         ]);
 
