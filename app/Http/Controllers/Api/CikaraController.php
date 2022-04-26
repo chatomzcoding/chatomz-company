@@ -27,11 +27,12 @@ class CikaraController extends Controller
                     ];
                 }
 
-                $result = [
-                    'grup' => $grup,
-                    'anggota' => $anggota
-                ];
-                
+                $result = [];
+
+                foreach ($anggota as $key) {
+                    $result[] = $key['anggota'];
+                }
+
                 break;
             
             default:
