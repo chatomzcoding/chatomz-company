@@ -36,3 +36,4 @@ Route::post('coba', 'App\Http\Controllers\Api\Informasi\HewanController@coba');
 
 // CIKARA API 
 Route::get('cikarastudio', [CikaraController::class,'index']);
+Route::post('simpanmagang', [CikaraController::class,'simpanmagang']);
