@@ -110,6 +110,7 @@
                                           </thead> --}}
                                           <tbody>
                                               @forelse ($data['riwayatlihatorang'] as $item)
+                                              @if (isset($item->orang))
                                                 <tr>
                                                     <td class="col-2">
                                                         <div class="d-flex align-items-center">
@@ -123,6 +124,12 @@
                                                         <i>{{ $item->detail }}</i>
                                                     </td>
                                                 </tr>
+                                                  
+                                              @else
+                                                  <tr>
+                                                      <td colspan="2"><i>Data Orang telah dihapus</i></td>
+                                                  </tr>
+                                              @endif
                                               @empty
                                               <tr>
                                                   <td colspan="2" class="text-center">
