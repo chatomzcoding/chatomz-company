@@ -48,6 +48,7 @@ class CikaraController extends Controller
     public function simpanmagang(Request $request)
     {
         if (isset($request->photo)) {
+            dd($request->photo);
              // validation form photo
              $request->validate([
                  'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
