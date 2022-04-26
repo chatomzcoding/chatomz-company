@@ -47,22 +47,8 @@ class CikaraController extends Controller
 
     public function simpanmagang(Request $request)
     {
-        if (isset($request->photo)) {
-            dd($request->photo);
-             // validation form photo
-             $request->validate([
-                 'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
-             ]);
-             // menyimpan data file yang diupload ke variabel $file
-             $file = $request->file('photo');
-             
-             $nama_file = time()."_".$file->getClientOriginalName();
-             $tujuan_upload = 'public/img/chatomz/orang';
-             // isi dengan nama folder tempat kemana file diupload
-             $file->move($tujuan_upload,$nama_file);
-         } else {
-             $nama_file = NULL;
-         }
+       
+         $nama_file = unduhgambar('img/chatomz/orang',$request->first_name,$request->photo);
              Orang::create([
                  'first_name'  => strtolower($request->first_name),
                  'last_name'  => strtolower($request->last_name),
