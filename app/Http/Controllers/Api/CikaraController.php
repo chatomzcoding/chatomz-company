@@ -47,8 +47,7 @@ class CikaraController extends Controller
 
     public function simpanmagang(Request $request)
     {
-       
-         $nama_file = unduhgambar('img/chatomz/orang',$request->first_name,$request->photo);
+        $nama_file = unduhgambar('chatomz/orang',$request->first_name,$request->photo);
              Orang::create([
                  'first_name'  => strtolower($request->first_name),
                  'last_name'  => strtolower($request->last_name),
