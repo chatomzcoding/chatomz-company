@@ -12,4 +12,9 @@ class Grup extends Model
     protected $table = 'grup';
 
     protected $guarded = [];
+
+    public function anggota()
+    {
+        return $this->hasMany(Grupanggota::class);
+    }
 }

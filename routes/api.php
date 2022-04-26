@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Bisnis\ProdukController;
 use App\Http\Controllers\Api\Bisnis\UsahaController;
+use App\Http\Controllers\Api\CikaraController;
 use App\Http\Controllers\Api\Informasi\HewanController;
 use App\Http\Controllers\Api\informasi\MasakanController;
 use App\Http\Controllers\Api\KategoriController;
@@ -33,4 +34,5 @@ Route::resource('masakan', MasakanController::class);
 Route::resource('kategori', KategoriController::class);
 Route::post('coba', 'App\Http\Controllers\Api\Informasi\HewanController@coba');
 
-// chatomz ganteng
+// CIKARA API 
+Route::get('cikarastudio', [CikaraController::class,'index']);

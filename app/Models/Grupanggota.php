@@ -12,4 +12,9 @@ class Grupanggota extends Model
     protected $table = 'grup_anggota';
 
     protected $guarded = [];
+
+    public function orang()
+    {
+        return $this->belongsTo(Orang::class);
+    }
 }
