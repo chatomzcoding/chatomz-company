@@ -18,7 +18,20 @@ class CikaraController extends Controller
         ];
         switch ($s) {
             case 'magang':
-                $result   = Grup::where('name','cikara magang')->first();
+                $grup   = Grup::where('name','cikara magang')->first();
+                $anggota = [];
+                foreach ($grup->anggota as $key) {
+                    $anggota[] = [
+                        'anggota' => $key,
+                        'detail' => $key->orang
+                    ];
+                }
+
+                $result = [
+                    'grup' => $grup,
+                    'anggota' => $anggota
+                ];
+                
                 break;
             
             default:
