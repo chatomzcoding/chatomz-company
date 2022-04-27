@@ -82,10 +82,10 @@
                       <div class="col-12">
                           <div class="card">
                               <div class="card-header">
-                                  <h4>Jumlah Pengunjung Website (maintenance)</h4>
+                                  <h4>Jumlah View Pengunjung Website</h4>
                               </div>
                               <div class="card-body">
-                                  <div id="chart-profile-visit"></div>
+                                  <div id="chart-visitor"></div>
                               </div>
                           </div>
                       </div>
@@ -96,50 +96,29 @@
                       </div>
                       <div class="col-12 col-xl-6">
                           <div class="card">
-                              <div class="card-header">
+                              <div class="card-header pb-0">
                                   <h4>Terakhir Dilihat</h4>
                               </div>
-                              <div class="card-body">
-                                  <div class="table-responsive">
-                                      <table class="table table-hover table-lg">
-                                          {{-- <thead>
-                                              <tr>
-                                                  <th>Nama</th>
-                                                  <th>Comment</th>
-                                              </tr>
-                                          </thead> --}}
-                                          <tbody>
-                                              @forelse ($data['riwayatlihatorang'] as $item)
-                                              @if (isset($item->orang))
-                                                <tr>
-                                                    <td class="col-2">
-                                                        <div class="d-flex align-items-center">
-                                                            <div class="avatar avatar-md">
-                                                                <a href="{{ url('orang/'.Crypt::encryptString($item->orang->id)) }}"><img src="{{ asset('img/chatomz/orang/'.$item->orang->photo)}}"></a>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-auto">
-                                                        <p class=" mb-0">{{ fullname($item->orang) }}</p>
-                                                        <i>{{ $item->detail }}</i>
-                                                    </td>
-                                                </tr>
-                                                  
-                                              @else
-                                                  <tr>
-                                                      <td colspan="2"><i>Data Orang telah dihapus</i></td>
-                                                  </tr>
-                                              @endif
-                                              @empty
-                                              <tr>
-                                                  <td colspan="2" class="text-center">
-                                                     <i>belum ada data</i>
-                                                  </td>
-                                              </tr>
-                                              @endforelse
-                                          </tbody>
-                                      </table>
-                                  </div>
+                              <div class="card-body py-2">
+                                  @foreach ($data['riwayatlihatorang'] as $item)
+                                    @isset($item->orang)
+                                        <div class="avatar avatar-lg me-3">
+                                            <a href="{{ url('orang/'.Crypt::encryptString($item->orang->id)) }}" class="pop-info" title="{{ fullname($item->orang) }}"><img src="{{ asset('img/chatomz/orang/'.orang_photo($item->orang->photo))}}"></a>
+                                        </div>
+                                    @endisset
+                                  @endforeach
+                              </div>
+                          </div>
+                          <div class="card">
+                              <div class="card-header pb-0">
+                                  <h4>Terakhir Ditambahkan</h4>
+                              </div>
+                              <div class="card-body py-2">
+                                  @foreach ($data['orangbaru'] as $item)
+                                    <div class="avatar avatar-lg me-3">
+                                        <a href="{{ url('orang/'.Crypt::encryptString($item->id)) }}" class="pop-info" title="{{ fullname($item) }}"><img src="{{ asset('img/chatomz/orang/'.orang_photo($item->photo))}}"></a>
+                                    </div>
+                                  @endforeach
                               </div>
                           </div>
                       </div>
@@ -163,7 +142,6 @@
                                 </div>
                                 <div class="name ms-4">
                                     <h5 class="mb-1">{{ fullname($item) }}</h5>
-                                    {{-- <h6 class="text-muted mb-0">@johnducky</h6> --}}
                                 </div>
                             </div>
                           @empty
@@ -176,7 +154,7 @@
                                 <form action="{{ url('pencarian') }}" method="get">
                                     @csrf
                                     <input type="hidden" name="s" value="ulangtahuntanggalini">
-                                    <button type="submit" class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Selengkapnya</button>
+                                    <button type="submit" class='btn btn-block btn-sm btn-light-primary font-bold mt-3'>Selengkapnya</button>
                                 </form>
                             </div>
                           @endif
@@ -216,12 +194,12 @@
                 plotOptions: {
                 },
                 series: [{
-                    name: 'sales',
-                    data: [9,20,30,20,10,20,30,20,10,20,30,20]
+                    name: 'view page',
+                    data: @json($chart['visitor']['nilai'])
                 }],
                 colors: '#435ebe',
                 xaxis: {
-                    categories: ["Jan","Feb","Mar","Apr","May","Jun","Jul", "Aug","Sep","Oct","Nov","Dec"],
+                    categories: @json($chart['visitor']['label']),
                 },
             }
             let perbandinganjeniskelamin  = {
@@ -322,7 +300,7 @@
                 colors: ['#dc3545'],
             }
 
-            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-profile-visit"), optionsProfileVisit);
+            var chartProfileVisit = new ApexCharts(document.querySelector("#chart-visitor"), optionsProfileVisit);
             var chartjeniskelamin = new ApexCharts(document.getElementById('chart-visitors-profile'), perbandinganjeniskelamin)
             var chartkematian = new ApexCharts(document.getElementById('chart-kematian'), perbandingankematian)
             var chartEurope = new ApexCharts(document.querySelector("#chart-europe"), optionsEurope);

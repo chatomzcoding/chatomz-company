@@ -1,4 +1,16 @@
 <?php
+if (! function_exists('cek_internet')) {
+    function cek_internet(){
+        $connected = @fsockopen("www.google.com", 80);
+        if ($connected){
+         $is_conn = true; //jika koneksi tersambung
+         fclose($connected);
+        }else{
+         $is_conn = false; //jika koneksi gagal
+        }
+        return $is_conn;
+       }
+}
 
 if (! function_exists('unduhgambar')) {
     function unduhgambar($folder,$namafile=null,$url){
@@ -20,42 +32,34 @@ if (! function_exists('unduhgambar')) {
 }
 if (! function_exists('datajson')) {
     function datajson($link,$curl=FALSE){
-        if ($curl) {
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-            CURLOPT_URL => $link,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_POST => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            ));
-    
-            $response = curl_exec($curl);
-    
-            curl_close($curl);
-        } else {
-            $response = file_get_contents( $link );
+        $response = [];
+        if (cek_internet()) {
+            if ($curl) {
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => $link,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+                ));
+        
+                $response = curl_exec($curl);
+                curl_close($curl);
+            } else {
+                $response = file_get_contents( $link );
+            }
+            $response = json_decode($response);
         }
         return $response;
     }
 }
 
-if (! function_exists('cek_internet')) {
-    function cek_internet(){
-        $connected = @fsockopen("www.google.com", 80);
-        if ($connected){
-         $is_conn = true; //jika koneksi tersambung
-         fclose($connected);
-        }else{
-         $is_conn = false; //jika koneksi gagal
-        }
-        return $is_conn;
-       }
-}
+
 if (! function_exists('apikey_chatomz')) {
     function apikey_chatomz($getapikey){
         $apikey = '$2y$10$yA4qXnZzEIjaW7WE2so98O4oJORl//OVdJIDLiAU8yWaAQk804sCK';

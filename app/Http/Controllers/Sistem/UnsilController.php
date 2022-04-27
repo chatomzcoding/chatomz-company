@@ -85,6 +85,9 @@ class UnsilController extends Controller
                 }
             }
         }
+
+        $namafile   = unduhgambar('chatomz/orang',time(),$request->poto);
+
         
         Orang::create([
             'first_name' => strtolower($first_name),
@@ -98,6 +101,7 @@ class UnsilController extends Controller
             'status_group' => 'available',
             'home_address' => strtolower($request->home_address),
             'note' => $request->note,
+            'photo' => $namafile,
         ]);
 
         // return back()->with('ds','Orang');

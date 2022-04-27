@@ -24,7 +24,6 @@ class Infogempa extends Component
     public function render()
     {
         $data = datajson('https://data.bmkg.go.id/DataMKG/TEWS/autogempa.json');
-        $data = json_decode($data);
         return view('components.dashboard.infogempa', compact('data'));
     }
 }

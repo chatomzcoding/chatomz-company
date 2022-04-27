@@ -236,13 +236,12 @@ class InformasiController extends Controller
                     case 'satu':
                         $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$request->key;
                         $response   = datajson($link);
-                        $response   = json_decode($response);
                         $namafile   = unduhgambar('company/informasi/masakan',$request->key,$request->thumb);
                         Informasi::create([
                             'kategori_id' => $kategori->id,
                             'nama' => $request->title,
                             'gambar' => $namafile,
-                            'detail' => json_encode($response->results)
+                            'detail' => $response->results
                         ]);
                         return back()->with('ds','resep '.$request->title);
                         break;
@@ -260,17 +259,16 @@ class InformasiController extends Controller
                     default:
                     $response = $request->session()->get('listresep');
                     $data       = json_decode($response['data']);
-                    if (count($data->results) > 0) {
+                    if (count($data->results) > 0) { 
                         foreach ($data->results as $key) {
                             $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
                             $response   = datajson($link);
-                            $response   = json_decode($response);
                             $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
                             Informasi::create([
                                 'kategori_id' => $kategori->id,
                                 'nama' => $key->title,
                                 'gambar' => $namafile,
-                                'detail' => json_encode($response->results)
+                                'detail' => $response->results
                             ]);
                         }
                         return redirect('informasi?id='.$kategori->id)->with('ds',$notif);

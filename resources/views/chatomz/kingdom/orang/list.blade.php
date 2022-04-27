@@ -18,7 +18,7 @@
                                                 <div class="row no-gutters">
                                                     <div class="col-md-4">
                                                         <a href="{{ url('/orang/'.Crypt::encryptString($item->id))}}" target="_blank">
-                                                            <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img" alt="...">
+                                                            <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="...">
                                                         </a>
                                                     </div>
                                                 <div class="col-md-8">

@@ -369,7 +369,6 @@
 
 {{-- javascript chatomz --}}
 <script src="{{ asset('js/chatomz.js')}}"></script>
-{{-- <script src="{{ asset('vendor/select2/select2.min.js')}}"></script> --}}
 
 <script>
   $(function () {

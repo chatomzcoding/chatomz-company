@@ -18,7 +18,7 @@ class VisitorMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-       DbChatomz::visitorhit();
+        DbChatomz::visitorhit();
         return $next($request);
     }
 }

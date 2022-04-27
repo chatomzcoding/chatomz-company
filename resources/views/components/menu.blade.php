@@ -4,7 +4,7 @@
             @csrf
             <input type="hidden" name="s" value="carinama">
             <div class="input-group mb-3">
-                <input type="text" name="nama" class="form-control" placeholder="cari dengan nama..." aria-label="cari dengan nama..." aria-describedby="button-addon2">
+                <input type="text" name="nama" class="form-control" placeholder="cari dengan nama..." aria-label="cari dengan nama..." aria-describedby="button-addon2" required>
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi-search"></i></button>
             </div>
         </form>

@@ -8,6 +8,7 @@ use App\Models\Keluarga;
 use App\Models\Orang;
 use App\Models\Pendidikan;
 use App\Models\Riwayat;
+use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,14 +16,13 @@ use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('visitorhits');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('visitorhits');
+    // }
     public function index()
     {
         $dashboard  = TRUE;
-        Session::put('menu','dashboard');
         $user       = Auth::user();
         switch ($user->level) {
             case 'admin':
@@ -51,14 +51,40 @@ class HomeController extends Controller
                 $gender = [$jumlahlakilaki,$jumlahperempuan];
                 $kematian = [$hidup,$meninggal];
                 $data       = [
-                    'riwayatlihatorang' => Riwayat::where('kode','lihatorang')->limit(3)->latest()->get()
+                    'riwayatlihatorang' => Riwayat::where('kode','lihatorang')->limit(5)->latest()->get(),
+                    'orangbaru' => Orang::limit(5)->latest()->get()
                 ];
-                return view('chatomz.admin.dashboard', compact('total','dashboard','info','gender','kematian','data'));
+                $chart = [
+                    'visitor' => self::chartvisitor()
+                ];
+                return view('chatomz.admin.dashboard', compact('total','dashboard','info','gender','kematian','data','chart'));
                 break;
             default:
                 return view('dashboard', compact('dashboard'));
                 break;
         }
+    }
+
+    public static function chartvisitor()
+    {
+        $label  = [];
+        $nilai  = [];
+        for ($i=1; $i <= ambil_tgl() ; $i++) { 
+            $hits       = 0;
+            $label[]    = $i;
+            $visitor    = Visitor::whereYear('tgl_visitor',ambil_tahun())
+                            ->whereMonth('tgl_visitor',ambil_bulan())
+                            ->whereDay('tgl_visitor',$i)->first();
+            if ($visitor) {
+                $hits   = $visitor->hits;
+            }
+            $nilai[] = $hits;
+        }
+        $result = [
+            'label' => $label,
+            'nilai' => $nilai
+        ];
+        return $result;
     }
 
     public function statistik()
