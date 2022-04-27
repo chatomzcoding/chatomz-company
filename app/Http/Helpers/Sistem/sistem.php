@@ -25,7 +25,13 @@ if (! function_exists('unduhgambar')) {
             $folder     = 'public/img/'.$folder.'/';
             $img        = $folder.$namafile; 
             copy('public/img/gambar.png',$img);
-            file_put_contents($img, file_get_contents($url));
+            $arrContextOptions=array(
+                "ssl"=>array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+            );
+            file_put_contents($img, file_get_contents($url, false, stream_context_create($arrContextOptions)));
             return $namafile;
         }
     }
