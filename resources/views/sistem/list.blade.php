@@ -58,10 +58,11 @@
                                             <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
                                                 <div class="card mb-3 w-100">
                                                     <div class="row no-gutters">
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-4 text-center">
                                                             <a href="{{ url('/informasi/'.$item->id)}}" target="_blank">
                                                                 <img src="{{ asset('/img/company/informasi/'.$item->kategori->nama_kategori.'/'.$item->gambar)}}" class="card-img" alt="...">
                                                             </a>
+                                                            <small class="fst-italic">{{ $item->kategori->nama_kategori }}</small>
                                                         </div>
                                                     <div class="col-md-8 pt-0 px-0">
                                                         <div class="card-body px-2 pt-0">
