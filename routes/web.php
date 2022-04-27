@@ -16,6 +16,7 @@ use App\Http\Controllers\Chatomz\PendidikanController;
 use App\Http\Controllers\Company\InformasiController;
 use App\Http\Controllers\Company\InformasisubController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Homepage\LandingController;
 use App\Http\Controllers\MigrasiController;
 use App\Http\Controllers\Sistem\KategoriController;
@@ -64,6 +65,9 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
 
     // Route Admin & Chatomz
     Route::middleware(['admin'])->group(function () {
+        // GENERAL
+        Route::get('pencarian', [HomeController::class, 'cari']);
+
         Route::get('unsil',[UnsilController::class, 'index']);
         Route::post('simpanmahasiswa',[UnsilController::class, 'simpan']);
         Route::resource('info-website', 'App\Http\Controllers\Admin\InfowebsiteController');
@@ -79,7 +83,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('orang', OrangController::class);
         Route::resource('linimasa', LinimasaController::class);
         Route::get('lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
-        Route::get('pencarian', [OrangController::class, 'pencarian']);
 
 
         Route::get('lihat/statistik', 'App\Http\Controllers\HomeController@statistik');

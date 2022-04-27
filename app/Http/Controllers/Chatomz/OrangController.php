@@ -155,39 +155,7 @@ class OrangController extends Controller
         return redirect('orang/'.Crypt::encryptString($orang->id))->with('ds','Orang');
     }
 
-    public function pencarian()
-    {
-        $s = (isset($_GET['s'])) ? $_GET['s'] : NULL ;
-        switch ($s) {
-            case 'carinama':
-                $cari   = $_GET['nama'];
-                $dnama  = explode(' ',$cari);
-                $first_name = $dnama[0];
-                if (count($dnama) == 1) {
-                    $last_name = $dnama[0];
-                    $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->Orwhere('last_name','LIKE','%'.$last_name.'%')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
-                } else {
-                    $last_name = $dnama[1];
-                    $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->where('last_name','LIKE','%'.$last_name.'%')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
-                }
-                $judul  = 'Pencarian orang : "'.$cari.'"';
-                break;
-            
-            case 'ulangtahuntanggalini':
-                $judul  = 'Ulang tahun tanggal '.ambil_tgl().' bulan '.bulan_indo();
-                $orang     = Orang::whereMonth('date_birth',ambil_bulan())->whereDay('date_birth',ambil_tgl())->orderBy('first_name','ASC')->limit(3)->get(['id','first_name','last_name','gender','death','photo','date_birth']);
-                break;
-            
-            case 'statistik':
-                $orang  = Orang::all();
-                break;
-
-            default:
-                return redirect('dashboard')->with('danger','tidak ada apa apa');
-                break;
-        }
-        return view('chatomz.kingdom.orang.list', compact('orang','judul'));
-    }
+   
 
     /**
      * Display the specified resource.

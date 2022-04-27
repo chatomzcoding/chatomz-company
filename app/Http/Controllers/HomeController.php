@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grup;
+use App\Models\Informasi;
 use App\Models\Jejak;
 use App\Models\Keluarga;
 use App\Models\Orang;
@@ -92,5 +93,50 @@ class HomeController extends Controller
         ];
 
         return view('sistem.statistik', compact('data'));
+    }
+
+    public function cari()
+    {
+        $s = (isset($_GET['s'])) ? $_GET['s'] : NULL ;
+        $film   = [];
+        $informasi   = [];
+        switch ($s) {
+            case 'carinama':
+                $cari   = $_GET['nama'];
+                // cari orang
+                $dnama  = explode(' ',$cari);
+                $first_name = $dnama[0];
+                if (count($dnama) == 1) {
+                    $last_name = $dnama[0];
+                    $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->Orwhere('last_name','LIKE','%'.$last_name.'%')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+                } else {
+                    $last_name = $dnama[1];
+                    $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->where('last_name','LIKE','%'.$last_name.'%')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+                }
+
+                // cari film
+                $informasi   = Informasi::where('nama','LIKE','%'.$cari.'%')->get();
+
+                $judul  = 'Pencarian key : "'.$cari.'"';
+                break;
+            
+            case 'ulangtahuntanggalini':
+                $judul  = 'Ulang tahun tanggal '.ambil_tgl().' bulan '.bulan_indo();
+                $orang     = Orang::whereMonth('date_birth',ambil_bulan())->whereDay('date_birth',ambil_tgl())->orderBy('first_name','ASC')->limit(3)->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+                break;
+            
+            case 'statistik':
+                $orang  = Orang::all();
+                break;
+
+            default:
+                return redirect('dashboard')->with('danger','tidak ada apa apa');
+                break;
+        }
+        $data   = [
+            'orang' => $orang,
+            'informasi' => $informasi,
+        ];
+        return view('sistem.list', compact('data','judul'));
     }
 }
