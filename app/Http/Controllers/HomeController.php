@@ -70,14 +70,10 @@ class HomeController extends Controller
         $label  = [];
         $nilai  = [];
         for ($i=1; $i <= ambil_tgl() ; $i++) { 
-            $hits       = 0;
             $label[]    = $i;
-            $visitor    = Visitor::whereYear('tgl_visitor',ambil_tahun())
+            $hits    = Visitor::whereYear('tgl_visitor',ambil_tahun())
                             ->whereMonth('tgl_visitor',ambil_bulan())
-                            ->whereDay('tgl_visitor',$i)->first();
-            if ($visitor) {
-                $hits   = $visitor->hits;
-            }
+                            ->whereDay('tgl_visitor',$i)->sum('hits');
             $nilai[] = $hits;
         }
         $result = [
