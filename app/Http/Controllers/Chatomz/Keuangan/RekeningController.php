@@ -42,8 +42,8 @@ class RekeningController extends Controller
     {
         $detail = [
             'tentang' => $request->tentang,
-            'warna' => $request->warna,
-            'icon' => $request->icon,
+            'warna' => strtolower($request->warna),
+            'icon' => strtolower($request->icon),
         ];
 
         Rekening::create([
@@ -105,8 +105,8 @@ class RekeningController extends Controller
     {
         $detail = [
             'tentang' => $request->tentang,
-            'warna' => $request->warna,
-            'icon' => $request->icon,
+            'warna' => strtolower($request->warna),
+            'icon' => strtolower($request->icon),
         ];
 
         Rekening::where('id',$request->id)->update([

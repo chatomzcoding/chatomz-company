@@ -17,7 +17,8 @@
                         <div class="row d-flex align-items-stretch">
                             @foreach ($rekening as $item)
                                 @php
-                                    $d = json_decode($item->detail)
+                                    $d = json_decode($item->detail);
+                                    $perhitungan    = PerhitunganDompet($item->jurnal,$item->saldo_awal);
                                 @endphp
                                 <div class="col-lg-4 col-sm-6">
                                     <a href="{{ url('rekening/'.$item->id) }}">
@@ -32,7 +33,7 @@
                                                     </div> --}}
                                                     <div class="ms-2 name">
                                                         <h5 class="font-bold small text-white"> {{ $item->nama_rekening}}</h5>
-                                                        <h6 class="text-light mb-0">{{ rupiah($item->saldo_awal) }}</h6>
+                                                        <h6 class="text-light mb-0">{{ rupiah($perhitungan['total']) }}</h6>
                                                     </div>
                                                 </div>
                                             </div>
