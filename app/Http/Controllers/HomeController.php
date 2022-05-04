@@ -52,8 +52,8 @@ class HomeController extends Controller
                 $gender = [$jumlahlakilaki,$jumlahperempuan];
                 $kematian = [$hidup,$meninggal];
                 $data       = [
-                    'riwayatlihatorang' => Riwayat::where('kode','lihatorang')->limit(5)->latest()->get(),
-                    'orangbaru' => Orang::limit(5)->latest()->get()
+                    'riwayatlihatorang' => Riwayat::where('kode','lihatorang')->limit(4)->latest()->get(),
+                    'orangbaru' => Orang::limit(4)->latest()->get()
                 ];
                 $chart = [
                     'visitor' => self::chartvisitor()

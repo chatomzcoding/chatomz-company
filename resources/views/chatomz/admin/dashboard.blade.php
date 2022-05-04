@@ -91,10 +91,11 @@
                       </div>
                   </div>
                   <div class="row">
-                      <div class="col-12 col-xl-6">
+                      <div class="col-12 col-xl-7">
+                          <x-dashboard.infojurnal/>
                           <x-dashboard.infogempa/>
                       </div>
-                      <div class="col-12 col-xl-6">
+                      <div class="col-12 col-xl-5">
                           <div class="card">
                               <div class="card-header pb-0">
                                   <h4>Terakhir Dilihat</h4>
@@ -136,6 +137,7 @@
                       </div>
                       <div class="card-content pb-4">
                           @forelse ($info['ulangtahuntanggalini'] as $item)
+                          <a href="{{ url('orang/'.Crypt::encryptString($item->id)) }}">
                             <div class="recent-message d-flex px-4 py-2">
                                 <div class="avatar avatar-lg">
                                     <img src="{{ asset('img/chatomz/orang/'.orang_photo($item->photo))}}">
@@ -144,6 +146,7 @@
                                     <h5 class="mb-1 small">{{ fullname($item) }} <br> <i class="text-secondary">{{ kingdom_umur($item->date_birth) }} tahun </i></h5>
                                 </div>
                             </div>
+                          </a>
                           @empty
                           <div class="text-center">
                               <small>tidak ada</small>
