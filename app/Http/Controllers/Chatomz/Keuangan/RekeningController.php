@@ -18,8 +18,18 @@ class RekeningController extends Controller
     public function index()
     {
         $rekening   = Rekening::all();
+        $total      = 0;
+        $data       = [];
+        foreach ($rekening as $item) {
+            $saldo  = PerhitunganDompet($item->jurnal,$item->saldo_awal);
+            $data[] = [
+                'row' => $item,
+                'sisa' => $saldo['total'],
+            ];
+            $total = $total + $saldo['total'];
+        }
 
-        return view('chatomz.kingdom.keuangan.index', compact('rekening'));
+        return view('chatomz.kingdom.keuangan.index', compact('data','total'));
     }
 
     /**
@@ -74,7 +84,6 @@ class RekeningController extends Controller
         } else {
             $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereMonth('tanggal',$bulan)->whereYear('tanggal',ambil_tahun())->latest()->get();
         }
-        
         
         $perhitungan    = PerhitunganDompet($jurnal,$saldoawal);
         $main   = [

@@ -7,33 +7,30 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-body p-2">
-                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Rekening Baru </a>
-                              </div>
+                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i></a>
+                                <span class="float-end pt-2 fw-bold">{{ norupiah($total) }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="row d-flex align-items-stretch">
-                            @foreach ($rekening as $item)
+                            @foreach ($data as $item)
                                 @php
-                                    $d = json_decode($item->detail);
-                                    $perhitungan    = PerhitunganDompet($item->jurnal,$item->saldo_awal);
+                                    $d = json_decode($item['row']->detail);
                                 @endphp
                                 <div class="col-lg-4 col-sm-6">
-                                    <a href="{{ url('rekening/'.$item->id) }}">
+                                    <a href="{{ url('rekening/'.$item['row']->id) }}">
                                         <div class="card">
                                             <div class="card-body py-3 px-3 bg-{{ $d->warna }} rounded">
                                                 <div class="d-flex align-items-center text-white">
                                                     <div class="avatar avatar-xl">
                                                         <i class="bi-{{ $d->icon }}" style="font-size: 35px;"></i>
                                                     </div>
-                                                    {{-- <div class="avatar avatar-xl">
-                                                        <button class="btn btn-{{ $d->warna }} btn-sm p-2"><i class="bi-{{ $d->icon }}" style="font-size: 25px;"></i></button>
-                                                    </div> --}}
                                                     <div class="ms-2 name">
-                                                        <h5 class="font-bold small text-white"> {{ $item->nama_rekening}}</h5>
-                                                        <h6 class="text-light mb-0">{{ rupiah($perhitungan['total']) }}</h6>
+                                                        <h5 class="font-bold small text-white"> {{ $item['row']->nama_rekening}}</h5>
+                                                        <h6 class="text-light mb-0">{{ rupiah($item['sisa']) }}</h6>
                                                     </div>
                                                 </div>
                                             </div>
