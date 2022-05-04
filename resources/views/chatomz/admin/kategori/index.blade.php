@@ -92,8 +92,8 @@
                     </select>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                    <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                    <label for="" class="col-md-4">Keterangan</label>
+                    <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="3" class="form-control col-md-8"></textarea>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-md-4">List Tag</label>
@@ -120,8 +120,8 @@
                 </select>
                 </div>
             <div class="form-group row">
-                <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                <label for="" class="col-md-4">Keterangan</label>
+                <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="3" class="form-control col-md-8"></textarea>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-md-4">List Tag</label>

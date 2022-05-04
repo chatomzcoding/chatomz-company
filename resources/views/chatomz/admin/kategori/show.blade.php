@@ -2,6 +2,7 @@
     <x-slot name="content">
         <div class="page-heading">
             <x-header head="Data Kategori {{ $kategori->nama_kategori }}" active="Daftar Sub Kategori">
+                <li class="breadcrumb-item"><a href="{{ url('kategori?label='.$kategori->label)}}">{{ ucwords($kategori->nama_kategori) }}</a></li>
             </x-header>
             <section class="section">
                 <div class="row">

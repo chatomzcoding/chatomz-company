@@ -20,11 +20,11 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-light-primary btn-sm"
                     data-bs-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">TUTUP</span>
+                    <i class="bx bx-x d-block d-sm-none bi-x-square"></i>
+                    <span class="d-none d-sm-block"><i class="bi-x-square"></i> TUTUP</span>
                 </button>
                 <button type="submit" class="btn btn-success btn-sm ml-1">
-                    <i class="bx bx-check d-block d-sm-none"></i>
+                    <i class="bx bx-check d-block d-sm-none bi bi-save"></i>
                     <span class="d-none d-sm-block"><i class="bi bi-save"></i> SIMPAN PERUBAHAN</span>
                 </button>
             </div>
