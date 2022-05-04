@@ -72,26 +72,22 @@
                     <label for="" class="col-md-4">Gambar</label>
                     <input type="file" name="gambar_sub" id="gambar" class="form-control col-md-8">
                 </div>
-                </section>
+            </section>
         </x-modalsimpan>
-        <x-modalubah judul="ubah data kategori" link="kategori">
+        <x-modalubah judul="ubah data kategori" link="subkategori">
             <section class="p-3">
                 <div class="form-group row">
-                    <label for="" class="col-md-4">Nama Kategori {!! ireq() !!}</label>
-                    <input type="text" name="nama_kategori" id="nama_kategori" class="form-control col-md-8" required>
-            </div>
-            <div class="form-group row">
-                <label for="" class="col-md-4">Keterangan {!! ireq() !!}</label>
-                <textarea name="keterangan_kategori" id="keterangan_kategori" cols="30" rows="3" class="form-control col-md-8" required></textarea>
+                        <label for="" class="col-md-4">Nama Kategori {!! ireq() !!}</label>
+                        <input type="text" name="nama_sub" id="nama_sub" class="form-control col-md-8" required>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-md-4">List Tag</label>
-                    <textarea name="list_tag" id="list_tag" cols="30" rows="3" class="form-control col-md-8"></textarea>
+                    <label for="" class="col-md-4">Keterangan</label>
+                    <textarea name="keterangan_sub" id="keterangan_sub" cols="30" rows="3" class="form-control col-md-8"></textarea>
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-md-4">Gambar (opsional)</label>
-                    <input type="file" name="gambar" id="gambar" class="form-control col-md-8">
-            </div>
+                    <label for="" class="col-md-4">Gambar</label>
+                    <input type="file" name="gambar_sub" id="gambar" class="form-control col-md-8">
+                </div>
             </section>
         </x-modalubah>
     </x-slot>

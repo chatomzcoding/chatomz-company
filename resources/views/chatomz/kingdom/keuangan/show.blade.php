@@ -4,16 +4,16 @@
             <h3>Data Rekening - {{ ucwords($rekening->nama_rekening) }}</h3>
             <div class="section">
                 <div class="row">
-                    <div class="col-10">
-                        <div class="card">
+                    <div class="col-md-10">
+                        <div class="card p-0">
                             <div class="card-body p-2">
                                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi bi-plus-circle-fill"></i> Tambah Jurnal </a>
                                 <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#editrekening"><i class="bi bi-pen"></i> Edit Dompet </a>
                               </div>
                         </div>
                     </div>
-                    <div class="col-2">
-                        <div class="card">
+                    <div class="col-md-2">
+                        <div class="card p-0">
                             <div class="card-body p-2 pb-0 text-end">
                                 <h3>{{ norupiah($main['total']['total']) }}</h3>
                               </div>
@@ -51,27 +51,26 @@
                                             <tr>
                                                 <th width="5%" class="text-center">No</th>
                                                 <th width="10%" class="text-center">Aksi</th>
-                                                <th>Tanggal</th>
-                                                <th>Nama Jurnal</th>
-                                                <th class="text-center">Kategori</th>
+                                                <th>Jurnal</th>
                                                 <th class="text-center">Nominal</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-capitalize">
                                             @forelse ($jurnal as $item)
                                             <tr class="text-{{ keuanganWarnaArus($item->arus) }}">
-                                                    <td class="text-center">{{ $loop->iteration}}</td>
-                                                    <td class="text-center">
+                                                    <td class="text-center" rowspan="2">{{ $loop->iteration}}</td>
+                                                    <td class="text-center" rowspan="2">
                                                         <x-aksi link="jurnal" :id="$item->id">
                                                             <button type="button" data-bs-toggle="modal"  data-nama_jurnal="{{ $item->nama_jurnal }}"  data-nominal="{{ $item->nominal }}" data-tanggal="{{ $item->tanggal }}" data-arus="{{ $item->arus }}" data-subkategori_id="{{ $item->subkategori_id }}" data-deskripsi="{{ $item->deskripsi }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                                 <i class="bi-pen" style="width: 20px;"></i> EDIT
                                                             </button>
                                                         </x-aksi>
                                                     </td>
-                                                    <td>{{ date_indo($item->tanggal)}}</td>
                                                     <td>{{ $item->nama_jurnal}}</td>
-                                                    <td>{{ $item->subkategori->nama_sub}}</td>
-                                                    <td class="text-end">{{ norupiah($item->nominal)}}</td>
+                                                    <td class="text-end" rowspan="2">{{ norupiah($item->nominal)}}</td>
+                                                </tr>
+                                                <tr class="text-{{ keuanganWarnaArus($item->arus) }}">
+                                                    <td class="small fst-italic">{{ date_indo($item->tanggal).' - '.$item->subkategori->nama_sub}}</td>
                                                 </tr>
                                             @empty
                                                 <tr class="text-center">
@@ -102,7 +101,7 @@
                     <select name="subkategori_id" id="subkategori_id" class="form-control">
                         @foreach ($kategori as $item)
                             @foreach ($item->subkategori as $key)
-                            <option value="{{ $key->id }}">{{ strtoupper($item->nama_jurnal).' - '.ucwords($key->nama_sub) }}</option>
+                            <option value="{{ $key->id }}">{{ strtoupper($item->nama_kategori).' - '.ucwords($key->nama_sub) }}</option>
                             @endforeach
                         @endforeach
                     </select>
@@ -201,7 +200,7 @@
                     <select name="subkategori_id" id="subkategori_id" class="form-control">
                         @foreach ($kategori as $item)
                             @foreach ($item->subkategori as $key)
-                            <option value="{{ $key->id }}">{{ strtoupper($item->nama_jurnal).' - '.ucwords($key->nama_sub) }}</option>
+                            <option value="{{ $key->id }}">{{ strtoupper($item->nama_kategori).' - '.ucwords($key->nama_sub) }}</option>
                             @endforeach
                         @endforeach
                     </select>

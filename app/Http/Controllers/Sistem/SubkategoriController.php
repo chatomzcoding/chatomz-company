@@ -74,9 +74,14 @@ class SubkategoriController extends Controller
      * @param  \App\Models\Subkategori  $subkategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subkategori $subkategori)
+    public function update(Request $request)
     {
-        //
+        Subkategori::where('id',$request->id)->update([
+            'nama_sub' => $request->nama_sub,
+            'keterangan_sub' => $request->keterangan_sub,
+        ]);
+
+        return back()->with('du','Sub Kategori');
     }
 
     /**
