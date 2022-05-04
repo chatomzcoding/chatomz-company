@@ -1,7 +1,10 @@
 <x-singel-layout title="CHATOMZ - Keuangan" menu="keuangan" back="rekening">
     <x-slot name="content">
         <div class="page-heading">
-            <h3>Data Rekening - {{ ucwords($rekening->nama_rekening) }}</h3>
+            @php
+                $detail = json_decode($rekening->detail) 
+            @endphp
+            <h3><i class="bi-{{ $detail->icon }} text-{{ $detail->warna }}"></i> Data Rekening - {{ ucwords($rekening->nama_rekening) }}</h3>
             <div class="section">
                 <div class="row">
                     <div class="col-md-10">
@@ -24,9 +27,28 @@
                     <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
+                                @if ($main['total']['total'] < $rekening->saldo_minimum)
+                                    <section>
+                                        <p>Target Minimum Saldo</p>
+                                        <div class="progress progress-success  mb-4">
+                                            <div class="progress-bar progress-label" role="progressbar" style="width: {{ KeuanganProgressMinimum($main['total']['total'],$rekening->saldo_minimum) }}%"
+                                                aria-valuenow="{{ KeuanganProgressMinimum($main['total']['total'],$rekening->saldo_minimum) }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </section>
+                                @endif
                                 <p class="text-primary">Pemasukan <span class="float-end">{{ norupiah($perhitungan['pemasukan']) }}</span></p>
                                 <p class="text-danger">Pengeluaran <span class="float-end">{{ norupiah($perhitungan['pengeluaran']) }}</span></p>
                                 <p class="text-info">Arus Kas <span class="float-end">{{ norupiah($perhitungan['hitung']) }}</span></p>
+                                <hr>
+                                <table class="table table-borderless">
+                                    @foreach ($main['kategori'] as $item)
+                                        <tr>
+                                            <th class="text-uppercase">{{ $item['kategori']->nama_kategori }}</th>
+                                            <td>:</td>
+                                            <td class="text-end">{{ norupiah($item['data']['jumlah']) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -125,11 +147,11 @@
                 </div>
                 <div class="form-group">
                     <label for="">Tanggal Jurnal</label>
-                    <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                    <input type="date" name="tanggal" id="tanggal" value="{{ tgl_sekarang() }}" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Jam Jurnal</label>
-                    <input type="time" name="jam" id="jam" class="form-control">
+                    <input type="time" name="jam" id="jam" value="{{ jam_sekarang() }}" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Garansi</label>
@@ -159,6 +181,10 @@
                 <div class="form-group">
                     <label for="">Saldo Awal</label>
                     <input type="text" name="saldo_awal" id="rupiah2"  value="{{ $rekening->saldo_awal }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Saldo Minimum</label>
+                    <input type="text" name="saldo_minimum" id="rupiah3" value="{{ $rekening->saldo_minimum }}" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Jenis Rekening</label>

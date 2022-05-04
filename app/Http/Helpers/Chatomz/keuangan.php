@@ -15,6 +15,14 @@ if (! function_exists('keuanganWarnaArus')) {
        return $warna;
     }
 }
+// nilai pencapaian minumum saldo
+if (! function_exists('KeuanganProgressMinimum')) {
+    function KeuanganProgressMinimum($saldo,$minimum)
+    {
+        $nilai = $saldo / $minimum * 100; 
+        return $nilai;
+    }
+}
 if (! function_exists('PerhitunganDompet')) {
     function PerhitunganDompet($jurnal,$saldoawal)
     {
@@ -22,8 +30,10 @@ if (! function_exists('PerhitunganDompet')) {
        $pemasukan      = 0;
        $pengeluaran    = 0;
        $total          = $saldoawal;
+       $jumlah         = 0;
        foreach ($jurnal as $key) {
-           $nominal    = $key->nominal;
+           $nominal     = $key->nominal;
+           $jumlah      = $jumlah + $nominal;
            if ($key->arus == 'pemasukan') {
                $total      = $total + $nominal;
                $pemasukan  = $pemasukan + $nominal;
@@ -38,6 +48,7 @@ if (! function_exists('PerhitunganDompet')) {
            'pemasukan' => $pemasukan,
            'pengeluaran' => $pengeluaran,
            'hitung' => $hitung,
+           'jumlah' => $jumlah,
        ];
     }
 }

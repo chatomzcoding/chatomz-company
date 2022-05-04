@@ -30,7 +30,7 @@
                                                     </div>
                                                     <div class="ms-2 name">
                                                         <h5 class="font-bold small text-white"> {{ $item['row']->nama_rekening}}</h5>
-                                                        <h6 class="text-light mb-0">{{ rupiah($item['sisa']) }}</h6>
+                                                        <h6 class="text-light mb-0 small">{{ rupiah($item['sisa']) }}</h6>
                                                     </div>
                                                 </div>
                                             </div>
@@ -53,6 +53,10 @@
                 <div class="form-group">
                     <label for="">Saldo Awal</label>
                     <input type="text" name="saldo_awal" id="rupiah" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Saldo Minimum</label>
+                    <input type="text" name="saldo_minimum" id="rupiah1" value="0" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Jenis Rekening</label>
