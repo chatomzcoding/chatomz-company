@@ -5,35 +5,36 @@
             </x-header>
             <section class="section">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Daftar Kategori</h4>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <div class="list-group">
+                                        @foreach ($dlabel as $item)
+                                            <a href="{{ url('kategori?label='.$item->nama_kategori) }}" class="list-group-item list-group-item-action @if ($item->nama_kategori == $main['filter']['label'])
+                                                    active
+                                            @endif">{{ strtoupper($item->nama_kategori) }}</a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
                         <div class="card">
                         <div class="card-header">
                             <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Kategori </a>
                         </div>
                         <div class="card-body">
-                            <form action="" method="get">
-                            <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <select name="label" id="label" class="form-control" onchange="this.form.submit()">
-                                                <option value="semua">-- pilih label --</option>
-                                                @foreach ($dlabel as $item)
-                                                    <option value="{{ $item->nama_kategori }}" @if ($main['filter']['label'] == $item->nama_kategori)
-                                                        selected
-                                                    @endif>{{ strtoupper($item->nama_kategori) }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>    
-                                </div>
-                            </form>  
                             <div class="table-responsive">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead class="text-center">
+                                <table id="example1" class="table table-borderless table-striped">
+                                    <thead>
                                         <tr>
                                             <th width="5%">No</th>
                                             <th width="10%">Aksi</th>
-                                            <th>Label</th>
                                             <th>Nama Kategori</th>
                                             <th>List Tag</th>
                                             <th>Keterangan</th>
@@ -45,12 +46,12 @@
                                                 <td class="text-center">{{ $loop->iteration}}</td>
                                                 <td class="text-center">
                                                     <x-aksi :id="$item->id" link="kategori">
+                                                        <a href="{{ url('kategori/'.$item->id) }}" class="dropdown-item text-primary"><i class="fas fa-file" style="width: 20px;"></i> DETAIL</a>
                                                         <button type="button" data-bs-toggle="modal"  data-nama_kategori="{{ $item->nama_kategori }}"  data-keterangan_kategori="{{ $item->keterangan_kategori }}"  data-label="{{ $item->label }}" data-list_tag="{{ $item->list_tag }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                             <i class="fa fa-edit" style="width: 20px;"></i> EDIT
                                                         </button>
                                                     </x-aksi>
                                                 </td>
-                                                <td class="text-uppercase">{{ $item->label}}</td>
                                                 <td>
                                                     {{ $item->nama_kategori}}  <br> 
                                                     @if (!is_null($item->gambar))
@@ -84,7 +85,9 @@
                     <label for="" class="col-md-4">Label {!! ireq() !!}</label>
                     <select name="label" id="label" class="form-control col-md-8" required>
                         @foreach ($dlabel as $item)
-                            <option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
+                            <option value="{{ $item->nama_kategori }}" @if ($item->nama_kategori == $main['filter']['label'])
+                                selected
+                            @endif>{{ strtoupper($item->nama_kategori) }}</option>
                         @endforeach
                     </select>
                 </div>

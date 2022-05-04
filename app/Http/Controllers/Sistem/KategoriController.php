@@ -15,12 +15,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $label = (isset($_GET['label'])) ? $_GET['label'] : 'semua' ;
-        if ($label == 'semua') {
-            $kategori   = Kategori::all();
-        } else {
-            $kategori   = Kategori::where('label',$label)->get();
-        }
+        $label = (isset($_GET['label'])) ? $_GET['label'] : 'label' ;
+        $kategori   = Kategori::where('label',$label)->get();
         $main   = [
             'filter' => [
                 'label' => $label
@@ -84,7 +80,7 @@ class KategoriController extends Controller
      */
     public function show(Kategori $kategori)
     {
-        //
+        return view('chatomz.admin.kategori.show', compact('kategori'));
     }
 
     /**

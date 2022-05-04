@@ -1,0 +1,1 @@
+<a href="{{ url($url) }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-angle-left"></i> kembali </a>

@@ -44,6 +44,10 @@ class Menu extends Component
                     [
                         'title' => 'Jejak',
                         'link' => 'jejak',
+                    ],
+                    [
+                        'title' => 'Keuangan',
+                        'link' => 'rekening',
                     ]
                 ]
             ],

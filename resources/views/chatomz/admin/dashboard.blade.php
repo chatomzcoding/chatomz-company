@@ -82,7 +82,7 @@
                       <div class="col-12">
                           <div class="card">
                               <div class="card-header">
-                                  <h4>Jumlah View Pengunjung Website</h4>
+                                  <h4>Jumlah View Pengunjung Website ({{ bulan_indo().' '.ambil_tahun() }})</h4>
                               </div>
                               <div class="card-body">
                                   <div id="chart-visitor"></div>
@@ -126,7 +126,7 @@
               </div>
               <div class="col-12 col-lg-3">
                   <div class="card">
-                      <div class="card-body py-4 px-5">
+                      <div class="card-body py-4 px-3">
                          <x-chatomz.profil/>
                       </div>
                   </div>
@@ -136,12 +136,12 @@
                       </div>
                       <div class="card-content pb-4">
                           @forelse ($info['ulangtahuntanggalini'] as $item)
-                            <div class="recent-message d-flex px-4 py-3">
+                            <div class="recent-message d-flex px-4 py-2">
                                 <div class="avatar avatar-lg">
                                     <img src="{{ asset('img/chatomz/orang/'.orang_photo($item->photo))}}">
                                 </div>
                                 <div class="name ms-4">
-                                    <h5 class="mb-1">{{ fullname($item) }}</h5>
+                                    <h5 class="mb-1 small">{{ fullname($item) }} <br> <i class="text-secondary">{{ kingdom_umur($item->date_birth) }} tahun </i></h5>
                                 </div>
                             </div>
                           @empty

@@ -67,7 +67,7 @@ class InformasiController extends Controller
                             $simpanresep= ['key' => $_GET['cari'],'page'=>  $request->page, 'data' => $response];
                             $request->session()->put('listfilm',$simpanresep);
                         }
-                        $result       = json_decode($response);
+                        $result       = $response;
                         $data       = [];
                         $simpan     = [];
                         if ($result->Response == 'True') {
@@ -117,7 +117,7 @@ class InformasiController extends Controller
                             $simpanresep= ['key' => $_GET['cari'],'data' => $response];
                             $request->session()->put('listresep',$simpanresep);
                         }
-                        $result       = json_decode($response);
+                        $result       = $response;
                         // cek data yang sudah disimpan dan belum
                         $data   = [];
                         $simpan   = [];

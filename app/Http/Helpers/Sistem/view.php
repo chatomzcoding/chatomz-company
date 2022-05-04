@@ -54,3 +54,15 @@ if (! function_exists('UIstatus')) {
        return $html;
     }
 }
+
+// fungsi untuk System Selected select form
+if (! function_exists('SySelected')) {
+    function SySelected($data,$index)
+    {
+        $system     = NULL;
+        if ($data == $index) {
+            $system = 'selected';
+        }
+        return $system;
+    }
+}

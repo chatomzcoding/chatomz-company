@@ -10,6 +10,8 @@ use App\Http\Controllers\Chatomz\GrupController;
 use App\Http\Controllers\Chatomz\HubungankeluargaController;
 use App\Http\Controllers\Chatomz\JejakController;
 use App\Http\Controllers\Chatomz\KeluargaController;
+use App\Http\Controllers\Chatomz\Keuangan\JurnalController;
+use App\Http\Controllers\Chatomz\Keuangan\RekeningController;
 use App\Http\Controllers\Chatomz\LinimasaController;
 use App\Http\Controllers\Chatomz\OrangController;
 use App\Http\Controllers\Chatomz\PendidikanController;
@@ -21,6 +23,7 @@ use App\Http\Controllers\Homepage\LandingController;
 use App\Http\Controllers\MigrasiController;
 use App\Http\Controllers\Sistem\KategoriController;
 use App\Http\Controllers\Sistem\StatistikController;
+use App\Http\Controllers\Sistem\SubkategoriController;
 use App\Http\Controllers\Sistem\UnsilController;
 use App\Http\Controllers\Sistem\VisitorController;
 use App\Http\Controllers\UjiController;
@@ -77,6 +80,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('barangbelanja', 'App\Http\Controllers\Chatomz\Barang\BelanjaController');
         Route::resource('barangdaftar', 'App\Http\Controllers\Chatomz\Barang\DaftarController');
         
+        // KEUANGAN
+        Route::resource('rekening', RekeningController::class);
+        Route::resource('jurnal', JurnalController::class);
+        
         Route::resource('jejak', JejakController::class);
         Route::resource('jejakorang', 'App\Http\Controllers\Chatomz\JejakorangController');
         Route::resource('jejakpoto', 'App\Http\Controllers\Chatomz\JejakpotoController');
@@ -98,6 +105,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         // SISTEM
         Route::resource('visitor', VisitorController::class);
         Route::resource('kategori', KategoriController::class);
+        Route::resource('subkategori', SubkategoriController::class);
         Route::get('statistik/orang',[StatistikController::class,'orang']);
     
         

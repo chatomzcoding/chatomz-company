@@ -105,13 +105,6 @@ if (! function_exists('terbilang')) {
     }
 }
 
-if (! function_exists('getnetto')) {
-    function getnetto($qty,$harga)
-    {
-        $hasil = $qty * $harga;
-        return rupiah($hasil);
-    }
-}
 // nama negara
 if (! function_exists('default_nilai')) {
     function default_nilai($nilai)
