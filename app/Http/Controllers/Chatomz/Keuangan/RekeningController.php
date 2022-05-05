@@ -19,18 +19,59 @@ class RekeningController extends Controller
     public function index()
     {
         $rekening   = Rekening::all();
-        $total      = 0;
-        $data       = [];
-        foreach ($rekening as $item) {
-            $saldo  = PerhitunganDompet($item->jurnal,$item->saldo_awal);
-            $data[] = [
-                'row' => $item,
-                'sisa' => $saldo['total'],
-            ];
-            $total = $total + $saldo['total'];
-        }
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
+        switch ($s) {
+            case 'dashboard':
+                $total      = 0;
+                $bank       = 0;
+                $emoney     = 0;
+                $cash       = 0;
+                $kategori   = [];
+                foreach ($rekening as $item) {
+                    $saldo  = PerhitunganDompet($item->jurnal,$item->saldo_awal);
+                    $saldo  = $saldo['total'];
+                    $total = $total + $saldo;
+                    switch ($item->jenis) {
+                        case 'bank':
+                            $bank = $bank + $saldo;
+                            break;
+                        case 'e-money':
+                            $emoney = $emoney + $saldo;
+                            break;
+                        default:
+                            $cash = $cash + $saldo;
+                            break;
+                    }
 
-        return view('chatomz.kingdom.keuangan.index', compact('data','total'));
+                    // berdasarkan kategori
+                    foreach ($item->jurnal as $key) {
+                        $nama_kategori = $key->subkategori->kategori->nama_kategori;
+                        $kategori[$nama_kategori][$key->subkategori->nama_sub][] = $key;
+                    }
+                }
+                $statistik = [
+                    'total' => $total,
+                    'cash' => $cash,
+                    'bank' => $bank,
+                    'e-money' => $emoney,
+                ];
+                return view('chatomz.kingdom.keuangan.dashboard', compact('statistik','kategori'));
+                break;
+            
+            default:
+                $total      = 0;
+                $data       = [];
+                foreach ($rekening as $item) {
+                    $saldo  = PerhitunganDompet($item->jurnal,$item->saldo_awal);
+                    $data[] = [
+                        'row' => $item,
+                        'sisa' => $saldo['total'],
+                    ];
+                    $total = $total + $saldo['total'];
+                }
+                return view('chatomz.kingdom.keuangan.index', compact('data','total'));
+                break;
+        }
     }
 
     /**

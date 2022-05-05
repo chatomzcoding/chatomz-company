@@ -18,7 +18,8 @@
 
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/perfect-scrollbar/perfect-scrollbar.css')}}">
     {{-- font --}}
-    <link rel="stylesheet" href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.css')}}">
+    {{-- <link rel="stylesheet" href="{{ asset('template/mazer/vendors/bootstrap-icons/bootstrap-icons.css')}}"> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('template/mazer/vendors/fontawesome/all.min.css')}}">
     <link rel="stylesheet" href="{{ asset('template/mazer/css/app.css')}}">
 
