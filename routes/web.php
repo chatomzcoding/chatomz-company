@@ -11,6 +11,7 @@ use App\Http\Controllers\Chatomz\HubungankeluargaController;
 use App\Http\Controllers\Chatomz\JejakController;
 use App\Http\Controllers\Chatomz\KeluargaController;
 use App\Http\Controllers\Chatomz\Keuangan\JurnalController;
+use App\Http\Controllers\Chatomz\keuangan\ManajemenkeuanganController;
 use App\Http\Controllers\Chatomz\Keuangan\RekeningController;
 use App\Http\Controllers\Chatomz\LinimasaController;
 use App\Http\Controllers\Chatomz\OrangController;
@@ -83,6 +84,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         // KEUANGAN
         Route::resource('rekening', RekeningController::class);
         Route::resource('jurnal', JurnalController::class);
+        Route::resource('manajemenkeuangan', ManajemenkeuanganController::class);
         
         Route::resource('jejak', JejakController::class);
         Route::resource('jejakorang', 'App\Http\Controllers\Chatomz\JejakorangController');

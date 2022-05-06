@@ -9,6 +9,7 @@
                             <div class="card-body p-2">
                                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi bi-plus"></i></a>
                                 <a href="{{ url('rekening?s=dashboard') }}" class="btn btn-outline-info btn-flat btn-sm"><i class="bi bi-bar-chart"></i></a>
+                                <a href="{{ url('rekening?s=manajemen') }}" class="btn btn-outline-success btn-flat btn-sm"><i class="bi bi-bookmark-plus"></i></a>
                                 <span class="float-end pt-2 fw-bold">{{ norupiah($total) }}</span>
                             </div>
                         </div>

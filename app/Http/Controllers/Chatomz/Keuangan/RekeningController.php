@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Chatomz\Keuangan;
 use App\Http\Controllers\Controller;
 use App\Models\Jurnal;
 use App\Models\Kategori;
+use App\Models\Manajemenkeuangan;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,13 +50,21 @@ class RekeningController extends Controller
                         $kategori[$nama_kategori][$key->subkategori->nama_sub][] = $key;
                     }
                 }
+                // manajemen keuangan
+                $totalkebutuhanbulanan  = Manajemenkeuangan::where([['alokasi','kebutuhan'],['waktu','bulanan']])->sum('nominal');
                 $statistik = [
                     'total' => $total,
                     'cash' => $cash,
                     'bank' => $bank,
                     'e-money' => $emoney,
+                    'kebutuhanbulanan' => $totalkebutuhanbulanan
                 ];
                 return view('chatomz.kingdom.keuangan.dashboard', compact('statistik','kategori'));
+                break;
+            case 'manajemen':
+                $kategori   = Kategori::where('label','keuangan')->get();
+                $kebutuhan  = Manajemenkeuangan::where('alokasi','kebutuhan')->get();
+                return view('chatomz.kingdom.keuangan.manajemen', compact('kategori','kebutuhan'));
                 break;
             
             default:

@@ -15,12 +15,33 @@ if (! function_exists('keuanganWarnaArus')) {
        return $warna;
     }
 }
+// warna arus keuangan
+if (! function_exists('keuanganWaktu')) {
+    function keuanganWaktu()
+    {
+       $waktu = ['harian','bulanan','tahunan'];
+       return $waktu;
+    }
+}
 // nilai pencapaian minumum saldo
 if (! function_exists('KeuanganProgressMinimum')) {
     function KeuanganProgressMinimum($saldo,$minimum)
     {
         $nilai = $saldo / $minimum * 100; 
         return $nilai;
+    }
+}
+// total setiap alokasi
+if (! function_exists('keuanganTotalManajemen')) {
+    function keuanganTotalManajemen($data)
+    {
+        $total = 0;
+        if (count($data)) {
+            foreach ($data as $key) {
+                $total = $total + $key->nominal;
+            }
+        } 
+        return $total;
     }
 }
 if (! function_exists('PerhitunganDompet')) {
