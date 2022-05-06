@@ -12,101 +12,100 @@
                             @method('delete')
                             </form>
                         <div class="card">
-                        <div class="card-header">
-                            <a href="{{ url('/grup')}}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="fas fa-angle-left"></i> kembali </a>
-                            <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#editgrup"><i class="fas fa-pen"></i> Edit</a>
-                            <button onclick="deleteRow( {{ $grup->id }} )" class="btn btn-outline-danger btn-sm btn-flat pop-info" title="hapus grup"><i class="fas fa-trash-alt"></i> Hapus</button>
-                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Anggota</a>
-                            @if ($main['tag'] <> NULL)
-                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#anggotatag"><i class="fas fa-plus"></i> Tambah Anggota Ke Tag #{{ $main['tag'] }} </a>
-                            @endif
-                            <span class="float-end">Total Anggota {{ count($anggota) }}</span>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-2">
-                                <div class="col-md-6">
-                                    <img src="{{ asset('/img/chatomz/grup/'.$grup->photo)}}" alt="" class="img-fluid img-rounded">
-                                </div>
-                                <div class="col-md-6">
-                                    <h2>{{ ucwords($grup->name) }}</h2><hr>
-                                    <h5 class="text-capitalize">{{ $grup->keterangan }}</h5>
-                                    <small>Tahun Dibentuk {{ $grup->created_year }}</small>
-                                    <div class="my-3">
-                                        <a href="{{ url('grup/'.Crypt::encryptString($grup->id)) }}" @if ($main['tag'] == NULL)
-                                            class="badge bg-primary"
-                                        @endif>#semua</a>
-                                        @forelse (c_showtag($grup->dtag) as $item)
-                                            <a href="{{ url('grup/'.Crypt::encryptString($grup->id).'?tag='.$item) }}"  @if ($main['tag'] == $item)
+                            <div class="card-header">
+                                <x-sistem.kembali url="grup"></x-sistem.kembali>
+                                <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#editgrup"><i class="bi-pencil"></i></a>
+                                <button onclick="deleteRow( {{ $grup->id }} )" class="btn btn-outline-danger btn-sm btn-flat pop-info" title="hapus grup"><i class="bi-trash"></i></button>
+                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus-circle-fill"></i></a>
+                                @if ($main['tag'] <> NULL)
+                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#anggotatag"><i class="fas fa-plus"></i> Tambah Anggota Ke Tag #{{ $main['tag'] }} </a>
+                                @endif
+                                <span class="float-end">Anggota {{ count($anggota) }}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-md-6">
+                                        <img src="{{ asset('/img/chatomz/grup/'.$grup->photo)}}" alt="" class="img-fluid img-rounded">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>{{ ucwords($grup->name) }}</h4><hr>
+                                        <h6 class="text-capitalize">{{ $grup->keterangan }}</h6>
+                                        <small>Tahun Dibentuk {{ $grup->created_year }}</small>
+                                        <div class="my-3">
+                                            <a href="{{ url('grup/'.Crypt::encryptString($grup->id)) }}" @if ($main['tag'] == NULL)
                                                 class="badge bg-primary"
-                                            @endif>#{{ $item }}</a>
-                                        @empty
-                                            
-                                        @endforelse
+                                            @endif>#semua</a>
+                                            @forelse (c_showtag($grup->dtag) as $item)
+                                                <a href="{{ url('grup/'.Crypt::encryptString($grup->id).'?tag='.$item) }}"  @if ($main['tag'] == $item)
+                                                    class="badge bg-primary"
+                                                @endif>#{{ $item }}</a>
+                                            @empty
+                                                
+                                            @endforelse
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                                <div class="row d-flex align-items-stretch">
-                                    @forelse ($anggota as $item)
-                                        <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
-                                            <div class="card mb-3 w-100">
-                                                <div class="row no-gutters">
-                                                    <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                    </form>
-                                                    <div class="col-md-4">
-                                                        <a id="dropdownMenuButton" data-bs-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="w-100">
-                                                            <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img" alt="...">
-                                                        </a>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <a class="dropdown-item" href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><i class="fa fa-user text-primary" style="width: 25px"></i> DETAIL</a>
-                                                                @if (is_null($main['tag']))
-                                                                    <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
-                                                                        <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
-                                                                    </button>
-                                                                    
-                                                                @else
-                                                                    <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-isi="{{ showpertag($item->tag,$main['tag']) }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
-                                                                        <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
-                                                                    </button>
-                                                                @endif
-                                                                <a onclick="deleteRow( {{ $item->id }} )" type="button" class="dropdown-item"><i class="fa fa-trash-alt text-danger" style="width: 25px"></i> HAPUS</a>
-                                                            </div>
-                                                    </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body p-2">
-                                                    <h6 class="card-title">
-                                                        {{ fullname($item)}} 
-                                                        @if ($item->gender == 'laki-laki')
-                                                                <sup><i class="fas fa-mars text-primary"></i></sup>  
-                                                            @else
-                                                                <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                                            @endif
-                                                    </h6>
-                                                        @if (is_null($main['tag']))
-                                                            <small class="text-muted">{{ $item->information }} <br>
-                                                                <i>{{ c_listtag($item->tag) }}</i>
-                                                            </small>
-                                                            @else
-                                                            <small>
-                                                                #{{ $main['tag'] }} <br>
-                                                                <i>{{ showpertag($item->tag,$main['tag']) }}</i>
-                                                            </small>
-                                                            @endif
-                                                    </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-stretch">
+                        @forelse ($anggota as $item)
+                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
+                                <div class="card mb-3 w-100">
+                                    <div class="row no-gutters">
+                                        <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
+                                        <div class="col-md-4">
+                                            <a id="dropdownMenuButton" data-bs-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="w-100">
+                                                <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img" alt="...">
+                                            </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item" href="{{ url('/orang/'.Crypt::encryptString($item->orang_id))}}"><i class="fa fa-user text-primary" style="width: 25px"></i> DETAIL</a>
+                                                    @if (is_null($main['tag']))
+                                                        <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                            <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
+                                                        </button>
+                                                        
+                                                    @else
+                                                        <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-nama="{{ fullname($item) }}" data-isi="{{ showpertag($item->tag,$main['tag']) }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item" data-original-title="Edit Task">
+                                                            <i class="fa fa-edit text-success" style="width: 25px"></i> EDIT</i>
+                                                        </button>
+                                                    @endif
+                                                    <a onclick="deleteRow( {{ $item->id }} )" type="button" class="dropdown-item"><i class="fa fa-trash-alt text-danger" style="width: 25px"></i> HAPUS</a>
                                                 </div>
-                                                </div>
-                                            </div>
                                         </div>
-                                        @empty
-                                            <div class="col text-center">
-                                                <i>Data tidak ada</i>
-                                            </div>
-                                        @endforelse
+                                    <div class="col-md-8">
+                                        <div class="card-body p-2">
+                                        <h6 class="card-title small">
+                                            {{ fullname($item)}} 
+                                            @if ($item->gender == 'laki-laki')
+                                                    <sup><i class="fas fa-mars text-primary"></i></sup>  
+                                                @else
+                                                    <sup><i class="fas fa-venus text-danger"></i></sup>  
+                                                @endif
+                                        </h6>
+                                            @if (is_null($main['tag']))
+                                                <small class="text-muted">{{ $item->information }} <br>
+                                                    <i>{{ c_listtag($item->tag) }}</i>
+                                                </small>
+                                                @else
+                                                <small>
+                                                    #{{ $main['tag'] }} <br>
+                                                    <i>{{ showpertag($item->tag,$main['tag']) }}</i>
+                                                </small>
+                                                @endif
+                                        </div>
+                                    </div>
+                                    </div>
                                 </div>
-                        </div>
-                        </div>
+                            </div>
+                            @empty
+                                <div class="col text-center">
+                                    <i>Data tidak ada</i>
+                                </div>
+                            @endforelse
                     </div>
                 </div>
             </div>

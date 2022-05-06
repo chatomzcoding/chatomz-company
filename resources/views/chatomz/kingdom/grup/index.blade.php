@@ -6,31 +6,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
-                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Grup </a>
+                            <div class="card-body p-2">
+                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus-circle-fill"></i></a>
                             </div>
-                            <div class="card-body">
-                                    <div class="row d-flex align-items-stretch">
-                                        @foreach ($grup as $item)
-                                            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch">
-                                                <div class="card bg-primary text-white">
-                                                    <div class="card-header bg-primary text-white border-bottom-0 text-uppercase text-center p-3">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row d-flex align-items-stretch">
+                                @foreach ($grup as $item)
+                                    <div class="col-sm-4 col-md-4 d-flex align-items-stretch">
+                                        <div class="card">
+                                            <div class="card-body p-0">
+                                                <a href="{{ url('/grup/'.Crypt::encryptString($item->id))}}"><img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" alt="user-avatar" class="img-fluid"></a>
+                                                <section class="text-center text-capitalize">
                                                     {{ $item->name}}
-                                                    </div>
-                                                    <div class="card-body pb-0">
-                                                        <div class="row">
-                                                            <div class="col-md-12 text-center">
-                                                                <a href="{{ url('/grup/'.Crypt::encryptString($item->id))}}"><img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" alt="user-avatar" class="img-fluid rounded border border-4"></a>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <p class="small"><b>{{ DbChatomz::countData('grup_anggota',['grup_id',$item->id])}} Anggota | {{ $item->created_year}}</b></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                    <p class="small"><b>{{ DbChatomz::countData('grup_anggota',['grup_id',$item->id])}} Anggota | {{ $item->created_year}}</b></p>
+                                                </section>
                                             </div>
-                                        @endforeach
+                                        </div>
                                     </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
