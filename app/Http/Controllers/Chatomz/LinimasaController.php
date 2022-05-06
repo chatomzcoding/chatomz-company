@@ -91,6 +91,8 @@ class LinimasaController extends Controller
      */
     public function destroy(Linimasa $linimasa)
     {
-        //
+        $linimasa->delete();
+
+        return back()->with('dd','Linimasa');
     }
 }

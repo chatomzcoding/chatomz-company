@@ -22,4 +22,9 @@ class Orang extends Model
     {
         return $this->hasOne(Pendidikan::class);
     }
+
+    public function linimasa()
+    {
+        return $this->hasMany(Linimasa::class)->orderByDesc('tanggal');
+    }
 }

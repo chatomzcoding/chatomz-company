@@ -168,8 +168,6 @@ class OrangController extends Controller
         $orang  = Orang::find(Crypt::decryptString($orang));
         $tombol['next'] = Orang::where("id",'>',$orang->id)->first();
         $tombol['back'] = Orang::where("id",'<',$orang->id)->orderBy('id','DESC')->first();
-        $kontak         = Orang::find($orang->id)->kontak;
-        $pendidikan     = Orang::find($orang->id)->pendidikan;
         // riwayat keluarga
         $keluarga   = DB::table('keluarga_hubungan')
         ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
@@ -196,7 +194,6 @@ class OrangController extends Controller
                             ->orderBy('grup.name','ASC')
                             ->get();
         $datagrup       = Grup::orderBy('name','ASC')->get();
-        $linimasa       = Linimasa::where('orang_id',$orang->id)->orderby('tanggal','DESC')->get();
         // save riwayat dilihat
         // cek jika sudah dilihat
         $cekriwayat = Riwayat::where('kode','lihatorang')->where('nilai',$orang->id)->first();
@@ -213,7 +210,7 @@ class OrangController extends Controller
                 'detail' => 'lihat profil'
             ]);
         }
-        return view('chatomz.kingdom.orang.show', compact('orang','tombol','kontak','pendidikan','keluarga','suami','daftarkeluarga','anggotagrup','datagrup','linimasa'));
+        return view('chatomz.kingdom.orang.show', compact('orang','tombol','keluarga','suami','daftarkeluarga','anggotagrup','datagrup'));
     }
 
     /**
@@ -301,11 +298,11 @@ class OrangController extends Controller
      */
     public function destroy(Orang $orang)
     {
+        $orang->delete();
         $tujuan_upload = 'public/img/chatomz/orang';
         deletefile($tujuan_upload.'/'.$orang->photo);
 
-        $orang->delete();
 
-        return redirect('/orang')->with('dd','Orang');
+        return redirect('orang')->with('dd','Orang');
     }
 }

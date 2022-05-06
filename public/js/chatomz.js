@@ -8,7 +8,7 @@ $(document).ready(function() {
 	$('[data-toggle="tooltip"]').tooltip();
 });
 
-function deleteRow(id)
+function deleteRow(id,key='data')
         {
             swal({
                 title: "Yakin akan menghapus data ini?",
@@ -19,7 +19,7 @@ function deleteRow(id)
             })
                 .then((willDelete) => {
                     if (willDelete) {
-                        $('#data-'+id).submit();
+                        $('#'+key+'-'+id).submit();
                     }
                 });
 		}
