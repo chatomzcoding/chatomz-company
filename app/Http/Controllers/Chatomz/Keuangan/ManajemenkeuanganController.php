@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Chatomz\keuangan;
+namespace App\Http\Controllers\Chatomz\Keuangan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Manajemenkeuangan;
@@ -84,9 +84,16 @@ class ManajemenkeuanganController extends Controller
      * @param  \App\Models\Manajemenkeuangan  $manajemenkeuangan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Manajemenkeuangan $manajemenkeuangan)
+    public function update(Request $request)
     {
-        //
+        Manajemenkeuangan::where('id',$request->id)->update([
+            'judul' => $request->judul,
+            'nominal' => default_nilai($request->nominal),
+            'waktu' => $request->waktu,
+            'subkategori_id' => $request->subkategori_id,
+        ]);
+
+        return back()->with('du','Kebutuhan');
     }
 
     /**
@@ -97,6 +104,8 @@ class ManajemenkeuanganController extends Controller
      */
     public function destroy(Manajemenkeuangan $manajemenkeuangan)
     {
-        //
+        $manajemenkeuangan->delete();
+
+        return back()->with('dd','Kebutuhan');
     }
 }

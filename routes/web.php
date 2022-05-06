@@ -11,7 +11,7 @@ use App\Http\Controllers\Chatomz\HubungankeluargaController;
 use App\Http\Controllers\Chatomz\JejakController;
 use App\Http\Controllers\Chatomz\KeluargaController;
 use App\Http\Controllers\Chatomz\Keuangan\JurnalController;
-use App\Http\Controllers\Chatomz\keuangan\ManajemenkeuanganController;
+use App\Http\Controllers\Chatomz\Keuangan\ManajemenkeuanganController;
 use App\Http\Controllers\Chatomz\Keuangan\RekeningController;
 use App\Http\Controllers\Chatomz\LinimasaController;
 use App\Http\Controllers\Chatomz\OrangController;
