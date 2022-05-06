@@ -5,7 +5,15 @@
       </div>
       <div class="page-content">
           <section class="row">
-              <div class="col-md-12">
+              <div class="col-md-12 d-block d-sm-none">
+                    <form action="{{ url('pencarian') }}" method="get">
+                        @csrf
+                        <input type="hidden" name="s" value="carinama">
+                        <div class="input-group mb-3">
+                            <input type="text" name="nama" class="form-control" placeholder="cari disini ..." aria-label="cari disini ..." aria-describedby="button-addon2" autocomplete="off" required>
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi-search"></i></button>
+                        </div>
+                    </form>
               </div>
               <div class="col-12 col-lg-9">
                   <div class="row">
@@ -14,13 +22,15 @@
                               <div class="card-body px-3 py-4-5">
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <div class="stats-icon purple">
-                                              <i class="bi-person"></i>
-                                          </div>
+                                            <a href="{{ url('orang') }}">
+                                                <div class="stats-icon purple">
+                                                    <i class="bi-person"></i>
+                                                </div>
+                                            </a>
                                       </div>
                                       <div class="col-md-8">
                                           <h6 class="text-muted font-semibold">Orang</h6>
-                                          <h6 class="font-extrabold mb-0">{{ $total['orang'] }}</h6>
+                                          <h6 class="font-extrabold mb-0 small">{{ $total['orang'] }}</h6>
                                       </div>
                                   </div>
                               </div>
@@ -31,13 +41,15 @@
                               <div class="card-body px-3 py-4-5">
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <div class="stats-icon blue">
-                                              <i class="bi-person-badge"></i>
-                                          </div>
+                                            <a href="{{ url('grup') }}">
+                                                <div class="stats-icon blue">
+                                                    <i class="bi-person-badge"></i>
+                                                </div>
+                                            </a>
                                       </div>
                                       <div class="col-md-8">
                                           <h6 class="text-muted font-semibold">Grup</h6>
-                                          <h6 class="font-extrabold mb-0">{{ $total['grup'] }}</h6>
+                                          <h6 class="font-extrabold mb-0 small">{{ $total['grup'] }}</h6>
                                       </div>
                                   </div>
                               </div>
@@ -48,13 +60,15 @@
                               <div class="card-body px-3 py-4-5">
                                   <div class="row">
                                       <div class="col-md-4">
+                                        <a href="{{ url('keluarga') }}">
                                           <div class="stats-icon green">
                                               <i class="bi-people"></i>
                                           </div>
+                                        </a>
                                       </div>
                                       <div class="col-md-8">
                                           <h6 class="text-muted font-semibold">Keluarga</h6>
-                                          <h6 class="font-extrabold mb-0">{{ $total['keluarga'] }}</h6>
+                                          <h6 class="font-extrabold mb-0 small">{{ $total['keluarga'] }}</h6>
                                       </div>
                                   </div>
                               </div>
@@ -65,13 +79,15 @@
                               <div class="card-body px-3 py-4-5">
                                   <div class="row">
                                       <div class="col-md-4">
-                                          <div class="stats-icon red">
-                                              <i class="bi-geo"></i>
-                                          </div>
+                                          <a href="{{ url('jejak') }}">
+                                              <div class="stats-icon red">
+                                                  <i class="bi-geo"></i>
+                                              </div>
+                                          </a>
                                       </div>
                                       <div class="col-md-8">
                                           <h6 class="text-muted font-semibold">Jejak</h6>
-                                          <h6 class="font-extrabold mb-0">{{ $total['jejak'] }}</h6>
+                                          <h6 class="font-extrabold mb-0 small">{{ $total['jejak'] }}</h6>
                                       </div>
                                   </div>
                               </div>

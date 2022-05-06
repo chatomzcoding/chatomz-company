@@ -54,7 +54,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Saldo Awal</label>
-                    <input type="text" name="saldo_awal" id="rupiah" class="form-control" required>
+                    <input type="text" name="saldo_awal" id="rupiah" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="">Saldo Minimum</label>

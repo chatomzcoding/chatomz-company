@@ -7,8 +7,11 @@
         <table class="table table-borderless">
             @forelse ($data as $item)
                 <tr>
-                    <td><i class="bi-{{ $item->icon }}"></i> {{ ucfirst($item->nama) }} <br>
-                        <small class="text-muted">{{ fullname($item->orang).', '.date_indo($item->tanggal).' - '.$item->jam }} </small>
+                    <td>
+                        <a href="{{ url('orang/'.Crypt::encryptString($item->orang->id)) }}">
+                            <i class="bi-{{ $item->icon }}"></i> {{ ucfirst($item->nama) }} <br>
+                            <small class="text-muted">{{ fullname($item->orang).', '.date_indo($item->tanggal).' - '.$item->jam }} </small>
+                        </a>
                     </td>
                 </tr>
             @empty

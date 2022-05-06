@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Nominal</label>
-                    <input type="text" name="nominal" id="rupiah" class="form-control" required>
+                    <input type="text" name="nominal" id="rupiah" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="">Waktu</label>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Nominal</label>
-                    <input type="text" name="nominal" id="rupiah" class="form-control" required>
+                    <input type="text" name="nominal" id="rupiah" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="">Waktu</label>

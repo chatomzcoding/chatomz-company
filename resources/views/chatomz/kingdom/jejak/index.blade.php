@@ -8,10 +8,9 @@
                     <div class="col-md-12">
                         <div class="card">
                         <div class="card-header">
-                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Jejak </a>
+                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus"></i></a>
                         </div>
                         <div class="card-body">
-                            @include('sistem.notifikasi')
                             <div class="table-responsive">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead class="text-center">
