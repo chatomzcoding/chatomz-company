@@ -12,4 +12,9 @@ class Linimasa extends Model
     protected $table    = 'linimasa';
 
     protected $guarded  = [];
+
+    public function orang()
+    {
+        return $this->belongsTo(Orang::class);
+    }
 }

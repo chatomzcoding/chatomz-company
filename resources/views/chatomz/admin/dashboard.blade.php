@@ -93,6 +93,7 @@
                   <div class="row">
                       <div class="col-12 col-xl-7">
                           <x-dashboard.infojurnal/>
+                          <x-dashboard.infolinimasa/>
                           <x-dashboard.infogempa/>
                       </div>
                       <div class="col-12 col-xl-5">

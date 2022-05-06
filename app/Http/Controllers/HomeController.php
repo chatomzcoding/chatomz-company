@@ -6,6 +6,7 @@ use App\Models\Grup;
 use App\Models\Informasi;
 use App\Models\Jejak;
 use App\Models\Keluarga;
+use App\Models\Linimasa;
 use App\Models\Orang;
 use App\Models\Pendidikan;
 use App\Models\Riwayat;
