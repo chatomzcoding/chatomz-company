@@ -13,10 +13,12 @@ class SingelLayout extends Component
      * @return void
      */
     public $back;
+    public $title;
 
-    public function __construct($back='dashboard')
+    public function __construct($back='dashboard',$title='Chatomz Company')
     {
         $this->back = $back;
+        $this->title = $title;
     }
 
     /**

@@ -8,7 +8,7 @@
                     <div class="col-md-12">
                         <div class="card">
                         <div class="card-header">
-                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fas fa-plus"></i> Tambah Keluarga </a>
+                            <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus-circle-fill"></i></a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

@@ -48,7 +48,6 @@
                                     </div>
                                 @endif
                                 @if (count($data['informasi']) > 0)
-                                    {{-- LIST FILM --}}
                                     <div class="row d-flex align-items-stretch mt-3">
                                         <div class="col-12 mb-2">
                                             <button class="btn btn-info btn-sm">INFORMASI</button>
@@ -59,7 +58,7 @@
                                                 <div class="card mb-3 w-100">
                                                     <div class="row no-gutters">
                                                         <div class="col-md-4 text-center">
-                                                            <a href="{{ url('/informasi/'.$item->id)}}" target="_blank">
+                                                            <a href="{{ url('/informasi/'.$item->id)}}">
                                                                 <img src="{{ asset('/img/company/informasi/'.$item->kategori->nama_kategori.'/'.$item->gambar)}}" class="card-img" alt="...">
                                                             </a>
                                                             <small class="fst-italic">{{ $item->kategori->nama_kategori }}</small>
