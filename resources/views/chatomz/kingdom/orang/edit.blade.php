@@ -1,4 +1,4 @@
-<x-singel-layout back="orang" title="edit orang">
+<x-singel-layout back="orang/{{ Crypt::encryptString($orang->id) }}" title="edit orang">
     <x-slot name="content">
         <div class="card mt-2">
             <div class="card-header">

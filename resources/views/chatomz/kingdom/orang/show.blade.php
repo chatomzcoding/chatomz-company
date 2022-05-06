@@ -30,17 +30,17 @@
                                     <hr>
                                     <div class="d-flex justify-content-center">
                                         <section class="p-1">
-                                            <button onclick="deleteRow( {{ $orang->id }} )" class="btn btn-icon btn-round btn-danger pop-info" title="hapus orang"><i class="fas fa-trash-alt"></i></button>
+                                            <button onclick="deleteRow( {{ $orang->id }} )" class="btn btn-icon btn-round btn-danger pop-info" title="hapus orang"><i class="bi-trash"></i></button>
                                         </section>
                                         <section class="p-1">
                                             <a href="{{ url('orang/'.Crypt::encryptString($orang->id).'/edit')}}" class="btn btn-icon btn-round btn-success pop-info" title="Edit Orang">
-                                                    <i class="fas fa-pen"></i></a>
+                                                    <i class="bi-pencil"></i></a>
                                         </section>
                                         @if (Auth::user()->level == 'admin')
                                             <section class="p-1">
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#grup">
                                                     <button type="button" class="btn btn-icon btn-round btn-info pop-info" title="anggota grup">
-                                                        <i class="far fa-id-card"></i>
+                                                        <i class="bi-person-badge"></i>
                                                     </button>
                                                 </a>
                                             </section>
@@ -48,12 +48,12 @@
                                         @if ($orang->marital_status == 'sudah' || count($keluarga) > 0)
                                             <section class="p-1">
                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#keluarga" class="btn btn-icon btn-round btn-secondary pop-info" title="lihat silsilah keluarga">
-                                                        <i class="fas fa-sitemap"></i></a>
+                                                        <i class="bi-diagram-3"></i></a>
                                             </section>
                                         @endif
                                         <section class="p-1">
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#linimasa"  class="btn btn-icon btn-round bg-primary pop-info text-white" title="tambah lini masa">
-                                                    <i class="fas fa-stream"></i></a>
+                                                    <i class="bi-calendar-plus"></i></a>
                                         </section>
                                     </div>
                                 </div>
@@ -65,11 +65,11 @@
                             <div class="card-header p-2">
                                 <div class="float-end">
                                     @if (!is_null($tombol['back']))
-                                    <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['back']->id))}}"  data-bs-toggle="tooltip" title="sebelumnya"><i class="fas fa-angle-left"></i></a></span>
+                                        <a href="{{ url('orang',Crypt::encryptString($tombol['back']->id))}}"  data-bs-toggle="tooltip" title="sebelumnya"><i class="bi-arrow-left-circle"></i></a>
                                     @endif
                                     @if (!is_null($tombol['next']))
-                                        <span class="float-right"><a href="{{ url('orang',Crypt::encryptString($tombol['next']->id))}}" data-bs-toggle="tooltip" title="selanjutnya">
-                                        <i class="fas fa-angle-right"></i></a></span><span class="float-right">&nbsp;&nbsp;&nbsp;</span>
+                                        <a href="{{ url('orang',Crypt::encryptString($tombol['next']->id))}}" data-bs-toggle="tooltip" title="selanjutnya">
+                                        <i class="bi-arrow-right-circle"></i></a>
                                     @endif 
                                 </div>
                             </div>
@@ -77,45 +77,45 @@
                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home"
-                                            role="tab" aria-controls="home" aria-selected="true">Tentang</a>
+                                            role="tab" aria-controls="home" aria-selected="true"><i class="bi bi-people"></i></a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile"
-                                            role="tab" aria-controls="profile" aria-selected="false">Kontak</a>
+                                            role="tab" aria-controls="profile" aria-selected="false"><i class="bi-telephone"></i></a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
-                                            role="tab" aria-controls="contact" aria-selected="false">Pendidikan</a>
+                                            role="tab" aria-controls="contact" aria-selected="false"><i class="bi-book"></i></a>
                                     </li>
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="linimasa-tab" data-bs-toggle="tab" href="#tablinimasa"
-                                            role="tab" aria-controls="linimasa" aria-selected="false">Lini Masa</a>
+                                            role="tab" aria-controls="linimasa" aria-selected="false"><i class="bi-calendar-event"></i></a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
                                     <div class="tab-pane fade show active" id="home" role="tabpanel"
                                         aria-labelledby="home-tab">
                                         <div class="p-3">
-                                            <strong><i class="fas fa-address-book"></i> Alamat</strong>
+                                            <strong><i class="bi-geo-alt"></i> Alamat</strong>
                                             <div class="py-0 px-3">
                                                 <p class="text-muted">
                                                   {{ $orang->home_address }}
                                                 </p>
                                             </div>
                                             <hr>
-                                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Tempat Lahir</strong>
+                                            <strong><i class="bi-house-door mr-1"></i> Tempat Lahir</strong>
                                             <div class="py-0 px-3">
                                                   <p class="text-muted">{{ $orang->place_birth.', '.date_indo($orang->date_birth)}}</p>
                                             </div>
                                             <hr>
-                                            <strong><i class="fas fa-pray"></i> Agama</strong>
+                                            <strong><i class="bi-star"></i> Agama</strong>
                                             <div class="py-0 px-3">
                                                 <p class="text-muted">
                                                   {{ $orang->religion}}
                                                 </p>
                                             </div>
                                             <hr>
-                                            <strong><i class="bi-person mr-1"></i> Status Pekerjaan</strong>
+                                            <strong><i class="bi-briefcase mr-1"></i> Status Pekerjaan</strong>
                                             <div class="py-0 px-3">
                                                 <p class="text-muted">
                                                   {{ $orang->job_status}}
@@ -138,8 +138,13 @@
                                                 <a href="#" class="btn btn-secondary btn-sm" data-bs-target="#tambahkontak" data-bs-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i> tambahkan</a>
                                             </div>
                                         @else
-                                            <table class="table mt-3">
+                                            <table class="table table-borderless mt-3">
                                                 <tbody>
+                                                    <tr>
+                                                        <td colspan="2" class="text-end">
+                                                            <a href="{{ url('/kontak/'.Crypt::encryptString($orang->kontak->id).'/edit')}}" class="btn btn-outline-success btn-sm"><i class="bi-pencil"></i></a>
+                                                        </td>
+                                                    </tr>
                                                     @if (!is_null($orang->kontak->no_hp))
                                                         <tr>
                                                             <th>No. Handphone</th>
@@ -193,11 +198,7 @@
                                                             <td><a href="{{ '/'.$orang->kontak->web}}" target="_blank">{{ $orang->kontak->web}}</a> </td>
                                                         </tr>
                                                     @endif
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <a href="{{ url('/kontak/'.Crypt::encryptString($orang->kontak->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> EDIT KONTAK</a>
-                                                        </td>
-                                                    </tr>
+                                                   
                                                 </tbody>
                                             </table>
                                         @endif
@@ -210,8 +211,13 @@
                                                 <a href="#" class="btn btn-secondary btn-sm" data-bs-target="#tambahpendidikan" data-bs-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i>  tambahkan</a>
                                             </div>
                                         @else
-                                            <table class="table mt-3">
+                                            <table class="table table-borderless mt-3">
                                                 <tbody class="text-capitalize">
+                                                    <tr>
+                                                        <td colspan="2" class="text-end">
+                                                            <a href="{{ url('/pendidikan/'.Crypt::encryptString($orang->pendidikan->id).'/edit')}}" class="btn btn-outline-success btn-sm"><i class="bi-pencil"></i></a>
+                                                        </td>
+                                                    </tr>
                                                     @if (!is_null($orang->pendidikan->tk))
                                                         <tr>
                                                             <th>TA / TPA</th>
@@ -296,11 +302,7 @@
                                                         <td class="text-lowercase">{{ $orang->pendidikan->information}}</td>
                                                     </tr>
                                                     @endif
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <a href="{{ url('/pendidikan/'.Crypt::encryptString($orang->pendidikan->id).'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pen"></i> EDIT PENDIDIKAN</a>
-                                                        </td>
-                                                    </tr>
+                                                  
                                                 
                                                 </tbody>
                                             </table>
@@ -320,7 +322,7 @@
                                                         <div class="card-body py-3 px-3 bg-primary rounded">
                                                             <span class="float-end">
                                                                 <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-primary btn-sm" data-original-title="Edit Task">
-                                                                    <i class="bi-pen"></i>
+                                                                    <i class="bi-pencil"></i>
                                                                 </button>
                                                                 <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-primary btn-sm"> <i class="bi bi-trash text-white"></i></button>
                                                             </span>
