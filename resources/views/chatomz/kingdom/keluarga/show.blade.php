@@ -235,7 +235,7 @@
             <input type="hidden" name="urutan" value="1">
             <div class="form-group">
                 <label for="">Nama Istri</label>
-                <select name="orang_id" class="select2bs4" data-width="100%">
+                <select name="orang_id" class="form-control" data-width="100%">
                     @foreach ($daftaristri as $item)
                     @if (!DbChatomz::cekstatusistri($item->id))
                         <option value="{{ $item->id}}">{{ fullname($item)}}</option>
