@@ -7,7 +7,7 @@
             <div class="section">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="data-{{ $grup->id }}" action="{{url('/grup/'.$grup->id)}}" method="post">
+                        <form id="hapusgrup-{{ $grup->id }}" action="{{url('/grup/'.$grup->id)}}" method="post">
                             @csrf
                             @method('delete')
                             </form>
@@ -15,12 +15,12 @@
                             <div class="card-header">
                                 <x-sistem.kembali url="grup"></x-sistem.kembali>
                                 <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#editgrup"><i class="bi-pencil"></i></a>
-                                <button onclick="deleteRow( {{ $grup->id }} )" class="btn btn-outline-danger btn-sm btn-flat pop-info" title="hapus grup"><i class="bi-trash"></i></button>
+                                <button onclick="deleteRow( {{ $grup->id }},'hapusgrup')" class="btn btn-outline-danger btn-sm btn-flat pop-info" title="hapus grup"><i class="bi-trash"></i></button>
                                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus-circle-fill"></i></a>
                                 @if ($main['tag'] <> NULL)
-                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#anggotatag"><i class="fas fa-plus"></i> Tambah Anggota Ke Tag #{{ $main['tag'] }} </a>
+                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#anggotatag"><i class="bi-plus-circle-fill"></i> Ke Tag #{{ $main['tag'] }} </a>
                                 @endif
-                                <span class="float-end">Anggota {{ count($anggota) }}</span>
+                                <span class="float-end d-none d-sm-block">{{ count($anggota) }} anggota</span>
                             </div>
                             <div class="card-body">
                                 <div class="row mb-2">
@@ -48,6 +48,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                     <div class="row d-flex align-items-stretch">
                         @forelse ($anggota as $item)
                             <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
@@ -57,7 +58,7 @@
                                             @csrf
                                             @method('delete')
                                         </form>
-                                        <div class="col-md-4">
+                                        <div class="col-4 pe-0">
                                             <a id="dropdownMenuButton" data-bs-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false" class="w-100">
                                                 <img src="{{ asset('/img/chatomz/orang/'.$item->photo)}}" class="card-img" alt="...">
                                             </a>
@@ -76,9 +77,9 @@
                                                     <a onclick="deleteRow( {{ $item->id }} )" type="button" class="dropdown-item"><i class="fa fa-trash-alt text-danger" style="width: 25px"></i> HAPUS</a>
                                                 </div>
                                         </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body p-2">
-                                        <h6 class="card-title small">
+                                    <div class="col-8">
+                                        <div class="card-body pt-2 pb-0 px-0">
+                                        <h6 class="small">
                                             {{ fullname($item)}} 
                                             @if ($item->gender == 'laki-laki')
                                                     <sup><i class="fas fa-mars text-primary"></i></sup>  
@@ -92,7 +93,7 @@
                                                 </small>
                                                 @else
                                                 <small>
-                                                    #{{ $main['tag'] }} <br>
+                                                    {{-- #{{ $main['tag'] }} <br> --}}
                                                     <i>{{ showpertag($item->tag,$main['tag']) }}</i>
                                                 </small>
                                                 @endif
@@ -101,13 +102,12 @@
                                     </div>
                                 </div>
                             </div>
-                            @empty
-                                <div class="col text-center">
-                                    <i>Data tidak ada</i>
-                                </div>
-                            @endforelse
+                        @empty
+                            <div class="col text-center">
+                                <i>Data tidak ada</i>
+                            </div>
+                        @endforelse
                     </div>
-                </div>
             </div>
         </div>
         <x-modalsimpan judul="Tambah Anggota Grup" link="grupanggota">
@@ -174,7 +174,6 @@
                 <section class="p-3">
                     <input type="hidden" name="tag" id="id" value="#{{ $main['tag'] }}">
                     <input type="hidden" name="sesi" value="taganggota">
-                    <button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> SIMPAN DATA</button>
                     <table class="table" id="example1">
                         <thead>
                             <tr>

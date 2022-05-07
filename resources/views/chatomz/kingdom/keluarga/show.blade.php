@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header p-2">
                         @if (isset($pohon['istri']))
                             <a href="#" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus-circle-fill"></i></a>
                         @endif
@@ -27,7 +27,7 @@
                             </div>
                             <div class="col-md-8 p-1">
                                 <div class="table-responsive">
-                                <table id="example1" class="table table-bordered">
+                                <table id="example1" class="table table-borderless">
                                     <thead class="text-center">
                                         <tr>
                                             <th width="5%">No</th>
@@ -72,9 +72,9 @@
               <div class="card-header">
                   <strong>Pohon Keluarga</strong> 
                   @if ($keluarga->status_keluarga == 'menikah')
-                      <span class="badge badge-info float-end-end">Status Pernikahan {{ $keluarga->status_keluarga }}</span>
+                      <span class="badge bg-info float-end fst-italic">{{ $keluarga->status_keluarga }}</span>
                     @else
-                      <span class="badge badge-warning float-end-end">Status Pernikahan {{ $keluarga->status_keluarga }}</span>
+                      <span class="badge bg-warning float-end fst-italic">{{ $keluarga->status_keluarga }}</span>
                   @endif
               </div>
               <div class="card-body">
@@ -83,12 +83,11 @@
                       <div class="col-md-3 pb-0 pt-2">
                           <div class="card bg-primary mb-0">
                               <div class="row no-gutters">
-                                <div class="col-md-4">
-                                  <a href="{{ url('/orang/'.Crypt::encryptString($pohon['suami']->id))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="card-img" alt="..."></a>
+                                <div class="col-4">
+                                  <a href="{{ url('/orang/'.Crypt::encryptString($pohon['suami']->id))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="img-fluid rounded-start" alt="..."></a>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-8">
                                   <div class="card-body p-2 text-white">
-                                      
                                       <small class="text-capitalize">{{ fullname($pohon['suami'])}} 
                                           {{-- cek keturunan keatas --}}
                                           @if ($pohon['ortusuami'])
@@ -104,10 +103,10 @@
                         <div class="col-md-3 pb-0 pt-2">
                             <div class="card bg-info mb-0">
                                 <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <a href="{{ url('/orang/'.Crypt::encryptString($pohon['istri']->idorang))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->photo))}}" class="card-img" alt="..."></a>
+                                <div class="col-4">
+                                    <a href="{{ url('/orang/'.Crypt::encryptString($pohon['istri']->idorang))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->photo))}}" class="img-fluid rounded-start" alt="..."></a>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-8">
                                     <div class="card-body p-2 text-white">
                                     <small class="text-capitalize">{{ fullname($pohon['istri'])}}
                                         @if ($pohon['ortuistri'])
@@ -124,10 +123,10 @@
                         <div class="col-md-3 pb-0">
                             <div class="card bg-success mb-0">
                                 <div class="row no-gutters">
-                                <div class="col-md-4">
-                                    <img src="{{ asset('/img/istri.png')}}" class="card-img" alt="...">
+                                <div class="col-4">
+                                    <img src="{{ asset('/img/istri.png')}}" class="img-fluid rounded-start" alt="...">
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-8">
                                     <div class="card-body p-2 text-white">
                                     <small class="text-capitalize">Belum ada Data
                                     </small><br>
@@ -160,10 +159,15 @@
                 <div class="row justify-content-center">
                     @if (count($keluargahubungan) >= 3 )
                         @for ($i = 2; $i < count($keluargahubungan); $i++)
-                            <div class="col-md-3 akar-anak d-none d-sm-block">
-                            </div>
+                            @if ($i < 5)
+                                <div class="col-md-3 akar-anak d-none d-sm-block">
+                                </div>
+                            @endif
                         @endfor
                     @endif
+                    <div class="col d-block d-sm-none">
+                        <hr>
+                    </div>
                 </div>
 
                 <div class="row justify-content-center text-white">
@@ -172,10 +176,10 @@
                             <div class="col-md-3 pt-2">
                                 <div class="card bg-success mb-3">
                                     <div class="row no-gutters">
-                                    <div class="col-md-4">
-                                        <a href="{{ url('/orang/'.Crypt::encryptString($item->idorang))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="card-img" alt="..."></a>
+                                    <div class="col-4">
+                                        <a href="{{ url('/orang/'.Crypt::encryptString($item->idorang))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="img-fluid rounded-start" alt="..."></a>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-8">
                                         <div class="card-body p-2">
                                         <small class="text-capitalize">{{ fullname($item)}}
                                             @php

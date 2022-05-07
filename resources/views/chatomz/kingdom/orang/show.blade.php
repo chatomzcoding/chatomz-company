@@ -14,15 +14,17 @@
                                     alt="singleminded">
                                 </a>
                                 <div class="card-body py-2">
-                                    <h5 class="card-title">{{ fullname($orang) }}  @if ($orang->gender == 'laki-laki')
-                                        <sup><i class="fas fa-mars text-primary"></i></sup>  
-                                    @else
-                                        <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                    @endif </h5>
-                                    <span>{{ age($orang->date_birth,'Bulan')}}</span>
-                                    <p class="card-text fst-italic">
-                                       "{{ $orang->note }}"
-                                    </p>
+                                    <section class="text-center">
+                                        <h5 class="card-title">{{ fullname($orang) }}  @if ($orang->gender == 'laki-laki')
+                                            <sup><i class="fas fa-mars text-primary"></i></sup>  
+                                        @else
+                                            <sup><i class="fas fa-venus text-danger"></i></sup>  
+                                        @endif </h5>
+                                        <span>{{ age($orang->date_birth,'Bulan')}}</span>
+                                        <p class="card-text fst-italic">
+                                           "{{ $orang->note }}"
+                                        </p>
+                                    </section>
                                     <form id="data-{{ $orang->id }}" action="{{url('/orang/'.$orang->id)}}" method="post">
                                         @csrf
                                         @method('delete')
@@ -62,7 +64,7 @@
                     </div>
                     <div class="col-lg-8 col-md-8">
                         <div class="card">
-                            <div class="card-header p-2">
+                            <div class="card-header p-3">
                                 <div class="float-end">
                                     @if (!is_null($tombol['back']))
                                         <a href="{{ url('orang',Crypt::encryptString($tombol['back']->id))}}"  data-bs-toggle="tooltip" title="sebelumnya"><i class="bi-arrow-left-circle"></i></a>
@@ -324,7 +326,7 @@
                                                     </form>
                                                     <div class="card">
                                                         <div class="card-body pt-2 pb-0 px-3 bg-primary rounded">
-                                                            <a data-bs-toggle="collapse" href="#aksilinimasa" role="button" aria-expanded="false" aria-controls="aksilinimasa">
+                                                            <a data-bs-toggle="collapse" href="#aksilinimasa{{ $item->id }}" role="button" aria-expanded="false" aria-controls="aksilinimasa">
                                                             <div class="d-flex align-items-center text-white">
                                                                 <div class="avatar avatar-xl">
                                                                     <i class="bi-{{ $item->icon }}" style="font-size: 35px;"></i> <br>
@@ -335,7 +337,7 @@
                                                                 </div>
                                                             </div>
                                                             </a>
-                                                            <section class="collapse text-end" id="aksilinimasa">
+                                                            <section class="collapse text-end" id="aksilinimasa{{ $item->id }}">
                                                                 <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-primary btn-sm" data-original-title="Edit Task">
                                                                     <i class="bi-pencil"></i>
                                                                 </button>
@@ -684,14 +686,14 @@
                         <p class="small text-capitalize">{{ $item->name}}</p>
                         <small class="text-muted">{{ $item->information }}</small>
                     </div>
-                    <div class="card-footer">
-                        <form id="data-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
+                    <div class="card-footer p-1">
+                        <form id="gruphapus-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
                             @csrf
                             @method('delete')
                         </form>
-                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="fas fa-trash-alt"></i></button>
+                        <button onclick="deleteRow( {{ $item->id }},'gruphapus' )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="bi-trash"></i></button>
                         <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
-                            <i class="fa fa-edit"></i>
+                            <i class="bi-pencil"></i>
                         </button>
                     </div>
                     </div>
