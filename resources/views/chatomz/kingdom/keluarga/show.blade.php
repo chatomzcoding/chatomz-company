@@ -209,7 +209,7 @@
             <section class="p-3">
                 <div class="form-group">
                     <label for="">Nama Anggota Keluarga</label>
-                        <select name="orang_id" class="select2bs4" data-width="100%">
+                        <select name="orang_id" class="form-control" data-width="100%">
                             @foreach ($anggotakeluarga as $item)
                                 @if ($item->id <> $pohon['suami']->id AND $item->id <> $pohon['istri']->idorang)
                                 <option value="{{ $item->id}}">{{ fullname($item)}}</option>
