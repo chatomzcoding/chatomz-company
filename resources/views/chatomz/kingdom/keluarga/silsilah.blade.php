@@ -14,7 +14,7 @@
                         <div class="col-md-2">
                             <div class="card bg-primary mb-0">
                                 <div class="card-body p-2 text-white text-center">
-                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="img-fluid rounded-start">
+                                    {!! kingdom_orangpoto($pohon['suami']->photo,$pohon['suami']->id) !!}
                                     <small class="text-capitalize">{{ fullname($pohon['suami'])}}</small>
                                 </div>
                             </div>
@@ -22,7 +22,7 @@
                         <div class="col-md-2">
                             <div class="card bg-info mb-0">
                                 <div class="card-body p-2 text-white text-center">
-                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->photo))}}" class="img-fluid rounded-start">
+                                    {!! kingdom_orangpoto($pohon['istri']->photo,$pohon['istri']->idorang) !!}
                                     <small class="text-capitalize">{{ fullname($pohon['istri'])}}</small>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                 <div class="card bg-success mb-1">
                                     <div class="row no-gutters">
                                     <div class="col-5">
-                                        <img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->orang->photo))}}" class="img-fluid rounded-start" alt="...">
+                                        {!! kingdom_orangpoto($item->orang->photo,$item->orang->id) !!}
                                     </div>
                                     <div class="col-7">
                                         <div class="card-body px-0 py-2">
@@ -88,7 +88,7 @@
                                                     <div class="row border mb-2 mx-0">
                                                         <div class="col-4 p-0 position-relative">
                                                             <span class="position-absolute top-0 start-0 badge bg-info">{{ $loop->iteration }}</span>
-                                                            {!! kingdom_orangpoto($key->orang->photo,'') !!}
+                                                            {!! kingdom_orangpoto($key->orang->photo,$key->orang->id,'') !!}
                                                             <section class="text-center">
                                                                 <small>{{ fullname($key->orang) }}</small>
                                                             </section>
@@ -97,7 +97,7 @@
                                                             <div class="row mt-1 p-0">
                                                                 @foreach (kingdom_keturunan($key->orang) as $k)
                                                                     <div class="col-3 p-1">
-                                                                        {!! kingdom_orangpoto($k->orang->photo,'rounded-circle') !!}
+                                                                        {!! kingdom_orangpoto($k->orang->photo,$k->orang->id,'rounded-circle') !!}
                                                                     </div>
                                                                 @endforeach
                                                             </div>

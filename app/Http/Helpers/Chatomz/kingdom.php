@@ -1,6 +1,9 @@
 <?php 
 
 // list keturunan
+
+use Illuminate\Support\Facades\Crypt;
+
 if (! function_exists('kingdom_keturunan')) {
     function kingdom_keturunan($data)
     {
@@ -18,9 +21,9 @@ if (! function_exists('kingdom_keturunan')) {
     }
 }
 if (! function_exists('kingdom_orangpoto')) {
-    function kingdom_orangpoto($photo,$class='rounded')
+    function kingdom_orangpoto($photo,$id,$class='rounded')
     {
-        $html = "<img src='".asset('img/chatomz/orang/'.orang_photo($photo))."' class='img-fluid ".$class."'>";
+        $html = "<a href='".url('orang/'.Crypt::encryptString($id))."'><img src='".asset('img/chatomz/orang/'.orang_photo($photo))."' class='img-fluid ".$class."'></a>";
         return $html;
     }
 }
