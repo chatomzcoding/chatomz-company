@@ -24,7 +24,7 @@ class Infolinimasa extends Component
      */
     public function render()
     {
-        $data   = Linimasa::where('tanggal','>=',tgl_sekarang())->orderBy('tanggal','desc')->get();
+        $data   = Linimasa::where('tanggal','>=',tgl_sekarang())->orderBy('tanggal','asc')->get();
         return view('components.dashboard.infolinimasa', compact('data'));
     }
 }
