@@ -3,15 +3,14 @@
         <div class="page-heading">
             <x-header head="Data Kontak" active="Edit Kontak">
                 <li class="breadcrumb-item"><a href="{{ url('orang')}}">Daftar Orang</a></li>
-                <li class="breadcrumb-item"><a href="{{ url('orang/'.Crypt::encryptString($orang->id))}}">{{ $orang->first_name.' '.$orang->last_name}}</a></li>
+                <li class="breadcrumb-item text-capitalize"><a href="{{ url('orang/'.Crypt::encryptString($orang->id))}}">{{ $orang->first_name.' '.$orang->last_name}}</a></li>
             </x-header>
             <div class="section">
                 <div class="row">
                     <div class="col-md-12">
                             <div class="card">
                             <div class="card-header">
-                                <a href="{{ url('/orang/'.Crypt::encryptString($orang->id))}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke detail</a>
-                                <a href="{{ url('/orang')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-angle-left"></i> Kembali ke daftar orang</a>
+                                <x-sistem.kembali url="orang/{{ Crypt::encryptString($orang->id)}}"></x-sistem.kembali>
                             </div>
                             <div class="card-body">
                                 <form method="post" action="{{ url('/kontak/'.$kontak->id)}}">

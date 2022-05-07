@@ -138,69 +138,71 @@
                                                 <a href="#" class="btn btn-secondary btn-sm" data-bs-target="#tambahkontak" data-bs-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i> tambahkan</a>
                                             </div>
                                         @else
-                                            <table class="table table-borderless mt-3">
-                                                <tbody>
-                                                    <tr>
-                                                        <td colspan="2" class="text-end">
-                                                            <a href="{{ url('/kontak/'.Crypt::encryptString($orang->kontak->id).'/edit')}}" class="btn btn-outline-success btn-sm"><i class="bi-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    @if (!is_null($orang->kontak->no_hp))
+                                            <div class="table-responsive mt-3">
+                                                <table class="table table-borderless">
+                                                    <tbody>
                                                         <tr>
-                                                            <th>No. Handphone</th>
-                                                            <td>{{ $orang->kontak->no_hp}}</td>
-                                                        </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->kontak->no_tel))
-                                                        <tr>
-                                                            <th>No. Telepon</th>
-                                                            <td>{{ $orang->kontak->no_tel}}</td>
-                                                        </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->kontak->no_wa))
-                                                        <tr>
-                                                            <th>No. Whatsapp</th>
-                                                            <td>{{ $orang->kontak->no_wa}}</td>
-                                                        </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->kontak->email))
-                                                        <tr>
-                                                            <th>E-mail</th>
-                                                            <td class="text-lowercase">{{ $orang->kontak->email}}</td>
-                                                        </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->kontak->office_email))
-                                                        <tr>
-                                                            <th>E-mail Office</th>
-                                                            <td class="text-lowercase">{{ $orang->kontak->office_email}}</td>
-                                                        </tr>
-                                                    @endif
-                                                    <tr>
-                                                        <th>Social Media</th>
-                                                        <td>
-                                                            @if (!is_null($orang->kontak->fb))
-                                                                <a href="{{ $orang->kontak->fb}}" target="_blank" class="{{ linkDisabled($orang->kontak->fb) }}"><i class="fab fa-facebook-square fa-2x"></i></a>&nbsp;
-                                                            @endif
-                                                            @if (!is_null($orang->kontak->tw))
-                                                                <a href="{{ $orang->kontak->tw}}" target="_blank" class="{{ linkDisabled($orang->kontak->tw) }}"><i class="fab fa-twitter-square fa-2x"></i></a>&nbsp;
-                                                            @endif
-                                                            @if (!is_null($orang->kontak->ig))
-                                                                <a href="{{ $orang->kontak->ig}}" target="_blank" class="{{ linkDisabled($orang->kontak->ig) }}"><i class="fab fa-instagram fa-2x"></i></a> &nbsp;
-                                                            @endif
-                                                            @if (!is_null($orang->kontak->line))
-                                                                <a href="{{ $orang->kontak->line}}" target="_blank" class="{{ linkDisabled($orang->kontak->link) }}"><i class="fab fa-line fa-2x"></i></a> 
-                                                            @endif
+                                                            <td colspan="2">
+                                                                <a href="{{ url('/kontak/'.Crypt::encryptString($orang->kontak->id).'/edit')}}" class="btn btn-outline-success btn-sm"><i class="bi-pencil"></i></a>
                                                             </td>
-                                                    </tr>
-                                                    @if (!is_null($orang->kontak->web))
-                                                        <tr>
-                                                            <th>Website</th>
-                                                            <td><a href="{{ '/'.$orang->kontak->web}}" target="_blank">{{ $orang->kontak->web}}</a> </td>
                                                         </tr>
-                                                    @endif
-                                                   
-                                                </tbody>
-                                            </table>
+                                                        @if (!is_null($orang->kontak->no_hp))
+                                                            <tr>
+                                                                <th>No. Handphone</th>
+                                                                <td>{{ $orang->kontak->no_hp}}</td>
+                                                            </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->kontak->no_tel))
+                                                            <tr>
+                                                                <th>No. Telepon</th>
+                                                                <td>{{ $orang->kontak->no_tel}}</td>
+                                                            </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->kontak->no_wa))
+                                                            <tr>
+                                                                <th>No. Whatsapp</th>
+                                                                <td>{{ $orang->kontak->no_wa}}</td>
+                                                            </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->kontak->email))
+                                                            <tr>
+                                                                <th>E-mail</th>
+                                                                <td class="text-lowercase">{{ $orang->kontak->email}}</td>
+                                                            </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->kontak->office_email))
+                                                            <tr>
+                                                                <th>E-mail Office</th>
+                                                                <td class="text-lowercase">{{ $orang->kontak->office_email}}</td>
+                                                            </tr>
+                                                        @endif
+                                                        <tr>
+                                                            <th>Social Media</th>
+                                                            <td>
+                                                                @if (!is_null($orang->kontak->fb))
+                                                                    <a href="{{ $orang->kontak->fb}}" target="_blank" class="{{ linkDisabled($orang->kontak->fb) }}"><i class="fab fa-facebook-square fa-2x"></i></a>&nbsp;
+                                                                @endif
+                                                                @if (!is_null($orang->kontak->tw))
+                                                                    <a href="{{ $orang->kontak->tw}}" target="_blank" class="{{ linkDisabled($orang->kontak->tw) }}"><i class="fab fa-twitter-square fa-2x"></i></a>&nbsp;
+                                                                @endif
+                                                                @if (!is_null($orang->kontak->ig))
+                                                                    <a href="{{ $orang->kontak->ig}}" target="_blank" class="{{ linkDisabled($orang->kontak->ig) }}"><i class="fab fa-instagram fa-2x"></i></a> &nbsp;
+                                                                @endif
+                                                                @if (!is_null($orang->kontak->line))
+                                                                    <a href="{{ $orang->kontak->line}}" target="_blank" class="{{ linkDisabled($orang->kontak->link) }}"><i class="fab fa-line fa-2x"></i></a> 
+                                                                @endif
+                                                                </td>
+                                                        </tr>
+                                                        @if (!is_null($orang->kontak->web))
+                                                            <tr>
+                                                                <th>Website</th>
+                                                                <td><a href="{{ '/'.$orang->kontak->web}}" target="_blank">{{ $orang->kontak->web}}</a> </td>
+                                                            </tr>
+                                                        @endif
+                                                       
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         @endif
                                     </div>
                                     <div class="tab-pane fade" id="contact" role="tabpanel"
@@ -211,101 +213,103 @@
                                                 <a href="#" class="btn btn-secondary btn-sm" data-bs-target="#tambahpendidikan" data-bs-toggle="modal"><i class="fa fa-plus bg-white rounded-circle text-secondary p-1"></i>  tambahkan</a>
                                             </div>
                                         @else
-                                            <table class="table table-borderless mt-3">
-                                                <tbody class="text-capitalize">
-                                                    <tr>
-                                                        <td colspan="2" class="text-end">
-                                                            <a href="{{ url('/pendidikan/'.Crypt::encryptString($orang->pendidikan->id).'/edit')}}" class="btn btn-outline-success btn-sm"><i class="bi-pencil"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    @if (!is_null($orang->pendidikan->tk))
+                                            <div class="table-responsive mt-3">
+                                                <table class="table table-borderless mt-3">
+                                                    <tbody class="text-capitalize">
                                                         <tr>
-                                                            <th>TA / TPA</th>
-                                                            <td class="text-uppercase">{{ $orang->pendidikan->tk}}</td>
+                                                            <td colspan="2">
+                                                                <a href="{{ url('/pendidikan/'.Crypt::encryptString($orang->pendidikan->id).'/edit')}}" class="btn btn-outline-success btn-sm"><i class="bi-pencil"></i></a>
+                                                            </td>
                                                         </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->sd))
-                                                    <tr>
-                                                        <th>SD</th>
-                                                        <td class="text-uppercase">{{ $orang->pendidikan->sd}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->smp))
-                                                    <tr>
-                                                        <th>SMP/MTS</th>
-                                                        <td  class="text-uppercase">{{ $orang->pendidikan->smp}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->sma))
-                                                    <tr>
-                                                        <th>SMA/SMK/MA</th>
-                                                        <td  class="text-uppercase">{{ $orang->pendidikan->sma}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->d))
-                                                    <tr>
-                                                        <th>Diploma</th>
-                                                        <td  class="text-uppercase">{{ $orang->pendidikan->d}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->s1))
-                                                    <tr>
-                                                        <th>S1</th>
-                                                        <td  class="text-uppercase">{{ $orang->pendidikan->s1}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->s2))
-                                                    <tr>
-                                                        <th>S2</th>
-                                                        <td  class="text-uppercase">{{ $orang->pendidikan->s2}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->s3))
-                                                    <tr>
-                                                        <th>S3</th>
-                                                        <td  class="text-uppercase">{{ $orang->pendidikan->s3}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->pesantren))
-                                                    <tr>
-                                                        <th>Pesantren</th>
-                                                        <td  class="text-uppercase">{{ $orang->pendidikan->pesantren}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->homescholl))
-                                                    <tr>
-                                                        <th>Home Scholling</th>
-                                                        <td class="text-lowercase">{{ $orang->pendidikan->homescholl}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->boardingscholl))
-                                                    <tr>
-                                                        <th>Boarding Scholling</th>
-                                                        <td class="text-lowercase">{{ $orang->pendidikan->boardingscholl}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->bimbel))
-                                                    <tr>
-                                                        <th>Bimbel</th>
-                                                        <td class="text-lowercase">{{ $orang->pendidikan->bimbel}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->kursus))
-                                                    <tr>
-                                                        <th>Kursus</th>
-                                                        <td class="text-lowercase">{{ $orang->pendidikan->kursus}}</td>
-                                                    </tr>
-                                                    @endif
-                                                    @if (!is_null($orang->pendidikan->information))
-                                                    <tr>
-                                                        <th>Information</th>
-                                                        <td class="text-lowercase">{{ $orang->pendidikan->information}}</td>
-                                                    </tr>
-                                                    @endif
-                                                  
-                                                
-                                                </tbody>
-                                            </table>
+                                                        @if (!is_null($orang->pendidikan->tk))
+                                                            <tr>
+                                                                <th>TA / TPA</th>
+                                                                <td class="text-uppercase">{{ $orang->pendidikan->tk}}</td>
+                                                            </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->sd))
+                                                        <tr>
+                                                            <th>SD</th>
+                                                            <td class="text-uppercase">{{ $orang->pendidikan->sd}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->smp))
+                                                        <tr>
+                                                            <th>SMP/MTS</th>
+                                                            <td  class="text-uppercase">{{ $orang->pendidikan->smp}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->sma))
+                                                        <tr>
+                                                            <th>SMA/SMK/MA</th>
+                                                            <td  class="text-uppercase">{{ $orang->pendidikan->sma}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->d))
+                                                        <tr>
+                                                            <th>Diploma</th>
+                                                            <td  class="text-uppercase">{{ $orang->pendidikan->d}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->s1))
+                                                        <tr>
+                                                            <th>S1</th>
+                                                            <td  class="text-uppercase">{{ $orang->pendidikan->s1}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->s2))
+                                                        <tr>
+                                                            <th>S2</th>
+                                                            <td  class="text-uppercase">{{ $orang->pendidikan->s2}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->s3))
+                                                        <tr>
+                                                            <th>S3</th>
+                                                            <td  class="text-uppercase">{{ $orang->pendidikan->s3}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->pesantren))
+                                                        <tr>
+                                                            <th>Pesantren</th>
+                                                            <td  class="text-uppercase">{{ $orang->pendidikan->pesantren}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->homescholl))
+                                                        <tr>
+                                                            <th>Home Scholling</th>
+                                                            <td class="text-lowercase">{{ $orang->pendidikan->homescholl}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->boardingscholl))
+                                                        <tr>
+                                                            <th>Boarding Scholling</th>
+                                                            <td class="text-lowercase">{{ $orang->pendidikan->boardingscholl}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->bimbel))
+                                                        <tr>
+                                                            <th>Bimbel</th>
+                                                            <td class="text-lowercase">{{ $orang->pendidikan->bimbel}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->kursus))
+                                                        <tr>
+                                                            <th>Kursus</th>
+                                                            <td class="text-lowercase">{{ $orang->pendidikan->kursus}}</td>
+                                                        </tr>
+                                                        @endif
+                                                        @if (!is_null($orang->pendidikan->information))
+                                                        <tr>
+                                                            <th>Information</th>
+                                                            <td class="text-lowercase">{{ $orang->pendidikan->information}}</td>
+                                                        </tr>
+                                                        @endif
+                                                      
+                                                    
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         @endif
                                     </div>
                                     {{-- lini masa --}}
@@ -319,27 +323,29 @@
                                                         @method('delete')
                                                     </form>
                                                     <div class="card">
-                                                        <div class="card-body py-3 px-3 bg-primary rounded">
-                                                            <span class="float-end">
-                                                                <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-primary btn-sm" data-original-title="Edit Task">
-                                                                    <i class="bi-pencil"></i>
-                                                                </button>
-                                                                <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-primary btn-sm"> <i class="bi bi-trash text-white"></i></button>
-                                                            </span>
+                                                        <div class="card-body pt-2 pb-0 px-3 bg-primary rounded">
+                                                            <a data-bs-toggle="collapse" href="#aksilinimasa" role="button" aria-expanded="false" aria-controls="aksilinimasa">
                                                             <div class="d-flex align-items-center text-white">
                                                                 <div class="avatar avatar-xl">
-                                                                    <i class="bi-{{ $item->icon }}" style="font-size: 35px;"></i>
+                                                                    <i class="bi-{{ $item->icon }}" style="font-size: 35px;"></i> <br>
                                                                 </div>
-                                                                <div class="ms-2 name">
+                                                                <div class="ms-2 name pl-5">
                                                                     <h5 class="font-bold small text-capitalize text-white"> {{ $item->nama}}</h5>
                                                                     <h6 class="text-light mb-0 small">{{ date_indo($item->tanggal).' - '.$item->jam }}</h6>
                                                                 </div>
                                                             </div>
+                                                            </a>
+                                                            <section class="collapse text-end" id="aksilinimasa">
+                                                                <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-primary btn-sm" data-original-title="Edit Task">
+                                                                    <i class="bi-pencil"></i>
+                                                                </button>
+                                                                <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-primary btn-sm"> <i class="bi bi-trash text-white"></i></button>
+                                                            </section>
                                                         </div>
                                                     </div>
                                                 </div>
                                             @empty
-                                                <div class="col-12">
+                                                <div class="col-12 text-center">
                                                     <p><i> belum ada lini masa </i></p>
                                                 </div>
                                             @endforelse

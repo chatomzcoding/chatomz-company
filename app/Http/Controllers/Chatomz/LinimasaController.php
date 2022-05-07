@@ -36,7 +36,15 @@ class LinimasaController extends Controller
      */
     public function store(Request $request)
     {
-        Linimasa::create($request->all());
+        Linimasa::create([
+            'orang_id' => $request->orang_id,
+            'nama' => $request->nama,
+            'keterangan' => $request->keterangan,
+            'icon' => strtolower($request->icon),
+            'tanggal' => $request->tanggal,
+            'jam' => $request->jam,
+            'tag' => $request->tag,
+        ]);
         return back()->with('ds','Linimasa');
     }
 
@@ -74,7 +82,7 @@ class LinimasaController extends Controller
         Linimasa::where('id',$request->id)->update([
             'nama' => $request->nama,
             'keterangan' => $request->keterangan,
-            'icon' => $request->icon,
+            'icon' => strtolower($request->icon),
             'tanggal' => $request->tanggal,
             'jam' => $request->jam,
             'tag' => $request->tag,
