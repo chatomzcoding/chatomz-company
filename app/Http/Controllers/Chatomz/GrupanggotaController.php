@@ -77,7 +77,19 @@ class GrupanggotaController extends Controller
                 break;
             
             default:
-                $tag = (isset($request->tag)) ? json_encode($request->tag) : NULL ;
+                $tag = NULL;
+                if (isset($request->tag)) {
+                    foreach ($request->tag as $key) {
+                        $key    = '#'.$key;
+                        $nilai          = [$key => null];
+                        if ($tag == NULL) {
+                            $tag    = $nilai; 
+                        } else {
+                            $tag    = array_merge($nilai,$tag); 
+                        }
+                    }
+                    $tag    = json_encode($tag);
+                }
                 Grupanggota::create([
                     'orang_id' => $request->orang_id,
                     'information' => $request->information,
