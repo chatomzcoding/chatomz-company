@@ -89,21 +89,24 @@
                                                             @foreach ($item->orang->kepalakeluarga->anakketurunan as $key)
                                                             <div class="col">
                                                                 <img src="{{ asset('/img/chatomz/orang/'.orang_photo($key->orang->photo))}}" class="img-fluid rounded" alt="...">
-                                                                <div class="row">
-                                                                    <div class="col">
-                                                                        ok
-                                                                    </div>
-                                                                    {{-- @if ($key->orang->gender == 'laki-laki')
+                                                                <div class="row mt-1 p-0">
+                                                                    @if ($key->orang->gender == 'laki-laki')
                                                                         @if (isset($key->orang->kepalakeluarga->anakketurunan))
                                                                             @foreach ($key->orang->kepalakeluarga->anakketurunan as $k)
-                                                                            <div class="col">
-                                                                                <img src="{{ asset('/img/chatomz/orang/'.orang_photo($k->orang->photo))}}" class="img-fluid rounded" alt="...">
-                                                                            </div>
+                                                                                <div class="col">
+                                                                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($k->orang->photo))}}" class="img-fluid rounded" alt="...">
+                                                                                </div>
                                                                             @endforeach
                                                                         @endif
                                                                     @else
-                                                                        tidak
-                                                                    @endif --}}
+                                                                        @if (isset($key->orang->istri->keluarga->anakketurunan))
+                                                                            @foreach ($key->orang->istri->keluarga->anakketurunan as $k)
+                                                                                <div class="col">
+                                                                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($k->orang->photo))}}" class="img-fluid rounded" alt="...">
+                                                                                </div>
+                                                                            @endforeach
+                                                                        @endif
+                                                                    @endif
                                                                 </div>
                                                             </div>
                                                             @endforeach
@@ -117,10 +120,18 @@
                                                             @foreach ($item->orang->istri->keluarga->anakketurunan as $key)
                                                                 <div class="col">
                                                                     <img src="{{ asset('/img/chatomz/orang/'.orang_photo($key->orang->photo))}}" class="img-fluid rounded" alt="...">
-                                                                    <div class="row mt-2 text-dark">
+                                                                    <div class="row mt-1 p-0">
                                                                         @if ($key->orang->gender == 'laki-laki')
                                                                             @if (isset($key->orang->kepalakeluarga->anakketurunan))
                                                                                 @foreach ($key->orang->kepalakeluarga->anakketurunan as $k)
+                                                                                <div class="col">
+                                                                                    <img src="{{ asset('/img/chatomz/orang/'.orang_photo($k->orang->photo))}}" class="img-fluid rounded" alt="...">
+                                                                                </div>
+                                                                                @endforeach
+                                                                            @endif
+                                                                        @else
+                                                                            @if (isset($key->orang->istri->keluarga->anakketurunan))
+                                                                                @foreach ($key->orang->istri->keluarga->anakketurunan as $k)
                                                                                 <div class="col">
                                                                                     <img src="{{ asset('/img/chatomz/orang/'.orang_photo($k->orang->photo))}}" class="img-fluid rounded" alt="...">
                                                                                 </div>
