@@ -189,7 +189,7 @@
                                                 <a href="{{ url('keluarga/'.Crypt::encryptString($keturunan)) }}" class="badge badge-light float-end"><span><i class="bi bi-arrow-down-left"></i></span></a>
                                             @endif
                                             <br>
-                                        Anak {{ $item->urutan }} | <i>{{ $item->gender }}</i></small>
+                                        anak ke {{ $item->urutan }} | <i>{{ $item->gender }}</i></small>
                                         </div>
                                     </div>
                                     </div>
