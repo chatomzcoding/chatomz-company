@@ -96,7 +96,7 @@
                                                         <div class="col-8">
                                                             <div class="row mt-1 p-0">
                                                                 @foreach (kingdom_keturunan($key->orang) as $k)
-                                                                    <div class="col p-1">
+                                                                    <div class="col-3 p-1">
                                                                         {!! kingdom_orangpoto($k->orang->photo,'rounded-circle') !!}
                                                                     </div>
                                                                 @endforeach
