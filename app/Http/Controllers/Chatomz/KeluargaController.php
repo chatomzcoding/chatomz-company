@@ -58,12 +58,6 @@ class KeluargaController extends Controller
     public function show($keluarga)
     {
         $keluarga           = Keluarga::find(Crypt::decryptString($keluarga));
-        // $keluargahubungan   = DB::table('keluarga_hubungan')
-        //                         ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
-        //                         ->select('keluarga_hubungan.*','orang.first_name','orang.last_name','orang.photo','orang.death','orang.gender','orang.id as idorang')
-        //                         ->where('keluarga_hubungan.keluarga_id',$keluarga->id)
-        //                         ->orderBy('keluarga_hubungan.urutan','ASC')
-        //                         ->get();
         $keluargahubungan   = Keluargahubungan::where('keluarga_id',$keluarga->id)->get();
         // data pohon keluarga
         $daftaristri        = Orang::where('gender','perempuan')->where('marital_status','sudah')->orderBy('orang.first_name','ASC')->get();
@@ -89,7 +83,17 @@ class KeluargaController extends Controller
             'ortusuami' => $ortusuami,
             'ortuistri' => $ortuistri
         ];
-        return view('chatomz.kingdom.keluarga.show', compact('keluarga','keluargahubungan','pohon','daftaristri','anggotakeluarga'));
+
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'show' ;
+        switch ($s) {
+            case 'silsilah':
+                return view('chatomz.kingdom.keluarga.silsilah', compact('keluarga','keluargahubungan','pohon','daftaristri','anggotakeluarga'));
+                break;
+            
+            default:
+                return view('chatomz.kingdom.keluarga.show', compact('keluarga','keluargahubungan','pohon','daftaristri','anggotakeluarga'));
+                break;
+        }
     }
 
     /**
