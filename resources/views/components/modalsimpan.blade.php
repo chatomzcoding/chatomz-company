@@ -1,12 +1,11 @@
-<div class="modal fade" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="modal-dialog {{ $size }}" role="document">
+<form action="{{ url($link ?? '') }}" method="POST" enctype="multipart/form-data">
+    @csrf
+<div class="modal fade text-left modal-borderless" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog {{ $size }} modal-dialog-scrollable" role="document">
         <div class="modal-content">
-            <form action="{{ url($link ?? '') }}" method="POST" enctype="multipart/form-data">
-                @csrf
             <div class="modal-header p-2">
                 <h5 class="modal-title">{{ $judul ?? 'Tambah Data' }}</h5>
-                <button type="button" class="close rounded-pill"
-                    data-bs-dismiss="modal" aria-label="Close"> <i data-feather="x"></i>
+                <button type="button" class="btn btn-outline-light btn-sm" data-bs-dismiss="modal" aria-label="Close"><i data-feather="x" class="bi-x-square text-secondary"></i>
                 </button>
             </div>
             <div class="modal-body py-0">
@@ -25,7 +24,7 @@
                     <span class="d-none d-sm-block"><i class="bi bi-save"></i> SIMPAN</span>
                 </button>
             </div>
-            </form>
         </div>
     </div>
 </div>
+</form>
