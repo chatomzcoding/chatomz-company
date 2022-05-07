@@ -27,4 +27,13 @@ class Orang extends Model
     {
         return $this->hasMany(Linimasa::class)->orderByDesc('tanggal');
     }
+
+    public function kepalakeluarga()
+    {
+        return $this->hasOne(Keluarga::class);
+    }
+    public function istri()
+    {
+        return $this->hasOne(Keluargahubungan::class)->where('status','istri');
+    }
 }

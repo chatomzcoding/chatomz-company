@@ -174,24 +174,61 @@
                     @foreach ($keluargahubungan as $item)
                         @if ($item->status <> 'istri')
                             <div class="col-md-3 pt-2">
-                                <div class="card bg-success mb-3">
+                                <div class="card bg-success mb-1">
                                     <div class="row no-gutters">
                                     <div class="col-4">
-                                        <a href="{{ url('/orang/'.Crypt::encryptString($item->idorang))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->photo))}}" class="img-fluid rounded-start" alt="..."></a>
+                                        <a href="{{ url('/orang/'.Crypt::encryptString($item->orang->id))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->orang->photo))}}" class="img-fluid rounded-start" alt="..."></a>
                                     </div>
                                     <div class="col-8">
                                         <div class="card-body p-2">
-                                        <small class="text-capitalize">{{ fullname($item)}}
+                                        <small class="text-capitalize">{{ fullname($item->orang)}}
                                             @php
-                                                $keturunan = DbChatomz::cekketurunankeluarga($item->idorang,$item->gender);
+                                                $keturunan = DbChatomz::cekketurunankeluarga($item->orang->id,$item->orang->gender);
                                             @endphp
                                             @if ($keturunan)
                                                 <a href="{{ url('keluarga/'.Crypt::encryptString($keturunan)) }}" class="badge badge-light float-end"><span><i class="bi bi-arrow-down-left"></i></span></a>
                                             @endif
                                             <br>
-                                        anak ke {{ $item->urutan }} | <i>{{ $item->gender }}</i></small>
+                                        anak ke {{ $item->urutan }} | <i>{{ $item->orang->gender }}</i></small>
                                         </div>
+                                       
                                     </div>
+                                    </div>
+                                </div>
+                                {{-- keturunan --}}
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body p-1">
+                                                <div class="row">
+                                                    @if ($item->orang->gender == 'laki-laki')
+                                                        @if (isset($item->orang->kepalakeluarga->anakketurunan))
+                                                            @foreach ($item->orang->kepalakeluarga->anakketurunan as $key)
+                                                            <div class="col">
+                                                                <a href="{{ url('/orang/'.Crypt::encryptString($key->orang->id))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($key->orang->photo))}}" class="img-fluid rounded" alt="..."></a>
+                                                            </div>
+                                                            @endforeach
+                                                        @else
+                                                        <section class="text-center small">
+                                                            <i>belum ada data</i>
+                                                        </section>
+                                                        @endif
+                                                    @else
+                                                        @if (isset($item->orang->istri->keluarga->anakketurunan))
+                                                        @foreach ($item->orang->istri->keluarga->anakketurunan as $key)
+                                                        <div class="col">
+                                                            <a href="{{ url('/orang/'.Crypt::encryptString($key->orang->id))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($key->orang->photo))}}" class="img-fluid rounded" alt="..."></a>
+                                                        </div>
+                                                        @endforeach
+                                                    @else
+                                                    <section class="text-center small">
+                                                        <i>belum ada data</i>
+                                                    </section>
+                                                    @endif
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

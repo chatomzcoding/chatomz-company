@@ -12,4 +12,14 @@ class Keluarga extends Model
     protected $table = 'keluarga';
 
     protected $guarded = [];
+
+    public function orang()
+    {
+        return $this->belongsTo(Orang::class);
+    }
+
+    public function anakketurunan()
+    {
+        return $this->hasMany(Keluargahubungan::class)->where('status','anak');
+    }
 }
