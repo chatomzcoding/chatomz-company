@@ -18,11 +18,12 @@ class ChatomzservicesProvider extends ServiceProvider
         require_once app_path() . '/Http/Helpers/Sistem/sistem.php';
         require_once app_path() . '/Http/Helpers/Sistem/view.php';
         require_once app_path() . '/Http/Helpers/Sistem/waktu.php';
-        require_once app_path() . '/Http/Helpers/Chatomz/list.php';
+        require_once app_path() . '/Http/Helpers/Chatomz/dashboard.php';
         require_once app_path() . '/Http/Helpers/Chatomz/data.php';
         require_once app_path() . '/Http/Helpers/Chatomz/db.php';
-        require_once app_path() . '/Http/Helpers/Chatomz/dashboard.php';
         require_once app_path() . '/Http/Helpers/Chatomz/keuangan.php';
+        require_once app_path() . '/Http/Helpers/Chatomz/kingdom.php';
+        require_once app_path() . '/Http/Helpers/Chatomz/list.php';
     }
 
     /**
