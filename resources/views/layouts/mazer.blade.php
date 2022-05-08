@@ -56,25 +56,101 @@
             </div>
         </div>
         <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
+            <header>
+                <nav class="navbar navbar-expand navbar-light ">
+                    <div class="container-fluid">
+                        <a href="#" class="burger-btn d-block">
+                            <i class="bi bi-justify fs-3"></i>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                {{-- <li class="nav-item dropdown me-3">
+                                    <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class='bi bi-bell bi-sub fs-4 text-gray-600'></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <h6 class="dropdown-header">Notifications</h6>
+                                        </li>
+                                        <li><a class="dropdown-item">No notification available</a></li>
+                                    </ul>
+                                </li> --}}
+                                <li class="nav-item dropdown me-1">
+                                    <a class="nav-link active dropdown-toggle dropend" href="#" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <i class='bi bi-plus-square bi-sub fs-4 text-gray-600'></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <h6 class="dropdown-header">Kingdom</h6>
+                                        </li>
+                                        <li class="ps-3"><a class="dropdown-item small" href="{{ url('orang/create') }}">Tambah Orang</a></li>
+                                        <li>
+                                            <h6 class="dropdown-header">Jurnal Cash</h6>
+                                        </li>
+                                        @foreach ($rekening as $id => $nama_rekening)
+                                            <li class="ps-3"><a class="dropdown-item small" href="{{ url('rekening/'.$id) }}">{{ $nama_rekening }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="dropdown">
+                                <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="user-menu d-flex">
+                                        <div class="user-name text-end me-3 d-none d-sm-block">
+                                            <h6 class="mb-0 text-gray-600">{{ $user->name }}</h6>
+                                            <p class="mb-0 text-sm text-gray-600">{{ $user->level }}</p>
+                                        </div>
+                                        <div class="user-img d-flex align-items-center">
+                                            <div class="avatar avatar-md">
+                                                <img src="{{ asset('img/user/'.$user->photo) }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <h6 class="dropdown-header">Hallo, {{ $user->name }}</h6>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ url('user/'.Crypt::encryptString($user->id).'/edit') }}"><i class="icon-mid bi bi-person me-2"></i> Akun Saya</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
+                                            Settings</a></li>
+                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
+                                            Wallet</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li class="text-end">
+                                        <form action="{{ route('logout') }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-danger btn-sm me-3">Keluar <i class="bi bi-box-arrow-right"></i></button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
             </header>
-
-            {{ $content ?? ''}}
-           
-
-            <footer>
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>{{ ambil_tahun() }} &copy; Chatomz Company</p>
+            <div id="main-content">
+                {{ $content ?? ''}}
+                <footer>
+                    <div class="footer clearfix mb-0 text-muted">
+                        <div class="float-start">
+                            <p>{{ ambil_tahun() }} &copy; Chatomz Company</p>
+                        </div>
+                        <div class="float-end">
+                            <p>Created by Firman Chatomz</p>
+                        </div>
                     </div>
-                    <div class="float-end">
-                        <p>Created by Firman Chatomz</p>
-                    </div>
-                </div>
-            </footer>
+                </footer>
+            </div>
         </div>
     </div>
     <script src="{{ asset('template/mazer/vendors/jquery/jquery.min.js')}}"></script>

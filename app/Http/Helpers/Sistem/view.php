@@ -1,4 +1,27 @@
 <?php
+// daftar warna bootstrap
+if (! function_exists('view_listwarna')) {
+    function view_listwarna(){
+        $warna  = ['primary','info','success','light','dark','danger','warning'];
+        return $warna;
+    }
+}
+
+// random pilih warna
+if (! function_exists('view_randomwarna')) {
+    function view_randomwarna($filter=null){
+        $warna  = view_listwarna();
+        if (!is_null($filter)) {
+            if (($key = array_search($filter, $warna)) !== false) {
+                unset($warna[$key]);
+            }
+        }
+        $max    = count($warna) - 1;
+        $index  = rand(0,$max);
+        $result = $warna[$index]; 
+        return $result;
+    }
+}
 
 if (! function_exists('button_status')) {
     function button_status($nilai,$data){

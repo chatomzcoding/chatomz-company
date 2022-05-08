@@ -3,6 +3,8 @@
 namespace App\View\Components;
 
 use App\Models\Infowebsite;
+use App\Models\Rekening;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class MazerLayout extends Component
@@ -33,6 +35,8 @@ class MazerLayout extends Component
     public function render()
     {
         $info   = Infowebsite::first();
-        return view('layouts.mazer', compact('info'));
+        $user   = Auth::user();
+        $rekening = Rekening::where('jenis','cash')->pluck('nama_rekening','id');
+        return view('layouts.mazer', compact('info','user','rekening'));
     }
 }

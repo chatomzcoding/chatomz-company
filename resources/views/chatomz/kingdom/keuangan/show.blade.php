@@ -112,11 +112,11 @@
             <section class="p-3">
                 <div class="form-group">
                     <label for="">Nama Jurnal</label>
-                    <input type="text" name="nama_jurnal" id="nama_jurnal" class="form-control" required>
+                    <input type="text" name="nama_jurnal" id="nama_jurnal" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="">Nominal</label>
-                    <input type="text" name="nominal" id="rupiah" class="form-control" required>
+                    <input type="text" name="nominal" id="rupiah" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="">Kategori</label>
@@ -136,14 +136,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="">Status</label>
-                    <select name="status" id="status" class="form-control">
-                        <option value="selesai">SELESAI</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label for="">Deskripsi Jurnal</label>
-                    <input type="text" name="deskripsi" id="deskripsi" class="form-control" required>
+                    <input type="text" name="deskripsi" id="deskripsi" class="form-control" autocomplete="off" required>
                 </div>
                 <div class="form-group">
                     <label for="">Tanggal Jurnal</label>
@@ -153,22 +147,33 @@
                     <label for="">Jam Jurnal</label>
                     <input type="time" name="jam" id="jam" value="{{ jam_sekarang() }}" class="form-control">
                 </div>
-                <div class="form-group">
-                    <label for="">Garansi</label>
-                    <input type="date" name="garansi" id="garansi" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">Tempat</label>
-                    <input type="text" name="tempat" id="tempat" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">Label</label>
-                    <input type="text" name="label" id="label" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">Struk</label>
-                    <input type="file" name="struk" id="struk" class="form-control">
-                </div>
+                <button class="btn btn-info btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#selengkapnya" aria-expanded="false" aria-controls="selengkapnya">
+                    Selengkapnya
+                  </button>
+                  <div class="collapse pt-3" id="selengkapnya">
+                        <div class="form-group">
+                            <label for="">Status</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="selesai">SELESAI</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Garansi</label>
+                            <input type="date" name="garansi" id="garansi" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Tempat</label>
+                            <input type="text" name="tempat" id="tempat" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Label</label>
+                            <input type="text" name="label" id="label" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Struk</label>
+                            <input type="file" name="struk" id="struk" class="form-control">
+                        </div>
+                  </div>
             </section>
         </x-modalsimpan>
         <x-modalubah judul="Ubah Rekening" link="rekening" id="editrekening">

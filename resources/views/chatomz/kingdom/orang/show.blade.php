@@ -325,7 +325,7 @@
                                                         @method('delete')
                                                     </form>
                                                     <div class="card">
-                                                        <div class="card-body pt-2 pb-0 px-3 bg-primary rounded">
+                                                        <div class="card-body pt-2 pb-0 px-3 bg-{{ view_randomwarna('light') }} rounded">
                                                             <a data-bs-toggle="collapse" href="#aksilinimasa{{ $item->id }}" role="button" aria-expanded="false" aria-controls="aksilinimasa">
                                                             <div class="d-flex align-items-center text-white">
                                                                 <div class="avatar avatar-xl">
