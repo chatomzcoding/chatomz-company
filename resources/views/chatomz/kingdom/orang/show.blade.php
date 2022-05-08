@@ -15,11 +15,7 @@
                                 </a>
                                 <div class="card-body py-2">
                                     <section class="text-center">
-                                        <h5 class="card-title">{{ fullname($orang) }}  @if ($orang->gender == 'laki-laki')
-                                            <sup><i class="fas fa-mars text-primary"></i></sup>  
-                                        @else
-                                            <sup><i class="fas fa-venus text-danger"></i></sup>  
-                                        @endif </h5>
+                                        <h5 class="card-title">{!! kingdom_fullname($orang) !!}</h5>
                                         <span>{{ age($orang->date_birth,'Bulan')}}</span>
                                         <p class="card-text fst-italic">
                                            "{{ $orang->note }}"

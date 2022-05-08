@@ -14,6 +14,7 @@ if (! function_exists('view_randomwarna')) {
         if (!is_null($filter)) {
             if (($key = array_search($filter, $warna)) !== false) {
                 unset($warna[$key]);
+                $warna = array_values($warna);
             }
         }
         $max    = count($warna) - 1;

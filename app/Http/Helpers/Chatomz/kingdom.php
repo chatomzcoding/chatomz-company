@@ -27,3 +27,22 @@ if (! function_exists('kingdom_orangpoto')) {
         return $html;
     }
 }
+if (! function_exists('kingdom_gender')) {
+    function kingdom_gender($gender)
+    {
+        $icon = ($gender == 'laki-laki') ? 'male' : 'female' ;
+        $html   = "<sup><i class='bi bi-gender-".$icon."'></i></sup>";
+        return $html;
+    }
+}
+
+// get nama lengkap
+if (! function_exists('kingdom_fullname')) {
+    function kingdom_fullname($item)
+    {
+        if (!is_null($item)) {
+            $name = ucwords($item->first_name . ' ' . $item->last_name.' '.death($item->death)).' '.kingdom_gender($item->gender);
+            return $name;
+        }
+    }
+}

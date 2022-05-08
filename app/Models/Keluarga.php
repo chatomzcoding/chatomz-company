@@ -20,6 +20,10 @@ class Keluarga extends Model
 
     public function anakketurunan()
     {
-        return $this->hasMany(Keluargahubungan::class)->where('status','anak');
+        return $this->hasMany(Keluargahubungan::class)->where('status','anak')->orderBy('urutan','ASC');
+    }
+    public function istri()
+    {
+        return $this->hasOne(Keluargahubungan::class)->where('status','istri');
     }
 }

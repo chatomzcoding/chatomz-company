@@ -110,7 +110,7 @@
                     </div>
             </div>
         </div>
-        <x-modalsimpan judul="Tambah Anggota Grup" link="grupanggota">
+        <x-modalsimpan judul="Tambah Anggota Grup" link="grupanggota" tabindex="">
             <section class="p-3">
                 <input type="hidden" name="grup_id" value="{{ $grup->id }}">
                <div class="form-group">

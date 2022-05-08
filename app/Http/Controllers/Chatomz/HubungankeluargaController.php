@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Chatomz;
 
 use App\Http\Controllers\Controller;
+use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
 use Illuminate\Http\Request;
 
@@ -36,7 +37,16 @@ class HubungankeluargaController extends Controller
      */
     public function store(Request $request)
     {
-        Keluargahubungan::create($request->all());
+        $keluarga   = Keluarga::find($request->keluarga_id);
+        $urutan     = count($keluarga->anakketurunan) + 1;
+        
+        Keluargahubungan::create([
+            'keluarga_id' => $keluarga->id,
+            'orang_id' => $request->orang_id,
+            'urutan' => $urutan,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
+        ]);
 
         return redirect()->back()->with('ds','Hubungan Keluarga');
     }

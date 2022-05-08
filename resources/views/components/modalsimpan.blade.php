@@ -1,6 +1,6 @@
 <form action="{{ url($link ?? '') }}" method="POST" enctype="multipart/form-data">
     @csrf
-<div class="modal fade text-left modal-borderless" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade text-left modal-borderless" id="{{ $id }}" tabindex="{{ $tabindex }}" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog {{ $size }} modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header p-2">
