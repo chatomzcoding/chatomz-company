@@ -57,7 +57,7 @@
         </div>
         <div id="main">
             <header>
-                <nav class="navbar navbar-expand navbar-light ">
+                <nav class="navbar navbar-expand navbar-light px-0">
                     <div class="container-fluid">
                         <a href="#" class="burger-btn d-block">
                             <i class="bi bi-justify fs-3"></i>
@@ -118,9 +118,11 @@
                                     <li>
                                         <h6 class="dropdown-header">Hallo, {{ $user->name }}</h6>
                                     </li>
-                                    <li><a class="dropdown-item" href="{{ url('user/'.Crypt::encryptString($user->id).'/edit') }}"><i class="icon-mid bi bi-person me-2"></i> Akun Saya</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
-                                            Settings</a></li>
+                                    @if ($user->level == 'admin')
+                                        <li><a class="dropdown-item" href="{{ url('orang/'.Crypt::encryptString($profil->id)) }}"><i class="icon-mid bi bi-person me-2"></i> Profil</a></li>
+                                    @endif
+                                    <li><a class="dropdown-item" href="{{ url('user/'.Crypt::encryptString($user->id).'/edit') }}"><i class="icon-mid bi bi-gear me-2"></i>
+                                            Pengaturan Akun</a></li>
                                     <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
                                             Wallet</a></li>
                                     <li>
@@ -138,7 +140,7 @@
                     </div>
                 </nav>
             </header>
-            <div id="main-content">
+            <div id="main-content" class="px-0">
                 {{ $content ?? ''}}
                 <footer>
                     <div class="footer clearfix mb-0 text-muted">

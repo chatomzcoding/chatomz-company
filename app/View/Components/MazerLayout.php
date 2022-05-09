@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Infowebsite;
+use App\Models\Orang;
 use App\Models\Rekening;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
@@ -37,6 +38,7 @@ class MazerLayout extends Component
         $info   = Infowebsite::first();
         $user   = Auth::user();
         $rekening = Rekening::where('jenis','cash')->pluck('nama_rekening','id');
-        return view('layouts.mazer', compact('info','user','rekening'));
+        $profil     = Orang::find(1);
+        return view('layouts.mazer', compact('info','user','rekening','profil'));
     }
 }
