@@ -19,6 +19,7 @@
                                             <th width="10%">Aksi</th>
                                             <th>Nama Keluarga</th>
                                             <th>Tgl Pernikahan</th>
+                                            <th>Silsilah</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -35,6 +36,7 @@
                                             </td>
                                                 <td><a href="{{ url('/keluarga/'.Crypt::encryptString($item->id))}}">{{ $item->nama_keluarga}}</a></td>
                                                 <td>{{ date_indo($item->tgl_pernikahan,'-')}}</td>
+                                                <td><a href="https://silsilah.zelnara.com/?slug={{ $item->slug }}" target="_blank">link</a></td>
                                                 <td class="text-center">{{ $item->status_keluarga}}</td>
                                             </tr>
                                         @empty
