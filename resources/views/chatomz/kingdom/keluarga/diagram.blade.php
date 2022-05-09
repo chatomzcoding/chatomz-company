@@ -23,14 +23,14 @@
     <x-slot name="kodejs">
         <script>
             var family = new FamilyTree(document.getElementById("tree"), {
-                template: 'hugo',
+                template: 'john',
                 menu: {
                 pdf: { text: "Export PDF" },
                 png: { text: "Export PNG" }
                 },
                 nodeBinding: {
                     field_0: "name",
-                    field_1: "gender",
+                    // field_1: "gender",
                     img_0: "photo",
                 },
                 nodes: @json($pohonkeluarga) 
