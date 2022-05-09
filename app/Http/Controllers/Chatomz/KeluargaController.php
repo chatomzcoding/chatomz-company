@@ -100,7 +100,7 @@ class KeluargaController extends Controller
                         if (isset($i->orang->kepalakeluarga->istri)) {
                             $dataistri  = $i->orang->kepalakeluarga->istri;
                             $mid = $dataistri->id;
-                            $pohonkeluarga[] = ["id" => $dataistri->orang->id, "pids" => [$i->orang->id], "name" => fullname($dataistri->orang), "gender" => kingdom_genderenglish($dataistri->orang->gender),'photo' => kingdom_orangpotourl($dataistri->photo)];
+                            $pohonkeluarga[] = ["id" => $dataistri->orang->id, "pids" => [$i->orang->id], "name" => fullname($dataistri->orang), "gender" => kingdom_genderenglish($dataistri->orang->gender),'photo' => kingdom_orangpotourl($dataistri->orang->photo)];
                             $pohonkeluarga[] = ["id" => $i->orang->id, "mid" => $istri->id, "fid" => $suami->id, "pids" => [$dataistri->orang->id],"name" => fullname($i->orang), "gender" => kingdom_genderenglish($i->orang->gender),'photo' => kingdom_orangpotourl($i->orang->photo)];
                         } else {
                             $pohonkeluarga[] = ["id" => $i->orang->id, "mid" => $istri->id, "fid" => $suami->id, "name" => fullname($i->orang), "gender" => kingdom_genderenglish($i->orang->gender),'photo' => kingdom_orangpotourl($i->orang->photo)];
