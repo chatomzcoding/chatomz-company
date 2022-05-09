@@ -22,11 +22,11 @@ class KeluargaController extends Controller
     {
         $keluarga       = Keluarga::orderBy('nama_keluarga','ASC')->get();
         // slug
-        // foreach ($keluarga as $key) {
-        //     Keluarga::where('id',$key->id)->update([
-        //         'slug' => Str::slug($key->nama_keluarga)
-        //     ]);
-        // }
+        foreach ($keluarga as $key) {
+            Keluarga::where('id',$key->id)->update([
+                'slug' => Str::slug($key->nama_keluarga)
+            ]);
+        }
         $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->orderBy('first_name','ASC')->get();
         return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
     }
