@@ -8,8 +8,8 @@ use App\Models\Keluargahubungan;
 use App\Models\Orang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class KeluargaController extends Controller
 {
@@ -21,6 +21,12 @@ class KeluargaController extends Controller
     public function index()
     {
         $keluarga       = Keluarga::orderBy('nama_keluarga','ASC')->get();
+        // slug
+        // foreach ($keluarga as $key) {
+        //     Keluarga::where('id',$key->id)->update([
+        //         'slug' => Str::slug($key->nama_keluarga)
+        //     ]);
+        // }
         $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->orderBy('first_name','ASC')->get();
         return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
     }

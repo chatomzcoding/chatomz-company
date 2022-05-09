@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CikaraController;
 use App\Http\Controllers\Api\Informasi\HewanController;
 use App\Http\Controllers\Api\informasi\MasakanController;
 use App\Http\Controllers\Api\KategoriController;
+use App\Http\Controllers\Api\Layanan\SilsilahkeluargaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,6 @@ Route::post('coba', 'App\Http\Controllers\Api\Informasi\HewanController@coba');
 // CIKARA API 
 Route::get('cikarastudio', [CikaraController::class,'index']);
 Route::post('simpanmagang', [CikaraController::class,'simpanmagang']);
+
+// LAYANAN
+Route::get('silsilah/keluarga/{slug}', [SilsilahkeluargaController::class,'show']);
