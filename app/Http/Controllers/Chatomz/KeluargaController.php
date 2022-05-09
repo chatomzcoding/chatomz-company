@@ -21,12 +21,6 @@ class KeluargaController extends Controller
     public function index()
     {
         $keluarga       = Keluarga::orderBy('nama_keluarga','ASC')->get();
-        // slug
-        foreach ($keluarga as $key) {
-            Keluarga::where('id',$key->id)->update([
-                'slug' => Str::slug($key->nama_keluarga)
-            ]);
-        }
         $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->orderBy('first_name','ASC')->get();
         return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
     }
@@ -184,6 +178,7 @@ class KeluargaController extends Controller
             'keterangan' => $request->keterangan,
             'tgl_pernikahan' => $request->tgl_pernikahan,
             'status_keluarga' => $request->status_keluarga,
+            'slug' => Str::slug($request->nama_keluarga)
         ]);
 
         return redirect()->back()->with('du','Keluarga');
