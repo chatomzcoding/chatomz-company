@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/select2/css/select2.min.css')}}">
 <link rel="stylesheet" href="{{ asset('template/admin/lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
+{{ $head ?? '' }}
 </head>
 
 <body style="font-family: Arial, Helvetica, sans-serif">
@@ -45,7 +46,6 @@
     <script src="{{ asset('js/chatomz.js')}}"></script>
 
     {{ $kodejs ?? '' }}
-
     
     <script>
     $(function () {

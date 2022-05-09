@@ -27,12 +27,26 @@ if (! function_exists('kingdom_orangpoto')) {
         return $html;
     }
 }
+if (! function_exists('kingdom_orangpotourl')) {
+    function kingdom_orangpotourl($photo)
+    {
+        $url = asset('img/chatomz/orang/'.orang_photo($photo));
+        return $url;
+    }
+}
 if (! function_exists('kingdom_gender')) {
     function kingdom_gender($gender)
     {
         $icon = ($gender == 'laki-laki') ? 'male' : 'female' ;
         $html   = "<sup><i class='bi bi-gender-".$icon."'></i></sup>";
         return $html;
+    }
+}
+if (! function_exists('kingdom_genderenglish')) {
+    function kingdom_genderenglish($gender)
+    {
+        $result = ($gender == 'laki-laki') ? 'male' : 'female' ;
+        return $result;
     }
 }
 
