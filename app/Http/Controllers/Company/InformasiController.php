@@ -94,10 +94,10 @@ class InformasiController extends Controller
                         $tag = (isset($_GET['tag'])) ? $_GET['tag'] : NULL ;
                         $datas = NULL;
                         if (is_null($tag)) {
-                            $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('id','DESC')->get();
+                            $data       = Informasi::where('kategori_id',$kategori->id)->orderBy('nama','ASC')->get();
                         } else {
-                            $datas       = Informasi::where('kategori_id',$kategori->id)->orderBy('id','DESC')->get();
-                            $data       = Informasi::where('kategori_id',$kategori->id)->where('tag','LIKE','%'.$tag.'%')->orderBy('id','DESC')->get();
+                            $datas       = Informasi::where('kategori_id',$kategori->id)->orderBy('nama','ASC')->get();
+                            $data       = Informasi::where('kategori_id',$kategori->id)->where('tag','LIKE','%'.$tag.'%')->orderBy('nama','ASC')->get();
                         }
                         return view('company.informasi.masakan.index', compact('kategori','data','datas','tag'));
                     } else {
@@ -260,15 +260,19 @@ class InformasiController extends Controller
                     $response = $request->session()->get('listresep');
                     if (count($response['data']->results) > 0) { 
                         foreach ($response['data']->results as $key) {
-                            $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
-                            $response   = datajson($link);
-                            $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
-                            Informasi::create([
-                                'kategori_id' => $kategori->id,
-                                'nama' => $key->title,
-                                'gambar' => $namafile,
-                                'detail' => json_encode($response->results)
-                            ]);
+                            // cek jika menu sudah ada jangan disimpan
+                            $cekmasakan = Informasi::where('nama',$key->title)->where('gambar',$key->key.'.png')->first();
+                            if (!$cekmasakan) {
+                                $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
+                                $response   = datajson($link);
+                                $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
+                                Informasi::create([
+                                    'kategori_id' => $kategori->id,
+                                    'nama' => $key->title,
+                                    'gambar' => $namafile,
+                                    'detail' => json_encode($response->results)
+                                ]);
+                            }
                         }
                         return redirect('informasi?id='.$kategori->id)->with('ds',$notif);
                     } else {
