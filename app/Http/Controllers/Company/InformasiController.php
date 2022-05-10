@@ -19,9 +19,6 @@ class InformasiController extends Controller
     public function index(Request $request)
     {
         $kategori_id = (isset($_GET['id'])) ? $_GET['id'] : 'semua' ;
-        if ($kategori_id == '4') {
-            Informasi::where('kategori_id',$kategori_id)->delete();
-        }
         $page = (isset($_GET['page'])) ? $_GET['page'] : 'index' ;
         if ($kategori_id == 'semua') {
             $kategori   = Kategori::where('label','informasi')->get();
@@ -40,6 +37,26 @@ class InformasiController extends Controller
                     break;
                 case 'gadget':
                     return view('company.informasi.gadget.index', compact('kategori','data'));
+                    break;
+                case 'phone':
+                    // create phone
+                    $datajson = datajson('https://api-mobilespecs.azharimm.site/v2/brands');
+                    foreach ($datajson->data as $key) {
+                        $cekduplikat = Informasi::where('kategori_id',$kategori_id)->where('nama',$key->brand_name)->first();
+                        if (!$cekduplikat) {
+                            $detail = [
+                                'slug' => $key->brand_slug,
+                                'jumlah' => $key->device_count,
+                            ];
+                            Informasi::create([
+                                'kategori_id' => $kategori_id,
+                                'nama' => $key->brand_name,
+                                'detail' => json_encode($detail),
+                                'gambar' => NULL
+                            ]);
+                        }
+                    }
+                    return view('company.informasi.phone.index', compact('kategori','data'));
                     break;
                 case 'film':
                     if ($page == 'index') {
@@ -316,13 +333,15 @@ class InformasiController extends Controller
      */
     public function show(Informasi $informasi)
     {
-        $kategori   = Kategori::find($informasi->kategori_id);
-        switch ($kategori->nama_kategori) {
+        switch ($informasi->kategori->nama_kategori) {
             case 'hewan':
                 return view('company.informasi.hewan.show', compact('informasi'));
                 break;
             case 'gadget':
                 return view('company.informasi.gadget.show', compact('informasi'));
+                break;
+            case 'phone':
+                return view('company.informasi.phone.show', compact('informasi'));
                 break;
             case 'film':
                 return view('company.informasi.film.show', compact('informasi'));
@@ -370,6 +389,27 @@ class InformasiController extends Controller
                 ];
                 $notif = 'Informasi Hewan';
                 break;
+            case 'phone':
+                $tujuan_upload = 'public/img/company/informasi/phone';
+                $notif = 'Informasi Brand Phone';
+                if (isset($request->gambar)) {
+                    $request->validate([
+                        'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
+                    ]);
+                    $file = $request->file('gambar');
+                    $gambar = time()."_".$file->getClientOriginalName();
+                    $file->move($tujuan_upload,$gambar);
+                    deletefile($tujuan_upload.'/'.$informasi->gambar);
+                } else {
+                    $gambar = $informasi->gambar;
+                }
+                
+                Informasi::where('id',$request->id)->update([
+                    'gambar' => $gambar,
+                ]);
+        
+                return back()->with('du',$notif);
+                break;
             case 'film':
                 Informasi::where('id',$request->id)->update([
                     'tag' => $request->tag
@@ -393,6 +433,7 @@ class InformasiController extends Controller
         } else {
             $gambar = $informasi->gambar;
         }
+        
         Informasi::where('id',$request->id)->update([
             'nama' => $request->nama,
             'gambar' => $gambar,

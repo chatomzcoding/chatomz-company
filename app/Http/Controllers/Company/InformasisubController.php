@@ -39,6 +39,32 @@ class InformasisubController extends Controller
     public function store(Request $request)
     {
         switch ($request->sesi) {
+            case 'phone':
+                $json = datajson($request->link);
+                // dd($json->data->phones);
+                $batas = 0;
+                foreach ($json->data->phones as $key) {
+                    // cek jika belum ada
+                    $ceksubinformasi = Informasisub::where('informasi_id',$request->informasi_id)->where('slug',$key->slug)->first();
+                    if (!$ceksubinformasi) {
+                        $detail = datajson($key->detail);
+                        $detailsub = json_encode($detail->data);
+                        $gambar_sub = unduhgambar('company/informasi/phone',$key->slug,$key->image);
+                        Informasisub::create([
+                            'informasi_id' => $request->informasi_id,
+                            'nama_sub' => $key->phone_name,
+                            'slug' => $key->slug,
+                            'gambar_sub' => $gambar_sub,
+                            'detail_sub' => $detailsub,
+                        ]);
+                        $batas++;
+                    }
+                    if ($batas == 5) {
+                        break;
+                    }
+                }
+                return redirect('informasi/'.$request->informasi_id)->with('ds','phone');
+                break;
             case 'hewan':
                 $tujuan_upload = 'public/img/company/informasi/hewan';
                 $detail     = [
@@ -123,7 +149,8 @@ class InformasisubController extends Controller
      */
     public function show(Informasisub $informasisub)
     {
-        //
+        $detail     = json_decode($informasisub->detail_sub);
+        dd($detail);
     }
 
     /**
@@ -232,7 +259,7 @@ class InformasisubController extends Controller
      */
     public function destroy(Informasisub $informasisub)
     {
-        deletefile('public/img/company/informasi/gadget/'.$informasisub->gambar_sub);
+        deletefile('public/img/company/informasi/'.$informasisub->informasi->kategori->nama_kategori.'/'.$informasisub->gambar_sub);
         $informasisub->delete();
 
         return back()->with('dd','Sub Informasi');
