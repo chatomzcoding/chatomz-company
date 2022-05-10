@@ -39,23 +39,6 @@ class InformasiController extends Controller
                     return view('company.informasi.gadget.index', compact('kategori','data'));
                     break;
                 case 'phone':
-                    // create phone
-                    $datajson = datajson('https://api-mobilespecs.azharimm.site/v2/brands');
-                    foreach ($datajson->data as $key) {
-                        $cekduplikat = Informasi::where('kategori_id',$kategori_id)->where('nama',$key->brand_name)->first();
-                        if (!$cekduplikat) {
-                            $detail = [
-                                'jumlah' => $key->device_count,
-                            ];
-                            Informasi::create([
-                                'kategori_id' => $kategori_id,
-                                'nama' => $key->brand_name,
-                                'detail' => json_encode($detail),
-                                'slug' => $key->brand_slug,
-                                'gambar' => NULL
-                            ]);
-                        }
-                    }
                     return view('company.informasi.phone.index', compact('kategori','data'));
                     break;
                 case 'film':
