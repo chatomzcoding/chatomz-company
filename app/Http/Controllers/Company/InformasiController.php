@@ -19,6 +19,9 @@ class InformasiController extends Controller
     public function index(Request $request)
     {
         $kategori_id = (isset($_GET['id'])) ? $_GET['id'] : 'semua' ;
+        if ($kategori_id == '4') {
+            Informasi::where('kategori_id',$kategori_id)->delete();
+        }
         $page = (isset($_GET['page'])) ? $_GET['page'] : 'index' ;
         if ($kategori_id == 'semua') {
             $kategori   = Kategori::where('label','informasi')->get();
