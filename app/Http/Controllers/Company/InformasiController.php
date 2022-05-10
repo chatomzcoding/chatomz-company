@@ -45,13 +45,13 @@ class InformasiController extends Controller
                         $cekduplikat = Informasi::where('kategori_id',$kategori_id)->where('nama',$key->brand_name)->first();
                         if (!$cekduplikat) {
                             $detail = [
-                                'slug' => $key->brand_slug,
                                 'jumlah' => $key->device_count,
                             ];
                             Informasi::create([
                                 'kategori_id' => $kategori_id,
                                 'nama' => $key->brand_name,
                                 'detail' => json_encode($detail),
+                                'slug' => $key->brand_slug,
                                 'gambar' => NULL
                             ]);
                         }
