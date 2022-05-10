@@ -65,7 +65,7 @@
             <input type="hidden" name="informasi_id" value="{{ $informasi->id }}">
             <section>
                 <div class="from-group">
-                    <input type="url" name="link" value="https://api-mobilespecs.azharimm.site/v2/brands/{{ $detailinformasi->slug }}" class="form-control">
+                    <input type="url" name="link" value="https://api-mobilespecs.azharimm.site/v2/brands/{{ $informasi->slug }}" class="form-control">
                 </div>
             </section>
         </x-modalsimpan>
