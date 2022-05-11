@@ -155,7 +155,27 @@ class InformasiController extends Controller
      */
     public function create()
     {
-        //
+        // simpan phone
+        $kategori   = Kategori::find($_GET['kategori_id']);
+        $datajson = datajson('https://api-mobilespecs.azharimm.site/v2/brands');
+        foreach ($datajson->data as $key) {
+            $cekinformasi = Informasi::where('nama',$key->brand_name)->where('slug',$key->brand_slug)->first();
+            if (!$cekinformasi) {
+                $detail = [
+                    'jumlah' => $key->device_count
+                ];
+
+                Informasi::create([
+                    'kategori_id' => $kategori->id,
+                    'nama' => $key->brand_name,
+                    'detail' => json_encode($detail),
+                    'slug' => $key->brand_slug,
+                    'gambar' => NULL,
+                ]);
+            }
+        }
+
+        return back()->with('ds','Informasi');
     }
 
     /**
@@ -392,7 +412,7 @@ class InformasiController extends Controller
                     'gambar' => $gambar,
                 ]);
         
-                return back()->with('du',$notif);
+                return redirect('informasi/'.$informasi->id)->with('du',$notif);
                 break;
             case 'film':
                 Informasi::where('id',$request->id)->update([

@@ -48,9 +48,9 @@ class InformasisubController extends Controller
                     $ceksubinformasi = Informasisub::where('informasi_id',$request->informasi_id)->where('slug',$key->slug)->first();
                     if (!$ceksubinformasi) {
                         $detail = datajson($key->detail);
-                        dd($detail);
+                        $image  = $detail->data->phone_images[0];
                         $detailsub = json_encode($detail->data);
-                        $gambar_sub = unduhgambar('company/informasi/phone',$key->slug,$key->image);
+                        $gambar_sub = unduhgambar('company/informasi/phone',$key->slug,$image);
                         Informasisub::create([
                             'informasi_id' => $request->informasi_id,
                             'nama_sub' => $key->phone_name,
