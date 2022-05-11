@@ -60,7 +60,7 @@ class HomeController extends Controller
                 $chart = [
                     'visitor' => self::chartvisitor()
                 ];
-                $jurnal         = Jurnal::where('tanggal',tgl_sekarang())->get(['nominal']);
+                $jurnal         = Jurnal::where('tanggal',tgl_sekarang())->get();
                 $jurnalkeuangan = PerhitunganDompet($jurnal);
                 $main   = [
                     'jurnalkeuangan' => $jurnalkeuangan
