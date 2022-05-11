@@ -36,4 +36,9 @@ class Orang extends Model
     {
         return $this->hasOne(Keluargahubungan::class)->where('status','istri');
     }
+
+    public function usaha()
+    {
+        return $this->hasMany(Usaha::class);
+    }
 }

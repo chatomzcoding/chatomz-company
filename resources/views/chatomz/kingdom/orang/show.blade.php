@@ -8,7 +8,8 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
                         <div class="card">
-                            <div class="card-content">
+                            <div class="card-content position-relative">
+                                <button class="btn btn-success btn-sm position-absolute top-0 end-0" data-bs-toggle="modal" data-bs-target="#ubahphoto"><i class="bi-image"></i></button>
                                 <a href="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" target="_blank">
                                     <img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" class="card-img-top img-fluid"
                                     alt="singleminded">
@@ -88,6 +89,10 @@
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="linimasa-tab" data-bs-toggle="tab" href="#tablinimasa"
                                             role="tab" aria-controls="linimasa" aria-selected="false"><i class="bi-calendar-event"></i></a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="toko-tab" data-bs-toggle="tab" href="#tabtoko"
+                                            role="tab" aria-controls="toko" aria-selected="false"><i class="bi-shop"></i></a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
@@ -321,7 +326,10 @@
                                                         @method('delete')
                                                     </form>
                                                     <div class="card">
-                                                        <div class="card-body pt-2 pb-0 px-3 bg-{{ view_randomwarna('light') }} rounded">
+                                                        @php
+                                                            $warna = view_randomwarna('light');
+                                                        @endphp
+                                                        <div class="card-body pt-2 pb-0 px-3 bg-{{ $warna }} rounded">
                                                             <a data-bs-toggle="collapse" href="#aksilinimasa{{ $item->id }}" role="button" aria-expanded="false" aria-controls="aksilinimasa">
                                                             <div class="d-flex align-items-center text-white">
                                                                 <div class="avatar avatar-xl">
@@ -334,10 +342,10 @@
                                                             </div>
                                                             </a>
                                                             <section class="collapse text-end" id="aksilinimasa{{ $item->id }}">
-                                                                <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-primary btn-sm" data-original-title="Edit Task">
+                                                                <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-{{ $warna }} btn-sm" data-original-title="Edit Task">
                                                                     <i class="bi-pencil"></i>
                                                                 </button>
-                                                                <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-primary btn-sm"> <i class="bi bi-trash text-white"></i></button>
+                                                                <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-{{ $warna }} btn-sm"> <i class="bi bi-trash text-white"></i></button>
                                                             </section>
                                                         </div>
                                                     </div>
@@ -349,6 +357,29 @@
                                             @endforelse
                                         </div>
                                     </div>
+                                     {{-- lini masa --}}
+                                     <div class="tab-pane" id="tabtoko" role="tabpanel"
+                                     aria-labelledby="toko-tab">
+                                         <div class="row mt-3">
+                                             @forelse ($orang->usaha as $item)
+                                                <div class="col-12 mb-2">
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0">
+                                                          <img src="{{ asset('img/company/bisnis/usaha/'.$item->gambar_lokasi) }}" alt="gambar usaha">
+                                                        </div>
+                                                        <div class="flex-grow-1 ms-3">
+                                                          <h6 class="text-capitalize">{{ $item->nama_usaha }}</h6>
+                                                          Lokasi : {{ $item->lokasi }}
+                                                        </div>
+                                                      </div>
+                                                </div>
+                                             @empty
+                                                 <div class="col-12">
+                                                    <i class="belum ada usaha yang ditambahkan"></i>
+                                                 </div>
+                                             @endforelse
+                                         </div>
+                                     </div>
                                 </div>
                             </div>
                         </div>
@@ -759,6 +790,16 @@
                 </div>
             </section>
         </x-modalsimpan>
+
+        <x-modalubah judul="Ubah Poto" id="ubahphoto" link="orang">
+            <input type="hidden" name="id" value="{{ $orang->id }}">
+            <input type="hidden" name="sesi" value="ubahphoto">
+            <section class="p-3">
+                <div class="form-group">
+                    <input type="file" name="photo" required>
+                </div>
+            </section>
+        </x-modalubah>
 
     </x-slot>
 

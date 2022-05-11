@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Grup;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
-use App\Models\Linimasa;
 use App\Models\Orang;
 use App\Models\Riwayat;
 use Illuminate\Http\Request;
@@ -113,20 +112,15 @@ class OrangController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'first_name' => ['required','max:4']
+        ]);
        if (isset($request->photo)) {
-            // validation form photo
             $request->validate([
-                'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+                'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
             ]);
-            // menyimpan data file yang diupload ke variabel $file
             $file = $request->file('photo');
-            
-            $nama_file = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'public/img/chatomz/orang';
-            // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file);
-
-            // $nama_file1 = kompres($file,$tujuan_upload);
+            $nama_file = kompres($file,'public/img/chatomz/orang');
             
         } else {
             $nama_file = NULL;
@@ -235,58 +229,74 @@ class OrangController extends Controller
     public function update(Request $request)
     {
         $orang  = Orang::find($request->id);
-       if (isset($request->photo)) {
-            // validation form photo
-            $request->validate([
-                'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
-            ]);
-            // menyimpan data file yang diupload ke variabel $file
-            $file = $request->file('photo');
+        $sesi = (isset($request->sesi)) ? $request->sesi : 'update' ;
+        switch ($sesi) {
+            case 'ubahphoto':
+                $request->validate([
+                    'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+                ]);
+                $file = $request->file('photo');
+                $tujuan_upload = 'public/img/chatomz/orang';
+                $nama_file = kompres($file,$tujuan_upload);
+                deletefile($tujuan_upload.'/'.$orang->photo);
+                Orang::where('id',$orang->id)->update([
+                    'photo' => $nama_file
+                ]);
+
+                return back()->with('success','Photo sudah dirubah');
+                break;
             
-            $nama_file = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'public/img/chatomz/orang';
-            // isi dengan nama folder tempat kemana file diupload
-            $file->move($tujuan_upload,$nama_file);
-            deletefile($tujuan_upload.'/'.$orang->photo);
-        } else {
-            $nama_file = $orang->photo;
+            default:
+            if (isset($request->photo)) {
+                $request->validate([
+                    'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+                ]);
+                $file = $request->file('photo');
+                $tujuan_upload = 'public/img/chatomz/orang';
+                $nama_file = kompres($file,$tujuan_upload);
+                deletefile($tujuan_upload.'/'.$orang->photo);
+            } else {
+                $nama_file = $orang->photo;
+            }
+            if (isset($request->perbaharui)) {
+                Orang::where('id',$orang->id)->update([
+                    'place_birth' => $request->place_birth,
+                    'date_birth' => $request->date_birth,
+                    'gender' => $request->gender,
+                    'home_address' => $request->home_address,
+                    'blood_type' => $request->blood_type,
+                    'marital_status' => $request->marital_status,
+                    'status_group' => $request->status_group,
+                    'photo' => $nama_file,
+                    'death' => $request->death,
+                    'note' => $request->note,
+                ]);
+                return redirect('statistik/orang?m='.$request->m.'&t='.$request->t)->with('du','Orang');
+            } else {
+                Orang::where('id',$orang->id)->update([
+                    'first_name'  => strtolower($request->first_name),
+                    'last_name'  => strtolower($request->last_name),
+                    'nick_name' => strtolower($request->nick_name),
+                    'place_birth' => strtolower($request->place_birth),
+                    'date_birth' => $request->date_birth,
+                    'gender' => $request->gender,
+                    'home_address' => strtolower($request->home_address),
+                    'current_address' => strtolower($request->current_address),
+                    'religion' => $request->religion,
+                    'blood_type' => $request->blood_type,
+                    'nasionality' => $request->nasionality,
+                    'job_status' => $request->job_status,
+                    'marital_status' => $request->marital_status,
+                    'status_group' => $request->status_group,
+                    'photo' => $nama_file,
+                    'death' => $request->death,
+                    'note' => strtolower($request->note),
+                ]);
+                return redirect('orang/'.Crypt::encryptString($orang->id))->with('du','Orang');
+            }
+                break;
         }
-        if (isset($request->perbaharui)) {
-            Orang::where('id',$orang->id)->update([
-                'place_birth' => $request->place_birth,
-                'date_birth' => $request->date_birth,
-                'gender' => $request->gender,
-                'home_address' => $request->home_address,
-                'blood_type' => $request->blood_type,
-                'marital_status' => $request->marital_status,
-                'status_group' => $request->status_group,
-                'photo' => $nama_file,
-                'death' => $request->death,
-                'note' => $request->note,
-            ]);
-            return redirect('statistik/orang?m='.$request->m.'&t='.$request->t)->with('du','Orang');
-        } else {
-            Orang::where('id',$orang->id)->update([
-                'first_name'  => strtolower($request->first_name),
-                'last_name'  => strtolower($request->last_name),
-                'nick_name' => strtolower($request->nick_name),
-                'place_birth' => strtolower($request->place_birth),
-                'date_birth' => $request->date_birth,
-                'gender' => $request->gender,
-                'home_address' => strtolower($request->home_address),
-                'current_address' => strtolower($request->current_address),
-                'religion' => $request->religion,
-                'blood_type' => $request->blood_type,
-                'nasionality' => $request->nasionality,
-                'job_status' => $request->job_status,
-                'marital_status' => $request->marital_status,
-                'status_group' => $request->status_group,
-                'photo' => $nama_file,
-                'death' => $request->death,
-                'note' => strtolower($request->note),
-            ]);
-            return redirect('orang/'.Crypt::encryptString($orang->id))->with('du','Orang');
-        }
+
         
     }
 
@@ -301,7 +311,6 @@ class OrangController extends Controller
         $orang->delete();
         $tujuan_upload = 'public/img/chatomz/orang';
         deletefile($tujuan_upload.'/'.$orang->photo);
-
 
         return redirect('orang')->with('dd','Orang');
     }
