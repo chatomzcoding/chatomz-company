@@ -39,6 +39,7 @@ class InformasiController extends Controller
                     return view('company.informasi.gadget.index', compact('kategori','data'));
                     break;
                 case 'phone':
+                    // create phone
                     return view('company.informasi.phone.index', compact('kategori','data'));
                     break;
                 case 'film':
@@ -434,6 +435,7 @@ class InformasiController extends Controller
      */
     public function destroy(Informasi $informasi)
     {
+        dd($informasi);
         $filegambar = 'public/img/company/informasi/'.$informasi->kategori->nama_kategori.'/'.$informasi->gambar;
         deletefile($filegambar);
 

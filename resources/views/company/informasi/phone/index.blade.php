@@ -5,10 +5,15 @@
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
+                        <form id="datainformasi-{{ $kategori->id }}" action="{{url('/kategori',$kategori->id)}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <input type="hidden" name="sesi" value="informasi">
+                        </form>
                         <header class="bg-white mb-2 p-2 rounded">
                             <a href="{{ url('informasi') }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="bi-arrow-left"></i></a>
                             <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus"></i></a>
-                            <button data-bs-toggle="modal" data-bs-target="#hapus" class="btn btn-outline-danger btn-sm"><i class="bi-trash"></i></button>
+                            <button onclick="deleteRow( {{ $kategori->id }},'datainformasi' )" class="btn btn-outline-danger btn-sm"><i class="bi-trash"></i></button>
                             <button class="btn btn-outline-info btn-sm">{{ count($data) }}</button>
                         </header>
                     </div>

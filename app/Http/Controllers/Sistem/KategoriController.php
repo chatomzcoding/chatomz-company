@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sistem;
 
 use App\Http\Controllers\Controller;
+use App\Models\Informasi;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 
@@ -136,12 +137,23 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kategori $kategori)
+    public function destroy(Kategori $kategori, Request $request)
     {
-        $tujuan_upload = 'public/img/kategori';
-        deletefile($tujuan_upload.'/'.$kategori->gambar);
-        $kategori->delete();
+        $sesi = (isset($request->sesi)) ? $request->sesi : 'kategori' ;
+        switch ($sesi) {
+            case 'informasi':
+                Informasi::where('kategori_id',$kategori->id)->delete();
+                return back()->with('dd','List Informasi');
+                break;
+            
+            default:
+                $tujuan_upload = 'public/img/kategori';
+                deletefile($tujuan_upload.'/'.$kategori->gambar);
+                $kategori->delete();
+        
+                return back()->with('dd','Kategori');
+                break;
+        }
 
-        return back()->with('dd','Kategori');
     }
 }
