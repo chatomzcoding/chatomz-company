@@ -151,7 +151,7 @@ class InformasisubController extends Controller
     public function show(Informasisub $informasisub)
     {
         $detail     = json_decode($informasisub->detail_sub);
-        dd($detail);
+        return view('company.informasi.phone.sub.show', compact('informasisub','detail'));
     }
 
     /**

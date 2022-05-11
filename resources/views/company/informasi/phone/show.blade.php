@@ -30,8 +30,7 @@
                                                 <a href="{{ url('/informasisub/'.$item->id)}}"><img src="{{ url('public/img/company/informasi/phone/'.$item->gambar_sub)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                             @endif
                                         <section class="text-center py-2 small">
-                                            {{ ucwords($item->nama_sub)}} <br>
-                                            {{ $item->slug}}
+                                            {{ ucwords($item->nama_sub)}}
                                         </section>
                                         <form id="data-{{ $item->id }}" action="{{url('/informasisub',$item->id)}}" method="post">
                                             @csrf
