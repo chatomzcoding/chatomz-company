@@ -140,7 +140,7 @@
                     </div>
                 </nav>
             </header>
-            <div id="main-content" class="px-0">
+            <div id="main-content" class="px-0 pt-0">
                 {{ $content ?? ''}}
                 <footer>
                     <div class="footer clearfix mb-0 text-muted">
