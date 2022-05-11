@@ -57,13 +57,14 @@
     @endif
     {{-- end notifikasi CRUD template --}}
 
-    {{-- notifikasi error form input --}}
-    @if (isset($errors))
-        <ul>
-        @foreach ($errors->all() as $item)
-            <li>{{ $item }}</li>
-        @endforeach
-        </ul>
+    {{-- notifikasi validate form --}}
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show text-white" role="alert">
+            <ul>
+                @foreach ($errors->all() as $item)
+                    <li>{{ $item }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
-    {{-- end notifikasi error form input --}}
 </div>
