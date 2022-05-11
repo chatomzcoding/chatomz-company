@@ -45,7 +45,7 @@ if (! function_exists('keuanganTotalManajemen')) {
     }
 }
 if (! function_exists('PerhitunganDompet')) {
-    function PerhitunganDompet($jurnal,$saldoawal)
+    function PerhitunganDompet($jurnal,$saldoawal=0)
     {
        // hitung
        $pemasukan      = 0;

@@ -145,12 +145,28 @@
               <div class="col-12 col-lg-3">
                   <div class="card">
                       <div class="card-body py-4 px-3">
-                         <x-chatomz.profil/>
+                            <div class="row">
+                                <div class="col-6 small">
+                                    <i class="bi-file-arrow-up-fill text-success"></i> MASUK
+                                </div>
+                                <div class="col-6 text-end small">
+                                    {{ norupiah($main['jurnalkeuangan']['pemasukan']) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 small">
+                                    <i class="bi-file-arrow-down-fill text-danger"></i> KELUAR
+                                </div>
+                                <div class="col-6 text-end small">
+                                    {{ norupiah($main['jurnalkeuangan']['pengeluaran']) }}
+                                </div>
+                            </div>
                       </div>
                   </div>
                   <div class="card">
                       <div class="card-header">
-                          <h4>Ulang Tahun Hari ini</h4>
+                          <h5>Ulang Tahun</h5>
+                          <small>{{ ambil_tgl().' '.bulan_indo() }}</small>
                       </div>
                       <div class="card-content pb-4">
                           @forelse ($info['ulangtahuntanggalini'] as $item)

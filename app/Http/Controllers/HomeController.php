@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Grup;
 use App\Models\Informasi;
 use App\Models\Jejak;
+use App\Models\Jurnal;
 use App\Models\Keluarga;
 use App\Models\Linimasa;
 use App\Models\Orang;
@@ -59,7 +60,12 @@ class HomeController extends Controller
                 $chart = [
                     'visitor' => self::chartvisitor()
                 ];
-                return view('chatomz.admin.dashboard', compact('total','dashboard','info','gender','kematian','data','chart'));
+                $jurnal         = Jurnal::where('tanggal',tgl_sekarang())->get(['nominal']);
+                $jurnalkeuangan = PerhitunganDompet($jurnal);
+                $main   = [
+                    'jurnalkeuangan' => $jurnalkeuangan
+                ];
+                return view('chatomz.admin.dashboard', compact('main','total','dashboard','info','gender','kematian','data','chart'));
                 break;
             default:
                 return view('dashboard', compact('dashboard'));
