@@ -233,7 +233,7 @@ class OrangController extends Controller
         switch ($sesi) {
             case 'ubahphoto':
                 $request->validate([
-                    'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+                    'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
                 ]);
                 $file = $request->file('photo');
                 $tujuan_upload = 'public/img/chatomz/orang';
@@ -249,7 +249,7 @@ class OrangController extends Controller
             default:
             if (isset($request->photo)) {
                 $request->validate([
-                    'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+                    'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
                 ]);
                 $file = $request->file('photo');
                 $tujuan_upload = 'public/img/chatomz/orang';
