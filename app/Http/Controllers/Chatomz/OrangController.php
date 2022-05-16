@@ -112,9 +112,9 @@ class OrangController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'first_name' => ['required','max:4']
-        ]);
+        // $request->validate([
+        //     'first_name' => ['required','max:4']
+        // ]);
        if (isset($request->photo)) {
             $request->validate([
                 'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
