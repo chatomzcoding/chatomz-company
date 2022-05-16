@@ -27,7 +27,7 @@ class BarangController extends Controller
      */
     public function create()
     {
-        //
+        return view('chatomz.kingdom.barang.create');
     }
 
     /**
@@ -38,7 +38,33 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+        ]);
+        $tujuan_upload = 'public/img/chatomz/barang';
+        $file = $request->file('photo_barang');
+        $mini = $request->file('photo_barang');
+        $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
+        $nama_file = time()."_".$file->getClientOriginalName();
+        $file->move($tujuan_upload,$nama_file);
+
+        Barang::create([
+            'nama_barang' => $request->nama_barang,
+            'kondisi' => $request->kondisi,
+            'merk' => $request->merk,
+            'sumber' => $request->sumber,
+            'keterangan' => $request->keterangan,
+            'harga_jual' => default_nilai($request->harga_jual),
+            'harga_beli' => default_nilai($request->harga_beli),
+            'tgl_kepemilikan' => $request->tgl_kepemilikan,
+            'status_barang' => $request->status_barang,
+            'photo_barang' => $nama_file,
+            'mg_barang' => $mg_barang,
+        ]);
+
+        $barang     = Barang::latest()->first();
+
+        return redirect('barang/'.$barang->id)->with('ds','Barang');
     }
 
     /**
@@ -49,7 +75,7 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        //
+        return view('chatomz.kingdom.barang.show', compact('barang'));
     }
 
     /**
@@ -60,7 +86,7 @@ class BarangController extends Controller
      */
     public function edit(Barang $barang)
     {
-        //
+        return view('chatomz.kingdom.barang.edit', compact('barang'));
     }
 
     /**
@@ -72,32 +98,72 @@ class BarangController extends Controller
      */
     public function update(Request $request)
     {
+        $s = (isset($request->s)) ? $request->s : 'update' ;
         $barang     = Barang::find($request->id);
-        if (isset($request->photo_barang)) {
-            $request->validate([
-                'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
-            ]);
-            $tujuan_upload = 'public/img/chatomz/barang';
-            $file = $request->file('photo_barang');
-            $mini = $request->file('photo_barang');
-            $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
-            $nama_file = time()."_".$file->getClientOriginalName();
-            $file->move($tujuan_upload,$nama_file);
-
-            deletefile($tujuan_upload.'/'.$barang->photo_barang);
-            deletefile($tujuan_upload.'/'.$barang->mg_barang);
-        } else {
-            $nama_file =$barang->photo_barang;
-            $mg_barang =$barang->mg_barang;
+        switch ($s) {
+            case 'simple':
+                if (isset($request->photo_barang)) {
+                    $request->validate([
+                        'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+                    ]);
+                    $tujuan_upload = 'public/img/chatomz/barang';
+                    $file = $request->file('photo_barang');
+                    $mini = $request->file('photo_barang');
+                    $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
+                    $nama_file = time()."_".$file->getClientOriginalName();
+                    $file->move($tujuan_upload,$nama_file);
+        
+                    deletefile($tujuan_upload.'/'.$barang->photo_barang);
+                    deletefile($tujuan_upload.'/'.$barang->mg_barang);
+                } else {
+                    $nama_file =$barang->photo_barang;
+                    $mg_barang =$barang->mg_barang;
+                }
+        
+                Barang::where('id',$request->id)->update([
+                    'nama_barang' => $request->nama_barang,
+                    'photo_barang' => $nama_file,
+                    'mg_barang' => $mg_barang,
+                ]);
+        
+                return redirect()->back()->with('du','Barang');
+                break;
+            
+            default:
+                if (isset($request->photo_barang)) {
+                    $request->validate([
+                        'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+                    ]);
+                    $tujuan_upload = 'public/img/chatomz/barang';
+                    $file = $request->file('photo_barang');
+                    $mini = $request->file('photo_barang');
+                    $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
+                    $nama_file = time()."_".$file->getClientOriginalName();
+                    $file->move($tujuan_upload,$nama_file);
+        
+                    deletefile($tujuan_upload.'/'.$barang->photo_barang);
+                    deletefile($tujuan_upload.'/'.$barang->mg_barang);
+                } else {
+                    $nama_file =$barang->photo_barang;
+                    $mg_barang =$barang->mg_barang;
+                }
+                Barang::where('id',$request->id)->update([
+                    'nama_barang' => $request->nama_barang,
+                    'kondisi' => $request->kondisi,
+                    'merk' => $request->merk,
+                    'sumber' => $request->sumber,
+                    'keterangan' => $request->keterangan,
+                    'harga_beli' => default_nilai($request->harga_beli),
+                    'harga_jual' => default_nilai($request->harga_jual),
+                    'tgl_kepemilikan' => $request->tgl_kepemilikan,
+                    'status_barang' => $request->status_barang,
+                    'photo_barang' => $nama_file,
+                    'mg_barang' => $mg_barang,
+                ]);
+                return redirect('barang/'.$barang->id)->with('du','Barang');
+                break;
         }
-
-        Barang::where('id',$request->id)->update([
-            'nama_barang' => $request->nama_barang,
-            'photo_barang' => $nama_file,
-            'mg_barang' => $mg_barang,
-        ]);
-
-        return redirect()->back()->with('du','Barang');
+       
     }
 
     /**
@@ -112,6 +178,7 @@ class BarangController extends Controller
         deletefile($tujuan_upload.'/'.$barang->photo_barang);
         deletefile($tujuan_upload.'/'.$barang->mg_barang);
         $barang->delete();
-        return back()->with('dd','Barang');
+
+        return redirect('barang')->with('dd','Barang');
     }
 }

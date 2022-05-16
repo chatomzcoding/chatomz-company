@@ -115,3 +115,20 @@ if (! function_exists('list_hewanpemakan')) {
     }
 }
 
+// TERKAIT BARANG
+
+// daftar list kondisi barang
+if (! function_exists('list_kondisibarang')) {
+    function list_kondisibarang()
+    {
+        $list = ['baik','rusak'];
+        return $list;
+    }
+}
+if (! function_exists('list_statusbarang')) {
+    function list_statusbarang()
+    {
+        $list = ['ada','hilang','dijual','dipinjam','dibuang'];
+        return $list;
+    }
+}

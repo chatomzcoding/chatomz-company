@@ -6,37 +6,30 @@
           <div class="row">
             <div class="col-md-12">
               <div class="card">
-                <div class="card-header">
-                  <a href="{{ url('/barang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="fas fa-plus"></i> Tambah Barang Baru </a>
+                <div class="card-body p-2">
+                  <x-sistem.tambah url='/barang/create'></x-sistem.tambah>
                 </div>
-                <div class="card-body">
-                      <div class="row">
-                          @forelse ($barang as $item)
-                          <div class="col-md-2">
-                              <div class="card w-100">
-                                  <a href="{{ url('/barang/'.Crypt::encryptString($item->id))}}" target="_blank"><img src="{{ asset('img/chatomz/barang/'.$item->mg_barang)}}" class="card-img-top" alt="{{ $item->photo_barang }}"></a>
-                                  <div class="card-body p-1 text-center">
-                                  <small class="text-capitalize">{{ $item->nama_barang}}</small>
-                                </div>
-                                <div class="card-footer p-1">
-                                  <form id="data-{{ $item->id }}" action="{{url('/barang',$item->id)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    </form>   
-                                    <button type="button" data-bs-toggle="modal"  data-nama_barang="{{ $item->nama_barang }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
-                                      <i class="fa fa-edit"></i>
-                                      <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-
-                                  </button>
-                                  </div>
-                              </div>
+              </div>
+                  <div class="row">
+                      @forelse ($barang as $item)
+                      <div class="col-md-2">
+                        <form id="data-{{ $item->id }}" action="{{url('/barang',$item->id)}}" method="post">
+                          @csrf
+                          @method('delete')
+                          </form>   
+                          <div class="card w-100 position-relative">
+                              <a href="{{ url('/barang/'.$item->id)}}"><img src="{{ asset('img/chatomz/barang/'.$item->mg_barang)}}" class="card-img-top" alt="{{ $item->photo_barang }}"></a>
+                              <div class="card-body p-1 text-center">
+                              <small class="text-capitalize">{{ $item->nama_barang}}</small>
+                            </div>
+                              <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm position-absolute top-0 end-0"><i class="bi-trash"></i></button>
                           </div>
-                          @empty
-                          <div class="col">
-                              <p>tidak ada data</p>
-                          </div>
-                          @endforelse
                       </div>
+                      @empty
+                      <div class="col">
+                          <p>tidak ada data</p>
+                      </div>
+                      @endforelse
                   </div>
                 </div>
             </div>
