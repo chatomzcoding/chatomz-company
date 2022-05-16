@@ -27,12 +27,12 @@
                                 <div class="col-4">
                                   <a href="{{ url('/orang/'.Crypt::encryptString($pohon['suami']->id))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['suami']->photo))}}" class="img-fluid rounded-start" alt="..."></a>
                                 </div>
-                                <div class="col-8 position-relative">
-                                  <div class="card-body p-2 text-white">
+                                <div class="col-8 ps-0">
+                                  <div class="card-body p-2 text-white position-relative">
                                       <small class="text-capitalize">{{ fullname($pohon['suami'])}} 
                                           {{-- cek keturunan keatas --}}
                                           @if ($pohon['ortusuami'])
-                                           <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}" class="badge bg-info position-absolute top-0 end-0"><span><i class="bi bi-arrow-up-square"></i></span></a>
+                                           <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortusuami']->keluarga_id)) }}" class="btn btn-outline-light btn-sm position-absolute top-0 end-0"><span><i class="bi bi-arrow-up-square"></i></span></a>
                                           @endif
                                       <br> <i>suami</i></small>
                                     </div>
@@ -47,14 +47,14 @@
                                 <div class="col-4">
                                     <a href="{{ url('/orang/'.Crypt::encryptString($pohon['istri']->orang->id))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($pohon['istri']->orang->photo))}}" class="img-fluid rounded-start" alt="..."></a>
                                 </div>
-                                <div class="col-8 position-relative">
-                                    <div class="card-body p-2 text-white">
+                                <div class="col-8">
+                                    <div class="card-body p-1 text-white position-relative">
                                     <small class="text-capitalize">{{ fullname($pohon['istri']->orang)}}
                                         @if ($pohon['ortuistri'])
-                                            <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}" class="badge bg-primary position-absolute top-0 end-0"><span><i class="bi bi-arrow-up-square"></i></span></a>
+                                            <a href="{{ url('keluarga/'.Crypt::encryptString($pohon['ortuistri']->keluarga_id)) }}" class="btn btn-outline-light btn-sm position-absolute top-0 end-0"><span><i class="bi bi-arrow-up-square"></i></span></a>
                                         @endif
                                         <br>
-                                    <i>istri</i></small>
+                                        <i>istri</i></small>
                                     </div>
                                 </div>
                                 </div>

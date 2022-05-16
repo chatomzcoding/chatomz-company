@@ -619,6 +619,7 @@
                 @if (count($suami) > 0)
                     @foreach ($suami as $item)
                         <div class="col-md-12">
+                            <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id)) }}">
                             <div class="card bg-primary">
                                 <div class="row no-gutters">
                                 <div class="col-md-4">
@@ -627,13 +628,13 @@
                                 <div class="col-md-8">
                                     <div class="card-body p-2 text-white">
                                         <small class="text-capitalize">{{ fullname($orang)}}
-                                        <a href="{{ url('/keluarga/'.Crypt::encryptString($item->id)) }}" class="float-end text-white p-2"><i class="bi bi-arrow-up-right"></i></a>
                                         <br>
                                         <i>Kepala Keluarga</i> <br> {{ $item->nama_keluarga }}</small>
                                     </div>
                                 </div>
                                 </div>
                             </div>
+                            </a>
                         </div>
                     @endforeach
                 @else
@@ -662,6 +663,7 @@
                 @foreach ($keluarga as $item)
                 @if ($item->status == 'istri')
                     <div class="col-md-12">
+                        <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}">
                         <div class="card bg-info">
                             <div class="row no-gutters">
                             <div class="col-md-4">
@@ -670,17 +672,18 @@
                             <div class="col-md-8">
                                 <div class="card-body p-2 text-white">
                                     <small class="text-capitalize">{{ fullname($item)}}
-                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="float-end text-white p-2"><i class="bi bi-arrow-up-right"></i></a>
                                     <br>
                                 <i>{{ $item->status }}</i> <br> {{ $item->nama_keluarga }}</small>
                                 </div>
                             </div>
                             </div>
                         </div>
+                        </a>
                     </div>
                 @endif
                 @if ($item->status == 'anak')
                     <div class="col-md-12">
+                        <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}">
                         <div class="card bg-success">
                             <div class="row no-gutters">
                             <div class="col-md-4">
@@ -689,13 +692,13 @@
                             <div class="col-md-8">
                                 <div class="card-body p-2 text-white">
                                     <small class="text-capitalize">{{ fullname($item)}}
-                                    <a href="{{ url('/keluarga/'.Crypt::encryptString($item->keluarga_id)) }}" class="float-end text-white p-2"><i class="bi bi-arrow-up-right"></i></a>
                                     <br>
                                 <i>{{ $item->status .' - '. $item->urutan }}</i> <br> {{ $item->nama_keluarga }}</small>
                                 </div>
                             </div>
                             </div>
                         </div>
+                        </a>
                     </div>
                 @endif
                 @endforeach
