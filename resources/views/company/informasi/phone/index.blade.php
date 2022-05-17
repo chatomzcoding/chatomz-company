@@ -1,7 +1,7 @@
 <x-mazer-layout title="DUNIA PHONE" alert="TRUE">
     <x-slot name="content">
         <div class="page-heading">
-            <x-header head="Data Informasi Phone" active="Daftar Phone Brand"></x-header>
+            <x-header head="Data Informasi Phone" active="Daftar Phone Brand" :hyperlink="['daftar informasi' => 'informasi']"></x-header>
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
@@ -21,36 +21,30 @@
                         <div class="row">
                             @foreach ($data as $item)
                                 <div class="col-12 col-sm-4 col-md-3">
+                                    <form id="data-{{ $item->id }}" action="{{url('/informasi',$item->id)}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
                                     <div class="card">
                                         @php
                                             $detail = json_decode($item->detail); 
                                         @endphp
-                                        <div class="card-content">
+                                        <div class="card-content position-relative">
                                             @if (is_null($item->gambar))
                                                 <img src="{{ url('public/img/null.png')}}" alt="user-avatar" class="card-img-top img-fluid"> <br>
                                             @else
                                                 <a href="{{ url('/informasi/'.$item->id)}}"><img src="{{ url('public/img/company/informasi/phone/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                             @endif
-                                        <section class="text-center py-2 small">
-                                            {{ ucwords($item->nama)}} <br>
-                                            {{ ($detail->jumlah) }}
-                                        </section>
-                                        <form id="data-{{ $item->id }}" action="{{url('/informasi',$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                        </div>
-                                        <div class="card-footer p-0">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <button type="button" data-bs-toggle="modal"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-success btn-sm btn-block" data-original-title="Edit Task">
-                                                        <i class="bi-pen"></i> EDIT
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm btn-block"><i class="bi-trash"></i> HAPUS</button>
-                                                </div>
-                                            </div>
+                                            <section class="text-center py-2 small">
+                                                {{ ucwords($item->nama)}} <br>
+                                                {{ ($detail->jumlah) }}
+                                            </section>
+                                            <section class="position-absolute top-0 end-0">
+                                                <button type="button" data-bs-toggle="modal"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-success btn-sm">
+                                                    <i class="bi-pen"></i>
+                                                </button>
+                                                <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="bi-trash"></i></button>
+                                            </section>
                                         </div>
                                     </div>
                                 </div>

@@ -14,12 +14,14 @@ class Header extends Component
     public $head;
     public $p;
     public $active;
+    public $hyperlink;
 
-    public function __construct($head="judul header",$p=null,$active="halaman")
+    public function __construct($head="judul header",$p=null,$active="halaman",$hyperlink=NULL)
     {
         $this->head = $head;
         $this->p = $p;
         $this->active = $active;
+        $this->hyperlink = $hyperlink;
     }
 
     /**

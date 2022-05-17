@@ -6,7 +6,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <header class="bg-white mb-2 p-2 rounded">
-                            <a href="{{ url('informasi?id='.$informasi->kategori->id) }}" class="btn btn-outline-secondary btn-flat btn-sm"><i class="bi-arrow-left"></i> Kembali </a>
+                            <x-sistem.kembali url="informasi?id={{ $informasi->kategori->id}}"></x-sistem.kembali>
+                            <x-sistem.hapus :id="$informasi->id" url="informasi"></x-sistem.hapus>
                         </header>
                     </div>
                     <div class="col-md-12">

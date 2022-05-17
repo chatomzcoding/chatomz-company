@@ -15,7 +15,7 @@ class Informasi extends Model
 
     public function informasisub()
     {
-        return $this->hasMany(Informasisub::class);
+        return $this->hasMany(Informasisub::class)->orderBy('nama_sub','ASC');
     }
 
     public function kategori()

@@ -18,6 +18,11 @@
             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard')}}"><i class="bi-house-fill"></i></a></li>
+                    @if (!is_null($hyperlink))
+                        @foreach ($hyperlink as $name => $link)
+                            <li class="breadcrumb-item text-capitalize"><a href="{{ url($link)}}">{{ $name }}</a></li>
+                        @endforeach
+                    @endif
                     {{ $slot }}
                     <li class="breadcrumb-item active" aria-current="page">{{ $active }}</li>
                 </ol>

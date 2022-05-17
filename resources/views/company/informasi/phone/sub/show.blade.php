@@ -1,7 +1,7 @@
 <x-mazer-layout title="DUNIA PHONE" alert="TRUE">
     <x-slot name="content">
         <div class="page-heading">
-            <x-header head="Data Informasi Phone" active="Daftar Phone"></x-header>
+            <x-header head="Data Informasi Phone" active="Detail {{ $informasisub->nama_sub }}" :hyperlink="['informasi' => 'informasi','daftar brand' =>'informasi?id='.$informasisub->informasi->kategori_id, $informasisub->informasi->nama => 'informasi/'.$informasisub->informasi->id]"></x-header>
             <div class="content">
                 <div class="row">
                     <div class="col-md-12">
@@ -35,16 +35,16 @@
                                                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile"
                                                     role="tab" aria-controls="profile" aria-selected="false">Spefisikasi</a>
                                             </li>
-                                            {{-- <li class="nav-item" role="presentation">
+                                            <li class="nav-item" role="presentation">
                                                 <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact"
-                                                    role="tab" aria-controls="contact" aria-selected="false">Contact</a>
-                                            </li> --}}
+                                                    role="tab" aria-controls="contact" aria-selected="false">Detail Lengkap</a>
+                                            </li>
                                         </ul>
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="home" role="tabpanel"
                                                 aria-labelledby="home-tab">
                                                 <section class="mt-2">
-                                                    <table class="w-100">
+                                                    <table class="table table-borderless">
                                                         <tr>
                                                             <th>Release</th>
                                                             <td>{{ $detail->release_date }}</td>
@@ -67,6 +67,33 @@
                                             <div class="tab-pane fade" id="profile" role="tabpanel"
                                                 aria-labelledby="profile-tab">
                                                 <section class="mt-2">
+                                                    {{-- simple --}}
+                                                    <table class="table table-borderless">
+                                                        @foreach ($detail->specifications as $item)
+                                                            <tr>
+                                                                <th colspan="2" class="table-primary">{{ $item->title }}</th>
+                                                            </tr>
+                                                            @foreach ($item->specs as $i)
+                                                            <tr>
+                                                                <th class="ps-5">{{ $i->key }}</th>
+                                                                <td>
+                                                                    <small>
+                                                                        @forelse ($i->val as $j)
+                                                                            {{ $j }}
+                                                                        @empty
+                                                                            
+                                                                        @endforelse
+                                                                    </small>
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                        @endforeach
+                                                    </table>
+                                                </section>
+                                            </div>
+                                            <div class="tab-pane fade" id="contact" role="tabpanel"
+                                                aria-labelledby="contact-tab">
+                                                <section class="mt-2">
                                                     <table class="w-100">
                                                         @foreach ($detail->specifications as $item)
                                                             <tr>
@@ -87,10 +114,6 @@
                                                         @endforeach
                                                     </table>
                                                 </section>
-                                            </div>
-                                            <div class="tab-pane fade" id="contact" role="tabpanel"
-                                                aria-labelledby="contact-tab">
-                                                <p class="mt-2">coming soon</p>
                                             </div>
                                         </div>
                                     </div>
