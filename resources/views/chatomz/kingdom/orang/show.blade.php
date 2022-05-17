@@ -105,26 +105,22 @@
                                                   {{ $orang->home_address }}
                                                 </p>
                                             </div>
-                                            <hr>
                                             <strong><i class="bi-house-door mr-1"></i> Tempat Lahir</strong>
                                             <div class="py-0 px-3">
                                                   <p class="text-muted">{{ $orang->place_birth.', '.date_indo($orang->date_birth)}}</p>
                                             </div>
-                                            <hr>
                                             <strong><i class="bi-star"></i> Agama</strong>
                                             <div class="py-0 px-3">
                                                 <p class="text-muted">
                                                   {{ $orang->religion}}
                                                 </p>
                                             </div>
-                                            <hr>
                                             <strong><i class="bi-briefcase mr-1"></i> Status Pekerjaan</strong>
                                             <div class="py-0 px-3">
                                                 <p class="text-muted">
                                                   {{ $orang->job_status}}
                                                 </p>
                                             </div>
-                                            <hr>
                                             <strong><i class="bi-heart mr-1"></i> Status Perkawinan</strong>
                                             <div class="py-0 px-3">
                                                 <p class="text-muted">
@@ -710,22 +706,22 @@
             <section class="row p-2">
                 @foreach ($anggotagrup as $item)
                 <div class="col-md-4">
-                <div class="card">
-                    <a href="{{ url('grup/'.Crypt::encryptString($item->grup_id))}}"><img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" class="card-img-top" alt="..."></a>
-                    <div class="card-body p-1 text-center">
-                        <p class="small text-capitalize">{{ $item->name}}</p>
-                        <small class="text-muted">{{ $item->information }}</small>
-                    </div>
-                    <div class="card-footer p-1">
-                        <form id="gruphapus-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
-                            @csrf
-                            @method('delete')
-                        </form>
-                        <button onclick="deleteRow( {{ $item->id }},'gruphapus' )" class="btn btn-outline-danger btn-sm float-right mx-1"><i class="bi-trash"></i></button>
-                        <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-outline-success btn-sm float-right" data-original-title="Edit Task">
-                            <i class="bi-pencil"></i>
-                        </button>
-                    </div>
+                    <form id="gruphapus-{{ $item->id }}" action="{{url('/grupanggota',$item->id)}}" method="post">
+                        @csrf
+                        @method('delete')
+                    </form>
+                    <div class="card">
+                        <div class="card-content text-center position-relative">
+                            <a href="{{ url('grup/'.Crypt::encryptString($item->grup_id))}}"><img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" class="card-img-top" alt="..."></a>
+                            <p class="small text-capitalize">{{ $item->name}}</p>
+                            <small class="text-muted">{{ $item->information }}</small>
+                            <section class="position-absolute top-0 end-0">
+                                <button onclick="deleteRow( {{ $item->id }},'gruphapus' )" class="btn btn-danger btn-sm"><i class="bi-trash"></i></button>
+                                <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                    <i class="bi-pencil"></i>
+                                </button>
+                            </section>
+                        </div>
                     </div>
                 </div>
                 @endforeach

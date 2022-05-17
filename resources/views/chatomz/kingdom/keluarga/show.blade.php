@@ -118,7 +118,7 @@
                                 <div class="card bg-success mb-1 p-0">
                                     <div class="row">
                                     <div class="col-4 position-relative pe-0">
-                                        <span class="position-absolute top-0 start-0 badge bg-info">{{ $loop->iteration }}</span>
+                                        <span class="position-absolute top-0 start-0 badge bg-success">{{ $loop->iteration }}</span>
                                         <a href="{{ url('/orang/'.Crypt::encryptString($item->orang->id))}}"><img src="{{ asset('/img/chatomz/orang/'.orang_photo($item->orang->photo))}}" class="img-fluid rounded-start" alt="..."></a>
                                     </div>
                                     <div class="col-8 position-relative">
