@@ -455,12 +455,12 @@ class InformasiController extends Controller
      */
     public function destroy(Informasi $informasi)
     {
-        dd($informasi);
         $filegambar = 'public/img/company/informasi/'.$informasi->kategori->nama_kategori.'/'.$informasi->gambar;
         deletefile($filegambar);
-
+        $id     = $informasi->kategori->id;
+        $nama   = $informasi->nama;
         $informasi->delete();
 
-        return back()->with('dd',$informasi->kategori->namakategori);
+        return redirect('informasi?id='.$id)->with('dd',$nama);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Grup;
 use App\Models\Informasi;
+use App\Models\Informasisub;
 use App\Models\Jejak;
 use App\Models\Jurnal;
 use App\Models\Keluarga;
@@ -124,6 +125,8 @@ class HomeController extends Controller
                 // cari film
                 $informasi   = Informasi::where('nama','LIKE','%'.$cari.'%')->get();
 
+                // cari phone
+                $phone          = Informasisub::where('nama_sub','LIKE','%'.$cari.'%')->get();
                 $judul  = 'Pencarian key : "'.$cari.'"';
                 break;
             
@@ -143,6 +146,7 @@ class HomeController extends Controller
         $data   = [
             'orang' => $orang,
             'informasi' => $informasi,
+            'phone' => $phone,
         ];
         return view('sistem.list', compact('data','judul'));
     }

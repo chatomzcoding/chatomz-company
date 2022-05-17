@@ -1,4 +1,4 @@
-<x-mazer-layout title="CHATOMZ - DETAIL GRUP" select="TRUE" alert="TRUE">
+<x-mazer-layout title="CHATOMZ - PENCARIAN" select="TRUE" alert="TRUE">
     <x-slot name="content">
         <div class="page-heading">
             <x-header :head="$judul ?? ''">
@@ -47,6 +47,7 @@
                                             @endforelse
                                     </div>
                                 @endif
+                                {{-- informasi --}}
                                 @if (count($data['informasi']) > 0)
                                     <div class="row d-flex align-items-stretch mt-3">
                                         <div class="col-12 mb-2">
@@ -66,7 +67,7 @@
                                                     <div class="col-md-8 pt-0 px-0">
                                                         <div class="card-body px-2 pt-0">
                                                         <h6 class="small">
-                                                            {{ $item->nama.$item->gambar }}
+                                                            {{ $item->nama }}
                                                         </h6>
                                                         @php
                                                             $detail = json_decode($item->detail)
@@ -86,7 +87,47 @@
                                             @endforelse
                                     </div>
                                 @endif
-                                @if (count($data['orang']) == 0 AND count($data['informasi']) == 0)
+                                {{-- informasi --}}
+                                @if (count($data['phone']) > 0)
+                                    <div class="row d-flex align-items-stretch mt-3">
+                                        <div class="col-12 mb-2">
+                                            <button class="btn btn-info btn-sm">HANDPHONE</button>
+                                            <span class="float-end">Total {{ count($data['phone']) }}</span>
+                                        </div>
+                                        @forelse ($data['phone'] as $item)
+                                            <div class="col-lg-4 col-md-4 col-sm-6 d-flex align-items-stretch">
+                                                <div class="card mb-3 w-100">
+                                                    <div class="row no-gutters">
+                                                        <div class="col-md-4 text-center">
+                                                            <a href="{{ url('/informasisub/'.$item->id)}}">
+                                                                <img src="{{informasigambar('phone',$item->gambar_sub)}}" class="card-img" alt="...">
+                                                            </a>
+                                                            <small class="fst-italic">{{ $item->informasi->nama }}</small>
+                                                        </div>
+                                                    <div class="col-md-8 pt-0 px-0">
+                                                        <div class="card-body px-2 pt-0">
+                                                        <h6 class="small">
+                                                            {{ $item->nama_sub }}
+                                                        </h6>
+                                                        @php
+                                                            $detail = json_decode($item->detail_sub)
+                                                        @endphp
+                                                        @isset($detail->release_date)
+                                                            <small>{{ $detail->release_date }}</small>
+                                                        @endisset
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @empty
+                                                <div class="col text-center">
+                                                    <i>Data tidak ada</i>
+                                                </div>
+                                            @endforelse
+                                    </div>
+                                @endif
+                                @if (count($data['orang']) == 0 AND count($data['informasi']) == 0 AND count($data['phone']) == 0)
                                     <section class="text-center">
                                         <i>Pencarian tidak ada yang cocok</i>
                                     </section>
