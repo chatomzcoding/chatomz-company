@@ -66,7 +66,7 @@
                                                     <div class="col-md-8 pt-0 px-0">
                                                         <div class="card-body px-2 pt-0">
                                                         <h6 class="small">
-                                                            {{ $item->nama }}
+                                                            {{ $item->nama.$item->gambar }}
                                                         </h6>
                                                         @php
                                                             $detail = json_decode($item->detail)
