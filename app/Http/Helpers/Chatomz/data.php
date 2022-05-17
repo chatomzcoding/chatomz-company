@@ -163,3 +163,12 @@ if (! function_exists('informasiShowTag')) {
         return $result;
     }
 }
+// informasi PHOTO
+if (! function_exists('informasigambar')) {
+    function informasigambar($kategori,$gambar)
+    {   
+        $gambar = (!is_null($gambar)) ? $gambar : 'null.png' ;
+        $link   = asset('img/company/informasi/'.$kategori.'/'.$gambar);
+        return $link;
+    }
+}

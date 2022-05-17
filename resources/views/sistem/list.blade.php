@@ -59,7 +59,7 @@
                                                     <div class="row no-gutters">
                                                         <div class="col-md-4 text-center">
                                                             <a href="{{ url('/informasi/'.$item->id)}}">
-                                                                <img src="{{ asset('/img/company/informasi/'.$item->kategori->nama_kategori.'/'.$item->gambar)}}" class="card-img" alt="...">
+                                                                <img src="{{informasigambar($item->kategori->nama_kategori,$item->gambar)}}" class="card-img" alt="...">
                                                             </a>
                                                             <small class="fst-italic">{{ $item->kategori->nama_kategori }}</small>
                                                         </div>
