@@ -126,7 +126,7 @@ class InformasiController extends Controller
                         $data   = [];
                         $simpan   = [];
                         foreach ($result->results as $key) {
-                            $cekdata = Informasi::where('nama',$key->title)->where('gambar',$key->key.'.png')->first();
+                            $cekdata = Informasi::where('slug',$key->key)->where('gambar',$key->key.'.png')->first();
                             if ($cekdata) {
                                 $simpan[] = $key;
                             } else {
