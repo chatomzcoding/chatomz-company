@@ -126,7 +126,7 @@ class InformasiController extends Controller
                         $data   = [];
                         $simpan   = [];
                         foreach ($result->results as $key) {
-                            $cekdata = Informasi::where('slug',$key->key)->where('gambar',$key->key.'.png')->first();
+                            $cekdata = Informasi::where('slug',$key->key)->first();
                             if ($cekdata) {
                                 $simpan[] = $key;
                             } else {
@@ -285,7 +285,7 @@ class InformasiController extends Controller
                     if (count($response['data']->results) > 0) { 
                         foreach ($response['data']->results as $key) {
                             // cek jika menu sudah ada jangan disimpan
-                            $cekmasakan = Informasi::where('nama',$key->title)->where('gambar',$key->key.'.png')->first();
+                            $cekmasakan = Informasi::where('slug',$key->key)->first();
                             if (!$cekmasakan) {
                                 $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
                                 $response   = datajson($link);
