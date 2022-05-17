@@ -29,7 +29,7 @@
                                         <div class="card-content">
                                             <a href="{{ $item->thumb}}" target="_blank"><img src="{{ $item->thumb}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                         <section class="text-center py-2 small">
-                                            {{ ucwords($item->title)}}
+                                            {{ ucwords($item->key)}}
                                         </section>
                                         </div>
                                         <div class="card-footer p-0">
@@ -38,7 +38,7 @@
                                                 <input type="hidden" name="sesi" value="masakan">
                                                 <input type="hidden" name="s" value="satu">
                                                 <input type="hidden" name="thumb" value="{{ $item->thumb }}">
-                                                <input type="hidden" name="title" value="{{ $item->title }}">
+                                                <input type="hidden" name="title" value="{{ $item->key }}">
                                                 <input type="hidden" name="key" value="{{ $item->key }}">
                                                 <input type="hidden" name="kategori_id" value="{{ $kategori->id }}">
                                                 <button type="submit" class="btn btn-primary btn-sm btn-block"><i class="bi-save"></i> SIMPAN</button>
@@ -60,7 +60,7 @@
                                         <div class="card-content">
                                             <a href="{{ $item->thumb}}" target="_blank"><img src="{{ $item->thumb}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                         <section class="text-center py-2 small">
-                                            {{ ucwords($item->title)}}
+                                            {{ ucwords($item->key)}}
                                         </section>
                                         </div>
                                         <div class="card-footer p-0">

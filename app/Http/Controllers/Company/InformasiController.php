@@ -263,8 +263,9 @@ class InformasiController extends Controller
                         $namafile   = unduhgambar('company/informasi/masakan',$request->key,$request->thumb);
                         Informasi::create([
                             'kategori_id' => $kategori->id,
-                            'nama' => $request->title,
+                            'nama' => $response->results->title,
                             'gambar' => $namafile,
+                            'slug' => $request->key,
                             'detail' => json_encode($response->results)
                         ]);
                         return back()->with('ds','resep '.$request->title);
@@ -292,7 +293,8 @@ class InformasiController extends Controller
                                 $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
                                 Informasi::create([
                                     'kategori_id' => $kategori->id,
-                                    'nama' => $key->title,
+                                    'nama' => $response->results->title,
+                                    'slug' => $key->key,
                                     'gambar' => $namafile,
                                     'detail' => json_encode($response->results)
                                 ]);
