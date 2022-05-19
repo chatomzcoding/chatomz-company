@@ -260,7 +260,7 @@ class InformasiController extends Controller
                     case 'satu':
                         $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$request->key;
                         $response   = datajson($link);
-                        $namafile   = unduhgambar('company/informasi/masakan',$request->key,$request->thumb);
+                        $namafile   = unduhgambar('company/informasi/masakan',time().'-'.$request->key,$request->thumb);
                         Informasi::create([
                             'kategori_id' => $kategori->id,
                             'nama' => $response->results->title,
@@ -290,7 +290,7 @@ class InformasiController extends Controller
                             if (!$cekmasakan) {
                                 $link = 'https://masak-apa.tomorisakura.vercel.app/api/recipe/'.$key->key;
                                 $response   = datajson($link);
-                                $namafile   = unduhgambar('company/informasi/masakan',$key->key,$key->thumb);
+                                $namafile   = unduhgambar('company/informasi/masakan',time().'-'.$key->key,$key->thumb);
                                 Informasi::create([
                                     'kategori_id' => $kategori->id,
                                     'nama' => $response->results->title,
