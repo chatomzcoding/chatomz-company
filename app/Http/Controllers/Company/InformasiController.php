@@ -35,9 +35,6 @@ class InformasiController extends Controller
                 case 'hewan':
                     return view('company.informasi.hewan.index', compact('kategori','data'));
                     break;
-                case 'gadget':
-                    return view('company.informasi.gadget.index', compact('kategori','data'));
-                    break;
                 case 'phone':
                     // create phone
                     return view('company.informasi.phone.index', compact('kategori','data'));
