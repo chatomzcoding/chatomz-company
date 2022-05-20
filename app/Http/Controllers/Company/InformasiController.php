@@ -206,7 +206,7 @@ class InformasiController extends Controller
                             'kategori_id' => $kategori->id,
                             'nama' => $request->title,
                             'gambar' => $namafile,
-                            'detail' => $response
+                            'detail' => json_encode($response)
                         ]);
                         return back()->with('ds',$request->title);
                         break;
@@ -240,7 +240,7 @@ class InformasiController extends Controller
                                     'kategori_id' => $request->kategori_id,
                                     'nama' => $judul,
                                     'gambar' => $namafile,
-                                    'detail' => $response
+                                    'detail' => json_encode($response)
                                 ]);
                             }
                         }
