@@ -27,7 +27,10 @@ if (! function_exists('keuanganWaktu')) {
 if (! function_exists('KeuanganProgressMinimum')) {
     function KeuanganProgressMinimum($saldo,$minimum)
     {
-        $nilai = $saldo / $minimum * 100; 
+        $nilai = 0;
+        if ($saldo > 0) {
+            $nilai = $saldo / $minimum * 100; 
+        }
         return $nilai;
     }
 }
