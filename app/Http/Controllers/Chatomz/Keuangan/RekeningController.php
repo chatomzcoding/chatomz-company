@@ -159,7 +159,8 @@ class RekeningController extends Controller
             'total' => PerhitunganDompet($jurnaltotal,$saldoawal),
             'kategori' => $dkategori
         ];
-        return view('chatomz.kingdom.keuangan.show', compact('main','rekening','kategori','jurnal','bulan','perhitungan'));
+        $rekenings  = Rekening::all();
+        return view('chatomz.kingdom.keuangan.show', compact('main','rekening','kategori','jurnal','bulan','perhitungan','rekenings'));
     }
 
     /**

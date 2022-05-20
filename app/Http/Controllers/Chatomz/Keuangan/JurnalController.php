@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Chatomz\Keuangan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurnal;
+use App\Models\Rekening;
 use Illuminate\Http\Request;
 
 class JurnalController extends Controller
@@ -36,23 +37,60 @@ class JurnalController extends Controller
      */
     public function store(Request $request)
     {
-        Jurnal::create([
-            'subkategori_id' => $request->subkategori_id,
-            'rekening_id' => $request->rekening_id,
-            'nama_jurnal' => $request->nama_jurnal,
-            'arus' => $request->arus,
-            'nominal' => default_nilai($request->nominal),
-            'tanggal' => $request->tanggal,
-            'jam' => $request->jam,
-            'deskripsi' => $request->deskripsi,
-            'struk' => $request->struk,
-            'status' => $request->status,
-            'label' => $request->label,
-            'garansi' => $request->garansi,
-            'tempat' => $request->tempat,
-        ]);
+        $s = (isset($request->s)) ? $request->s : 'store' ;
+        switch ($s) {
+            case 'transfer':
+                // rekening tujuan
+                $rekeningtujuan     = Rekening::find($request->rekening_tujuan);
+                $rekeningawal     = Rekening::find($request->rekening_id);
+                // rekening awal
+                Jurnal::create([
+                    'subkategori_id' => $request->subkategori_id,
+                    'rekening_id' => $request->rekening_id,
+                    'nama_jurnal' => 'transfer ke rekening '.$rekeningtujuan->nama_rekening,
+                    'arus' => 'pengeluaran',
+                    'nominal' => default_nilai($request->nominal),
+                    'tanggal' => $request->tanggal,
+                    'jam' => $request->jam,
+                    'deskripsi' => $request->deskripsi,
+                    'status' => 'selesai',
+                ]);
 
-        return back()->with('ds','Jurnal');
+                Jurnal::create([
+                    'subkategori_id' => $request->subkategori_id,
+                    'rekening_id' => $rekeningtujuan->id,
+                    'nama_jurnal' => 'terima transfer dari rekening '.$rekeningawal->nama_rekening,
+                    'arus' => 'pemasukan',
+                    'nominal' => default_nilai($request->nominal),
+                    'tanggal' => $request->tanggal,
+                    'jam' => $request->jam,
+                    'deskripsi' => 'terima dana antar rekening',
+                    'status' => 'selesai',
+                ]);
+
+                return back()->with('ds','Transfer');
+                break;
+            
+            default:
+                Jurnal::create([
+                    'subkategori_id' => $request->subkategori_id,
+                    'rekening_id' => $request->rekening_id,
+                    'nama_jurnal' => $request->nama_jurnal,
+                    'arus' => $request->arus,
+                    'nominal' => default_nilai($request->nominal),
+                    'tanggal' => $request->tanggal,
+                    'jam' => $request->jam,
+                    'deskripsi' => $request->deskripsi,
+                    'struk' => $request->struk,
+                    'status' => $request->status,
+                    'label' => $request->label,
+                    'garansi' => $request->garansi,
+                    'tempat' => $request->tempat,
+                ]);
+        
+                return back()->with('ds','Jurnal');
+                break;
+        }
     }
 
     /**

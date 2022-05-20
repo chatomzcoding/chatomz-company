@@ -10,7 +10,8 @@
                     <div class="col-md-10">
                         <div class="card p-0">
                             <div class="card-body p-2">
-                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi bi-plus-circle-fill"></i> Tambah Jurnal </a>
+                                <x-sistem.tambah></x-sistem.tambah>
+                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#transfer"><i class="bi bi-arrow-left-right"></i></a>
                                 <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#editrekening"><i class="bi bi-pen"></i> Edit Dompet </a>
                               </div>
                         </div>
@@ -176,6 +177,50 @@
                   </div>
             </section>
         </x-modalsimpan>
+
+        <x-modalsimpan judul="transfer rekening" id="transfer" link="jurnal">
+            <input type="hidden" name="s" value="transfer">
+            <input type="hidden" name="rekening_id" value="{{ $rekening->id }}">
+            <section class="p-3">
+                <div class="form-group">
+                    <label for="">Tujuan Rekening</label>
+                    <select name="rekening_tujuan" id="rekening_tujuan" class="form-control">
+                        @foreach ($rekenings as $item)
+                            @if ($item->id <> $rekening->id)
+                                <option value="{{ $item->id }}">{{ strtoupper($item->nama_rekening) }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Nominal</label>
+                    <input type="text" name="nominal" id="rupiah1" class="form-control" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Kategori</label>
+                    <select name="subkategori_id" id="subkategori_id" class="form-control">
+                        @foreach ($kategori as $item)
+                            @foreach ($item->subkategori as $key)
+                            <option value="{{ $key->id }}">{{ strtoupper($item->nama_kategori).' - '.ucwords($key->nama_sub) }}</option>
+                            @endforeach
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Deskripsi Jurnal</label>
+                    <input type="text" name="deskripsi" id="deskripsi" class="form-control" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Tanggal Jurnal</label>
+                    <input type="date" name="tanggal" id="tanggal" value="{{ tgl_sekarang() }}" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Jam Jurnal</label>
+                    <input type="time" name="jam" id="jam" value="{{ jam_sekarang() }}" class="form-control">
+                </div>
+            </section>
+        </x-modalsimpan>
+
         <x-modalubah judul="Ubah Rekening" link="rekening" id="editrekening">
             <input type="hidden" name="id" value="{{ $rekening->id }}">
             <section class="p-3">
