@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::get('/demo/grab', [DemoController::class,'grab']);
     Route::get('/demo/backupdb', [DemoController::class,'backupdb']);
     Route::get('/demo/calendar', [DemoController::class,'calendar']);
+    Route::get('/demo/mapbox/{s}', [DemoController::class,'mapbox']);
 
     // migrasi
     Route::get('/migrasi', [MigrasiController::class,'index']);

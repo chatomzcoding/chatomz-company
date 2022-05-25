@@ -1,4 +1,14 @@
 <x-mazer-layout title="CHATOMZ - Detail Orang" alert="TRUE">
+    <x-slot name="head">
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+        <style>
+            #map { 
+                width: 100%;
+                height: 500px;
+            }
+        </style>
+    </x-slot>
     <x-slot name="content">
         <div class="page-heading">
             <x-header head="Data Orang" p="Detail {{ fullname($orang) }}" active="Detail">
@@ -54,6 +64,10 @@
                                             <a href="#" data-bs-toggle="modal" data-bs-target="#linimasa"  class="btn btn-icon btn-round bg-primary pop-info text-white" title="tambah lini masa">
                                                     <i class="bi-calendar-plus"></i></a>
                                         </section>
+                                        <section class="p-1">
+                                            <a href="{{ url('orang/create?s=marker&id='.$orang->id) }}" class="btn btn-icon btn-round bg-warning pop-info text-white" title="tambah lini masa">
+                                                    <i class="bi-geo"></i></a>
+                                        </section>
                                     </div>
                                 </div>
                             </div>
@@ -93,6 +107,10 @@
                                     <li class="nav-item" role="presentation">
                                         <a class="nav-link" id="toko-tab" data-bs-toggle="tab" href="#tabtoko"
                                             role="tab" aria-controls="toko" aria-selected="false"><i class="bi-shop"></i></a>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <a class="nav-link" id="maps-tab" data-bs-toggle="tab" href="#tabmaps"
+                                            role="tab" aria-controls="maps" aria-selected="false"><i class="bi-geo"></i></a>
                                     </li>
                                 </ul>
                                 <div class="tab-content" id="myTabContent">
@@ -353,7 +371,7 @@
                                             @endforelse
                                         </div>
                                     </div>
-                                     {{-- lini masa --}}
+                                     {{-- tab toko --}}
                                      <div class="tab-pane" id="tabtoko" role="tabpanel"
                                      aria-labelledby="toko-tab">
                                          <div class="row mt-3">
@@ -375,6 +393,13 @@
                                                  </div>
                                              @endforelse
                                          </div>
+                                     </div>
+                                     {{-- tab maps --}}
+                                     <div class="tab-pane" id="tabmaps" role="tabpanel"
+                                     aria-labelledby="maps-tab">
+                                         <section class="w-100">
+                                            <div id="map"></div>
+                                         </section>
                                      </div>
                                 </div>
                             </div>
@@ -836,6 +861,30 @@
                 modal.find('.modal-body #tag').val(tag);
                 modal.find('.modal-body #id').val(id);
             })
+        </script>
+        <script>
+            // TO MAKE THE MAP APPEAR YOU MUST
+            // ADD YOUR ACCESS TOKEN FROM
+            // https://account.mapbox.com
+            mapboxgl.accessToken = "pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA";
+            const map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [108.173121, -7.305376],
+                zoom: 13
+            });
+        
+            // Create a default Marker and add it to the map.
+            const marker1 = new mapboxgl.Marker()
+                .setLngLat(@json($maps))
+                .addTo(map);
+        
+            // Create a default Marker, colored black, rotated 45 degrees.
+            // const marker2 = new mapboxgl.Marker({ color: 'black', rotation: 45 })
+            //     .setLngLat([108.197454, -7.303660])
+            //     .addTo(map);
+        
+            map.addControl(new mapboxgl.FullscreenControl());
         </script>
     </x-slot>
 </x-mazer-layout>

@@ -101,7 +101,19 @@ class OrangController extends Controller
      */
     public function create()
     {
-        return view('chatomz.kingdom.orang.create');
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'create' ;
+        switch ($s) {
+            case 'marker':
+                $orang  = Orang::find($_GET['id']);
+                $tasikmalaya = [108.217451, -7.323059];
+                $token  = 'pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA';
+                return view('chatomz.kingdom.orang.marker', compact('orang','tasikmalaya','token'));
+                break;
+            
+            default:
+                return view('chatomz.kingdom.orang.create');
+                break;
+        }
     }
 
     /**
@@ -112,41 +124,53 @@ class OrangController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'first_name' => ['required','max:4']
-        // ]);
-       if (isset($request->photo)) {
-            $request->validate([
-                'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
-            ]);
-            $file = $request->file('photo');
-            $nama_file = kompres($file,'public/img/chatomz/orang');
+        $s = (isset($request->s)) ? $request->s : 'store' ;
+        switch ($s) {
+            case 'marker':
+                Orang::where('id',$request->id)->update([
+                    'nilai_lat' => $request->nilai_lat,
+                    'nilai_long' => $request->nilai_long,
+                ]);
+                $id     = $request->id;
+                break;
             
-        } else {
-            $nama_file = NULL;
+            default:
+            if (isset($request->photo)) {
+                 $request->validate([
+                     'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+                 ]);
+                 $file = $request->file('photo');
+                 $nama_file = kompres($file,'public/img/chatomz/orang');
+                 
+             } else {
+                 $nama_file = NULL;
+             }
+             Orang::create([
+                 'first_name'  => strtolower($request->first_name),
+                 'last_name'  => strtolower($request->last_name),
+                 'nick_name' => strtolower($request->nick_name),
+                 'place_birth' => strtolower($request->place_birth),
+                 'date_birth' => $request->date_birth,
+                 'gender' => $request->gender,
+                 'home_address' => strtolower($request->home_address),
+                 'current_address' => strtolower($request->current_address),
+                 'religion' => $request->religion,
+                 'blood_type' => $request->blood_type,
+                 'nasionality' => $request->nasionality,
+                 'job_status' => $request->job_status,
+                 'marital_status' => $request->marital_status,
+                 'status_group' => $request->status_group,
+                 'photo' => $nama_file,
+                 'death' => $request->death,
+                 'note' => strtolower($request->note),
+             ]);
+             $orang = Orang::latest()->first();
+             $id    = $orang->id;
+                break;
         }
-        Orang::create([
-            'first_name'  => strtolower($request->first_name),
-            'last_name'  => strtolower($request->last_name),
-            'nick_name' => strtolower($request->nick_name),
-            'place_birth' => strtolower($request->place_birth),
-            'date_birth' => $request->date_birth,
-            'gender' => $request->gender,
-            'home_address' => strtolower($request->home_address),
-            'current_address' => strtolower($request->current_address),
-            'religion' => $request->religion,
-            'blood_type' => $request->blood_type,
-            'nasionality' => $request->nasionality,
-            'job_status' => $request->job_status,
-            'marital_status' => $request->marital_status,
-            'status_group' => $request->status_group,
-            'photo' => $nama_file,
-            'death' => $request->death,
-            'note' => strtolower($request->note),
-        ]);
-        $orang = Orang::latest()->first();
+    
 
-        return redirect('orang/'.Crypt::encryptString($orang->id))->with('ds','Orang');
+        return redirect('orang/'.Crypt::encryptString($id))->with('ds','Orang');
     }
 
    
@@ -204,7 +228,8 @@ class OrangController extends Controller
                 'detail' => 'lihat profil'
             ]);
         }
-        return view('chatomz.kingdom.orang.show', compact('orang','tombol','keluarga','suami','daftarkeluarga','anggotagrup','datagrup'));
+        $maps   = [$orang->nilai_long,$orang->nilai_lat];
+        return view('chatomz.kingdom.orang.show', compact('orang','tombol','keluarga','suami','daftarkeluarga','anggotagrup','datagrup','maps'));
     }
 
     /**

@@ -60,3 +60,10 @@ if (! function_exists('kingdom_fullname')) {
         }
     }
 }
+if (! function_exists('kingdom_tokenmap')) {
+    function kingdom_tokenmap()
+    {
+        $token = 'pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA';
+        return $token;
+    }
+}

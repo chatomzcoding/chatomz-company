@@ -111,4 +111,31 @@ class DemoController extends Controller
     {
         return view('demo.calendar');
     }
+
+    public function mapbox($s)
+    {
+        $token  = 'pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA';
+        $tasikmalaya = [108.217451, -7.323059];
+        switch ($s) {
+            case 'marker':
+                return view('demo.mapbox.marker', compact('token','tasikmalaya'));
+                break;
+          
+            case 'animasi':
+                return view('demo.mapbox.animasi', compact('token','tasikmalaya'));
+                break;
+            
+            case 'tanda':
+                return view('demo.mapbox.tanda', compact('token','tasikmalaya'));
+                break;
+            
+            case 'search':
+                return view('demo.mapbox.search', compact('token','tasikmalaya'));
+                break;
+            
+            default:
+                return view('demo.mapbox.'.$s, compact('token','tasikmalaya'));
+                break;
+        }
+    }
 }
