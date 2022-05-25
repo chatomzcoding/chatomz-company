@@ -8,11 +8,11 @@
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
 <style>
 body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%; }
 </style>
 </head>
 <body>
-<style>
+    <style>
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
     .marker {
         display: block;
         border: none;

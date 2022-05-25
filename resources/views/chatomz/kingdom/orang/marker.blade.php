@@ -45,8 +45,10 @@
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
     
-        <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
-        <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+        {{-- <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script> --}}
+        {{-- <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' /> --}}
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     
         <script>
     
@@ -58,12 +60,20 @@
                 center: user_location,
                 zoom: 13
             });
+
+            // Add the control to the map.
+            map.addControl(
+                new MapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    mapboxgl: mapboxgl
+                })
+            );
             //  geocoder here
-            var geocoder = new MapboxGeocoder({
-                accessToken: mapboxgl.accessToken,
+            // var geocoder = new MapboxGeocoder({
+                // accessToken: mapboxgl.accessToken,
                 // limit results to Australia
                 //country: 'IN',
-            });
+            // });
     
             var marker ;
     
@@ -122,8 +132,8 @@
                 console.log('lng: ' + lngLat.lng + '<br />lat: ' + lngLat.lat);
             }
     
-            document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
-    
+            // document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+            
         </script>
     
     </x-slot>

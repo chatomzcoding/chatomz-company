@@ -84,6 +84,18 @@
                                 <li class="nav-item dropdown me-1">
                                     <a class="nav-link active dropdown-toggle dropend" href="#" data-bs-toggle="dropdown"
                                         aria-expanded="false">
+                                        <i class='bi bi-info-square bi-sub fs-4 text-gray-600'></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <h6 class="dropdown-header">Kingdom</h6>
+                                        </li>
+                                        <li class="ps-3"><a class="dropdown-item small" href="{{ url('orang?s=peta') }}">Peta Orang</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown me-1">
+                                    <a class="nav-link active dropdown-toggle dropend" href="#" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                         <i class='bi bi-plus-square bi-sub fs-4 text-gray-600'></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">

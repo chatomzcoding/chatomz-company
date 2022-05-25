@@ -397,7 +397,7 @@
                                      {{-- tab maps --}}
                                      <div class="tab-pane" id="tabmaps" role="tabpanel"
                                      aria-labelledby="maps-tab">
-                                         <section class="w-100">
+                                         <section>
                                             <div id="map"></div>
                                          </section>
                                      </div>
@@ -870,7 +870,7 @@
             const map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
-                center: [108.173121, -7.305376],
+                center: @json($maps),
                 zoom: 13
             });
         

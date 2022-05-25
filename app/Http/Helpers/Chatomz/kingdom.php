@@ -67,3 +67,10 @@ if (! function_exists('kingdom_tokenmap')) {
         return $token;
     }
 }
+if (! function_exists('kingdom_latlong')) {
+    function kingdom_latlong()
+    {
+        $latlong = [108.217451, -7.323059];
+        return $latlong;
+    }
+}

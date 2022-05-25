@@ -22,9 +22,38 @@ class OrangController extends Controller
      */
     public function index()
     {
-        Session::put('menu','orang');
-        $orang  = Orang::select('id','first_name','last_name','gender','home_address')->orderBy('first_name','ASC')->get();
-        return view('chatomz.kingdom.orang.index', compact('orang'));
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
+        switch ($s) {
+            case 'peta':
+                $orang  = Orang::where('nilai_lat','<>',NULL)->get();
+                $data = [];
+                foreach ($orang as $key) {
+                    $data[] = [
+                        'type' => 'Feature',
+                        'properties' => [
+                            'message' => 'Rumah Sakit',
+                            'iconSize' => [50, 50],
+                            'poto'  => asset('img/chatomz/orang/'.$key->photo),
+                            'description' =>
+                            '<strong>'.fullname($key).'</strong>
+                            <p>'.$key->home_address.'</p>
+                            <p><a href="'.url("orang/".Crypt::encryptString($key->id)).'" target="_blank">Detail</a></p>',
+                        ],
+                        'geometry' => [
+                            'type' => 'Point',
+                            'coordinates' => [$key->nilai_long, $key->nilai_lat]
+                        ]
+                    ];
+                }
+                
+                return view('chatomz.kingdom.orang.peta', compact('data'));
+                break;
+            
+            default:
+                $orang  = Orang::select('id','first_name','last_name','gender','home_address')->orderBy('first_name','ASC')->get();
+                return view('chatomz.kingdom.orang.index', compact('orang'));
+                break;
+        }
     }
 
     public function orangpoto()
