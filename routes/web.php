@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BackupdbController;
 use App\Http\Controllers\Bisnis\ProdukController;
 use App\Http\Controllers\Bisnis\UsahaController;
 use App\Http\Controllers\Bisnis\WadeController;
@@ -110,6 +111,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('kategori', KategoriController::class);
         Route::resource('subkategori', SubkategoriController::class);
         Route::get('statistik/orang',[StatistikController::class,'orang']);
+        Route::resource('backupdb', BackupdbController::class);
     
         
         // Company
