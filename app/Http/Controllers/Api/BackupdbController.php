@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Informasi;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Hewan;
-use App\Models\Informasi;
-use App\Models\Informasisub;
-use App\Models\Kategori;
+use App\Models\Backupdb;
 use Illuminate\Http\Request;
 
-class HewanController extends Controller
+class BackupdbController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +15,7 @@ class HewanController extends Controller
      */
     public function index()
     {
-        $kategori   = Kategori::where('nama_kategori','hewan')->first();
-        if ($kategori) {
-            return Informasi::where('kategori_id',$kategori->id)->orderBy('nama','ASC')->get();
-        } else {
-            return NULL;
-        }
+        //
     }
 
     /**
@@ -44,38 +36,37 @@ class HewanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Backupdb::create([
+            'aplikasi' => $request->aplikasi,
+            'nama' => $request->nama,
+            'tgl' => $request->tgl,
+            'data' => $request->data,
+        ]);
+
+        return response()->json([
+            'status' => TRUE,
+            'message' => 'backup berhasil'
+        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Hewan  $hewan
+     * @param  \App\Models\Backupdb  $backupdb
      * @return \Illuminate\Http\Response
      */
-    public function show($hewan)
+    public function show(Backupdb $backupdb)
     {
-        $hewan  = Informasi::find($hewan);
-        if ($hewan) {
-            $jenis  = Informasisub::where('informasi_id',$hewan->id)->get();
-            $data   = [
-                'hewan' => $hewan,
-                'jenis' => $jenis,
-            ];
-            return $data;
-        } else {
-            return response()->json('Hewan Tidak ada');
-        }
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Hewan  $hewan
+     * @param  \App\Models\Backupdb  $backupdb
      * @return \Illuminate\Http\Response
      */
-    public function edit(Hewan $hewan)
+    public function edit(Backupdb $backupdb)
     {
         //
     }
@@ -84,10 +75,10 @@ class HewanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Hewan  $hewan
+     * @param  \App\Models\Backupdb  $backupdb
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hewan $hewan)
+    public function update(Request $request, Backupdb $backupdb)
     {
         //
     }
@@ -95,10 +86,10 @@ class HewanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Hewan  $hewan
+     * @param  \App\Models\Backupdb  $backupdb
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hewan $hewan)
+    public function destroy(Backupdb $backupdb)
     {
         //
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BackupdbController;
 use App\Http\Controllers\Api\Bisnis\ProdukController;
 use App\Http\Controllers\Api\Bisnis\UsahaController;
 use App\Http\Controllers\Api\CikaraController;
@@ -41,3 +42,6 @@ Route::post('simpanmagang', [CikaraController::class,'simpanmagang']);
 
 // LAYANAN
 Route::get('silsilah/keluarga/{slug}', [SilsilahkeluargaController::class,'show']);
+
+// BACKUP
+Route::resource('backupdb', BackupdbController::class);
