@@ -108,6 +108,7 @@ class HomeController extends Controller
         $s = (isset($_GET['s'])) ? $_GET['s'] : NULL ;
         $film   = [];
         $informasi   = [];
+        $phone  = [];
         switch ($s) {
             case 'carinama':
                 $cari   = $_GET['nama'];
@@ -149,5 +150,34 @@ class HomeController extends Controller
             'phone' => $phone,
         ];
         return view('sistem.list', compact('data','judul'));
+    }
+
+    // kalendar
+    public function kalender()
+    {
+        // referensi
+        // "id" => "required-id-2",
+        // "name" => "Firman Day", 
+        // "date" => ["2022-05-10","2022-05-13"] | "2022-05-12"
+        // "type" => "event" | "holiday" | "birthday 
+        // "everyYear" => false,
+        // "description" =>"ini adalah hari yang spesial",
+        // "color" => "#222"
+
+        $data   = [];
+        $linimasa   = Linimasa::orderBy('tanggal','desc')->get();
+        foreach ($linimasa as $key) {
+            $data[] = [
+                "id" => $key->id,
+                "name" => $key->nama, 
+                "date" => $key->tanggal,
+                "type" => "event", 
+                "everyYear" => false,
+                "description" => $key->keterangan,
+                // "color" => "#222"
+            ];
+        }
+        
+        return view('chatomz.sistem.calendar', compact('data'));
     }
 }

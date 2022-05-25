@@ -120,6 +120,7 @@
                                     </li>
                                     @if ($user->level == 'admin')
                                         <li><a class="dropdown-item" href="{{ url('orang/'.Crypt::encryptString($profil->id)) }}"><i class="icon-mid bi bi-person me-2"></i> Profil</a></li>
+                                        <li><a class="dropdown-item" href="{{ url('kalender') }}"><i class="icon-mid bi bi-calendar me-2"></i> Kalender</a></li>
                                     @endif
                                     <li><a class="dropdown-item" href="{{ url('user/'.Crypt::encryptString($user->id).'/edit') }}"><i class="icon-mid bi bi-gear me-2"></i>
                                             Pengaturan Akun</a></li>

@@ -62,6 +62,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // DEMO
     Route::get('/demo/grab', [DemoController::class,'grab']);
     Route::get('/demo/backupdb', [DemoController::class,'backupdb']);
+    Route::get('/demo/calendar', [DemoController::class,'calendar']);
 
     // migrasi
     Route::get('/migrasi', [MigrasiController::class,'index']);
@@ -73,6 +74,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::middleware(['admin'])->group(function () {
         // GENERAL
         Route::get('pencarian', [HomeController::class, 'cari']);
+        Route::get('kalender', [HomeController::class, 'kalender']);
 
         Route::get('unsil',[UnsilController::class, 'index']);
         Route::post('simpanmahasiswa',[UnsilController::class, 'simpan']);

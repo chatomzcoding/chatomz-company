@@ -106,4 +106,9 @@ class DemoController extends Controller
         curl_close($curl);
         echo $response;
     }
+
+    public function calendar()
+    {
+        return view('demo.calendar');
+    }
 }
