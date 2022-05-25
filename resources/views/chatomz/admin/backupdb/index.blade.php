@@ -32,7 +32,7 @@
                                          <td>{{ date_indo($item->tgl) }}</td>
                                          <td>{{ $item->aplikasi }}</td>
                                          <td>{{ $item->nama }}</td>
-                                         <td><a href="{{ url('backupdb/'.$item->id) }}">LIHAT DATA</a></td>
+                                         <td><a href="{{ url('backupdb/'.$item->id) }}" target="_blank" class="btn btn-info btn-sm">LIHAT DATA</a></td>
                                      </tr>
                                  @endforeach
                              </tbody>
