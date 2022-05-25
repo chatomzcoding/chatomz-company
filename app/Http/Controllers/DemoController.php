@@ -87,22 +87,22 @@ class DemoController extends Controller
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://sistem.zelnara.com/api/backupdb',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => 'aplikasi='.$namaplikasi.'&nama='.$nama.'&tgl='.$tgl.'&data='.$data,
-        CURLOPT_HTTPHEADER => array(
+          CURLOPT_URL => 'http://sistem.zelnara.com/api/backupdb',
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => 'aplikasi='.$namaplikasi.'&nama='.$nama.'&tgl='.$tgl.'&data='.$data,
+          CURLOPT_HTTPHEADER => array(
             'Content-Type: application/x-www-form-urlencoded'
-        ),
+          ),
         ));
-
+        
         $response = curl_exec($curl);
-
+        
         curl_close($curl);
         echo $response;
     }
