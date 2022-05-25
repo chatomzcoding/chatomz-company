@@ -60,6 +60,7 @@ Route::get('uji/hapus/{id}', 'App\Http\Controllers\ApiController@hapus');
 Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     // DEMO
     Route::get('/demo/grab', [DemoController::class,'grab']);
+    Route::get('/demo/backupdb', [DemoController::class,'backupdb']);
 
     // migrasi
     Route::get('/migrasi', [MigrasiController::class,'index']);
