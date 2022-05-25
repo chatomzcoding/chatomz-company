@@ -11,5 +11,5 @@ class Backupdb extends Model
 
     protected $table = 'backup_db';
 
-    protected $guarde= [];
+    protected $guarded = [];
 }
