@@ -28,16 +28,17 @@ class OrangController extends Controller
                 $orang  = Orang::where('nilai_lat','<>',NULL)->get();
                 $data = [];
                 foreach ($orang as $key) {
+                    $img    = asset('img/chatomz/orang/'.$key->photo);
                     $data[] = [
                         'type' => 'Feature',
                         'properties' => [
-                            'message' => 'Rumah Sakit',
+                            'message' => fullname($key),
                             'iconSize' => [50, 50],
                             'poto'  => asset('img/chatomz/orang/'.$key->photo),
                             'description' =>
-                            '<strong>'.fullname($key).'</strong>
-                            <p>'.$key->home_address.'</p>
-                            <p><a href="'.url("orang/".Crypt::encryptString($key->id)).'" target="_blank">Detail</a></p>',
+                            '<img src="'.$img.'" width="100%"><strong>'.fullname($key).'</strong>
+                            <p>'.$key->home_address.'</p>',
+                            'icon' => 'music-15'
                         ],
                         'geometry' => [
                             'type' => 'Point',
@@ -45,6 +46,9 @@ class OrangController extends Controller
                         ]
                     ];
                 }
+                $data   = [
+                    'features' => $data
+                ];
                 
                 return view('chatomz.kingdom.orang.peta', compact('data'));
                 break;

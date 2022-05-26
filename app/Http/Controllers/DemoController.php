@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Chatomzbot;
+use App\Models\Orang;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -116,26 +117,31 @@ class DemoController extends Controller
     {
         $token  = 'pk.eyJ1IjoiZmFraHJhd3kiLCJhIjoiY2pscWs4OTNrMmd5ZTNra21iZmRvdTFkOCJ9.15TZ2NtGk_AtUvLd27-8xA';
         $tasikmalaya = [108.217451, -7.323059];
-        switch ($s) {
-            case 'marker':
-                return view('demo.mapbox.marker', compact('token','tasikmalaya'));
-                break;
-          
-            case 'animasi':
-                return view('demo.mapbox.animasi', compact('token','tasikmalaya'));
-                break;
-            
-            case 'tanda':
-                return view('demo.mapbox.tanda', compact('token','tasikmalaya'));
-                break;
-            
-            case 'search':
-                return view('demo.mapbox.search', compact('token','tasikmalaya'));
-                break;
-            
-            default:
-                return view('demo.mapbox.'.$s, compact('token','tasikmalaya'));
-                break;
+        $orang  = Orang::where('nilai_lat','<>',NULL)->get();
+        $data = [];
+        foreach ($orang as $key) {
+            $img    = asset('img/chatomz/orang/'.$key->photo);
+            $data[] = [
+                'type' => 'Feature',
+                'properties' => [
+                    'message' => fullname($key),
+                    'iconSize' => [50, 50],
+                    'poto'  => asset('img/chatomz/orang/'.$key->photo),
+                    'description' =>
+                    '<img src="'.$img.'" width="100%"><strong>'.fullname($key).'</strong>
+                    <p>'.$key->home_address.'</p>',
+                    'icon' => 'music-15'
+                ],
+                'geometry' => [
+                    'type' => 'Point',
+                    'coordinates' => [$key->nilai_long, $key->nilai_lat]
+                ]
+            ];
         }
+        $data   = [
+            'features' => $data
+        ];
+        // ini contoh untuk mendapatkan style
+        return view('demo.mapbox.'.$s, compact('token','tasikmalaya','data'));
     }
 }
