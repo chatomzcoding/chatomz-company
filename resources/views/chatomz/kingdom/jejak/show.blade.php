@@ -12,7 +12,6 @@
                         <x-sistem.kembali url="jejak"></x-sistem.kembali>
                         <x-sistem.tambah id="tambahpoto"></x-sistem.tambah>
                         <a href="#" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#ubahdata"><i class="bi-pencil"></i></a>
-                        <a href="{{ url('jejak/kategori/'.$jejak->kategori) }}" class="btn btn-info btn-sm float-end">Kategori : {{ $jejak->kategori }}</a>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -99,7 +98,7 @@
             <section class="p-3">
                 <div class="form-group">
                     <label for="">Nama </label>
-                    <select class="select2bs4 select2bs4" data-height="100%" data-width="100%" name="orang_id" required>
+                    <select class="select2bs4" data-height="100%" data-width="100%" name="orang_id" required>
                         @foreach ($orang as $item)
                             <option value="{{ $item->id}}">{{ fullname($item)}}</option>
                         @endforeach
@@ -123,13 +122,13 @@
         <x-modalsimpan judul="Tambah Poto" link="jejakpoto" id="tambahpoto">
             <input type="hidden" name="jejak_id" value="{{ $jejak->id }}">
             <section class="p-3">
-                <div class="form-group row">
-                     <label for="" class="col-md-4">Upload Poto</label>
-                     <input type="file" name="poto" id="poto" class="form-control col-md-8">
+                <div class="form-group">
+                     <label for="">Upload Poto</label>
+                     <input type="file" name="poto" id="poto" class="form-control">
                 </div>
-                <div class="form-group row">
-                     <label for="" class="col-md-4">Keterangan Photo (opsional)</label>
-                     <input type="text" name="ket_poto" id="ket_poto" class="form-control col-md-8">
+                <div class="form-group">
+                     <label for="">Keterangan Photo (opsional)</label>
+                     <input type="text" name="ket_poto" id="ket_poto" class="form-control">
                 </div>
              </section>
         </x-modalsimpan>
@@ -137,17 +136,17 @@
         <x-modalubah judul="edit jejak" link="jejak" id="ubahdata">
             <input type="hidden" name="id" value="{{ $jejak->id }}">
             <section class="p-3">
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Nama Jejak</label>
-                    <input type="text" name="nama_jejak" id="nama_jejak" class="form-control col-md-8"  value="{{ $jejak->nama_jejak }}" required>
+                <div class="form-group">
+                    <label for="">Nama Jejak</label>
+                    <input type="text" name="nama_jejak" id="nama_jejak" class="form-control"  value="{{ $jejak->nama_jejak }}" required>
                </div>
-               <div class="form-group row">
-                    <label for="" class="col-md-4">Tanggal Jejak</label>
-                    <input type="date" name="tanggal" id="tanggal" class="form-control col-md-8"  value="{{ $jejak->tanggal }}">
+               <div class="form-group">
+                    <label for="">Tanggal Jejak</label>
+                    <input type="date" name="tanggal" id="tanggal" class="form-control"  value="{{ $jejak->tanggal }}">
                </div>
-               <div class="form-group row">
-                <label for="" class="col-md-4">Tempat/Lokasi</label>
-                <select name="tempat_id" class="form-control col-md-8" required>
+               <div class="form-group">
+                <label for="">Tempat/Lokasi</label>
+                <select name="tempat_id" class="form-control select2bs4" required>
                     @foreach ($tempat as $item)
                         <option value="{{ $item->id}}" @if ($item->id == $jejak->tempat_id)
                             selected
@@ -155,17 +154,17 @@
                     @endforeach
                 </select>
                 </div>
-               <div class="form-group row">
-                    <label for="" class="col-md-4">Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi" class="form-control col-md-8"  value="{{ $jejak->lokasi }}" required>
+               <div class="form-group">
+                    <label for="">Lokasi</label>
+                    <input type="text" name="lokasi" id="lokasi" class="form-control"  value="{{ $jejak->lokasi }}" required>
                </div>
-               <div class="form-group row">
-                   <label for="" class="col-md-4">Keterangan</label>
-                   <textarea name="keterangan_jejak" id="keterangan_jejak" cols="30" rows="4" class="form-control col-md-8" required>{{ $jejak->keterangan_jejak }}</textarea>
+               <div class="form-group">
+                   <label for="">Keterangan</label>
+                   <textarea name="keterangan_jejak" id="keterangan_jejak" cols="30" rows="4" class="form-control" required>{{ $jejak->keterangan_jejak }}</textarea>
                 </div>
-                <div class="form-group row">
-                     <label for="" class="col-md-4">Gambar</label>
-                     <input type="file" name="gambar_jejak" class="form-control col-md-8">
+                <div class="form-group">
+                     <label for="">Gambar</label>
+                     <input type="file" name="gambar_jejak" class="form-control">
                 </div>
             </section>
         </x-modalubah>

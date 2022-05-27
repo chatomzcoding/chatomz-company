@@ -1,4 +1,4 @@
-<x-mazer-layout title="CHATOMZ - Daftar Jejak" datatables="TRUE">
+<x-mazer-layout title="CHATOMZ - Daftar Jejak" datatables="TRUE" select="TRUE">
     <x-slot name="content">
         <div class="page-heading">
             <x-header head="Data Jejak Kehidupan" active="Daftar Jejak">
@@ -16,10 +16,10 @@
                                     <thead class="text-center">
                                         <tr>
                                             <th width="5%">No</th>
-                                            <th width="15%">Aksi</th>
+                                            <th width="10%">Aksi</th>
                                             <th>Tanggal</th>
                                             <th>Nama Jejak</th>
-                                            <th>kategori</th>
+                                            <th>Lokasi/Tempat</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-capitalize">
@@ -28,15 +28,19 @@
                                                 <td class="text-center">{{ $loop->iteration}}</td>
                                                 <td class="text-center">
                                                     <x-aksi :id="$item->id" link="jejak">
-                                                        <a href="{{ url('jejak/'.Crypt::encryptString($item->id)) }}"  class="dropdown-item"><i class="fas fa-file"></i> LIHAT</a>
-                                                        <button type="button" data-bs-toggle="modal"  data-nama_jejak="{{ $item->nama_jejak }}"  data-tanggal="{{ $item->tanggal }}"  data-nilai_lat="{{ $item->nilai_lat }}" data-nilai_long="{{ $item->nilai_long }}" data-keterangan_jejak="{{ $item->keterangan_jejak }}" data-kategori="{{ $item->kategori }}" data-lokasi="{{ $item->lokasi }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" data-original-title="Edit Task" class="dropdown-item">
+                                                        <a href="{{ url('jejak/'.Crypt::encryptString($item->id)) }}"  class="dropdown-item text-primary"><i class="fas fa-file"></i> LIHAT</a>
+                                                        <button type="button" data-bs-toggle="modal"  data-nama_jejak="{{ $item->nama_jejak }}"  data-tanggal="{{ $item->tanggal }}"  data-nilai_lat="{{ $item->nilai_lat }}" data-nilai_long="{{ $item->nilai_long }}" data-keterangan_jejak="{{ $item->keterangan_jejak }}" data-kategori="{{ $item->kategori }}" data-lokasi="{{ $item->lokasi }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" data-original-title="Edit Task" class="dropdown-item text-success">
                                                             <i class="fa fa-edit"></i> EDIT
                                                         </button>
                                                     </x-aksi>
                                                 </td>
                                                 <td>{{ date_indo($item->tanggal,'-')}}</td>
                                                 <td>{{ $item->nama_jejak}}</td>
-                                                <td>{{ $item->kategori}}</td>
+                                                <td>
+                                                    @isset($item->tempat)
+                                                        {{ $item->tempat->nama}}
+                                                    @endisset
+                                                </td>
                                             </tr>
                                         @empty
                                             <tr class="text-center">
@@ -53,66 +57,66 @@
         </div>
         <x-modalsimpan judul="Tambah Jejak" link="jejak">
             <section class="p-3">
-                <div class="form-group row">
-                     <label for="" class="col-md-4">Nama Jejak</label>
-                     <input type="text" name="nama_jejak" id="nama_jejak" class="form-control col-md-8" value="{{ old('nama_jejak') }}" required>
+                <div class="form-group">
+                     <label for="">Nama Jejak</label>
+                     <input type="text" name="nama_jejak" id="nama_jejak" class="form-control" value="{{ old('nama_jejak') }}" required>
                 </div>
-                <div class="form-group row">
-                     <label for="" class="col-md-4">Tanggal Jejak</label>
-                     <input type="date" name="tanggal" id="tanggal" class="form-control col-md-8" value="{{ old('tanggal') }}">
+                <div class="form-group">
+                     <label for="">Tanggal Jejak</label>
+                     <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ old('tanggal') }}">
                 </div>
-                <div class="form-group row">
-                 <label for="" class="col-md-4">Tempat</label>
-                 <select name="tempat_id" id="tempat_id" class="form-control col-md-8" required>
+                <div class="form-group">
+                 <label for="">Tempat</label>
+                 <select name="tempat_id" id="tempat_id" class="form-control select2bs4" required>
                     @foreach ($tempat as $item)
                         <option value="{{ $item->id}}">{{ strtoupper($item->nama)}}</option>
                     @endforeach
                 </select>
                  </div>
-                <div class="form-group row">
-                     <label for="" class="col-md-4">Lokasi</label>
-                     <input type="text" name="lokasi" id="lokasi" class="form-control col-md-8" value="{{ old('lokasi') }}" required>
+                <div class="form-group">
+                     <label for="">Lokasi</label>
+                     <input type="text" name="lokasi" id="lokasi" class="form-control" value="{{ old('lokasi') }}" required>
                 </div>
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Keterangan</label>
-                    <textarea name="keterangan_jejak" id="keterangan_jejak" cols="30" rows="4" class="form-control col-md-8" required>{{ old('keterangan_jejak') }}</textarea>
+                <div class="form-group">
+                    <label for="">Keterangan</label>
+                    <textarea name="keterangan_jejak" id="keterangan_jejak" cols="30" rows="4" class="form-control" required>{{ old('keterangan_jejak') }}</textarea>
                  </div>
-                 <div class="form-group row">
-                      <label for="" class="col-md-4">Gambar</label>
-                      <input type="file" name="gambar_jejak" id="nilai_long" class="form-control col-md-8">
+                 <div class="form-group">
+                      <label for="">Gambar</label>
+                      <input type="file" name="gambar_jejak" id="nilai_long" class="form-control">
                  </div>
              </section>
         </x-modalsimpan>
 
         <x-modalubah judul="Edit Jejak" link="jejak">
             <section class="p-3">
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Nama Jejak</label>
-                    <input type="text" name="nama_jejak" id="nama_jejak" class="form-control col-md-8" required>
+                <div class="form-group">
+                    <label for="">Nama Jejak</label>
+                    <input type="text" name="nama_jejak" id="nama_jejak" class="form-control" required>
                </div>
-               <div class="form-group row">
-                    <label for="" class="col-md-4">Tanggal Jejak</label>
-                    <input type="date" name="tanggal" id="tanggal" class="form-control col-md-8">
+               <div class="form-group">
+                    <label for="">Tanggal Jejak</label>
+                    <input type="date" name="tanggal" id="tanggal" class="form-control">
                </div>
-               <div class="form-group row">
-                <label for="" class="col-md-4">Tempat</label>
-                <select name="tempat_id" id="tempat_id" class="form-control col-md-8" required>
+               <div class="form-group">
+                <label for="">Tempat</label>
+                <select name="tempat_id" id="tempat_id" class="form-control" required>
                     @foreach ($tempat as $item)
                         <option value="{{ $item->id}}">{{ strtoupper($item->nama)}}</option>
                     @endforeach
                 </select>
                 </div>
-               <div class="form-group row">
-                    <label for="" class="col-md-4">Lokasi</label>
-                    <input type="text" name="lokasi" id="lokasi" class="form-control col-md-8" required>
+               <div class="form-group">
+                    <label for="">Lokasi</label>
+                    <input type="text" name="lokasi" id="lokasi" class="form-control" required>
                </div>
-               <div class="form-group row">
-                   <label for="" class="col-md-4">Keterangan</label>
-                   <textarea name="keterangan_jejak" id="keterangan_jejak" cols="30" rows="4" class="form-control col-md-8" required></textarea>
+               <div class="form-group">
+                   <label for="">Keterangan</label>
+                   <textarea name="keterangan_jejak" id="keterangan_jejak" cols="30" rows="4" class="form-control" required></textarea>
                 </div>
-                <div class="form-group row">
-                     <label for="" class="col-md-4">Gambar</label>
-                     <input type="file" name="gambar_jejak" class="form-control col-md-8">
+                <div class="form-group">
+                     <label for="">Gambar</label>
+                     <input type="file" name="gambar_jejak" class="form-control">
                 </div>
             </section>
         </x-modalubah>
