@@ -20,7 +20,13 @@
                                     </form>
                                 <div class="card">
                                     <div class="card-content position-relative">
-                                        <a href="{{ url('/tempat/'.$item->id)}}"><img src="{{ url('public/img/company/tempat/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                                        <a href="{{ url('/tempat/'.$item->id)}}">
+                                            @if (is_null($item->gambar))
+                                                <img src="{{ url('public/img/tempat.png')}}" alt="user-avatar"   class="card-img-top img-fluid">
+                                            @else
+                                                <img src="{{ url('public/img/company/tempat/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid">
+                                            @endif
+                                        </a> <br>
                                         <section class="text-center py-2 small">
                                             {{ ucwords($item->nama)}} <br>
                                             <span class="text-muted fst-italic">

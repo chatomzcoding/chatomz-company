@@ -67,7 +67,7 @@ class TempatController extends Controller
      */
     public function store(Request $request)
     {
-        $gambar     = 'tempat.png';
+        $gambar     = NULL;
         if (isset($request->gambar)) {
             $request->validate([
                 'gambar' => 'required|file|image|mimes:jpeg,png,jpg|max:2000',
@@ -156,9 +156,7 @@ class TempatController extends Controller
     public function destroy(Tempat $tempat)
     {
         $lokasi     = 'public/img/company/tempat';
-        if ($tempat->gambar <> 'tempat.png') {
-            deletefile($lokasi.'/'.$tempat->gambar);
-        }
+        deletefile($lokasi.'/'.$tempat->gambar);
         $tempat->delete();
 
         return back()->with('dd','Tempat');
