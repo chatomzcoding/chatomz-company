@@ -56,10 +56,6 @@ class Menu extends Component
                         'title' => 'Bot',
                         'link' => 'chatomzbot',
                     ],
-                    // [
-                    //     'title' => 'Grab',
-                    //     'link' => 'demo/grab',
-                    // ],
                     [
                         'title' => 'Unsil',
                         'link' => 'unsil',
@@ -67,6 +63,10 @@ class Menu extends Component
                     [
                         'title' => 'Informasi',
                         'link' => 'informasi',
+                    ],
+                    [
+                        'title' => 'Tempat',
+                        'link' => 'tempat',
                     ]
                 ]
             ],

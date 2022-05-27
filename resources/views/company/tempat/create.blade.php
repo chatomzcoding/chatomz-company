@@ -1,4 +1,4 @@
-<x-singel-layout title="Chatomz - Tambah Marker" back="orang/{{ Crypt::encryptString($orang->id) }}">
+<x-mazer-layout title="TEMPAT" alert="TRUE">
     <x-slot name="head">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <style>
@@ -10,36 +10,69 @@
         </style>
     </x-slot>
     <x-slot name="content">
-        <div class="card mt-3">
-            <div class="card-header">
-                <h4 class="card-title"><i class="bi bi-plus-circle-fill"></i> Tambah Marker</h4>
-            </div>
-            <div class="card-body">
+        <div class="page-heading">
+            <x-header head="Data Informasi Tempat" active="Tambahkan Tempat"></x-header>
+            <div class="content">
                 <div class="row">
-                    <div class="col-md-4">
-                        <form method="post" action="{{ url('/orang')}}">
-                          @csrf
-                          <input type="hidden" name="s" value="marker">
-                          <input type="hidden" name="id" value="{{ $orang->id }}">
-                          <div class="form-group">
-                              <label for="lat">lat</label>
-                              <input type="text" id="lat" name="nilai_lat" class="form-control" placeholder="Your lat..">
-                          </div>
-                          <div class="form-group">
-                              <label for="lng">lng</label>
-                              <input type="text" id="lng" name="nilai_long" class="form-control" placeholder="Your lng..">
-                          </div>
-                          <div class="form-group">
-                              <input type="submit" class="btn btn-primary btn-sm" value="Submit" >
-                          </div>
-                      </form>
+                    <div class="col-md-12">
+                        <header class="bg-white mb-2 p-2 rounded">
+                            <x-sistem.kembali url="tempat"></x-sistem.kembali>
+                        </header>
                     </div>
-                    <div class="col-md-8">
-                        <div id="map"></div>
+                    <div class="col-md-12 mt-3">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <form method="post" action="{{ url('/tempat')}}" enctype="multipart/form-data">
+                                  @csrf
+                                  <div class="form-group">
+                                      <label for="">Kategori</label>
+                                      <select name="kategori_id" id="" class="form-control">
+                                            @foreach ($kategori as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                                            @endforeach  
+                                      </select>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="">Nama Tempat</label>
+                                      <input type="text" name="nama" class="form-control" placeholder="Nama Tempat" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="">Alamat</label>
+                                      <input type="text" name="alamat" class="form-control" placeholder="lokasi tempat">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="">Kota/Kabupaten</label>
+                                      <input type="text" name="kota" class="form-control" placeholder="kota/kabupaten" required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="">keterangan</label>
+                                      <input type="text" name="keterangan" class="form-control" placeholder="keterangan">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="">Gambar</label>
+                                      <input type="file" name="gambar" class="form-control">
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="lat">lat</label>
+                                      <input type="text" id="lat" name="nilai_lat" class="form-control" placeholder="Your lat.." required>
+                                  </div>
+                                  <div class="form-group">
+                                      <label for="lng">lng</label>
+                                      <input type="text" id="lng" name="nilai_long" class="form-control" placeholder="Your lng.." required>
+                                  </div>
+                                  <div class="form-group">
+                                    <button class="btn btn-primary btn-sm" ><i class="bi-save"></i> SIMPAN</button>
+                                  </div>
+                              </form>
+                            </div>
+                            <div class="col-md-8">
+                                <div id="map"></div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                  </div>
             </div>
-          </div>
+        </div>
     </x-slot>
     <x-slot name="kodejs">
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
@@ -48,8 +81,8 @@
         <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
     
         <script>
-            var user_location = @json($tasikmalaya);
-            mapboxgl.accessToken = "{{ $token }}";
+            var user_location = @json(kingdom_latlong());
+            mapboxgl.accessToken = "{{ kingdom_tokenmap() }}";
             var map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v9',
@@ -133,4 +166,4 @@
         </script>
     
     </x-slot>
-</x-singel-layout>
+</x-mazer-layout>

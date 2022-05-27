@@ -19,6 +19,7 @@ use App\Http\Controllers\Chatomz\OrangController;
 use App\Http\Controllers\Chatomz\PendidikanController;
 use App\Http\Controllers\Company\InformasiController;
 use App\Http\Controllers\Company\InformasisubController;
+use App\Http\Controllers\Company\TempatController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Homepage\LandingController;
@@ -121,7 +122,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         // informasi
         Route::resource('informasi', InformasiController::class);
         Route::resource('informasisub', InformasisubController::class);
-        Route::resource('merk', 'App\Http\Controllers\Company\MerkController');
+        Route::resource('tempat', TempatController::class);
         
         // BISNIS
         Route::resource('produk', ProdukController::class);

@@ -62,12 +62,12 @@
                      <input type="date" name="tanggal" id="tanggal" class="form-control col-md-8" value="{{ old('tanggal') }}">
                 </div>
                 <div class="form-group row">
-                 <label for="" class="col-md-4">Kategori</label>
-                 <select name="kategori" id="kategori" class="form-control col-md-8" required>
-                     @foreach ($kategori as $item)
-                         <option value="{{ $item->nama_kategori}}">{{ strtoupper($item->nama_kategori)}}</option>
-                     @endforeach
-                 </select>
+                 <label for="" class="col-md-4">Tempat</label>
+                 <select name="tempat_id" id="tempat_id" class="form-control col-md-8" required>
+                    @foreach ($tempat as $item)
+                        <option value="{{ $item->id}}">{{ strtoupper($item->nama)}}</option>
+                    @endforeach
+                </select>
                  </div>
                 <div class="form-group row">
                      <label for="" class="col-md-4">Lokasi</label>
@@ -95,10 +95,10 @@
                     <input type="date" name="tanggal" id="tanggal" class="form-control col-md-8">
                </div>
                <div class="form-group row">
-                <label for="" class="col-md-4">Kategori</label>
-                <select name="kategori" id="kategori" class="form-control col-md-8" required>
-                    @foreach ($kategori as $item)
-                        <option value="{{ $item->nama_kategori}}">{{ strtoupper($item->nama_kategori)}}</option>
+                <label for="" class="col-md-4">Tempat</label>
+                <select name="tempat_id" id="tempat_id" class="form-control col-md-8" required>
+                    @foreach ($tempat as $item)
+                        <option value="{{ $item->id}}">{{ strtoupper($item->nama)}}</option>
                     @endforeach
                 </select>
                 </div>

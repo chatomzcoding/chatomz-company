@@ -9,9 +9,9 @@
                 <div class="col-md-12">
                     <div class="card">
                     <div class="card-header">
-                        <a href="{{ url('jejak') }}" class="btn btn-outline-secondary btn-sm"><i class="fas fa-angle-left"></i> Kembali </a>
-                        <a href="#" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahpoto"><i class="fas fa-plus"></i> Tambah Photo lainnya </a>
-                        <a href="#" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#ubahdata"><i class="fas fa-pen"></i> Ubah Data </a>
+                        <x-sistem.kembali url="jejak"></x-sistem.kembali>
+                        <x-sistem.tambah id="tambahpoto"></x-sistem.tambah>
+                        <a href="#" class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#ubahdata"><i class="bi-pencil"></i></a>
                         <a href="{{ url('jejak/kategori/'.$jejak->kategori) }}" class="btn btn-info btn-sm float-end">Kategori : {{ $jejak->kategori }}</a>
                     </div>
                     <div class="card-body">
@@ -28,6 +28,9 @@
                                     <span>{{ date_indo($jejak->tanggal,'-') }}</span>
                                 </div>
                                 <p class="font-italic">"{{ $jejak->keterangan_jejak }}"</p>
+                                @isset($jejak->tempat)
+                                    Lokasi : {{ $jejak->tempat->nama }}
+                                @endisset
                             </div>
                             <div class="col-md-12">
                                 <hr>
@@ -143,12 +146,12 @@
                     <input type="date" name="tanggal" id="tanggal" class="form-control col-md-8"  value="{{ $jejak->tanggal }}">
                </div>
                <div class="form-group row">
-                <label for="" class="col-md-4">Kategori</label>
-                <select name="kategori" class="form-control col-md-8" required>
-                    @foreach ($kategori as $item)
-                        <option value="{{ $item->nama_kategori}}" @if ($item->nama_kategori == $jejak->kategori)
+                <label for="" class="col-md-4">Tempat/Lokasi</label>
+                <select name="tempat_id" class="form-control col-md-8" required>
+                    @foreach ($tempat as $item)
+                        <option value="{{ $item->id}}" @if ($item->id == $jejak->tempat_id)
                             selected
-                        @endif>{{ strtoupper($item->nama_kategori)}}</option>
+                        @endif>{{ strtoupper($item->nama)}}</option>
                     @endforeach
                 </select>
                 </div>

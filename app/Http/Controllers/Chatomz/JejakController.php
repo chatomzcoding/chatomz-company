@@ -8,6 +8,7 @@ use App\Models\Jejakorang;
 use App\Models\Jejakpoto;
 use App\Models\Kategori;
 use App\Models\Orang;
+use App\Models\Tempat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -26,8 +27,8 @@ class JejakController extends Controller
     public function index()
     {
         $jejak      = Jejak::orderby('tanggal','desc')->get();
-        $kategori   = Kategori::where('label','jejak')->orderBy('nama_kategori','ASC')->get();
-        return view($this->view.'index', compact('jejak','kategori'));
+        $tempat         = Tempat::all();
+        return view($this->view.'index', compact('jejak','tempat'));
     }
 
     /**
@@ -37,7 +38,7 @@ class JejakController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -66,11 +67,11 @@ class JejakController extends Controller
             $nama_file = NULL;
         }
         Jejak::create([
+            'tempat_id' => $request->tempat_id,
             'nama_jejak'  => $request->nama_jejak,
             'tanggal'  => $request->tanggal,
             'keterangan_jejak' => $request->keterangan_jejak,
             'lokasi' => $request->lokasi,
-            'kategori' => $request->kategori,
             'gambar_jejak' => $nama_file,
         ]);
         $jejak = Jejak::latest()->first();
@@ -94,9 +95,9 @@ class JejakController extends Controller
                             ->where('jejak_orang.jejak_id',$jejak->id)
                             ->orderBy('orang.first_name','ASC')
                             ->get();
-        $kategori   = Kategori::all();
+        $tempat         = Tempat::all();
         $jejakpoto  = Jejakpoto::where('jejak_id',$jejak->id)->get();
-        return view($this->view.'show', compact('jejak','orang','jejakorang','kategori','jejakpoto'));
+        return view($this->view.'show', compact('jejak','orang','jejakorang','tempat','jejakpoto'));
     }
 
     public function simpanmaps(Request $request)
@@ -154,7 +155,7 @@ class JejakController extends Controller
             'tanggal'  => $request->tanggal,
             'keterangan_jejak' => $request->keterangan_jejak,
             'lokasi' => $request->lokasi,
-            'kategori' => $request->kategori,
+            'tempat_id' => $request->tempat_id,
             'gambar_jejak' => $nama_file,
         ]);
         return redirect()->back()->with('du','Jejak');

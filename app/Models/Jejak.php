@@ -7,8 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Jejak extends Model
 {
+    use HasFactory;
+
     protected $table = 'jejak';
 
     protected $guarded = [];
-    use HasFactory;
+
+    public function tempat()
+    {
+        return $this->belongsTo(Tempat::class);
+    }
 }

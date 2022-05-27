@@ -178,6 +178,7 @@
                             .setHTML(
                                 `${mag}`
                             )
+                          
                             .addTo(map);
                     });
         

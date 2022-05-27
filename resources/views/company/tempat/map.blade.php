@@ -1,4 +1,4 @@
-<x-mazer-layout title="CHATOMZ - Peta Orang">
+<x-mazer-layout title="TEMPAT" alert="TRUE">
     <x-slot name="head">
         <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
         <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
@@ -16,26 +16,23 @@
     </x-slot>
     <x-slot name="content">
         <div class="page-heading">
-            <x-header head="Data Peta Orang" p="Daftar list orang - orang" active="Peta"></x-header>
-            <section class="section">
+            <x-header head="Data Informasi Tempat" active="Daftar Tempat"></x-header>
+            <div class="content">
                 <div class="row">
-                  <div class="col-md-12">
-                    <div class="card">
-                      <div class="card-header">
-                        <x-sistem.kembali url="orang"></x-sistem.kembali>
-                      </div>
-                      <div class="card-body">
-                        <div id="map"></div>
-                      </div>
+                    <div class="col-md-12">
+                        <header class="bg-white mb-2 p-2 rounded">
+                            <x-sistem.kembali url="tempat"></x-sistem.kembali>
+                        </header>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                       <div id="map"></div>
                     </div>
                   </div>
-                </div>
-            </section>
+            </div>
         </div>
     </x-slot>
-
     <x-slot name="kodejs">
-        
+               
 <script>
 	mapboxgl.accessToken = "{{ kingdom_tokenmap() }}";
  
@@ -54,14 +51,10 @@
     // Add markers to the map.
     for (const marker of geojson.features) {
         const el = document.createElement('div');
-        const width = marker.properties.iconSize[0];
-        const height = marker.properties.iconSize[1];
         const poto = marker.properties.poto;
+        const nama = marker.properties.message;
         el.className = 'marker';
-        el.style.backgroundImage = `url(${poto})`;
-        el.style.width = `${width}px`;
-        el.style.height = `${height}px`;
-        el.style.backgroundSize = '100%';
+        el.innerHTML = "<section class='text-center'><img src='"+ poto + "' width='50px' height='50px'><br><strong>"+ nama +"</strong></section>";
 
         // el.addEventListener('click', () => {
         //     window.alert(marker.properties.message);
@@ -75,7 +68,5 @@
             .addTo(map);
     }
 </script>
-
     </x-slot>
-
 </x-mazer-layout>
