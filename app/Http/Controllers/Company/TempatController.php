@@ -55,7 +55,7 @@ class TempatController extends Controller
      */
     public function create()
     {
-        $kategori   = Kategori::where('label','tempat')->get();
+        $kategori   = Kategori::where('label','tempat')->orderBy('nama_kategori','ASC')->get();
         return view('company.tempat.create', compact('kategori'));
     }
 

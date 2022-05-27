@@ -28,25 +28,25 @@
                                       <label for="">Kategori</label>
                                       <select name="kategori_id" id="" class="form-control">
                                             @foreach ($kategori as $item)
-                                            <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                                            <option value="{{ $item->id }}">{{ ucwords($item->nama_kategori) }}</option>
                                             @endforeach  
                                       </select>
                                   </div>
                                   <div class="form-group">
                                       <label for="">Nama Tempat</label>
-                                      <input type="text" name="nama" class="form-control" placeholder="Nama Tempat" required>
+                                      <input type="text" name="nama" class="form-control" value="{{ old('nama') }}" placeholder="Nama Tempat" required>
                                   </div>
                                   <div class="form-group">
                                       <label for="">Alamat</label>
-                                      <input type="text" name="alamat" class="form-control" placeholder="lokasi tempat">
+                                      <input type="text" name="alamat" class="form-control" value="{{ old('alamat') }}" placeholder="lokasi tempat">
                                   </div>
                                   <div class="form-group">
                                       <label for="">Kota/Kabupaten</label>
-                                      <input type="text" name="kota" class="form-control" placeholder="kota/kabupaten" required>
+                                      <input type="text" name="kota" class="form-control" value="{{ old('kota') }}" placeholder="kota/kabupaten" required>
                                   </div>
                                   <div class="form-group">
                                       <label for="">keterangan</label>
-                                      <input type="text" name="keterangan" class="form-control" placeholder="keterangan">
+                                      <input type="text" name="keterangan" class="form-control" value="{{ old('keterangan') }}" placeholder="keterangan">
                                   </div>
                                   <div class="form-group">
                                       <label for="">Gambar</label>
