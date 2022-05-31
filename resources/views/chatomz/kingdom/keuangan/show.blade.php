@@ -12,7 +12,7 @@
                             <div class="card-body p-2">
                                 <x-sistem.tambah></x-sistem.tambah>
                                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#transfer"><i class="bi bi-arrow-left-right"></i></a>
-                                <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#editrekening"><i class="bi bi-pen"></i> Edit Dompet </a>
+                                <a href="#" class="btn btn-outline-success btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#editrekening"><i class="bi bi-pen"></i></a>
                               </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                                 <table class="table table-borderless">
                                     @foreach ($main['kategori'] as $item)
                                         <tr>
-                                            <th class="text-uppercase">{{ $item['kategori']->nama_kategori }}</th>
+                                            <th class="text-uppercase"><a href="{{ url('rekening/'.$rekening->id.'?s=kategori&id='.$item['kategori']->id) }}">{{ $item['kategori']->nama_kategori }}</a></th>
                                             <td>:</td>
                                             <td class="text-end">{{ norupiah($item['data']['jumlah']) }}</td>
                                         </tr>
@@ -58,7 +58,7 @@
                             <div class="card-body p-2">
                                 <form action="{{ url('rekening/'.$rekening->id) }}" method="get">
                                     <div class="row mb-2">
-                                        <div class="col-md-3">
+                                        <div class="col-4">
                                             <select name="bulan" id="" class="form-control" onchange="this.form.submit()">
                                                 <option value="semua" {{ Syselected('semua',$bulan) }}>SEMUA</option>
                                                 @for ($i = 1; $i <= 12; $i++)
@@ -66,10 +66,19 @@
                                                 @endfor
                                             </select>
                                         </div>
+                                        @if ($bulan <> 'semua')
+                                            <div class="col-4">
+                                                <select name="arus" id="" class="form-control" onchange="this.form.submit()">
+                                                    <option value="semua" {{ Syselected('semua',$arus) }}>SEMUA</option>
+                                                    <option value="pemasukan" {{ Syselected('pemasukan',$arus) }}>PEMASUKAN</option>
+                                                    <option value="pengeluaran" {{ Syselected('pengeluaran',$arus) }}>PENGELUARAN</option>
+                                                </select>
+                                            </div>
+                                        @endif
                                     </div>
                                 </form>
                                 <hr>
-                                    <table id="example1" class="table table-borderless">
+                                    <table id="example1" class="table">
                                         <thead>
                                             <tr>
                                                 <th width="5%" class="text-center">No</th>
@@ -100,6 +109,24 @@
                                                     <td colspan="6">tidak ada data</td>
                                                 </tr>
                                             @endforelse
+                                            @if ($arus <> 'pengeluaran')
+                                                <tr class="text-primary">
+                                                    <th colspan="3">Jumlah Pemasukan</th>
+                                                    <th class="text-end">{{ norupiah($main['sesi']['pemasukan']) }}</th>
+                                                </tr>
+                                            @endif
+                                            @if ($arus <> 'pemasukan')
+                                                <tr class="text-danger">
+                                                    <th colspan="3">Jumlah Pengeluaran</th>
+                                                    <th class="text-end">{{ norupiah($main['sesi']['pengeluaran']) }}</th>
+                                                </tr>
+                                            @endif
+                                            @if ($arus == 'semua')
+                                                <tr>
+                                                    <th colspan="3">Total Sisa</th>
+                                                    <th class="text-end">{{ norupiah($main['sesi']['hitung']) }}</th>
+                                                </tr>
+                                            @endif
                                     </table>
                             </div>
                         </div>

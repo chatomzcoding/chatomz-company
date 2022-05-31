@@ -129,15 +129,9 @@ class RekeningController extends Controller
     {
         $kategori   = Kategori::where('label','keuangan')->get();
         $saldoawal  = $rekening->saldo_awal;
-        $bulan = (isset($_GET['bulan'])) ? $_GET['bulan'] : 'semua' ;
-        $jurnaltotal = Jurnal::where('rekening_id',$rekening->id)->get(['nominal','arus']);
-        if ($bulan == 'semua') {
-            $jurnal = Jurnal::where('rekening_id',$rekening->id)->latest()->get();
-        } else {
-            $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereMonth('tanggal',$bulan)->whereYear('tanggal',ambil_tahun())->latest()->get();
-        }
-        
-        $perhitungan    = PerhitunganDompet($jurnal,$saldoawal);
+        $bulan = (isset($_GET['bulan'])) ? $_GET['bulan'] : ambil_bulan() ;
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'show' ;
+        $arus = (isset($_GET['arus'])) ? $_GET['arus'] : 'semua' ;
         // kategori
         $dkategori  = [];
         foreach ($kategori as $key) {
@@ -155,12 +149,50 @@ class RekeningController extends Controller
                 ];
             }
         }
-        $main   = [
-            'total' => PerhitunganDompet($jurnaltotal,$saldoawal),
-            'kategori' => $dkategori
-        ];
-        $rekenings  = Rekening::all();
-        return view('chatomz.kingdom.keuangan.show', compact('main','rekening','kategori','jurnal','bulan','perhitungan','rekenings'));
+      
+        switch ($s) {
+            case 'kategori':
+                $jurnal    = DB::table('jurnal')
+                ->join('sub_kategori','jurnal.subkategori_id','=','sub_kategori.id')
+                ->join('kategori','sub_kategori.kategori_id','=','kategori.id')
+                ->select('jurnal.*','sub_kategori.nama_sub')
+                ->where('jurnal.rekening_id',$rekening->id)
+                ->where('kategori.id',$_GET['id'])
+                ->get();
+
+                $main   = [
+                    'sesi' => PerhitunganDompet($jurnal),
+                    'kategori' => $dkategori,
+                ];
+                return view('chatomz.kingdom.keuangan.kategori', compact('rekening','main','jurnal'));
+                break;
+            
+            default:
+                # code...
+                    $jurnaltotal = Jurnal::where('rekening_id',$rekening->id)->get(['nominal','arus']);
+                    if ($bulan == 'semua') {
+                        $jurnal = Jurnal::where('rekening_id',$rekening->id)->latest()->get();
+                    } else {
+                        if ($arus == 'semua') {
+                            $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereMonth('tanggal',$bulan)->whereYear('tanggal',ambil_tahun())->latest()->get();
+                        } else {
+                            $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereMonth('tanggal',$bulan)->whereYear('tanggal',ambil_tahun())->where('arus',$arus)->latest()->get();
+                        }
+                        
+                    }
+                    
+                    $perhitungan    = PerhitunganDompet($jurnal,$saldoawal);
+
+                    $rekenings  = Rekening::all();
+                    $main   = [
+                        'total' => PerhitunganDompet($jurnaltotal,$saldoawal),
+                        'sesi' => PerhitunganDompet($jurnal),
+                        'kategori' => $dkategori,
+                    ];
+            
+                    return view('chatomz.kingdom.keuangan.show', compact('main','rekening','kategori','jurnal','bulan','perhitungan','rekenings','arus'));
+                break;
+        }
     }
 
     /**
