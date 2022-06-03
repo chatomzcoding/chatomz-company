@@ -34,6 +34,7 @@
                             <div class="card-body">
                                 <section class="mb-3">
                                     <x-sistem.tambah></x-sistem.tambah>
+                                    <x-sistem.tambah id="tambahitem">Item</x-sistem.tambah>
                                 </section>
                                 <p>Daftar Item Jurnal</p>
                                     <table id="example1" class="table">
@@ -43,7 +44,7 @@
                                                 <th width="10%" class="text-center">Aksi</th>
                                                 <th>Nama Item</th>
                                                 <th>Detail</th>
-                                                <th>Harga</th>
+                                                <th class="text-end">Harga</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-capitalize">
@@ -78,6 +79,30 @@
             </div>
         </div>
         {{-- MODAL --}}
+        <x-modalsimpan judul="Tambah Item" link="item" id="tambahitem">
+            <section class="p-3">
+                <div class="form-group row">
+                        <label for="" class="col-md-4">Nama Item {!! ireq() !!}</label>
+                        <input type="text" name="nama_item" id="nama_item" class="form-control col-md-8" required>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Kelompok {!! ireq() !!}</label>
+                    <select name="kelompok" id="" class="form-control">
+                        @foreach ($kelompok as $item)
+                            <option value="{{ $item->nama_kategori }}">{{ strtoupper($item->nama_kategori) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Keterangan</label>
+                    <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control col-md-8"></textarea>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Gambar</label>
+                    <input type="file" name="gambar_item" id="gambar" class="form-control col-md-8">
+                </div>
+            </section>
+        </x-modalsimpan>
         <x-modalsimpan judul="Tambah Item" link="jurnalitem">
             <input type="hidden" name="jurnal_id" value="{{ $jurnal->id }}">
             <section class="p-3">
@@ -85,7 +110,7 @@
                     <label for="">Nama Item</label>
                     <select name="item_id" id="item_id" class="form-select select2bs4">
                         @foreach ($items as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama_item }}</option>
+                            <option value="{{ $item->id }}">{{ ucwords($item->nama_item) }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -105,7 +130,7 @@
                     <label for="">Nama Item</label>
                     <select name="item_id" class="form-select select2bs4" data-width="100%">
                         @foreach ($items as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama_item }}</option>
+                            <option value="{{ $item->id }}">{{ ucwords($item->nama_item) }}</option>
                         @endforeach
                     </select>
                 </div>

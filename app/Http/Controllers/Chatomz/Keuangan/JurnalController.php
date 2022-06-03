@@ -104,15 +104,16 @@ class JurnalController extends Controller
      */
     public function show(Jurnal $jurnal)
     {
-        $items   = Item::all();
+        $items   = Item::orderBy('nama_item','ASC')->get();
         $kategori   = Kategori::where('label','keuangan')->get();
+        $kelompok   = Kategori::where('label','kelompok')->orderBy('nama_kategori','ASC')->get();
         $jumlah     = jumlahhargaitemperjurnal($jurnal->jurnalitem);
         $sisa       = $jurnal->nominal - $jumlah;
         $main       = [
             'totalharga' => $jumlah,
             'sisa' => $sisa
         ];
-        return view('chatomz.kingdom.keuangan.jurnal.show', compact('jurnal','items','kategori','main'));
+        return view('chatomz.kingdom.keuangan.jurnal.show', compact('jurnal','items','kategori','main','kelompok'));
     }
 
     /**
