@@ -15,15 +15,15 @@
                                <table class="table table-borderless">
                                     <tr>
                                         <th>Total Belanja</th>
-                                        <td>{{ norupiah($jurnal->nominal) }}</td>
+                                        <td class="text-end">{{ norupiah($jurnal->nominal) }}</td>
                                     </tr>
                                     <tr class="border-bottom">
                                         <th>Total Item</th>
-                                        <td>{{ norupiah($main['totalharga']) }}</td>
+                                        <td class="text-end">{{ norupiah($main['totalharga']) }}</td>
                                     </tr>
                                     <tr>
                                         <th>Belum terdata</th>
-                                        <td>{{ norupiah($main['sisa']) }}</td>
+                                        <td class="text-end">{{ norupiah($main['sisa']) }}</td>
                                     </tr>
                                </table>
                             </div>
@@ -44,7 +44,9 @@
                                                 <th width="10%" class="text-center">Aksi</th>
                                                 <th>Nama Item</th>
                                                 <th>Detail</th>
+                                                <th>Jumlah</th>
                                                 <th class="text-end">Harga</th>
+                                                <th class="text-end">Sub Total</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-capitalize">
@@ -53,14 +55,16 @@
                                                 <td class="text-center">{{ $loop->iteration}}</td>
                                                 <td class="text-center">
                                                     <x-aksi link="jurnalitem" :id="$item->id">
-                                                        <button type="button" data-bs-toggle="modal"  data-harga="{{ $item->harga }}" data-detail="{{ $item->detail }}" data-item_id="{{ $item->item_id }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                        <button type="button" data-bs-toggle="modal"  data-harga="{{ $item->harga }}" data-detail="{{ $item->detail }}"  data-jumlah="{{ $item->jumlah }}" data-item_id="{{ $item->item_id }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                             <i class="bi-pen" style="width: 20px;"></i> EDIT
                                                         </button>
                                                     </x-aksi>
                                                 </td>
                                                 <td>{{ $item->item->nama_item}}</td>
                                                 <td>{{ $item->detail}}</td>
+                                                <td class="text-center">{{ $item->jumlah}}</td>
                                                 <td class="text-end">{{ norupiah($item->harga)}}</td>
+                                                <td class="text-end">{{ norupiah(subtotal($item->jumlah,$item->harga))}}</td>
                                             </tr>
                                             @empty
                                                 <tr class="text-center">
@@ -68,7 +72,7 @@
                                                 </tr>
                                             @endforelse
                                                 <tr class="text-primary">
-                                                    <th colspan="4">Jumlah Total</th>
+                                                    <th colspan="6">Jumlah Total</th>
                                                     <th class="text-end">{{ norupiah($main['totalharga']) }}</th>
                                                 </tr>
                                     </table>
@@ -81,25 +85,25 @@
         {{-- MODAL --}}
         <x-modalsimpan judul="Tambah Item" link="item" id="tambahitem">
             <section class="p-3">
-                <div class="form-group row">
-                        <label for="" class="col-md-4">Nama Item {!! ireq() !!}</label>
-                        <input type="text" name="nama_item" id="nama_item" class="form-control col-md-8" required>
+                <div class="form-group">
+                        <label for="">Nama Item {!! ireq() !!}</label>
+                        <input type="text" name="nama_item" id="nama_item" class="form-control" required>
                 </div>
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Kelompok {!! ireq() !!}</label>
-                    <select name="kelompok" id="" class="form-control">
+                <div class="form-group">
+                    <label for="">Kelompok {!! ireq() !!}</label>
+                    <select name="kelompok" id="" class="form-select select2bs4">
                         @foreach ($kelompok as $item)
                             <option value="{{ $item->nama_kategori }}">{{ strtoupper($item->nama_kategori) }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Keterangan</label>
-                    <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control col-md-8"></textarea>
+                <div class="form-group">
+                    <label for="">Keterangan</label>
+                    <textarea name="keterangan" id="keterangan" cols="30" rows="3" class="form-control"></textarea>
                 </div>
-                <div class="form-group row">
-                    <label for="" class="col-md-4">Gambar</label>
-                    <input type="file" name="gambar_item" id="gambar" class="form-control col-md-8">
+                <div class="form-group">
+                    <label for="">Gambar</label>
+                    <input type="file" name="gambar_item" id="gambar" class="form-control">
                 </div>
             </section>
         </x-modalsimpan>
@@ -117,6 +121,10 @@
                 <div class="form-group">
                     <label for="">Harga</label>
                     <input type="text" name="harga" id="rupiah" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Jumlah</label>
+                    <input type="number" name="jumlah" value="1" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Detail</label>
@@ -137,6 +145,10 @@
                 <div class="form-group">
                     <label for="">Harga</label>
                     <input type="text" name="harga" id="rupiah1" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Jumlah</label>
+                    <input type="number" name="jumlah" id="jumlah" value="1" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Detail</label>
@@ -216,11 +228,13 @@
                 var item_id = button.data('item_id')
                 var harga = button.data('harga')
                 var detail = button.data('detail')
+                var jumlah = button.data('jumlah')
                 var id = button.data('id')
                 var modal = $(this)
                 modal.find('.modal-body #item_id').val(item_id);
                 modal.find('.modal-body #rupiah1').val(harga);
                 modal.find('.modal-body #detail').val(detail);
+                modal.find('.modal-body #jumlah').val(jumlah);
                 modal.find('.modal-body #id').val(id);
             })
         </script>

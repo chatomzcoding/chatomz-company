@@ -40,6 +40,7 @@ class JurnalitemController extends Controller
             'jurnal_id' => $request->jurnal_id,
             'item_id' => $request->item_id,
             'harga' => default_nilai($request->harga),
+            'jumlah' => $request->jumlah,
             'detail' => $request->detail,
         ]);
 
@@ -80,6 +81,7 @@ class JurnalitemController extends Controller
         Jurnalitem::where('id',$request->id)->update([
             'item_id' => $request->item_id,
             'harga' => default_nilai($request->harga),
+            'jumlah' => $request->jumlah,
             'detail' => $request->detail,
         ]);
 

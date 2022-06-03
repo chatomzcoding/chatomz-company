@@ -78,6 +78,17 @@ if (! function_exists('PerhitunganDompet')) {
 }
 
 // jumlah total harga item
+if (! function_exists('subtotal')) {
+    function subtotal($jumlah,$harga)
+    {
+        $subtotal = 0;
+        if (!is_null($harga)) {
+            $subtotal = $jumlah * $harga;
+        }
+        return $subtotal;
+    }
+}
+// jumlah total harga item
 if (! function_exists('jumlahhargaitemperjurnal')) {
     function jumlahhargaitemperjurnal($jurnalitem)
     {
@@ -85,7 +96,7 @@ if (! function_exists('jumlahhargaitemperjurnal')) {
         if (isset($jurnalitem)) {
             foreach ($jurnalitem as $key) {
                 if (!is_null($key->harga)) {
-                    $jumlah = $jumlah + $key->harga;
+                    $jumlah = $jumlah + ($key->harga * $key->jumlah);
                 }
             }
         }
