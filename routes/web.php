@@ -12,6 +12,7 @@ use App\Http\Controllers\Chatomz\HubungankeluargaController;
 use App\Http\Controllers\Chatomz\JejakController;
 use App\Http\Controllers\Chatomz\KeluargaController;
 use App\Http\Controllers\Chatomz\Keuangan\JurnalController;
+use App\Http\Controllers\Chatomz\Keuangan\JurnalitemController;
 use App\Http\Controllers\Chatomz\Keuangan\ManajemenkeuanganController;
 use App\Http\Controllers\Chatomz\Keuangan\RekeningController;
 use App\Http\Controllers\Chatomz\LinimasaController;
@@ -24,12 +25,14 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Homepage\LandingController;
 use App\Http\Controllers\MigrasiController;
+use App\Http\Controllers\Sistem\ItemController;
 use App\Http\Controllers\Sistem\KategoriController;
 use App\Http\Controllers\Sistem\StatistikController;
 use App\Http\Controllers\Sistem\SubkategoriController;
 use App\Http\Controllers\Sistem\UnsilController;
 use App\Http\Controllers\Sistem\VisitorController;
 use App\Http\Controllers\UjiController;
+use App\Models\Jurnalitem;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +93,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         // KEUANGAN
         Route::resource('rekening', RekeningController::class);
         Route::resource('jurnal', JurnalController::class);
+        Route::resource('jurnalitem', JurnalitemController::class);
         Route::resource('manajemenkeuangan', ManajemenkeuanganController::class);
         
         Route::resource('jejak', JejakController::class);
@@ -112,6 +116,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         
         // SISTEM
         Route::resource('visitor', VisitorController::class);
+        Route::resource('item', ItemController::class);
         Route::resource('kategori', KategoriController::class);
         Route::resource('subkategori', SubkategoriController::class);
         Route::get('statistik/orang',[StatistikController::class,'orang']);

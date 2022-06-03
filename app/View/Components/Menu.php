@@ -118,6 +118,10 @@ class Menu extends Component
                         'link' => 'kategori',
                     ],
                     [
+                        'title' => 'Item',
+                        'link' => 'item',
+                    ],
+                    [
                         'title' => 'Backup DB',
                         'link' => 'backupdb',
                     ]

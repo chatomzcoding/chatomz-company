@@ -22,4 +22,9 @@ class Jurnal extends Model
     {
         return $this->belongsTo(Rekening::class);
     }
+
+    public function jurnalitem()
+    {
+        return $this->hasMany(Jurnalitem::class);
+    }
 }

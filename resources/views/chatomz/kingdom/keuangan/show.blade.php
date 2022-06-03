@@ -93,6 +93,7 @@
                                                     <td class="text-center" rowspan="2">{{ $loop->iteration}}</td>
                                                     <td class="text-center" rowspan="2">
                                                         <x-aksi link="jurnal" :id="$item->id">
+                                                            <a href="{{ url('jurnal/'.$item->id) }}" class="dropdown-item text-primary"><i class="bi-file" style="width: 20px;"></i> DETAIL</a>
                                                             <button type="button" data-bs-toggle="modal"  data-nama_jurnal="{{ $item->nama_jurnal }}"  data-nominal="{{ $item->nominal }}" data-tanggal="{{ $item->tanggal }}" data-arus="{{ $item->arus }}" data-subkategori_id="{{ $item->subkategori_id }}" data-deskripsi="{{ $item->deskripsi }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                                 <i class="bi-pen" style="width: 20px;"></i> EDIT
                                                             </button>
@@ -174,6 +175,10 @@
                 <div class="form-group">
                     <label for="">Jam Jurnal</label>
                     <input type="time" name="jam" id="jam" value="{{ jam_sekarang() }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Tempat</label>
+                    <input type="text" name="tempat" id="tempat" class="form-control">
                 </div>
                 <button class="btn btn-info btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#selengkapnya" aria-expanded="false" aria-controls="selengkapnya">
                     Selengkapnya

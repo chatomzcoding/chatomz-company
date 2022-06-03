@@ -76,3 +76,19 @@ if (! function_exists('PerhitunganDompet')) {
        ];
     }
 }
+
+// jumlah total harga item
+if (! function_exists('jumlahhargaitemperjurnal')) {
+    function jumlahhargaitemperjurnal($jurnalitem)
+    {
+        $jumlah = 0;
+        if (isset($jurnalitem)) {
+            foreach ($jurnalitem as $key) {
+                if (!is_null($key->harga)) {
+                    $jumlah = $jumlah + $key->harga;
+                }
+            }
+        }
+        return $jumlah;
+    }
+}

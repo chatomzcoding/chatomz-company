@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Chatomz\Keuangan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Item;
 use App\Models\Jurnal;
+use App\Models\Kategori;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
 
@@ -87,8 +89,9 @@ class JurnalController extends Controller
                     'garansi' => $request->garansi,
                     'tempat' => $request->tempat,
                 ]);
-        
-                return back()->with('ds','Jurnal');
+                
+                $jurnal     = Jurnal::latest()->first();
+                return redirect('jurnal/'.$jurnal->id)->with('ds','Jurnal');
                 break;
         }
     }
@@ -101,7 +104,15 @@ class JurnalController extends Controller
      */
     public function show(Jurnal $jurnal)
     {
-        //
+        $items   = Item::all();
+        $kategori   = Kategori::where('label','keuangan')->get();
+        $jumlah     = jumlahhargaitemperjurnal($jurnal->jurnalitem);
+        $sisa       = $jurnal->nominal - $jumlah;
+        $main       = [
+            'totalharga' => $jumlah,
+            'sisa' => $sisa
+        ];
+        return view('chatomz.kingdom.keuangan.jurnal.show', compact('jurnal','items','kategori','main'));
     }
 
     /**
