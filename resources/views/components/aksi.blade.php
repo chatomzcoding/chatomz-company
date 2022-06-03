@@ -9,6 +9,9 @@
         Aksi
     </button>
     <div class="dropdown-menu p-0" aria-labelledby="dropdownMenuButton">
+        @if ($detail == 'TRUE')
+            <a href="{{ url($link.'/'.$id) }}" class="dropdown-item text-primary"><i class="bi-file w20p"></i> DETAIL</a>
+        @endif
         {{ $slot }}
     <button onclick="deleteRow( {{ $id }} )" class="dropdown-item text-danger"><i class="bi-trash w20p"></i> HAPUS</button>
     </div>

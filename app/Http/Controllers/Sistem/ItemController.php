@@ -16,7 +16,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $item       = Item::all();
+        $item       = Item::orderBy('nama_item','ASC')->get();
         $kelompok   = Kategori::where('label','kelompok')->get();
         return view('sistem.item.index', compact('item','kelompok'));
     }
@@ -51,7 +51,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        return view('sistem.item.show', compact('item'));
     }
 
     /**

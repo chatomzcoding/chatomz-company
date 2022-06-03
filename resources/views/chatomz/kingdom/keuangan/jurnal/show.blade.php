@@ -54,13 +54,13 @@
                                             <tr class="small">
                                                 <td class="text-center">
                                                     <x-aksi link="jurnalitem" :id="$item->id">
-                                                        <button type="button" data-bs-toggle="modal"  data-harga="{{ $item->harga }}" data-detail="{{ $item->detail }}"  data-jumlah="{{ $item->jumlah }}" data-diskon="{{ $item->diskon }}" data-item_id="{{ $item->item_id }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                        <button type="button" data-bs-toggle="modal"  data-harga="{{ $item->harga }}" data-detail="{{ $item->detail }}"  data-jumlah="{{ $item->jumlah }}" data-diskon="{{ $item->diskon }}" data-satuan="{{ $item->satuan }}" data-item_id="{{ $item->item_id }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                             <i class="bi-pen" style="width: 20px;"></i> EDIT
                                                         </button>
                                                     </x-aksi>
                                                 </td>
                                                 <td>
-                                                    {{ $item->item->nama_item}} <br>
+                                                    <a href="{{ url('item/'.$item->item_id) }}">{{ $item->item->nama_item}}</a> <br>
                                                     <i>{{ $item->detail}}</i>
                                                 </td>
                                                     <td>{{ $item->jumlah.' '.$item->satuan}}</td>
@@ -256,6 +256,7 @@
                 var harga = button.data('harga')
                 var diskon = button.data('diskon')
                 var detail = button.data('detail')
+                var satuan = button.data('satuan')
                 var jumlah = button.data('jumlah')
                 var id = button.data('id')
                 var modal = $(this)
@@ -263,6 +264,7 @@
                 modal.find('.modal-body #rupiah1').val(harga);
                 modal.find('.modal-body #rupiah4').val(diskon);
                 modal.find('.modal-body #detail').val(detail);
+                modal.find('.modal-body #satuan').val(satuan);
                 modal.find('.modal-body #jumlah').val(jumlah);
                 modal.find('.modal-body #id').val(id);
             })

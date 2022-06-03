@@ -17,4 +17,9 @@ class Jurnalitem extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function jurnal()
+    {
+        return $this->belongsTo(Jurnal::class);
+    }
 }

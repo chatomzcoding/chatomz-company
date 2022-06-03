@@ -12,4 +12,9 @@ class Item extends Model
     protected $table = 'item';
 
     protected $guarded = [];
+
+    public function jurnalitem()
+    {
+        return $this->hasMany(Jurnalitem::class);
+    }
 }

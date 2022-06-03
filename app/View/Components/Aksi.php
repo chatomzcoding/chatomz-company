@@ -13,11 +13,13 @@ class Aksi extends Component
      */
     public $id;
     public $link;
+    public $detail;
 
-    public function __construct($id,$link='')
+    public function __construct($id,$link='',$detail='FALSE')
     {
         $this->id = $id;
         $this->link = $link;
+        $this->detail = $detail;
     }
 
     /**

@@ -28,7 +28,7 @@
                                             <tr>
                                                     <td class="text-center">{{ $loop->iteration}}</td>
                                                     <td class="text-center">
-                                                        <x-aksi :id="$item->id" link="item">
+                                                        <x-aksi :id="$item->id" link="item" detail="TRUE">
                                                             <button type="button" data-bs-toggle="modal"  data-nama_item="{{ $item->nama_item }}"  data-keterangan="{{ $item->keterangan }}" data-kelompok="{{ $item->kelompok }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                                 <i class="fa fa-edit" style="width: 20px;"></i> EDIT
                                                             </button>
