@@ -41,6 +41,7 @@ class JurnalitemController extends Controller
             'item_id' => $request->item_id,
             'harga' => default_nilai($request->harga),
             'jumlah' => $request->jumlah,
+            'satuan' => $request->satuan,
             'detail' => $request->detail,
         ]);
 
@@ -82,6 +83,7 @@ class JurnalitemController extends Controller
             'item_id' => $request->item_id,
             'harga' => default_nilai($request->harga),
             'jumlah' => $request->jumlah,
+            'satuan' => $request->satuan,
             'detail' => $request->detail,
         ]);
 

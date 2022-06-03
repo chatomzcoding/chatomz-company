@@ -45,6 +45,7 @@
                                                 <th>Nama Item</th>
                                                 <th>Detail</th>
                                                 <th>Jumlah</th>
+                                                <th>Satuan</th>
                                                 <th class="text-end">Harga</th>
                                                 <th class="text-end">Sub Total</th>
                                             </tr>
@@ -63,6 +64,7 @@
                                                 <td>{{ $item->item->nama_item}}</td>
                                                 <td>{{ $item->detail}}</td>
                                                 <td class="text-center">{{ $item->jumlah}}</td>
+                                                <td class="text-center">{{ $item->satuan}}</td>
                                                 <td class="text-end">{{ norupiah($item->harga)}}</td>
                                                 <td class="text-end">{{ norupiah(subtotal($item->jumlah,$item->harga))}}</td>
                                             </tr>
@@ -72,7 +74,7 @@
                                                 </tr>
                                             @endforelse
                                                 <tr class="text-primary">
-                                                    <th colspan="6">Jumlah Total</th>
+                                                    <th colspan="7">Jumlah Total</th>
                                                     <th class="text-end">{{ norupiah($main['totalharga']) }}</th>
                                                 </tr>
                                     </table>
@@ -83,7 +85,7 @@
             </div>
         </div>
         {{-- MODAL --}}
-        <x-modalsimpan judul="Tambah Item" link="item" id="tambahitem">
+        <x-modalsimpan judul="Tambah Item" link="item" id="tambahitem" tabindex="">
             <section class="p-3">
                 <div class="form-group">
                         <label for="">Nama Item {!! ireq() !!}</label>
@@ -107,7 +109,7 @@
                 </div>
             </section>
         </x-modalsimpan>
-        <x-modalsimpan judul="Tambah Item" link="jurnalitem">
+        <x-modalsimpan judul="Tambah Item" link="jurnalitem" tabindex="">
             <input type="hidden" name="jurnal_id" value="{{ $jurnal->id }}">
             <section class="p-3">
                 <div class="form-group">
@@ -127,12 +129,20 @@
                     <input type="number" name="jumlah" value="1" class="form-control" required>
                 </div>
                 <div class="form-group">
+                    <label for="">Satuan</label>
+                    <select name="satuan" id="satuan" class="form-select select2bs4">
+                        @foreach ($satuan as $item)
+                            <option value="{{ $item->nama_kategori }}">{{ ucwords($item->nama_kategori) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="">Detail</label>
                     <input type="text" name="detail" id="detail" class="form-control">
                 </div>
             </section>
         </x-modalsimpan>
-        <x-modalubah judul="Ubah Item" link="jurnalitem">
+        <x-modalubah judul="Ubah Item" link="jurnalitem" tabindex="">
             <section class="p-3">
                 <div class="form-group">
                     <label for="">Nama Item</label>
@@ -149,6 +159,14 @@
                 <div class="form-group">
                     <label for="">Jumlah</label>
                     <input type="number" name="jumlah" id="jumlah" value="1" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Satuan</label>
+                    <select name="satuan" id="satuan" class="form-select select2bs4">
+                        @foreach ($satuan as $item)
+                            <option value="{{ $item->nama_kategori }}">{{ ucwords($item->nama_kategori) }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="">Detail</label>
