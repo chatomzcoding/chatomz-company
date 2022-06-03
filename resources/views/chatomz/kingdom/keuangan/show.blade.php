@@ -84,14 +84,15 @@
                                                 <th width="5%" class="text-center">No</th>
                                                 <th width="10%" class="text-center">Aksi</th>
                                                 <th>Jurnal</th>
+                                                <th>Item</th>
                                                 <th class="text-center">Nominal</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-capitalize">
                                             @forelse ($jurnal as $item)
                                             <tr class="text-{{ keuanganWarnaArus($item->arus) }}">
-                                                    <td class="text-center" rowspan="2">{{ $loop->iteration}}</td>
-                                                    <td class="text-center" rowspan="2">
+                                                    <td class="text-center">{{ $loop->iteration}}</td>
+                                                    <td class="text-center">
                                                         <x-aksi link="jurnal" :id="$item->id">
                                                             <a href="{{ url('jurnal/'.$item->id) }}" class="dropdown-item text-primary"><i class="bi-file" style="width: 20px;"></i> DETAIL</a>
                                                             <button type="button" data-bs-toggle="modal"  data-nama_jurnal="{{ $item->nama_jurnal }}"  data-nominal="{{ $item->nominal }}" data-tanggal="{{ $item->tanggal }}" data-arus="{{ $item->arus }}" data-subkategori_id="{{ $item->subkategori_id }}" data-deskripsi="{{ $item->deskripsi }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
@@ -99,32 +100,39 @@
                                                             </button>
                                                         </x-aksi>
                                                     </td>
-                                                    <td>{{ $item->nama_jurnal}}</td>
-                                                    <td class="text-end" rowspan="2">{{ norupiah($item->nominal)}}</td>
-                                                </tr>
-                                                <tr class="text-{{ keuanganWarnaArus($item->arus) }}">
-                                                    <td class="small fst-italic">{{ date_indo($item->tanggal).' - '.$item->subkategori->nama_sub}}</td>
+                                                    <td>
+                                                        {{ $item->nama_jurnal}} <br>
+                                                        <span class="small fst-italic">{{ date_indo($item->tanggal).' - '.$item->subkategori->nama_sub}} </span>
+                                                    </td>
+                                                    <td class="small">
+                                                        @forelse ($item->jurnalitem as $i)
+                                                            {{ $i->item->nama_item }}, 
+                                                        @empty
+                                                            
+                                                        @endforelse
+                                                    </td>
+                                                    <td class="text-end">{{ norupiah($item->nominal)}}</td>
                                                 </tr>
                                             @empty
                                                 <tr class="text-center">
-                                                    <td colspan="6">tidak ada data</td>
+                                                    <td colspan="5">tidak ada data</td>
                                                 </tr>
                                             @endforelse
                                             @if ($arus <> 'pengeluaran')
                                                 <tr class="text-primary">
-                                                    <th colspan="3">Jumlah Pemasukan</th>
+                                                    <th colspan="4">Jumlah Pemasukan</th>
                                                     <th class="text-end">{{ norupiah($main['sesi']['pemasukan']) }}</th>
                                                 </tr>
                                             @endif
                                             @if ($arus <> 'pemasukan')
                                                 <tr class="text-danger">
-                                                    <th colspan="3">Jumlah Pengeluaran</th>
+                                                    <th colspan="4">Jumlah Pengeluaran</th>
                                                     <th class="text-end">{{ norupiah($main['sesi']['pengeluaran']) }}</th>
                                                 </tr>
                                             @endif
                                             @if ($arus == 'semua')
                                                 <tr>
-                                                    <th colspan="3">Total Sisa</th>
+                                                    <th colspan="4">Total Sisa</th>
                                                     <th class="text-end">{{ norupiah($main['sesi']['hitung']) }}</th>
                                                 </tr>
                                             @endif

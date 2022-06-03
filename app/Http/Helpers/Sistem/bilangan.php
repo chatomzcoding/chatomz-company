@@ -12,7 +12,7 @@ if (! function_exists('norupiah')) {
     function norupiah($angka,$custom=null)
     {
         $hasil_rupiah = $custom;
-        if (!is_null($angka)) {
+        if (!is_null($angka) AND !empty($angka)) {
             $hasil_rupiah = number_format($angka,2,',','.');
             $hasil_rupiah = str_replace(',00','',$hasil_rupiah);
         }

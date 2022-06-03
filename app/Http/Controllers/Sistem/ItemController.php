@@ -72,9 +72,15 @@ class ItemController extends Controller
      * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request)
     {
-        //
+        Item::where('id',$request->id)->update([
+            'nama_item' => $request->nama_item,
+            'kelompok' => $request->kelompok,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return back()->with('du','Item');
     }
 
     /**
@@ -85,6 +91,8 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+
+        return back()->with('dd','Item');
     }
 }

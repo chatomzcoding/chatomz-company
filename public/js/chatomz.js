@@ -55,6 +55,12 @@ function deleteRow(id,key='data')
 		// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
 		rupiah3.value = formatRupiah(this.value, 'Rp. ');
 	});
+	var rupiah4 = document.getElementById('rupiah4');
+	rupiah4.addEventListener('keyup', function(e){
+		// tambahkan 'Rp.' pada saat form di ketik
+		// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+		rupiah4.value = formatRupiah(this.value, 'Rp. ');
+	});
 
 	function formatRupiah(angka, prefix){
 		var number_string = angka.replace(/[^,\d]/g, '').toString(),
