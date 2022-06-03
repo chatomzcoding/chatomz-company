@@ -103,7 +103,7 @@
             <section class="p-3">
                 <div class="form-group">
                     <label for="">Nama Item</label>
-                    <select name="item_id" id="item_id" class="form-select select2bs4">
+                    <select name="item_id" class="form-select select2bs4" data-width="100%">
                         @foreach ($items as $item)
                             <option value="{{ $item->id }}">{{ $item->nama_item }}</option>
                         @endforeach
