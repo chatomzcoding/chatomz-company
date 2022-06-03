@@ -135,7 +135,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Satuan</label>
-                    <select name="satuan" id="satuan" class="form-select select2bs4">
+                    <select name="satuan" class="form-select select2bs4">
                         @foreach ($satuan as $item)
                             <option value="{{ $item->nama_kategori }}">{{ ucwords($item->nama_kategori) }}</option>
                         @endforeach
