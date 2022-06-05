@@ -340,10 +340,7 @@
                                                         @method('delete')
                                                     </form>
                                                     <div class="card">
-                                                        @php
-                                                            $warna = view_randomwarna('light');
-                                                        @endphp
-                                                        <div class="card-body pt-2 pb-0 px-3 bg-{{ $warna }} rounded">
+                                                        <div class="card-body pt-2 pb-0 px-3 bg-info rounded">
                                                             <a data-bs-toggle="collapse" href="#aksilinimasa{{ $item->id }}" role="button" aria-expanded="false" aria-controls="aksilinimasa">
                                                             <div class="d-flex align-items-center text-white">
                                                                 <div class="avatar avatar-xl">
@@ -356,13 +353,16 @@
                                                             </div>
                                                             </a>
                                                             <section class="collapse text-end" id="aksilinimasa{{ $item->id }}">
-                                                                <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-{{ $warna }} btn-sm" data-original-title="Edit Task">
+                                                                <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-info btn-sm" data-original-title="Edit Task">
                                                                     <i class="bi-pencil"></i>
                                                                 </button>
-                                                                <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-{{ $warna }} btn-sm"> <i class="bi bi-trash text-white"></i></button>
+                                                                <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-info btn-sm"> <i class="bi bi-trash text-white"></i></button>
                                                             </section>
                                                         </div>
                                                     </div>
+                                                    @if (tgl_sekarang() < $item->tanggal)
+                                                        <p>linimasa terlewati</p>
+                                                    @endif
                                                 </div>
                                             @empty
                                                 <div class="col-12 text-center">
