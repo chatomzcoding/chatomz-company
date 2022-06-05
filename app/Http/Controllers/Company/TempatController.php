@@ -16,8 +16,15 @@ class TempatController extends Controller
      */
     public function index()
     {
-        $tempat     = Tempat::all();
         $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
+        $kategori_id = (isset($_GET['kategori_id'])) ? $_GET['kategori_id'] : 'semua' ;
+        $kategori   = Kategori::where('label','tempat')->orderBy('nama_kategori','ASC')->get();
+        if ($kategori_id == 'semua') {
+            $tempat     = Tempat::all();
+        } else {
+            $tempat     = Tempat::where('kategori_id',$kategori_id)->get();
+        }
+        
         switch ($s) {
             case 'map':
                 $data = [];
@@ -39,7 +46,7 @@ class TempatController extends Controller
                     ];
                 }
 
-                return view('company.tempat.map', compact('data'));
+                return view('company.tempat.map', compact('data','kategori','kategori_id'));
                 break;
             
             default:

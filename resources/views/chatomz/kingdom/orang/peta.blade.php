@@ -22,16 +22,17 @@
             <x-header head="Data Peta Orang" p="Daftar list orang - orang" active="Peta"></x-header>
             <section class="section">
                 <div class="row">
-                  <div class="col-md-12">
-                    <div class="card">
-                      <div class="card-header">
-                        <x-sistem.kembali url="orang"></x-sistem.kembali>
-                      </div>
-                      <div class="card-body">
-                        <div id="map"></div>
-                      </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body p-2">
+                                <x-sistem.kembali url="orang"></x-sistem.kembali>
+                                <span class="float-end fst-italic small pt-1">Ditemukan {{ count($data['features']) }} Orang</span>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                    <div class="col-md-12">
+                      <div id="map"></div>
+                      </div>
                 </div>
             </section>
         </div>

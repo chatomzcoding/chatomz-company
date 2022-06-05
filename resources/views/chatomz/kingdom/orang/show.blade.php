@@ -380,7 +380,7 @@
                                                 <div class="col-12 mb-2">
                                                     <div class="d-flex">
                                                         <div class="flex-shrink-0">
-                                                          <img src="{{ asset('img/company/bisnis/usaha/'.$item->gambar_lokasi) }}" alt="gambar usaha">
+                                                          <img src="{{ asset('img/company/bisnis/usaha/'.$item->gambar_lokasi) }}" alt="gambar usaha" width="150px">
                                                         </div>
                                                         <div class="flex-grow-1 ms-3">
                                                           <h6 class="text-capitalize">{{ $item->nama_usaha }}</h6>
