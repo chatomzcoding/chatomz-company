@@ -11,12 +11,9 @@
                 @endif">
                     <td>
                         <a href="{{ url('orang/'.Crypt::encryptString($item->orang->id)) }}">
-                            @if ($item->tanggal == tgl_sekarang())
-                                <strong class="float-end">(hari ini)</strong>
-                            @endif
-                            <br>
                             <i class="bi-{{ $item->icon }}"></i> {{ ucfirst($item->nama) }} <br>
                             <small class="text-muted">{{ fullname($item->orang).', '.date_indo($item->tanggal).' - '.$item->jam }} </small>
+                            <span class="float-end">{{ dayremaining($item->tanggal) }}</span>
                         </a>
                     </td>
                 </tr>

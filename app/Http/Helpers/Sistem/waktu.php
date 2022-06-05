@@ -41,15 +41,15 @@ if (! function_exists('dayremaining')) {
     {
         $tgl 				= new Datetime();
         $now 				= new Datetime($date);
-        $ultah = $tgl->diff($now);
-        $result = 'finished';
-        if ($tgl < $date) {
-            if ($ultah->d == 0) {
-                $result = 'today';
-            }elseif ($ultah->d == 1) {
-                $result = 'tomorrow';
+        $diff = $tgl->diff($now);
+        $result = 'selesai';
+        if ($tgl < $now) {
+            if ($diff->d == 0) {
+                $result = 'hari ini';
+            }elseif ($diff->d == 1) {
+                $result = 'besok';
             } else {
-                $result =  $ultah->d . 'more days';
+                $result =  $diff->d . ' hari lagi';
             }
         }
         return $result;

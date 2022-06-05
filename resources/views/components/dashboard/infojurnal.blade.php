@@ -7,7 +7,7 @@
             <tbody>
                 @forelse ($data as $item)
                     <tr class="text-{{ keuanganWarnaArus($item->arus) }}">
-                        <td>{{ ucwords($item->nama_jurnal) }} <br> <i class="small text-muted">{{ $item->rekening->nama_rekening.' - '.$item->subkategori->nama_sub }}</i></td>
+                        <td><a href="{{ url('jurnal/'.$item->id) }}">{{ ucwords($item->nama_jurnal) }}</a> <br> <i class="small text-muted">{{ $item->rekening->nama_rekening.' - '.$item->subkategori->nama_sub }}</i></td>
                         <td class="text-end ">{{ norupiah($item->nominal) }}</td>
                     </tr>
                 @empty

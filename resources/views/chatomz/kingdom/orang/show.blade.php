@@ -340,7 +340,7 @@
                                                         @method('delete')
                                                     </form>
                                                     <div class="card">
-                                                        <div class="card-body pt-2 pb-0 px-3 bg-info rounded">
+                                                        <div class="card-body pt-2 pb-0 px-3 bg-info rounded position-relative">
                                                             <a data-bs-toggle="collapse" href="#aksilinimasa{{ $item->id }}" role="button" aria-expanded="false" aria-controls="aksilinimasa">
                                                             <div class="d-flex align-items-center text-white">
                                                                 <div class="avatar avatar-xl">
@@ -351,7 +351,8 @@
                                                                     <h6 class="text-light mb-0 small">{{ date_indo($item->tanggal).' - '.$item->jam }}</h6>
                                                                 </div>
                                                             </div>
-                                                            </a>
+                                                            <span class="position-absolute top-0 end-0 p-2 text-white">{{ dayremaining($item->tanggal) }}</span>
+                                                        </a>
                                                             <section class="collapse text-end" id="aksilinimasa{{ $item->id }}">
                                                                 <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-info btn-sm" data-original-title="Edit Task">
                                                                     <i class="bi-pencil"></i>
