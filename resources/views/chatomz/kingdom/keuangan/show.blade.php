@@ -104,9 +104,9 @@
                                                         {{ $item->nama_jurnal}} <br>
                                                         <span class="small fst-italic">{{ date_indo($item->tanggal).' - '.$item->subkategori->nama_sub}} </span>
                                                     </td>
-                                                    <td class="small">
+                                                    <td class="small text-lowercase">
                                                         @forelse ($item->jurnalitem as $i)
-                                                            {{ $i->item->nama_item }}, 
+                                                            <span class="badge bg-info">{{ $i->item->nama_item }}</span>
                                                         @empty
                                                             
                                                         @endforelse

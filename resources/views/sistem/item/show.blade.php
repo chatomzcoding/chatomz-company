@@ -28,7 +28,7 @@
                                             @forelse ($item->jurnalitem as $item)
                                             <tr>
                                                     <td class="text-center">{{ $loop->iteration}}</td>
-                                                    <td>{{ $item->jurnal->nama_jurnal}}</td>
+                                                    <td><a href="{{ url('jurnal/'.$item->jurnal->id) }}">{{ $item->jurnal->nama_jurnal}}</a></td>
                                                     <td>{{ date_indo($item->jurnal->tanggal)}}</td>
                                                     <td class="text-end">{{ norupiah($item->harga)}}</td>
                                                     <td>{{ $item->diskon}}</td>

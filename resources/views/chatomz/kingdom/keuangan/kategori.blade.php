@@ -31,18 +31,15 @@
                                             <tr>
                                                 <th width="5%" class="text-center">No</th>
                                                 <th>Jurnal</th>
-                                                <th class="text-center">Nominal</th>
+                                                <th class="text-end">Harga</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-capitalize">
                                             @forelse ($jurnal as $item)
                                             <tr class="text-{{ keuanganWarnaArus($item->arus) }}">
-                                                    <td class="text-center" rowspan="2">{{ $loop->iteration}}</td>
-                                                    <td>{{ $item->nama_jurnal}}</td>
-                                                    <td class="text-end" rowspan="2">{{ norupiah($item->nominal)}}</td>
-                                                </tr>
-                                                <tr class="text-{{ keuanganWarnaArus($item->arus) }}">
-                                                    <td class="small fst-italic">{{ date_indo($item->tanggal).' - '.$item->nama_sub}}</td>
+                                                    <td class="text-center">{{ $loop->iteration}}</td>
+                                                    <td>{{ $item->nama_jurnal}} <br> {{ date_indo($item->tanggal).' - '.$item->nama_sub}} </td>
+                                                    <td class="text-end">{{ norupiah($item->nominal)}}</td>
                                                 </tr>
                                             @empty
                                                 <tr class="text-center">

@@ -84,7 +84,7 @@ if (! function_exists('subtotal')) {
         $subtotal = 0;
         $diskon = (!is_null($diskon) AND !empty($diskon)) ? $diskon : 0 ;
         if (!is_null($harga)) {
-            $subtotal = ($jumlah * $harga);
+            $subtotal = ($jumlah * $harga) - $diskon;
         }
         return $subtotal;
     }
