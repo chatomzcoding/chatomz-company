@@ -42,6 +42,7 @@ class LinimasaController extends Controller
             'keterangan' => $request->keterangan,
             'icon' => strtolower($request->icon),
             'tanggal' => $request->tanggal,
+            'tanggal_akhir' => $request->tanggal_akhir,
             'jam' => $request->jam,
             'tag' => $request->tag,
         ]);
@@ -84,6 +85,7 @@ class LinimasaController extends Controller
             'keterangan' => $request->keterangan,
             'icon' => strtolower($request->icon),
             'tanggal' => $request->tanggal,
+            'tanggal_akhir' => $request->tanggal_akhir,
             'jam' => $request->jam,
             'tag' => $request->tag,
         ]);

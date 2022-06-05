@@ -348,13 +348,13 @@
                                                                 </div>
                                                                 <div class="ms-2 name pl-5">
                                                                     <h5 class="font-bold small text-capitalize text-white"> {{ $item->nama}}</h5>
-                                                                    <h6 class="text-light mb-0 small">{{ date_indo($item->tanggal).' - '.$item->jam }}</h6>
+                                                                    <h6 class="text-light mb-0 small">{{ date_indo($item->tanggal).linimasa_tglakhir($item->tanggal_akhir).' | '.$item->jam }}</h6>
                                                                 </div>
                                                             </div>
                                                             <span class="position-absolute top-0 end-0 p-2 text-white">{{ dayremaining($item->tanggal) }}</span>
                                                         </a>
                                                             <section class="collapse text-end" id="aksilinimasa{{ $item->id }}">
-                                                                <button type="button" data-bs-toggle="modal"  data-tanggal="{{ $item->tanggal }}"  data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-info btn-sm" data-original-title="Edit Task">
+                                                                <button type="button" data-bs-toggle="modal" data-tanggal="{{ $item->tanggal }}" data-tanggal_akhir="{{ $item->tanggal_akhir }}" data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-info btn-sm" data-original-title="Edit Task">
                                                                     <i class="bi-pencil"></i>
                                                                 </button>
                                                                 <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-info btn-sm"> <i class="bi bi-trash text-white"></i></button>
@@ -416,6 +416,10 @@
                 <div class="form-group">
                     <label for="">Tanggal {!! ireq() !!}</label>
                     <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Tanggal Akhir</label>
+                    <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Jam</label>
@@ -611,6 +615,10 @@
                 <div class="form-group">
                     <label for="">Tanggal {!! ireq() !!}</label>
                     <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Tanggal Akhir</label>
+                    <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Jam</label>
@@ -848,6 +856,7 @@
                 var keterangan = button.data('keterangan')
                 var icon = button.data('icon')
                 var tanggal = button.data('tanggal')
+                var tanggal_akhir = button.data('tanggal_akhir')
                 var jam = button.data('jam')
                 var tag = button.data('tag')
                 var id = button.data('id')
@@ -858,6 +867,7 @@
                 modal.find('.modal-body #keterangan').val(keterangan);
                 modal.find('.modal-body #icon').val(icon);
                 modal.find('.modal-body #tanggal').val(tanggal);
+                modal.find('.modal-body #tanggal_akhir').val(tanggal_akhir);
                 modal.find('.modal-body #jam').val(jam);
                 modal.find('.modal-body #tag').val(tag);
                 modal.find('.modal-body #id').val(id);

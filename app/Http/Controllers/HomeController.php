@@ -167,13 +167,28 @@ class HomeController extends Controller
         $data   = [];
         $linimasa   = Linimasa::orderBy('tanggal','desc')->get();
         foreach ($linimasa as $key) {
+            $tanggal = (!is_null($key->tanggal_akhir)) ? [$key->tanggal,$key->tanggal_akhir] : $key->tanggal ;
             $data[] = [
                 "id" => $key->id,
                 "name" => $key->nama, 
-                "date" => $key->tanggal,
+                "date" => $tanggal,
                 "type" => "event", 
                 "everyYear" => false,
                 "description" => $key->keterangan,
+                // "color" => "#222"
+            ];
+        }
+
+        $ulangtahunbulanini     = Orang::whereMonth('date_birth',ambil_bulan())->orderBy('first_name','ASC')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+        foreach ($ulangtahunbulanini as $key) {
+            $tanggal = ambil_tahun().'-'.ambil_bulan().'-'.substr($key->date_birth,8,2);
+            $data[] = [
+                "id" => $key->id,
+                "name" => fullname($key), 
+                "date" => $tanggal,
+                "type" => "birthday", 
+                "everyYear" => false,
+                "description" => $key->gender,
                 // "color" => "#222"
             ];
         }

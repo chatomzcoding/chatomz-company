@@ -172,3 +172,11 @@ if (! function_exists('informasigambar')) {
         return $link;
     }
 }
+// informasi PHOTO
+if (! function_exists('linimasa_tglakhir')) {
+    function linimasa_tglakhir($tglakhir)
+    {   
+        $tglakhir = (!is_null($tglakhir)) ? ' - '.date_indo($tglakhir) : '' ;
+        return $tglakhir;
+    }
+}
