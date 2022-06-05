@@ -51,7 +51,24 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return view('sistem.item.show', compact('item'));
+        $jurnal = [];
+        $total_item = 0;
+        $total_pembelian = 0;
+        $total_diskon = 0;
+        foreach ($item->jurnalitem as $key) {
+            $jurnal[] = $key;
+            $diskon = (!is_null($key->diskon) AND !empty($key->diskon)) ? $key->diskon : 0 ;
+            $total_item = $total_item + $key->jumlah;
+            $total_diskon = $total_diskon + $diskon;
+            $total_pembelian = $total_pembelian + (($key->harga * $key->jumlah) - $diskon);
+        }
+        $statistik = [
+            'total_item' => $total_item,
+            'total_diskon' => $total_diskon,
+            'total_pembelian' => $total_pembelian,
+        ];
+
+        return view('sistem.item.show', compact('item','jurnal','statistik'));
     }
 
     /**

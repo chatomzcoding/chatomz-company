@@ -78,6 +78,7 @@
                                     </div>
                                 </form>
                                 <hr>
+                                <div class="table-responsive">
                                     <table id="example1" class="table">
                                         <thead>
                                             <tr>
@@ -106,7 +107,7 @@
                                                     </td>
                                                     <td class="small text-lowercase">
                                                         @forelse ($item->jurnalitem as $i)
-                                                            <span class="badge bg-info">{{ $i->item->nama_item }}</span>
+                                                            <a href="{{ url('item/'.$i->item->id) }}" class="badge bg-info">{{ $i->item->nama_item }}</a>
                                                         @empty
                                                             
                                                         @endforelse
@@ -137,6 +138,7 @@
                                                 </tr>
                                             @endif
                                     </table>
+                                </div>
                             </div>
                         </div>
                     </div>

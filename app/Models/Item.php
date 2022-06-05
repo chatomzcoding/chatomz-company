@@ -15,6 +15,6 @@ class Item extends Model
 
     public function jurnalitem()
     {
-        return $this->hasMany(Jurnalitem::class);
+        return $this->hasMany(Jurnalitem::class)->orderBy('created_at','DESC');
     }
 }

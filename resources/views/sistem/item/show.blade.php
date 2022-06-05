@@ -11,6 +11,32 @@
                                 <x-sistem.kembali url="item"></x-sistem.kembali>
                             </div>
                             <div class="card-body">
+                                <section class="row my-1">
+                                    <div class="col">
+                                        <div class="card bg-info">
+                                            <div class="card-body text-white pb-0">
+                                                <h6 class="text-white">ITEM</h6>
+                                                <p>{{ $statistik['total_item'] }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card bg-success text-white">
+                                            <div class="card-body pb-0">
+                                                <h6 class="text-white">DISKON</h6>
+                                                <p>{{ norupiah($statistik['total_diskon']) }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card bg-primary text-white">
+                                            <div class="card-body pb-0">
+                                                <h6 class="text-white">PEMBELIAN</h6>
+                                                <p>{{ norupiah($statistik['total_pembelian']) }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
                                 <div class="table-responsive">
                                     <table id="example1" class="table table-borderless table-striped">
                                         <thead>
@@ -25,13 +51,13 @@
                                             </tr>
                                         </thead>
                                         <tbody class="text-capitalize">
-                                            @forelse ($item->jurnalitem as $item)
+                                            @forelse ($jurnal as $item)
                                             <tr>
                                                     <td class="text-center">{{ $loop->iteration}}</td>
                                                     <td><a href="{{ url('jurnal/'.$item->jurnal->id) }}">{{ $item->jurnal->nama_jurnal}}</a></td>
                                                     <td>{{ date_indo($item->jurnal->tanggal)}}</td>
                                                     <td class="text-end">{{ norupiah($item->harga)}}</td>
-                                                    <td>{{ $item->diskon}}</td>
+                                                    <td class="text-end">{{ norupiah($item->diskon)}}</td>
                                                     <td>{{ $item->jumlah.' '.$item->satuan}}</td>
                                                     <td class="text-end">{{ norupiah(subtotal($item->jumlah,$item->harga,$item->diskon))}}</td>
                                                 </tr>
