@@ -33,7 +33,7 @@
                                     @php
                                         $detail = json_decode($item->detail); 
                                     @endphp
-                                    <div class="card-content position-relative">
+                                    <div class="card-content position-relative area-hover">
                                         <a href="{{ url('/informasi/'.$item->id)}}"><img src="{{ url('public/img/company/informasi/masakan/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                         <section class="text-center py-2 small">
                                             {{ ucwords($item->nama)}}
@@ -41,7 +41,7 @@
                                                 {{ informasiShowTag($item->tag) }}
                                             </span>
                                         </section>
-                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm position-absolute top-0 end-0"><i class="bi-trash"></i></button>
+                                        <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm position-absolute top-0 end-0 button-hover"><i class="bi-trash"></i></button>
                                     </div>
                                     <div class="card-footer p-0">
                                     </div>

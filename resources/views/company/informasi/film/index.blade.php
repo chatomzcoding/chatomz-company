@@ -27,40 +27,34 @@
                             @foreach ($data as $item)
                                 <div class="col-12 col-sm-4 col-md-3">
                                     <div class="card">
+                                        <form id="data-{{ $item->id }}" action="{{url('/informasi',$item->id)}}" method="post">
+                                            @csrf
+                                            @method('delete')
+                                        </form>
                                         @php
                                             $detail = json_decode($item->detail); 
                                         @endphp
-                                        <div class="card-content">
+                                        <div class="card-content position-relative area-hover">
                                             @if (is_null($item->gambar))
                                                 <img src="{{ url('public/img/null.png')}}" alt="user-avatar" class="card-img-top img-fluid"> <br>
                                             @else
                                                 <a href="{{ url('/informasi/'.$item->id)}}"><img src="{{ url('public/img/company/informasi/film/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                             @endif
-                                        <section class="text-center py-2 small">
-                                            {{ ucwords($item->nama)}}
-                                            @if (isset($detail->Year))
-                                                <i>({{ $detail->Year}})</i>
-                                            @endif
-                                            <br>
-                                            <span class="text-primary">
-                                                {{ informasiShowTag($item->tag) }}
-                                            </span>
-                                        </section>
-                                        <form id="data-{{ $item->id }}" action="{{url('/informasi',$item->id)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                        </form>
-                                        </div>
-                                        <div class="card-footer p-0">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <button type="button" data-bs-toggle="modal"  data-tag="{{ $item->tag }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-success btn-sm btn-block" data-original-title="Edit Task">
-                                                        <i class="bi-pen"></i> EDIT
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm btn-block"><i class="bi-trash"></i> HAPUS</button>
-                                                </div>
+                                            <section class="text-center py-2 small">
+                                                {{ ucwords($item->nama)}}
+                                                @if (isset($detail->Year))
+                                                    <i>({{ $detail->Year}})</i>
+                                                @endif
+                                                <br>
+                                                <span class="text-primary">
+                                                    {{ informasiShowTag($item->tag) }}
+                                                </span>
+                                            </section>
+                                            <div class="position-absolute top-0 end-0 button-hover">
+                                                <button type="button" data-bs-toggle="modal"  data-tag="{{ $item->tag }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
+                                                    <i class="bi-pen"></i>
+                                                </button>
+                                                <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm"><i class="bi-trash"></i></button>
                                             </div>
                                         </div>
                                     </div>

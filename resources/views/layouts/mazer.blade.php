@@ -34,7 +34,14 @@
     @endif
 
     {{ $head ?? '' }}
-
+    <style>
+         .button-hover {
+                display: none;
+            }
+        .area-hover:hover .button-hover{
+            display: block;
+        }
+    </style>
 </head>
 
 <body style="font-family: Arial, Helvetica, sans-serif">

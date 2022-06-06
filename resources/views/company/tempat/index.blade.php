@@ -19,7 +19,7 @@
                                         @method('delete')
                                     </form>
                                 <div class="card">
-                                    <div class="card-content position-relative">
+                                    <div class="card-content position-relative area-hover">
                                         <a href="{{ url('/tempat/'.$item->id)}}">
                                             @if (is_null($item->gambar))
                                                 <img src="{{ url('public/img/tempat.png')}}" alt="user-avatar"   class="card-img-top img-fluid">
@@ -33,7 +33,7 @@
                                                 {{ $item->alamat }}
                                             </span>
                                         </section>
-                                        <section class="position-absolute top-0 end-0">
+                                        <section class="position-absolute top-0 end-0 button-hover">
                                             <a href="{{ url('tempat/'.$item->id.'/edit') }}" class="btn btn-success btn-sm"><i class="bi-pencil"></i></a>
                                             <button onclick="deleteRow( {{ $item->id }} )" class="btn btn-danger btn-sm "><i class="bi-trash"></i></button>
                                         </section>

@@ -7,6 +7,7 @@
                 width: 100%;
                 height: 500px;
             }
+           
         </style>
     </x-slot>
     <x-slot name="content">
@@ -18,8 +19,8 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
                         <div class="card">
-                            <div class="card-content position-relative">
-                                <button class="btn btn-success btn-sm position-absolute top-0 end-0" data-bs-toggle="modal" data-bs-target="#ubahphoto"><i class="bi-image"></i></button>
+                            <div class="card-content position-relative area-hover">
+                                <button class="btn btn-success btn-sm button-hover position-absolute top-0 end-0" data-bs-toggle="modal" data-bs-target="#ubahphoto"><i class="bi-image"></i></button>
                                 <a href="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" target="_blank">
                                     <img src="{{ asset('/img/chatomz/orang/'.orang_photo($orang->photo))}}" class="card-img-top img-fluid"
                                     alt="singleminded">
@@ -340,24 +341,23 @@
                                                         @method('delete')
                                                     </form>
                                                     <div class="card">
-                                                        <div class="card-body pt-2 pb-0 px-3 bg-info rounded position-relative">
+                                                        <div class="card-body pt-2 pb-0 px-3 bg-primary rounded position-relative area-hover">
                                                             <a data-bs-toggle="collapse" href="#aksilinimasa{{ $item->id }}" role="button" aria-expanded="false" aria-controls="aksilinimasa">
                                                             <div class="d-flex align-items-center text-white">
                                                                 <div class="avatar avatar-xl">
                                                                     <i class="bi-{{ $item->icon }}" style="font-size: 35px;"></i> <br>
                                                                 </div>
                                                                 <div class="ms-2 name pl-5">
-                                                                    <h5 class="font-bold small text-capitalize text-white"> {{ $item->nama}}</h5>
+                                                                    <h5 class="font-bold small text-capitalize text-white"> {{ $item->nama}} | <i>{{ dayremaining($item->tanggal) }}</i></h5>
                                                                     <h6 class="text-light mb-0 small">{{ date_indo($item->tanggal).linimasa_tglakhir($item->tanggal_akhir).' | '.$item->jam }}</h6>
                                                                 </div>
                                                             </div>
-                                                            <span class="position-absolute top-0 end-0 p-2 text-white">{{ dayremaining($item->tanggal) }}</span>
                                                         </a>
-                                                            <section class="collapse text-end" id="aksilinimasa{{ $item->id }}">
-                                                                <button type="button" data-bs-toggle="modal" data-tanggal="{{ $item->tanggal }}" data-tanggal_akhir="{{ $item->tanggal_akhir }}" data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-info btn-sm" data-original-title="Edit Task">
+                                                            <section class="position-absolute top-0 end-0 button-hover" id="aksilinimasa{{ $item->id }}">
+                                                                <button type="button" data-bs-toggle="modal" data-tanggal="{{ $item->tanggal }}" data-tanggal_akhir="{{ $item->tanggal_akhir }}" data-jam="{{ $item->jam }}" data-nama="{{ $item->nama }}"  data-icon="{{ $item->icon }}"  data-tag="{{ $item->tag }}" data-keterangan="{{ $item->keterangan }}"  data-id="{{ $item->id }}" data-bs-target="#ubahlinimasa" title="" class="btn btn-primary btn-sm" data-original-title="Edit Task">
                                                                     <i class="bi-pencil"></i>
                                                                 </button>
-                                                                <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-info btn-sm"> <i class="bi bi-trash text-white"></i></button>
+                                                                <button onclick="deleteRow( {{ $item->id }},'linimasa' )" class="btn btn-primary btn-sm"> <i class="bi bi-trash text-white"></i></button>
                                                             </section>
                                                         </div>
                                                     </div>
@@ -745,11 +745,11 @@
                         @method('delete')
                     </form>
                     <div class="card">
-                        <div class="card-content text-center position-relative">
+                        <div class="card-content text-center position-relative area-hover">
                             <a href="{{ url('grup/'.Crypt::encryptString($item->grup_id))}}"><img src="{{ asset('/img/chatomz/grup/'.$item->photo)}}" class="card-img-top" alt="..."></a>
                             <p class="small text-capitalize">{{ $item->name}}</p>
                             <small class="text-muted">{{ $item->information }}</small>
-                            <section class="position-absolute top-0 end-0">
+                            <section class="position-absolute top-0 end-0 button-hover">
                                 <button onclick="deleteRow( {{ $item->id }},'gruphapus' )" class="btn btn-danger btn-sm"><i class="bi-trash"></i></button>
                                 <button type="button" data-bs-toggle="modal"  data-information="{{ $item->information }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-success btn-sm" data-original-title="Edit Task">
                                     <i class="bi-pencil"></i>

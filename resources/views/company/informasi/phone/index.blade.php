@@ -29,7 +29,7 @@
                                         @php
                                             $detail = json_decode($item->detail); 
                                         @endphp
-                                        <div class="card-content position-relative">
+                                        <div class="card-content position-relative area-hover">
                                             @if (is_null($item->gambar))
                                                 <img src="{{ url('public/img/null.png')}}" alt="user-avatar" class="card-img-top img-fluid"> <br>
                                             @else
@@ -39,7 +39,7 @@
                                                 {{ ucwords($item->nama)}} <br>
                                                 {{ ($detail->jumlah) }}
                                             </section>
-                                            <section class="position-absolute top-0 end-0">
+                                            <section class="position-absolute top-0 end-0 button-hover">
                                                 <button type="button" data-bs-toggle="modal"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="btn btn-success btn-sm">
                                                     <i class="bi-pen"></i>
                                                 </button>
