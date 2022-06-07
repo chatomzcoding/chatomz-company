@@ -24,7 +24,7 @@
                                         <div class="card bg-success text-white">
                                             <div class="card-body pb-0">
                                                 <h6 class="text-white">DISKON</h6>
-                                                <p>{{ norupiah($statistik['total_diskon']) }}</p>
+                                                <p>{{ norupiah($statistik['total_diskon'],0) }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -32,7 +32,7 @@
                                         <div class="card bg-primary text-white">
                                             <div class="card-body pb-0">
                                                 <h6 class="text-white">PEMBELIAN</h6>
-                                                <p>{{ norupiah($statistik['total_pembelian']) }}</p>
+                                                <p>{{ norupiah($statistik['total_pembelian'],0) }}</p>
                                             </div>
                                         </div>
                                     </div>

@@ -123,7 +123,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Harga</label>
-                    <input type="text" name="harga" id="rupiah" class="form-control">
+                    <input type="text" name="harga" id="rupiah" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Diskon</label>
