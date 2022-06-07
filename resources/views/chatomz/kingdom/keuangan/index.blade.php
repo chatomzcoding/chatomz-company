@@ -22,7 +22,7 @@
                                 @php
                                     $d = json_decode($item['row']->detail);
                                 @endphp
-                                <div class="col-lg-4 col-sm-6">
+                                <div class="col-lg-3 col-sm-6">
                                     <a href="{{ url('rekening/'.$item['row']->id) }}">
                                         <div class="card">
                                             <div class="card-body py-3 px-3 bg-{{ $d->warna }} rounded">
@@ -40,6 +40,52 @@
                                     </a>
                                 </div>
                             @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>20 Transaksi Terakhir</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th width="5%" class="text-center">No</th>
+                                                <th>Jurnal</th>
+                                                <th>Item</th>
+                                                <th class="text-center">Nominal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($jurnal as $item)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration}}</td>
+                                                <td>
+                                                    <a href="{{ url('jurnal/'.$item->id) }}">{{ $item->nama_jurnal}}</a> <br>
+                                                    <span class="small fst-italic">{{ date_indo($item->tanggal).' - '.$item->subkategori->nama_sub}} </span>
+                                                </td>
+                                                <td class="small text-lowercase">
+                                                    @forelse ($item->jurnalitem as $i)
+                                                        <a href="{{ url('item/'.$i->item->id) }}" class="badge bg-info">{{ $i->item->nama_item }}</a>
+                                                    @empty
+                                                        
+                                                    @endforelse
+                                                </td>
+                                                <td class="text-end text-{{ keuanganWarnaArus($item->arus) }}">{{ norupiah($item->nominal)}}</td>
+                                            </tr>
+                                            @empty
+                                                <tr class="text-center">
+                                                    <td colspan="5">tidak ada data</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

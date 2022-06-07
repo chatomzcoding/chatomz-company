@@ -78,7 +78,9 @@ class RekeningController extends Controller
                     ];
                     $total = $total + $saldo['total'];
                 }
-                return view('chatomz.kingdom.keuangan.index', compact('data','total'));
+
+                $jurnal     = Jurnal::limit(20)->orderBy('tanggal','DESC')->get();
+                return view('chatomz.kingdom.keuangan.index', compact('data','total','jurnal'));
                 break;
         }
     }
