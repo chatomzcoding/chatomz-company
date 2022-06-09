@@ -23,7 +23,7 @@
                                                 <th>Kelompok</th>
                                             </tr>
                                         </thead>
-                                        <tbody class="text-capitalize">
+                                        <tbody>
                                             @forelse ($item as $item)
                                             <tr>
                                                     <td class="text-center">{{ $loop->iteration}}</td>
@@ -34,7 +34,9 @@
                                                             </button>
                                                         </x-aksi>
                                                     </td>
-                                                    <td></td>
+                                                    <td>
+                                                        {!! gambaritem($item->gambar_item) !!}
+                                                    </td>
                                                     <td>
                                                         {{ $item->nama_item}}
                                                     </td>

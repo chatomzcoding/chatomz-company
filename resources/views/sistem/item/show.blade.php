@@ -1,43 +1,67 @@
 <x-mazer-layout title="CHATOMZ - Data Item" datatables="TRUE" alert="TRUE">
     <x-slot name="content">
         <div class="page-heading">
-            <x-header head="Data Item {{ ucwords($item->nama_item) }}" active="Daftar Jurnal">
-            </x-header>
             <section class="section">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
-                                <x-sistem.kembali url="item"></x-sistem.kembali>
-                                <x-sistem.edit></x-sistem.edit>
-                            </div>
                             <div class="card-body">
-                                <section class="row my-1">
-                                    <div class="col">
-                                        <div class="card bg-info">
-                                            <div class="card-body text-white pb-0">
-                                                <h6 class="text-white">ITEM</h6>
-                                                <p>{{ $statistik['total_item'] }}</p>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="card">
+                                            <div class="card-header p-0">
+                                                <h5>
+                                                    {{ ucwords($item->nama_item) }}
+                                                </h5>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                @if (!is_null($item->gambar_item))
+                                                    <img src="{{ asset('img/chatomz/item/'.$item->gambar_item) }}" alt="" class="img-fluid">
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col">
-                                        <div class="card bg-success text-white">
-                                            <div class="card-body pb-0">
-                                                <h6 class="text-white">DISKON</h6>
-                                                <p>{{ norupiah($statistik['total_diskon'],0) }}</p>
+                                    <div class="col-md-9">
+                                        <section class="mb-2">
+                                            <x-sistem.kembali url="item"></x-sistem.kembali>
+                                            <x-sistem.edit></x-sistem.edit>
+                                        </section>
+                                        <section class="row my-1">
+                                            <div class="col">
+                                                <div class="card bg-info">
+                                                    <div class="card-body text-white pb-0">
+                                                        <h6 class="text-white">ITEM</h6>
+                                                        <p>{{ $statistik['total_item'] }}</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card bg-primary text-white">
-                                            <div class="card-body pb-0">
-                                                <h6 class="text-white">PEMBELIAN</h6>
-                                                <p>{{ norupiah($statistik['total_pembelian'],0) }}</p>
+                                            <div class="col">
+                                                <div class="card bg-success text-white">
+                                                    <div class="card-body pb-0">
+                                                        <h6 class="text-white">DISKON</h6>
+                                                        <p>{{ norupiah($statistik['total_diskon'],0) }}</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div class="col">
+                                                <div class="card bg-primary text-white">
+                                                    <div class="card-body pb-0">
+                                                        <h6 class="text-white">PEMBELIAN</h6>
+                                                        <p>{{ norupiah($statistik['total_pembelian'],0) }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
                                     </div>
-                                </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="example1" class="table table-borderless table-striped">
                                         <thead>

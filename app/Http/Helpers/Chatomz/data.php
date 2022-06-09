@@ -180,3 +180,13 @@ if (! function_exists('linimasa_tglakhir')) {
         return $tglakhir;
     }
 }
+
+// item
+if (! function_exists('gambaritem')) {
+    function gambaritem($gambar)
+    {   
+        $link = (!is_null($gambar)) ? 'chatomz/item/'.$gambar : 'null.png' ;
+        $gambar = "<img src='".asset("img/".$link)."' alt='gambar item' width='100px'>";
+        return $gambar;
+    }
+}

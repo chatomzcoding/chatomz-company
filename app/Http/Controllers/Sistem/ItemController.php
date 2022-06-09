@@ -91,11 +91,26 @@ class ItemController extends Controller
      */
     public function update(Request $request)
     {
+        $item   = Item::find($request->id);
+        if (isset($request->gambar_item)) {
+            $request->validate([
+                'gambar_item' => 'required|file|image|mimes:jpeg,png,jpg,webp|max:2000',
+            ]);
+            $tujuan_upload = 'public/img/chatomz/item';
+            $mini = $request->file('gambar_item');
+            $gambar_item = kompres($mini,$tujuan_upload,250,'mini');
+        } else {
+            $gambar_item = $item->gambar_item;
+        }
+        
         Item::where('id',$request->id)->update([
             'nama_item' => $request->nama_item,
             'kelompok' => $request->kelompok,
             'keterangan' => $request->keterangan,
+            'gambar_item' => $gambar_item,
         ]);
+
+
 
         return back()->with('du','Item');
     }
