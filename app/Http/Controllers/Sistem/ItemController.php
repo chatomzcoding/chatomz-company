@@ -67,8 +67,8 @@ class ItemController extends Controller
             'total_diskon' => $total_diskon,
             'total_pembelian' => $total_pembelian,
         ];
-
-        return view('sistem.item.show', compact('item','jurnal','statistik'));
+        $kelompok   = Kategori::where('label','kelompok')->get();
+        return view('sistem.item.show', compact('item','jurnal','statistik','kelompok'));
     }
 
     /**

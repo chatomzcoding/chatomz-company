@@ -87,7 +87,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-md-4">Kelompok {!! ireq() !!}</label>
-                    <select name="kelompok" id="" class="form-control">
+                    <select name="kelompok" id="kelompok" class="form-control">
                         @foreach ($kelompok as $item)
                             <option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
                         @endforeach

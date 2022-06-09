@@ -9,6 +9,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <x-sistem.kembali url="item"></x-sistem.kembali>
+                                <x-sistem.edit></x-sistem.edit>
                             </div>
                             <div class="card-body">
                                 <section class="row my-1">
@@ -51,15 +52,15 @@
                                             </tr>
                                         </thead>
                                         <tbody class="text-capitalize">
-                                            @forelse ($jurnal as $item)
+                                            @forelse ($jurnal as $key)
                                             <tr>
                                                     <td class="text-center">{{ $loop->iteration}}</td>
-                                                    <td><a href="{{ url('jurnal/'.$item->jurnal->id) }}">{{ $item->jurnal->nama_jurnal}}</a></td>
-                                                    <td>{{ date_indo($item->jurnal->tanggal)}}</td>
-                                                    <td class="text-end">{{ norupiah($item->harga)}}</td>
-                                                    <td class="text-end">{{ norupiah($item->diskon)}}</td>
-                                                    <td>{{ $item->jumlah.' '.$item->satuan}}</td>
-                                                    <td class="text-end">{{ norupiah(subtotal($item->jumlah,$item->harga,$item->diskon))}}</td>
+                                                    <td><a href="{{ url('jurnal/'.$key->jurnal->id) }}">{{ $key->jurnal->nama_jurnal}}</a></td>
+                                                    <td>{{ date_indo($key->jurnal->tanggal)}}</td>
+                                                    <td class="text-end">{{ norupiah($key->harga)}}</td>
+                                                    <td class="text-end">{{ norupiah($key->diskon)}}</td>
+                                                    <td>{{ $key->jumlah.' '.$key->satuan}}</td>
+                                                    <td class="text-end">{{ norupiah(subtotal($key->jumlah,$key->harga,$key->diskon))}}</td>
                                                 </tr>
                                             @empty
                                                 <tr class="text-center">
@@ -74,5 +75,30 @@
                 </div>
             </section>
         </div>
+        <x-modalubah judul="ubah data Item" link="item">
+            <input type="hidden" name="id" value="{{ $item->id }}">
+            <section class="p-3">
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Nama Item {!! ireq() !!}</label>
+                    <input type="text" name="nama_item" value="{{ $item->nama_item }}" class="form-control col-md-8" required>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Kelompok {!! ireq() !!}</label>
+                    <select name="kelompok" class="form-control">
+                        @foreach ($kelompok as $key)
+                            <option value="{{ $key->nama_kategori }}" {{ syselected($key->nama_kategori,$item->kelompok) }}>{{ $key->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Keterangan</label>
+                    <textarea name="keterangan" cols="30" rows="3" class="form-control col-md-8">{{ $item->keterangan }}</textarea>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-md-4">Gambar</label>
+                    <input type="file" name="gambar_item" id="gambar" class="form-control col-md-8">
+                </div>
+            </section>
+        </x-modalubah>
     </x-slot>
 </x-mazer-layout>

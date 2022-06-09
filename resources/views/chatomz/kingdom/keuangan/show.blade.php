@@ -59,12 +59,22 @@
                                 <form action="{{ url('rekening/'.$rekening->id) }}" method="get">
                                     <div class="row mb-2">
                                         <div class="col-4">
-                                            <select name="bulan" id="" class="form-control" onchange="this.form.submit()">
-                                                <option value="semua" {{ Syselected('semua',$bulan) }}>SEMUA</option>
-                                                @for ($i = 1; $i <= 12; $i++)
-                                                <option value="{{ $i }}" {{ Syselected($i,$bulan) }}>{{ bulan_indo($i) }}</option>
-                                                @endfor
+                                            <select name="waktu" id="" class="form-control" onchange="this.form.submit()">
+                                                <option value="harian" {{ Syselected('harian',$main['waktu']) }}>HARIAN</option>
+                                                <option value="bulanan" {{ Syselected('bulanan',$main['waktu']) }}>BULANAN</option>
                                             </select>
+                                        </div>
+                                        <div class="col-4">
+                                            @if ($main['waktu'] == 'harian')
+                                                <input type="date" name="tanggal" value="{{ $main['tanggal'] }}" class="form-control" onchange="this.form.submit()">
+                                            @else
+                                                <select name="bulan" id="" class="form-control" onchange="this.form.submit()">
+                                                    <option value="semua" {{ Syselected('semua',$bulan) }}>SEMUA</option>
+                                                    @for ($i = 1; $i <= 12; $i++)
+                                                    <option value="{{ $i }}" {{ Syselected($i,$bulan) }}>{{ bulan_indo($i) }}</option>
+                                                    @endfor
+                                                </select>
+                                            @endif
                                         </div>
                                         @if ($bulan <> 'semua')
                                             <div class="col-4">
@@ -176,7 +186,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Deskripsi Jurnal</label>
-                    <input type="text" name="deskripsi" id="deskripsi" class="form-control" autocomplete="off" required>
+                    <input type="text" name="deskripsi" id="deskripsi" class="form-control" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label for="">Tanggal Jurnal</label>
@@ -332,7 +342,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Deskripsi Jurnal</label>
-                    <input type="text" name="deskripsi" id="deskripsi" class="form-control" required>
+                    <input type="text" name="deskripsi" id="deskripsi" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Tanggal Jurnal</label>

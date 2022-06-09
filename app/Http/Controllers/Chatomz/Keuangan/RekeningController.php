@@ -131,7 +131,9 @@ class RekeningController extends Controller
     {
         $kategori   = Kategori::where('label','keuangan')->get();
         $saldoawal  = $rekening->saldo_awal;
+        $waktu = (isset($_GET['waktu'])) ? $_GET['waktu'] : 'harian' ;
         $bulan = (isset($_GET['bulan'])) ? $_GET['bulan'] : ambil_bulan() ;
+        $tanggal = (isset($_GET['tanggal'])) ? $_GET['tanggal'] : tgl_sekarang() ;
         $s = (isset($_GET['s'])) ? $_GET['s'] : 'show' ;
         $arus = (isset($_GET['arus'])) ? $_GET['arus'] : 'semua' ;
         // kategori
@@ -170,18 +172,30 @@ class RekeningController extends Controller
                 break;
             
             default:
-                # code...
-                    $jurnaltotal = Jurnal::where('rekening_id',$rekening->id)->get(['nominal','arus']);
-                    if ($bulan == 'semua') {
-                        $jurnal = Jurnal::where('rekening_id',$rekening->id)->latest()->get();
-                    } else {
-                        if ($arus == 'semua') {
-                            $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereMonth('tanggal',$bulan)->whereYear('tanggal',ambil_tahun())->latest()->get();
+                $jurnaltotal = Jurnal::where('rekening_id',$rekening->id)->get(['nominal','arus']);
+                // sesi waktu
+
+                switch ($waktu) {
+                    case 'bulanan':
+                        if ($bulan == 'semua') {
+                            $jurnal = Jurnal::where('rekening_id',$rekening->id)->latest()->get();
                         } else {
-                            $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereMonth('tanggal',$bulan)->whereYear('tanggal',ambil_tahun())->where('arus',$arus)->latest()->get();
+                            if ($arus == 'semua') {
+                                $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereMonth('tanggal',$bulan)->whereYear('tanggal',ambil_tahun())->latest()->get();
+                            } else {
+                                $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereMonth('tanggal',$bulan)->whereYear('tanggal',ambil_tahun())->where('arus',$arus)->latest()->get();
+                            }
                         }
-                        
-                    }
+                        break;
+
+                    default:
+                        if ($arus == 'semua') {
+                            $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereDate('tanggal',$tanggal)->latest()->get();
+                        } else {
+                            $jurnal = Jurnal::where('rekening_id',$rekening->id)->whereDate('tanggal',$tanggal)->where('arus',$arus)->latest()->get();
+                        }
+                        break;
+                }
                     
                     $perhitungan    = PerhitunganDompet($jurnal,$saldoawal);
 
@@ -190,6 +204,8 @@ class RekeningController extends Controller
                         'total' => PerhitunganDompet($jurnaltotal,$saldoawal),
                         'sesi' => PerhitunganDompet($jurnal),
                         'kategori' => $dkategori,
+                        'waktu' => $waktu,
+                        'tanggal' => $tanggal,
                     ];
             
                     return view('chatomz.kingdom.keuangan.show', compact('main','rekening','kategori','jurnal','bulan','perhitungan','rekenings','arus'));
