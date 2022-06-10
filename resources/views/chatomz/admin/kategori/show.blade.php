@@ -37,9 +37,9 @@
                                                 </td>
                                                 <td>
                                                     {{ $item->nama_sub}}  <br> 
-                                                    {{-- @if (!is_null($item->gambar))
-                                                        <a href="{{ asset('img/kategori/'.$item->gambar) }}" target="_blank"><img src="{{ asset('img/kategori/'.$item->gambar) }}" alt="" width="150px"></a>
-                                                    @endif --}}
+                                                    @if (!is_null($item->gambar_sub))
+                                                        <a href="{{ asset('img/kategori/sub/'.$item->gambar_sub) }}" target="_blank"><img src="{{ asset('img/kategori/sub/'.$item->gambar_sub) }}" alt="" width="150px"></a>
+                                                    @endif
                                                 </td>
                                                 <td>{{ $item->keterangan_sub}}</td>
                                             </tr>

@@ -59,7 +59,12 @@ class KategoriController extends Controller
      */
     public function show(Kategori $kategori)
     {
-        //
+        if (chatomz_token()) {
+            return [
+                'data' => $kategori->subkategori,
+                'link_gambar' => 'public/img/kategori/sub'
+            ];
+        }
     }
 
     /**
