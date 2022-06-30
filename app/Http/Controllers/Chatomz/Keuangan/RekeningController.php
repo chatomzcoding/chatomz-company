@@ -60,14 +60,27 @@ class RekeningController extends Controller
                     'e-money' => $emoney,
                     'kebutuhanbulanan' => $totalkebutuhanbulanan
                 ];
+                $rekening_id = (isset($_GET['rekening'])) ? $_GET['rekening'] : 'semua' ;
+                $bulan = (isset($_GET['bulan'])) ? $_GET['bulan'] : ambil_bulan() ;
+                if ($rekening_id == 'semua') {
+                    $jurnal     = DB::table('jurnal')
+                                    ->join('rekening','jurnal.rekening_id','=','rekening.id')
+                                    ->where('rekening.akses',$akses)
+                                    ->whereMonth('jurnal.tanggal',$bulan)
+                                    ->whereYear('jurnal.tanggal',ambil_tahun())
+                                    ->select('jurnal.tanggal','jurnal.nominal','jurnal.arus')
+                                    ->get();
+                } else {
+                    $jurnal     = DB::table('jurnal')
+                                    ->join('rekening','jurnal.rekening_id','=','rekening.id')
+                                    ->where('rekening.akses',$akses)
+                                    ->where('rekening.id',$rekening_id)
+                                    ->whereMonth('jurnal.tanggal',$bulan)
+                                    ->whereYear('jurnal.tanggal',ambil_tahun())
+                                    ->select('jurnal.tanggal','jurnal.nominal','jurnal.arus')
+                                    ->get();
+                }
                 
-                $jurnal     = DB::table('jurnal')
-                                ->join('rekening','jurnal.rekening_id','=','rekening.id')
-                                ->where('rekening.akses',$akses)
-                                ->whereMonth('jurnal.tanggal',ambil_bulan())
-                                ->whereYear('jurnal.tanggal',ambil_tahun())
-                                ->select('jurnal.tanggal','jurnal.nominal','jurnal.arus')
-                                ->get();
                 
                 $label = [];
                 $nilai_masuk = [];
@@ -81,7 +94,7 @@ class RekeningController extends Controller
                     // cari nominal
                     $masuk = 0;
                     $keluar = 0;
-                    $tanggal = ambil_tahun().'-'.ambil_bulan().'-'.$tgl;
+                    $tanggal = ambil_tahun().'-'.$bulan.'-'.$tgl;
                     foreach ($jurnal as $key) {
                         if ($key->tanggal == $tanggal) {
                             if ($key->arus == 'pemasukan') {
@@ -99,7 +112,7 @@ class RekeningController extends Controller
                     'nilai_masuk' => $nilai_masuk,
                     'nilai_keluar' => $nilai_keluar
                 ];
-                return view('chatomz.kingdom.keuangan.dashboard', compact('statistik','kategori','chart'));
+                return view('chatomz.kingdom.keuangan.dashboard', compact('statistik','kategori','chart','rekening','bulan','rekening_id'));
                 break;
             case 'manajemen':
                 $kategori   = Kategori::where('label','keuangan')->get();

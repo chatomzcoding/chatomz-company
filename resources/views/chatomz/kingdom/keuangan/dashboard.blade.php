@@ -112,6 +112,30 @@
                                 <span class="float-end">{{ bulan_indo() }}</span>
                             </div>
                             <div class="card-body">
+                                <form action="{{ url('rekening') }}" method="get">
+                                    <input type="hidden" name="s" value="dashboard">
+                                    <section class="row">
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <select name="bulan" id="" class="form-control" onchange="this.form.submit()">
+                                                    @foreach (daftar_bulan() as $idbulan => $namabulan)
+                                                        <option value="{{ $idbulan }}" {{ sySelected($idbulan,$bulan) }}>{{ $namabulan }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <select name="rekening" id="" class="form-control" onchange="this.form.submit()">
+                                                    <option value="semua">SEMUA</option>
+                                                    @foreach ($rekening as $item)
+                                                        <option value="{{ $item->id }}" {{ sySelected($item->id,$rekening_id) }}>{{ $item->nama_rekening }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </form>
                                 <figure class="highcharts-figure">
                                     <div id="container"></div>
                                 </figure>
