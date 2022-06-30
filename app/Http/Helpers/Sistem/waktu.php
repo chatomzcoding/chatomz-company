@@ -170,7 +170,6 @@ if (! function_exists('kingdom_umur')) {
         } else {
             return $ultah->y;
         }
-        
     }
 }
 

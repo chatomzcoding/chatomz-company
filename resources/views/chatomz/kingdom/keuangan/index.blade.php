@@ -10,6 +10,7 @@
                                 <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi bi-plus"></i></a>
                                 <a href="{{ url('rekening?s=dashboard') }}" class="btn btn-outline-info btn-flat btn-sm"><i class="bi bi-bar-chart"></i></a>
                                 <a href="{{ url('rekening?s=manajemen') }}" class="btn btn-outline-success btn-flat btn-sm"><i class="bi bi-bookmark-plus"></i></a>
+                                <a href="{{ url('rekening?akses=umum') }}" class="btn btn-outline-warning btn-flat btn-sm"><i class="bi bi-box-arrow-up-right"></i></a>
                                 <span class="float-end pt-2 fw-bold">{{ norupiah($total) }}</span>
                             </div>
                         </div>
@@ -112,6 +113,13 @@
                         <option value="cash">CASH</option>
                         <option value="bank">BANK</option>
                         <option value="e-money">E-MONEY</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Hak Akses</label>
+                    <select name="akses" id="akses" class="form-control">
+                        <option value="pribadi">PRIBADI</option>
+                        <option value="umum">UMUM</option>
                     </select>
                 </div>
                 <div class="form-group">

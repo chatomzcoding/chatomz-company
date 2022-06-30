@@ -19,8 +19,9 @@ class RekeningController extends Controller
      */
     public function index()
     {
-        $rekening   = Rekening::all();
         $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
+        $akses = (isset($_GET['akses'])) ? $_GET['akses'] : 'pribadi' ;
+        $rekening   = Rekening::where('akses',$akses)->get();
         switch ($s) {
             case 'dashboard':
                 $total      = 0;
@@ -59,7 +60,46 @@ class RekeningController extends Controller
                     'e-money' => $emoney,
                     'kebutuhanbulanan' => $totalkebutuhanbulanan
                 ];
-                return view('chatomz.kingdom.keuangan.dashboard', compact('statistik','kategori'));
+                
+                $jurnal     = DB::table('jurnal')
+                                ->join('rekening','jurnal.rekening_id','=','rekening.id')
+                                ->where('rekening.akses',$akses)
+                                ->whereMonth('jurnal.tanggal',ambil_bulan())
+                                ->whereYear('jurnal.tanggal',ambil_tahun())
+                                ->select('jurnal.tanggal','jurnal.nominal','jurnal.arus')
+                                ->get();
+                
+                $label = [];
+                $nilai_masuk = [];
+                $nilai_keluar = [];
+                for ($i=1; $i <= 31; $i++) { 
+                    $label[] = $i;
+                    $tgl    = $i;
+                    if ($i <= 9) {
+                        $tgl = '0'.$i;
+                    }
+                    // cari nominal
+                    $masuk = 0;
+                    $keluar = 0;
+                    $tanggal = ambil_tahun().'-'.ambil_bulan().'-'.$tgl;
+                    foreach ($jurnal as $key) {
+                        if ($key->tanggal == $tanggal) {
+                            if ($key->arus == 'pemasukan') {
+                                $masuk = $masuk + $key->nominal;                            
+                            } else {
+                                $keluar = $keluar + $key->nominal;                            
+                            }
+                        }
+                    }
+                    $nilai_masuk[] = $masuk;
+                    $nilai_keluar[] = $keluar;
+                }
+                $chart = [
+                    'label' => $label,
+                    'nilai_masuk' => $nilai_masuk,
+                    'nilai_keluar' => $nilai_keluar
+                ];
+                return view('chatomz.kingdom.keuangan.dashboard', compact('statistik','kategori','chart'));
                 break;
             case 'manajemen':
                 $kategori   = Kategori::where('label','keuangan')->get();
@@ -78,9 +118,12 @@ class RekeningController extends Controller
                     ];
                     $total = $total + $saldo['total'];
                 }
-
-                $jurnal     = Jurnal::limit(20)->orderBy('tanggal','DESC')->get();
-                return view('chatomz.kingdom.keuangan.index', compact('data','total','jurnal'));
+                $jurnal     = [];
+                if ($akses == 'pribadi') {
+                    $jurnal     = Jurnal::limit(20)->orderBy('tanggal','DESC')->get();
+                }
+                
+                return view('chatomz.kingdom.keuangan.index', compact('data','total','jurnal','akses'));
                 break;
         }
     }
@@ -114,6 +157,7 @@ class RekeningController extends Controller
             'saldo_awal' => default_nilai($request->saldo_awal),
             'saldo_minimum' => default_nilai($request->saldo_minimum),
             'jenis' => $request->jenis,
+            'akses' => $request->akses,
             'detail' => json_encode($detail)
         ]);
 
@@ -199,7 +243,7 @@ class RekeningController extends Controller
                     
                     $perhitungan    = PerhitunganDompet($jurnal,$saldoawal);
 
-                    $rekenings  = Rekening::all();
+                    $rekenings  = Rekening::where('akses','pribadi')->get();
                     $main   = [
                         'total' => PerhitunganDompet($jurnaltotal,$saldoawal),
                         'sesi' => PerhitunganDompet($jurnal),
@@ -243,6 +287,7 @@ class RekeningController extends Controller
             'nama_rekening' => $request->nama_rekening,
             'saldo_awal' => default_nilai($request->saldo_awal),
             'saldo_minimum' => default_nilai($request->saldo_minimum),
+            'akses' => $request->akses,
             'jenis' => $request->jenis,
             'detail' => json_encode($detail)
         ]);

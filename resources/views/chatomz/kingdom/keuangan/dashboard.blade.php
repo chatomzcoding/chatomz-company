@@ -1,4 +1,10 @@
 <x-mazer-layout title="CHATOMZ - Keuangan" menu="keuangan">
+    <x-slot name="head">
+        <script src="https://code.highcharts.com/highcharts.js"></script>
+        <script src="https://code.highcharts.com/modules/exporting.js"></script>
+        <script src="https://code.highcharts.com/modules/export-data.js"></script>
+        <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    </x-slot>
     <x-slot name="content">
         <div class="page-heading">
             <x-header head="Dashboard Rekening" active="Statistik Keuangan"></x-header>
@@ -100,6 +106,20 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="float-end">{{ bulan_indo() }}</span>
+                            </div>
+                            <div class="card-body">
+                                <figure class="highcharts-figure">
+                                    <div id="container"></div>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
@@ -134,5 +154,34 @@
                 </div>
             </div>
         </div>
+    </x-slot>
+    <x-slot name="kodejs">
+        <script>
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Grafik Pemasukan dan Pengeluaran Keuangan'
+                },
+                xAxis: {
+                    categories: @json($chart['label'])
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Pemasukan',
+                    data: @json($chart['nilai_masuk']),
+                    color : 'blue'
+                }, 
+                {
+                    name: 'Pengeluaran',
+                    data: @json($chart['nilai_keluar']),
+                    color : 'red'
+                }
+                 ]
+            });
+        </script>
     </x-slot>
 </x-mazer-layout>

@@ -296,6 +296,13 @@
                         <option value="e-money" {{ SySelected('e-money',$rekening->jenis) }}>E-MONEY</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="">Hak Akses</label>
+                    <select name="akses" id="akses" class="form-control">
+                        <option value="pribadi" {{ SySelected('pribadi',$rekening->akses) }}>PRIBADI</option>
+                        <option value="umum" {{ SySelected('umum',$rekening->akses) }}>UMUM</option>
+                    </select>
+                </div>
                 @php
                     $detail = json_decode($rekening->detail)
                 @endphp
