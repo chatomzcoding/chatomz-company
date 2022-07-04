@@ -1,4 +1,4 @@
-<form id="data-{{ $id }}" action="{{url($link,$id)}}" method="post">
+<form id="data-{{ $nilaiid }}" action="{{url($link,$id)}}" method="post">
     @csrf
     @method('delete')
 </form>
@@ -13,6 +13,6 @@
             <a href="{{ url($link.'/'.$id) }}" class="dropdown-item text-primary"><i class="bi-file w20p"></i> DETAIL</a>
         @endif
         {{ $slot }}
-    <button onclick="deleteRow( {{ $id }} )" class="dropdown-item text-danger"><i class="bi-trash w20p"></i> HAPUS</button>
+    <button onclick="deleteRow( {{ $nilaiid }} )" class="dropdown-item text-danger"><i class="bi-trash w20p"></i> HAPUS</button>
     </div>
 </div>

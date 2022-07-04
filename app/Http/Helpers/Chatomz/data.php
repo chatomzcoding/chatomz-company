@@ -190,3 +190,21 @@ if (! function_exists('gambaritem')) {
         return $gambar;
     }
 }
+if (! function_exists('getdataitem')) {
+    function getdataitem($data,$fungsi=null)
+    {   
+        switch ($fungsi) {
+            case 'date_indo':
+                $result = date_indo($data);
+                break;
+            case 'norupiah':
+                $result = norupiah($data);
+                break;
+            
+            default:
+                $result = $data;
+                break;
+        }
+        return $result;
+    }
+}

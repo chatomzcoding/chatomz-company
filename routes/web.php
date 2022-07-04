@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BackupdbController;
 use App\Http\Controllers\Bisnis\ProdukController;
 use App\Http\Controllers\Bisnis\UsahaController;
 use App\Http\Controllers\Bisnis\WadeController;
+use App\Http\Controllers\Chatomz\Barang\DetailController;
 use App\Http\Controllers\Chatomz\BarangController;
 use App\Http\Controllers\Chatomz\Coding\BotController;
 use App\Http\Controllers\Chatomz\GrupanggotaController;

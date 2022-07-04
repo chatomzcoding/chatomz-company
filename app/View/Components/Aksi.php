@@ -12,12 +12,14 @@ class Aksi extends Component
      * @return void
      */
     public $id;
+    public $unique;
     public $link;
     public $detail;
 
-    public function __construct($id,$link='',$detail='FALSE')
+    public function __construct($id,$unique=NULL,$link='',$detail='FALSE')
     {
         $this->id = $id;
+        $this->unique = $unique;
         $this->link = $link;
         $this->detail = $detail;
     }
@@ -29,6 +31,7 @@ class Aksi extends Component
      */
     public function render()
     {
-        return view('components.aksi');
+        $nilaiid = ($this->unique <> NULL) ? $this->unique : $this->id ;
+        return view('components.aksi', compact('nilaiid'));
     }
 }

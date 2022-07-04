@@ -38,33 +38,112 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
-        ]);
-        $tujuan_upload = 'public/img/chatomz/barang';
-        $file = $request->file('photo_barang');
-        $mini = $request->file('photo_barang');
-        $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
-        $nama_file = time()."_".$file->getClientOriginalName();
-        $file->move($tujuan_upload,$nama_file);
+        $s  = (isset($request->s)) ? $request->s : 'store' ;
+        $id = uniqid();
+        switch ($s) {
+            case 'data':
+                $barang     = Barang::find($request->id);
+                $detail     = json_decode($barang->detail,TRUE);
+                $namaformat = $request->nama_format;
+                $format     = $detail[$namaformat]['format'];
+                $data = [];
+                foreach ($format as $key) {
+                    $field  = $key['field']; 
+                    $data[$field] = $request->$field;
+                }
 
-        Barang::create([
-            'nama_barang' => $request->nama_barang,
-            'kondisi' => $request->kondisi,
-            'merk' => $request->merk,
-            'sumber' => $request->sumber,
-            'keterangan' => $request->keterangan,
-            'harga_jual' => default_nilai($request->harga_jual),
-            'harga_beli' => default_nilai($request->harga_beli),
-            'tgl_kepemilikan' => $request->tgl_kepemilikan,
-            'status_barang' => $request->status_barang,
-            'photo_barang' => $nama_file,
-            'mg_barang' => $mg_barang,
-        ]);
+                $hasil = [
+                    $id => $data
+                ];
+                
+                // cek data ada atau tidak
+                if (count($detail[$namaformat]['data']) > 0) {
+                    $hasil = array_merge($detail[$namaformat]['data'],$hasil);    
+                }
 
-        $barang     = Barang::latest()->first();
+                $detail[$namaformat]['data'] = $hasil;
 
-        return redirect('barang/'.$barang->id)->with('ds','Barang');
+                Barang::where('id',$barang->id)->update([
+                    'detail' => json_encode($detail)
+                ]);
+                return back()->with('ds','Data '.ucwords($request->nama_format));
+                break;
+            case 'format':
+                $barang     = Barang::find($request->id);
+                // cek detail
+                $format     = [
+                    'info' => $request->info,
+                    'label' => $request->label,
+                    'format' => [],
+                    'data' => []
+                ];
+                $detail_r = [
+                    $request->nama_format => $format
+                ];
+                if (is_null($barang->detail)) {
+                    $detail = $detail_r;
+                } else {
+                    $detail_l   = json_decode($barang->detail,TRUE);
+                    $detail     = array_merge($detail_l,$detail_r);
+                }
+                
+                Barang::where('id',$barang->id)->update([
+                    'detail' => json_encode($detail)
+                ]);
+                return back()->with('ds','Format '.ucwords($request->nama_format));
+                break;
+            case 'field':
+                $barang     = Barang::find($request->id);
+                $detail     = json_decode($barang->detail,TRUE);
+                $field_r    = [
+                    $id => [
+                    'field' => $request->field,
+                    'tipe' => $request->tipe,
+                    'fungsi' => $request->fungsi,
+                    ]
+                ];
+                // cek jika belum ada field
+                if (is_null($detail[$request->nama_format]['format'])) {
+                    $detail[$request->nama_format]['format'] = $field_r;
+                } else {
+                    $field = array_merge($detail[$request->nama_format]['format'],$field_r);
+                    $detail[$request->nama_format]['format'] = $field;
+                }
+                Barang::where('id',$barang->id)->update([
+                    'detail' => json_encode($detail)
+                ]);
+                return back()->with('ds','Field '.ucwords($request->field));
+                break;
+            default:
+                $request->validate([
+                    'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+                ]);
+                $tujuan_upload = 'public/img/chatomz/barang';
+                $file = $request->file('photo_barang');
+                $mini = $request->file('photo_barang');
+                $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
+                $nama_file = time()."_".$file->getClientOriginalName();
+                $file->move($tujuan_upload,$nama_file);
+        
+                Barang::create([
+                    'nama_barang' => $request->nama_barang,
+                    'kondisi' => $request->kondisi,
+                    'merk' => $request->merk,
+                    'sumber' => $request->sumber,
+                    'keterangan' => $request->keterangan,
+                    'harga_jual' => default_nilai($request->harga_jual),
+                    'harga_beli' => default_nilai($request->harga_beli),
+                    'tgl_kepemilikan' => $request->tgl_kepemilikan,
+                    'status_barang' => $request->status_barang,
+                    'photo_barang' => $nama_file,
+                    'mg_barang' => $mg_barang,
+                ]);
+        
+                $barang     = Barang::latest()->first();
+        
+                return redirect('barang/'.$barang->id)->with('ds','Barang');
+                break;
+        }
     }
 
     /**
@@ -75,7 +154,26 @@ class BarangController extends Controller
      */
     public function show(Barang $barang)
     {
-        return view('chatomz.kingdom.barang.show', compact('barang'));
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'show' ;
+        $format = (isset($_GET['format'])) ? $_GET['format'] : 'show' ;
+        switch ($s) {
+            case 'format':
+                $detail = json_decode($barang->detail);
+                $dataformat = $detail->$format;
+                return view('chatomz.kingdom.barang.format', compact('barang','dataformat','format'));
+                break;
+            case 'data':
+                $detail = json_decode($barang->detail);
+                $dataformat = $detail->$format;
+                return view('chatomz.kingdom.barang.data', compact('barang','dataformat','format'));
+                break;
+            case 'detail':
+                return view('chatomz.kingdom.barang.detail', compact('barang'));
+                break;
+            default:
+                return view('chatomz.kingdom.barang.show', compact('barang'));
+                break;
+        }
     }
 
     /**
@@ -163,7 +261,6 @@ class BarangController extends Controller
                 return redirect('barang/'.$barang->id)->with('du','Barang');
                 break;
         }
-       
     }
 
     /**
@@ -174,11 +271,32 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        $tujuan_upload = 'public/img/chatomz/barang';
-        deletefile($tujuan_upload.'/'.$barang->photo_barang);
-        deletefile($tujuan_upload.'/'.$barang->mg_barang);
-        $barang->delete();
-
-        return redirect('barang')->with('dd','Barang');
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'destroy' ;
+        switch ($s) {
+            case 'format':
+                $detail     = json_decode($barang->detail,TRUE);
+                // proses hapus format by id
+                unset($detail[$_GET['format']]['format'][$_GET['id']]);
+                Barang::where('id',$barang->id)->update([
+                    'detail' => json_encode($detail)
+                ]);
+                return back()->with('dd','Format');
+                break;
+            case 'data':
+                $detail     = json_decode($barang->detail,TRUE);
+                unset($detail[$_GET['format']]['data'][$_GET['id']]);
+                Barang::where('id',$barang->id)->update([
+                    'detail' => json_encode($detail)
+                ]);
+                return back()->with('dd','Format');
+                break;
+            default:
+                $tujuan_upload = 'public/img/chatomz/barang';
+                deletefile($tujuan_upload.'/'.$barang->photo_barang);
+                deletefile($tujuan_upload.'/'.$barang->mg_barang);
+                $barang->delete();
+                return redirect('barang')->with('dd','Barang');
+                break;
+        }
     }
 }
