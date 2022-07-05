@@ -8,6 +8,7 @@
               <div class="card">
                 <div class="card-body p-2">
                   <x-sistem.tambah url='/barang/create'></x-sistem.tambah>
+                  <a href="{{ url('barang?s=dashboard') }}" class="btn btn-outline-info btn-sm"><i class="bi-bar-chart"></i></a>
                 </div>
               </div>
                   <div class="row">

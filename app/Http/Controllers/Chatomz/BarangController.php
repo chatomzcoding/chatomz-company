@@ -15,9 +15,18 @@ class BarangController extends Controller
      */
     public function index()
     {
+        $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
         $barang     = Barang::all();
-
-        return view('chatomz.kingdom.barang.index', compact('barang'));
+        switch ($s) {
+            case 'dashboard':
+                $totalasset    = Barang::where('status_barang','ada')->sum('harga_beli');
+                return view('chatomz.kingdom.barang.dashboard', compact('barang','totalasset'));
+                break;
+            
+            default:
+                return view('chatomz.kingdom.barang.index', compact('barang'));
+                break;
+        }
     }
 
     /**
@@ -51,16 +60,13 @@ class BarangController extends Controller
                     $field  = $key['field']; 
                     $data[$field] = $request->$field;
                 }
-
                 $hasil = [
                     $id => $data
                 ];
-                
                 // cek data ada atau tidak
                 if (count($detail[$namaformat]['data']) > 0) {
                     $hasil = array_merge($detail[$namaformat]['data'],$hasil);    
                 }
-
                 $detail[$namaformat]['data'] = $hasil;
 
                 Barang::where('id',$barang->id)->update([
