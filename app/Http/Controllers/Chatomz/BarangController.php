@@ -122,13 +122,14 @@ class BarangController extends Controller
                 break;
             default:
                 $request->validate([
-                    'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+                    'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg,webp|max:4000',
                 ]);
                 $tujuan_upload = 'public/img/chatomz/barang';
                 $file = $request->file('photo_barang');
-                $mini = $request->file('photo_barang');
-                $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
                 $nama_file = time()."_".$file->getClientOriginalName();
+                // $mini = $request->file('photo_barang');
+                // $mg_barang = kompres($mini,$tujuan_upload,150,'mini'); bug compress png
+                $mg_barang = $nama_file;
                 $file->move($tujuan_upload,$nama_file);
         
                 Barang::create([
@@ -208,13 +209,14 @@ class BarangController extends Controller
             case 'simple':
                 if (isset($request->photo_barang)) {
                     $request->validate([
-                        'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg|max:5000',
+                        'photo_barang' => 'required|file|image|mimes:jpeg,png,jpg,webp|max:4000',
                     ]);
                     $tujuan_upload = 'public/img/chatomz/barang';
                     $file = $request->file('photo_barang');
-                    $mini = $request->file('photo_barang');
-                    $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
+                    // $mini = $request->file('photo_barang');
                     $nama_file = time()."_".$file->getClientOriginalName();
+                    // $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
+                    $mg_barang = $nama_file;
                     $file->move($tujuan_upload,$nama_file);
         
                     deletefile($tujuan_upload.'/'.$barang->photo_barang);
@@ -240,9 +242,10 @@ class BarangController extends Controller
                     ]);
                     $tujuan_upload = 'public/img/chatomz/barang';
                     $file = $request->file('photo_barang');
-                    $mini = $request->file('photo_barang');
-                    $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
+                    // $mini = $request->file('photo_barang');
+                    // $mg_barang = kompres($mini,$tujuan_upload,150,'mini');
                     $nama_file = time()."_".$file->getClientOriginalName();
+                    $mg_barang = $nama_file;
                     $file->move($tujuan_upload,$nama_file);
         
                     deletefile($tujuan_upload.'/'.$barang->photo_barang);
