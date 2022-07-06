@@ -129,8 +129,8 @@ class BarangController extends Controller
                 $nama_file = time()."_".$file->getClientOriginalName();
                 // $mini = $request->file('photo_barang');
                 // $mg_barang = kompres($mini,$tujuan_upload,150,'mini'); bug compress png
-                $mg_barang = $nama_file;
                 $file->move($tujuan_upload,$nama_file);
+                $mg_barang = $nama_file;
         
                 Barang::create([
                     'nama_barang' => $request->nama_barang,

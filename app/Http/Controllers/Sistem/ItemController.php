@@ -97,8 +97,9 @@ class ItemController extends Controller
                 'gambar_item' => 'required|file|image|mimes:jpeg,png,jpg,webp|max:2000',
             ]);
             $tujuan_upload = 'public/img/chatomz/item';
-            $mini = $request->file('gambar_item');
-            $gambar_item = kompres($mini,$tujuan_upload,250,'mini');
+            $file = $request->file('gambar_item');
+            $gambar_item = time()."_".$file->getClientOriginalName();
+            $file->move($tujuan_upload,$gambar_item);
         } else {
             $gambar_item = $item->gambar_item;
         }
