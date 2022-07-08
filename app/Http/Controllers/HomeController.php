@@ -6,6 +6,7 @@ use App\Models\Barang;
 use App\Models\Grup;
 use App\Models\Informasi;
 use App\Models\Informasisub;
+use App\Models\Item;
 use App\Models\Jejak;
 use App\Models\Jurnal;
 use App\Models\Kategori;
@@ -109,9 +110,6 @@ class HomeController extends Controller
     public function cari()
     {
         $s = (isset($_GET['s'])) ? $_GET['s'] : NULL ;
-        $film   = [];
-        $informasi   = [];
-        $phone  = [];
         switch ($s) {
             case 'carinama':
                 $cari   = $_GET['nama'];
@@ -124,6 +122,18 @@ class HomeController extends Controller
                         'photo' => 'img/chatomz/barang/'.$key->photo_barang,
                         'info' => $key->keterangan,
                         'link' => 'barang/'.$key->id
+                    ];
+                }
+
+                // ITEM
+                $ditem      = Item::where('nama_item','LIKE','%'.$cari.'%')->get();
+                $listitem   = [];
+                foreach ($ditem as $key) {
+                    $listitem[] = [
+                        'nama' => $key->nama_item,
+                        'photo' => 'img/chatomz/item/'.$key->gambar_item,
+                        'info' => $key->keterangan,
+                        'link' => 'item/'.$key->id
                     ];
                 }
 
@@ -203,14 +213,12 @@ class HomeController extends Controller
                         }
                     }
                 }
-                // cari phone
-                $phone          = Informasisub::where('nama_sub','LIKE','%'.$cari.'%')->get();
                 $judul  = 'Pencarian key : "'.$cari.'"';
                 $data   = [
                     'barang' => $barang,
                     'orang' => $orang,
+                    'listitem' => $listitem,
                 ];
-
                 $data = array_merge($data,$informasi);
                 break;
             
@@ -227,11 +235,6 @@ class HomeController extends Controller
                 return redirect('dashboard')->with('danger','tidak ada apa apa');
                 break;
         }
-        // $data   = [
-            // 'orang' => $orang,
-            // 'informasi' => $informasi,
-            // 'phone' => $phone,
-        // ];
         return view('sistem.list', compact('data','judul'));
     }
 

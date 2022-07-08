@@ -15,7 +15,7 @@ class Modal extends Component
     public $id;
     public $size;
 
-    public function __construct($judul,$id="modal",$size="")
+    public function __construct($judul=NULL,$id="modal",$size="")
     {
         $this->id = $id;
         $this->judul = $judul;

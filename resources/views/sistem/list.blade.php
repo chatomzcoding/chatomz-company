@@ -21,13 +21,15 @@
                                                         <div class="row no-gutters">
                                                             <div class="col-md-4 text-center">
                                                                 @if (file_exists('public/'.$item['photo']))
-                                                                    <a href="{{ asset($item['photo']) }}" target="_blank">
+                                                                    {{-- <a href="{{ asset($item['photo']) }}" target="_blank"> --}}
+                                                                    <a href="#" data-link="{{ asset($item['photo']) }}" data-bs-toggle="modal" data-bs-target="#photo">
                                                                         <img src="{{ asset($item['photo']) }}" class="card-img" alt="...">
                                                                     </a>
                                                                 @else
                                                                     <img src="{{ asset('img/null.png') }}" alt="" class="card-img">
                                                                 @endif
                                                             </div>
+                                                           
                                                         <div class="col-md-8 pt-0 px-0">
                                                             <div class="card-body px-2 pt-0">
                                                             <h6 class="small text-capitalize">
@@ -59,5 +61,22 @@
                 @endforelse
             </div>
         </div>
+    </x-slot>
+    <x-slot name="kodejs">
+        <x-modal id="photo" size="modal-lg">
+            <section>
+                <img src="" alt="" id="link" class="w-100">
+            </section>
+        </x-modal>
+        <script>
+            $('#photo').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var link = button.data('link')
+                var id = button.data('id')
+                var modal = $(this)
+                modal.find('.modal-body #link').attr("src",link);
+                modal.find('.modal-body #id').val(id);
+            })
+        </script>
     </x-slot>
 </x-mazer-layout>

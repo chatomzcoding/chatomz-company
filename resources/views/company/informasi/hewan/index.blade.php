@@ -19,7 +19,7 @@
                                         $detail = json_decode($item->detail); 
                                     @endphp
                                     <div class="card-content">
-                                        <a href="{{ asset('img/company/informasi/hewan/'.$item->gambar)}}" target="_blank"><img src="{{ asset('img/company/informasi/hewan/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
+                                        <a href="#" data-link="{{ asset('img/company/informasi/hewan/'.$item->gambar)}}" data-bs-toggle="modal" data-bs-target="#photo"><img src="{{ asset('img/company/informasi/hewan/'.$item->gambar)}}" alt="user-avatar" class="card-img-top img-fluid"></a> <br>
                                     <section class="text-center py-2">
                                         {{ ucwords($item->nama)}} <br>
                                         @if (isset($detail->nama_latin))
@@ -92,8 +92,23 @@
                 </div>
             </section>
         </x-modalubah>
+        <x-modal id="photo" size="modal-lg">
+            <section>
+                <img src="" alt="" id="link" class="w-100">
+            </section>
+        </x-modal>
     </x-slot>
     <x-slot name="kodejs">
+        <script>
+            $('#photo').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget)
+                var link = button.data('link')
+                var id = button.data('id')
+                var modal = $(this)
+                modal.find('.modal-body #link').attr("src",link);
+                modal.find('.modal-body #id').val(id);
+            })
+        </script>
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
