@@ -157,19 +157,19 @@ class HomeController extends Controller
                                 switch ($key->nama_kategori) {
                                     case 'masakan':
                                         $detail     = json_decode($item->detail);
-                                        $detail     = $detail->servings;     
+                                        $detail = (isset($detail->servings)) ? $detail->servings : NULL ;
                                         break;
                                     case 'film':
                                         $detail     = json_decode($item->detail);
-                                        $detail     = 'Tahun '.$detail->Year;     
+                                        $detail = (isset($detail->Year)) ? 'Tahun '.$detail->Year : NULL ;
                                         break;
                                     case 'hewan':
                                         $detail     = json_decode($item->detail);
-                                        $detail     = substr($detail->tentang,0,100).'...';     
+                                        $detail = (isset($detail->tentang)) ? substr($detail->tentang,0,100).'...' : NULL ;
                                         break;
                                     case 'phone':
                                         $detail     = json_decode($item->detail);
-                                        $detail     = $detail->jumlah.' Model';     
+                                        $detail = (isset($detail->jumlah)) ? $detail->jumlah.' Model' : NULL ;
                                         break;
                                     
                                     default:
