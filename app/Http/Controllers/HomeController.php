@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
 use App\Models\Grup;
 use App\Models\Informasi;
 use App\Models\Informasisub;
 use App\Models\Jejak;
 use App\Models\Jurnal;
+use App\Models\Kategori;
 use App\Models\Keluarga;
 use App\Models\Linimasa;
 use App\Models\Orang;
@@ -15,6 +17,7 @@ use App\Models\Riwayat;
 use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -112,23 +115,103 @@ class HomeController extends Controller
         switch ($s) {
             case 'carinama':
                 $cari   = $_GET['nama'];
-                // cari orang
+                // BARANG
+                $dbarang     = Barang::where('nama_barang','LIKE','%'.$cari.'%')->get();
+                $barang     = [];
+                foreach ($dbarang as $key) {
+                    $barang[] = [
+                        'nama' => $key->nama_barang,
+                        'photo' => 'img/chatomz/barang/'.$key->photo_barang,
+                        'info' => $key->keterangan,
+                        'link' => 'barang/'.$key->id
+                    ];
+                }
+
+                // ORANG
                 $dnama  = explode(' ',$cari);
                 $first_name = $dnama[0];
                 if (count($dnama) == 1) {
                     $last_name = $dnama[0];
-                    $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->Orwhere('last_name','LIKE','%'.$last_name.'%')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+                    $dorang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->Orwhere('last_name','LIKE','%'.$last_name.'%')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
                 } else {
                     $last_name = $dnama[1];
-                    $orang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->where('last_name','LIKE','%'.$last_name.'%')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
+                    $dorang  = Orang::where('first_name','LIKE','%'.$first_name.'%')->where('last_name','LIKE','%'.$last_name.'%')->get(['id','first_name','last_name','gender','death','photo','date_birth']);
                 }
+                $orang  = [];
+                foreach ($dorang as $key) {
+                    $orang[] = [
+                        'nama' => kingdom_fullname($key),
+                        'photo' => 'img/chatomz/orang/'.$key->photo,
+                        'info' => age($key->date_birth),
+                        'link' => 'orang/'.Crypt::encryptString($key->id)
+                    ];
+                }
+                $datainformasi    = Kategori::where('label','informasi')->get();
+                $informasi      = [];
+                foreach ($datainformasi as $key) {
+                    $dinformasi = $key->informasi;
+                    if (count($dinformasi) > 0) {
+                        foreach ($key->informasi as $item) {
+                            // cek sesuai dengan pencarian
+                            if (preg_match("/".$cari."/i", $item->nama)) {
+                                switch ($key->nama_kategori) {
+                                    case 'masakan':
+                                        $detail     = json_decode($item->detail);
+                                        $detail     = $detail->servings;     
+                                        break;
+                                    case 'film':
+                                        $detail     = json_decode($item->detail);
+                                        $detail     = 'Tahun '.$detail->Year;     
+                                        break;
+                                    case 'hewan':
+                                        $detail     = json_decode($item->detail);
+                                        $detail     = substr($detail->tentang,0,100).'...';     
+                                        break;
+                                    case 'phone':
+                                        $detail     = json_decode($item->detail);
+                                        $detail     = $detail->jumlah.' Model';     
+                                        break;
+                                    
+                                    default:
+                                        $detail = NULL;
+                                        break;
+                                }
+                                $informasi[$key->nama_kategori][] = [
+                                    'nama' => $item->nama,
+                                    'photo' => 'img/company/informasi/'.$key->nama_kategori.'/'.$item->gambar,
+                                    'info' => $detail,
+                                    'link' => 'informasi/'.$item->id
+                                ];
+                            }
 
-                // cari film
-                $informasi   = Informasi::where('nama','LIKE','%'.$cari.'%')->get();
-
+                            // khusus phone
+                            if ($key->nama_kategori == 'phone') {
+                                $model      = $item->informasisub;
+                                // loop model
+                                foreach ($model as $row) {
+                                    $detailsub  = json_decode($row->detail_sub);
+                                    if(preg_match("/".$cari."/i", $row->nama_sub)) {
+                                        $informasi[$key->nama_kategori][] = [
+                                            'nama' => $item->nama.' '.$row->nama_sub,
+                                            'photo' => 'img/company/informasi/'.$key->nama_kategori.'/'.$row->gambar_sub,
+                                            'info' => $detailsub->release_date,
+                                            'link' => 'informasisub/'.$row->id
+                                        ];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 // cari phone
                 $phone          = Informasisub::where('nama_sub','LIKE','%'.$cari.'%')->get();
                 $judul  = 'Pencarian key : "'.$cari.'"';
+                $data   = [
+                    'barang' => $barang,
+                    'orang' => $orang,
+                ];
+
+                $data = array_merge($data,$informasi);
                 break;
             
             case 'ulangtahuntanggalini':
@@ -144,11 +227,11 @@ class HomeController extends Controller
                 return redirect('dashboard')->with('danger','tidak ada apa apa');
                 break;
         }
-        $data   = [
-            'orang' => $orang,
-            'informasi' => $informasi,
-            'phone' => $phone,
-        ];
+        // $data   = [
+            // 'orang' => $orang,
+            // 'informasi' => $informasi,
+            // 'phone' => $phone,
+        // ];
         return view('sistem.list', compact('data','judul'));
     }
 

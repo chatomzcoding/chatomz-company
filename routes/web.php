@@ -47,7 +47,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 // HOMEPAGE
-Route::get('/',[LandingController::class,'index']);
+Route::get('/', function()
+{
+    return redirect('login');
+});
 Route::get('/c/{sesi}',[LandingController::class,'content']);
 
 Route::get('uji/lihat', 'App\Http\Controllers\ApiController@index');
