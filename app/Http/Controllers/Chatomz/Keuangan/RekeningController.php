@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Chatomz\Keuangan;
 
 use App\Http\Controllers\Controller;
 use App\Models\Jurnal;
+use App\Models\Jurnalmanajemen;
 use App\Models\Kategori;
 use App\Models\Manajemenkeuangan;
 use App\Models\Rekening;
@@ -116,8 +117,40 @@ class RekeningController extends Controller
                 break;
             case 'manajemen':
                 $kategori   = Kategori::where('label','keuangan')->get();
-                $kebutuhan  = Manajemenkeuangan::where('alokasi','kebutuhan')->get();
-                return view('chatomz.kingdom.keuangan.manajemen', compact('kategori','kebutuhan'));
+                $manajemen  = Manajemenkeuangan::all();
+                $kewajiban = Manajemenkeuangan::where('alokasi','kewajiban')->sum('nominal');
+                // perencanaan
+                $jurnalmanajemen    = Jurnalmanajemen::whereMonth('created_at',ambil_bulan())->get();
+                $pemasukan          = 0;
+                $perencanaan        = 0;
+                $dataperencanaan        = [];
+                foreach ($jurnalmanajemen as $key) {
+                    $nominal    = $key->jurnal->nominal;
+                    // pemasukan
+                    switch ($key->manajemenkeuangan->alokasi) {
+                        case 'pemasukan':
+                            $pemasukan = $pemasukan + $nominal; 
+                            break;
+                        case 'perencanaan':
+                            $dataperencanaan[$key->manajemenkeuangan->judul]['nominal'][] = $nominal;
+                            $dataperencanaan[$key->manajemenkeuangan->judul]['persen'] = $key->manajemenkeuangan->nominal;
+                            $perencanaan = $perencanaan + $nominal;
+                            break;
+                        default:
+                            # code...
+                            break;
+                    }
+                }
+                $perencanaan    = [
+                    'pemasukan' => $pemasukan,
+                    'kewajiban' => $kewajiban,
+                    'perencanaan' => [
+                        'data' => $dataperencanaan,
+                        'total' => $perencanaan
+                    ]
+                ];
+
+                return view('chatomz.kingdom.keuangan.manajemen', compact('kategori','manajemen','perencanaan'));
                 break;
             
             default:

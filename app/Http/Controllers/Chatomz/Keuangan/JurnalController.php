@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Jurnal;
 use App\Models\Kategori;
+use App\Models\Manajemenkeuangan;
 use App\Models\Rekening;
 use Illuminate\Http\Request;
 
@@ -114,7 +115,8 @@ class JurnalController extends Controller
             'totalharga' => $jumlah,
             'sisa' => $sisa
         ];
-        return view('chatomz.kingdom.keuangan.jurnal.show', compact('jurnal','items','kategori','main','kelompok','satuan'));
+        $manajemen  = Manajemenkeuangan::where('alokasi','pemasukan')->Orwhere('alokasi','perencanaan')->get();
+        return view('chatomz.kingdom.keuangan.jurnal.show', compact('jurnal','items','kategori','main','kelompok','satuan','manajemen'));
     }
 
     /**

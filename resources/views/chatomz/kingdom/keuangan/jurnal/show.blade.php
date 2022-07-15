@@ -6,6 +6,7 @@
                 <div class="card p-0">
                     <div class="card-body p-2">
                         <a href="#" data-bs-target="#ubahjurnal" data-bs-toggle="modal" class="btn btn-outline-success btn-sm"><i class="bi-pen"></i></a>
+                        <a href="#" data-bs-target="#jurnalmanajemen" data-bs-toggle="modal" class="btn btn-outline-info btn-sm"><i class="bi-list"></i></a>
                     </div>
                 </div>
                 <div class="row">
@@ -73,10 +74,10 @@
                                                     <td colspan="5">tidak ada data</td>
                                                 </tr>
                                             @endforelse
-                                                <tr class="text-primary">
-                                                    <th colspan="5">Jumlah Total</th>
-                                                    <th class="text-end">{{ norupiah($main['totalharga']) }}</th>
-                                                </tr>
+                                            <tr class="text-primary">
+                                                <th colspan="5">Jumlah Total</th>
+                                                <th class="text-end">{{ norupiah($main['totalharga']) }}</th>
+                                            </tr>
                                     </table>
                                 </div>
                             </div>
@@ -247,6 +248,19 @@
                 </div>
             </section>
         </x-modalubah>
+        <x-modalsimpan id="jurnalmanajemen" judul="Tambah Manajemen Keuangan" link="jurnalmanajemen">
+            <input type="hidden" name="jurnal_id" value="{{ $jurnal->id }}">
+            <section class="p-3">
+                <div class="form-group">
+                    <label for="">Manajemen Keuangan</label>
+                    <select name="manajemenkeuangan_id" id="manajemenkeuangan_id" class="form-control">
+                        @foreach ($manajemen as $item)
+                            <option value="{{ $item->id }}">{{ $item->judul }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </section>
+        </x-modalsimpan>
     </x-slot>
     <x-slot name="kodejs">
         <script>

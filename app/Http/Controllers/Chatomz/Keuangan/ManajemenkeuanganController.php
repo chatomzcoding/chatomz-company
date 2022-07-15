@@ -36,23 +36,15 @@ class ManajemenkeuanganController extends Controller
      */
     public function store(Request $request)
     {
-        switch ($request->alokasi) {
-            case 'kebutuhan':
-                Manajemenkeuangan::create([
-                    'judul' => $request->judul,
-                    'alokasi' => $request->alokasi,
-                    'nominal' => default_nilai($request->nominal),
-                    'waktu' => $request->waktu,
-                    'subkategori_id' => $request->subkategori_id,
-                ]);
+        Manajemenkeuangan::create([
+            'judul' => $request->judul,
+            'alokasi' => $request->alokasi,
+            'nominal' => default_nilai($request->nominal),
+            'waktu' => $request->waktu,
+            'subkategori_id' => $request->subkategori_id,
+        ]);
 
-                return back()->with('ds','Kebutuhan');
-                break;
-            
-            default:
-                # code...
-                break;
-        }
+        return back()->with('ds','Manajemen');
     }
 
     /**

@@ -89,6 +89,27 @@ if (! function_exists('subtotal')) {
         return $subtotal;
     }
 }
+// dana alokasi
+if (! function_exists('keuangan_danaalokasi')) {
+    function keuangan_danaalokasi($pemasukan,$pengeluaran)
+    {
+        $result = $pemasukan - $pengeluaran;
+        return $result;
+    }
+}
+// progress kebutuhan keuangan
+if (! function_exists('keuangan_progressperencanaan')) {
+    function keuangan_progressperencanaan($perencanaan,$subperencanaan)
+    {
+        $alokasi        = ($perencanaan['pemasukan'] - $perencanaan['kewajiban']) * $subperencanaan['persen'] / 100; // ambil bagian per sub
+        $persen         = array_sum($subperencanaan['nominal']) / $alokasi * 100; // bandingan dengan jurnal dan rubah ke persen
+        return [
+            'persen' => $persen,
+            'nilaipersen' => round($persen,2),
+            'alokasi' => $alokasi,
+        ];
+    }
+}
 // jumlah total harga item
 if (! function_exists('jumlahhargaitemperjurnal')) {
     function jumlahhargaitemperjurnal($jurnalitem)

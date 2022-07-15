@@ -8,7 +8,7 @@
                         <div class="card">
                             <div class="card-body p-2">
                                 <x-sistem.kembali url='rekening'></x-sistem.kembali>
-                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi bi-plus"></i> Kebutuhan</a>
+                                <a href="#" class="btn btn-outline-primary btn-flat btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi bi-plus"></i> Manajemen</a>
                             </div>
                         </div>
                     </div>
@@ -17,7 +17,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header fw-bold">
-                                DAFTAR KEBUTUHAN
+                                Daftar Manajemen Keuangan
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -26,6 +26,7 @@
                                             <tr>
                                                 <th width="5%">No</th>
                                                 <th>Aksi</th>
+                                                <th>Alokasi</th>
                                                 <th>Nama Kebutuhan</th>
                                                 <th>Kategori</th>
                                                 <th>Waktu</th>
@@ -33,16 +34,17 @@
                                             </tr>
                                         </thead>
                                         <tbody class="text-capitalize">
-                                            @forelse ($kebutuhan as $item)
+                                            @forelse ($manajemen as $item)
                                             <tr>
                                                     <td class="text-center">{{ $loop->iteration}}</td>
                                                     <td class="text-center">
                                                         <x-aksi :id="$item->id" link="manajemenkeuangan">
-                                                            <button type="button" data-bs-toggle="modal"  data-judul="{{ $item->judul }}"  data-nominal="{{ $item->nominal }}" data-waktu="{{ $item->waktu }}" data-subkategori_id="{{ $item->subkategori_id }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                            <button type="button" data-bs-toggle="modal" data-alokasi="{{ $item->alokasi }}" data-judul="{{ $item->judul }}"  data-nominal="{{ $item->nominal }}" data-waktu="{{ $item->waktu }}" data-subkategori_id="{{ $item->subkategori_id }}"  data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                                 <i class="bi-pen" style="width: 20px;"></i> EDIT
                                                             </button>
                                                         </x-aksi>
                                                     </td>
+                                                    <td>{{ $item->alokasi}}</td>
                                                     <td>{{ $item->judul}}</td>
                                                     <td>{{ $item->subkategori->nama_sub}}</td>
                                                     <td>{{ $item->waktu}}</td>
@@ -53,14 +55,57 @@
                                                     <td colspan="6">tidak ada data</td>
                                                 </tr>
                                             @endforelse
-                                            @if (count($kebutuhan) > 0)
-                                                <tr class="table-info">
-                                                    <th colspan="5">Jumlah Kebutuhan</th>
-                                                    <td class="text-end">{{ norupiah(keuanganTotalManajemen($kebutuhan)) }}</td>
-                                                </tr>
-                                            @endif
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header fw-bold">
+                                Perencanaan Keuangan
+                            </div>
+                            <div class="card-body">
+                               <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th colspan="2">Pemasukan</th>
+                                            <td class="text-end" width="20%">{{ norupiah($perencanaan['pemasukan']) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Kewajiban</th>
+                                            <td class="text-end">{{ norupiah($perencanaan['kewajiban']) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">Dana Alokasi</th>
+                                            <td class="text-end">{{ norupiah(keuangan_danaalokasi($perencanaan['pemasukan'],$perencanaan['kewajiban'])) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="3">Alokasi Perencanaan</th>
+                                        </tr>
+                                        @foreach ($perencanaan['perencanaan']['data'] as $label => $item)
+                                            @php
+                                                $progress = keuangan_progressperencanaan($perencanaan,$item)
+                                            @endphp
+                                            <tr>
+                                                <td class="ps-4 text-capitalize" width="25%">{{ $label }}</td>
+                                                <td>
+                                                    <div class="progress progress-primary">
+                                                        <div class="progress-bar progress-label" role="progressbar" style="width: {{ $progress['persen'] }}%"
+                                                            aria-valuenow="{{ $progress['nilaipersen'] }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-end">{{ norupiah(array_sum($item['nominal'])) }}/{{ norupiah($progress['alokasi']) }}</td>
+                                            </tr>
+                                        @endforeach
+                                        <tr>
+                                            <th class="ps-4" colspan="2">Total Perencanaan</th>
+                                            <td class="text-end">{{ norupiah($perencanaan['perencanaan']['total']) }}</td>
+                                        </tr>
+                                    </table>
+                               </div>
                             </div>
                         </div>
                     </div>
@@ -82,6 +127,14 @@
                             @foreach ($item->subkategori as $key)
                             <option value="{{ $key->id }}">{{ strtoupper($item->nama_kategori).' - '.ucwords($key->nama_sub) }}</option>
                             @endforeach
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Alokasi</label>
+                    <select name="alokasi" id="alokasi" class="form-control">
+                        @foreach (list_manajemenkeuangan() as $item)
+                            <option value="{{ $item }}">{{ $item }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -116,6 +169,14 @@
                     </select>
                 </div>
                 <div class="form-group">
+                    <label for="">Alokasi</label>
+                    <select name="alokasi" id="alokasi" class="form-control">
+                        @foreach (list_manajemenkeuangan() as $item)
+                            <option value="{{ $item }}">{{ $item }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="">Nominal</label>
                     <input type="text" name="nominal" id="rupiah" class="form-control" autocomplete="off" required>
                 </div>
@@ -129,17 +190,20 @@
                 </div>
             </section>
         </x-modalubah>
+       
     </x-slot>
     <x-slot name="kodejs">
         <script>
             $('#ubah').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget)
+                var alokasi = button.data('alokasi')
                 var judul = button.data('judul')
                 var nominal = button.data('nominal')
                 var waktu = button.data('waktu')
                 var subkategori_id = button.data('subkategori_id')
                 var id = button.data('id')
                 var modal = $(this)
+                modal.find('.modal-body #alokasi').val(alokasi);
                 modal.find('.modal-body #judul').val(judul);
                 modal.find('.modal-body #rupiah').val(nominal);
                 modal.find('.modal-body #waktu').val(waktu);

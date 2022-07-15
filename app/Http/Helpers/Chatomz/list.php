@@ -132,3 +132,10 @@ if (! function_exists('list_statusbarang')) {
         return $list;
     }
 }
+if (! function_exists('list_manajemenkeuangan')) {
+    function list_manajemenkeuangan()
+    {
+        $list = ['kewajiban','perencanaan','pemasukan'];
+        return $list;
+    }
+}
