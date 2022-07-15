@@ -80,6 +80,7 @@ class ManajemenkeuanganController extends Controller
     {
         Manajemenkeuangan::where('id',$request->id)->update([
             'judul' => $request->judul,
+            'alokasi' => $request->alokasi,
             'nominal' => default_nilai($request->nominal),
             'waktu' => $request->waktu,
             'subkategori_id' => $request->subkategori_id,
