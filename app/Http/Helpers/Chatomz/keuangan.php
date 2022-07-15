@@ -97,6 +97,7 @@ if (! function_exists('keuangan_alokasiterpakai')) {
         return $result;
     }
 }
+
 if (! function_exists('keuangan_danaalokasi')) {
     function keuangan_danaalokasi($pemasukan,$pengeluaran)
     {
@@ -104,6 +105,14 @@ if (! function_exists('keuangan_danaalokasi')) {
         return $result;
     }
 }
+if (! function_exists('keuangan_sisadanaalokasi')) {
+    function keuangan_sisadanaalokasi($perencanaan)
+    {
+        $result = $perencanaan['pemasukan'] - $perencanaan['kewajiban'] - $perencanaan['perencanaan']['total'];
+        return $result;
+    }
+}
+
 // progress kebutuhan keuangan
 if (! function_exists('keuangan_progressperencanaan')) {
     function keuangan_progressperencanaan($perencanaan,$subperencanaan)

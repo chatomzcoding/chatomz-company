@@ -65,25 +65,25 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header fw-bold">
-                                Perencanaan Keuangan
+                                Perencanaan Keuangan <span class="badge bg-info float-end">{{ bulan_indo() }}</span>
                             </div>
                             <div class="card-body">
                                <div class="table-responsive">
                                     <table class="table table-hover">
                                         <tr>
                                             <th colspan="2">Pemasukan</th>
-                                            <td class="text-end" width="20%">{{ norupiah($perencanaan['pemasukan']) }}</td>
+                                            <td class="text-end text-success" width="20%">{{ norupiah($perencanaan['pemasukan']) }}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Kewajiban</th>
-                                            <td class="text-end">{{ norupiah($perencanaan['kewajiban']) }}</td>
+                                            <td class="text-end text-danger">{{ norupiah($perencanaan['kewajiban']) }}</td>
                                         </tr>
                                         <tr>
                                             <th colspan="2">Dana Alokasi</th>
-                                            <td class="text-end">{{ norupiah(keuangan_danaalokasi($perencanaan['pemasukan'],$perencanaan['kewajiban'])) }}</td>
+                                            <td class="text-end text-primary">{{ norupiah(keuangan_danaalokasi($perencanaan['pemasukan'],$perencanaan['kewajiban'])) }}</td>
                                         </tr>
                                         <tr>
-                                            <th colspan="3">Alokasi Perencanaan</th>
+                                            <th colspan="3" class="table-info">Alokasi Perencanaan</th>
                                         </tr>
                                         @foreach ($perencanaan['perencanaan']['data'] as $label => $item)
                                             @php
@@ -97,12 +97,16 @@
                                                             aria-valuenow="{{ $progress['nilaipersen'] }}" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </td>
-                                                <td class="text-end">{{ keuangan_alokasiterpakai($item['nominal']) }}/{{ norupiah($progress['alokasi']) }}</td>
+                                                <td class="text-end">{{ keuangan_alokasiterpakai($item['nominal']) }} / {{ norupiah($progress['alokasi']) }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>
                                             <th class="ps-4" colspan="2">Total Perencanaan</th>
                                             <td class="text-end">{{ norupiah($perencanaan['perencanaan']['total']) }}</td>
+                                        </tr>
+                                        <tr class="table-primary">
+                                            <th colspan="2">Sisa Dana Alokasi</th>
+                                            <th class="text-end h3">{{ norupiah(keuangan_sisadanaalokasi($perencanaan)) }}</th>
                                         </tr>
                                     </table>
                                </div>
