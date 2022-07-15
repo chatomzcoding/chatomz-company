@@ -27,4 +27,9 @@ class Jurnal extends Model
     {
         return $this->hasMany(Jurnalitem::class);
     }
+
+    public function jurnalmanajemen()
+    {
+        return $this->hasOne(Jurnalmanajemen::class);
+    }
 }

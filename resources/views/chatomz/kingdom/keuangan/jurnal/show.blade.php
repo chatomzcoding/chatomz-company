@@ -6,7 +6,11 @@
                 <div class="card p-0">
                     <div class="card-body p-2">
                         <a href="#" data-bs-target="#ubahjurnal" data-bs-toggle="modal" class="btn btn-outline-success btn-sm"><i class="bi-pen"></i></a>
-                        <a href="#" data-bs-target="#jurnalmanajemen" data-bs-toggle="modal" class="btn btn-outline-info btn-sm"><i class="bi-list"></i></a>
+                        @if (isset($jurnal->jurnalmanajemen))
+                            <button class="btn btn-primary btn-sm text-capitalize">{{ $jurnal->jurnalmanajemen->manajemenkeuangan->alokasi }} - {{ $jurnal->jurnalmanajemen->manajemenkeuangan->judul }}</button>
+                        @else
+                            <a href="#" data-bs-target="#jurnalmanajemen" data-bs-toggle="modal" class="btn btn-outline-info btn-sm"><i class="bi-list"></i></a>
+                        @endif
                     </div>
                 </div>
                 <div class="row">
