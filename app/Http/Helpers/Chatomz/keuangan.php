@@ -90,6 +90,13 @@ if (! function_exists('subtotal')) {
     }
 }
 // dana alokasi
+if (! function_exists('keuangan_alokasiterpakai')) {
+    function keuangan_alokasiterpakai($nominal)
+    {   
+        $result = (array_sum($nominal) == 0) ? 0 : norupiah(array_sum($nominal)) ;
+        return $result;
+    }
+}
 if (! function_exists('keuangan_danaalokasi')) {
     function keuangan_danaalokasi($pemasukan,$pengeluaran)
     {

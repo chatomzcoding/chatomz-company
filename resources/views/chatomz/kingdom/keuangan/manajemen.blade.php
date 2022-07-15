@@ -97,7 +97,7 @@
                                                             aria-valuenow="{{ $progress['nilaipersen'] }}" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </td>
-                                                <td class="text-end">{{ norupiah(array_sum($item['nominal'])) }}/{{ norupiah($progress['alokasi']) }}</td>
+                                                <td class="text-end">{{ keuangan_alokasiterpakai($item['nominal']) }}/{{ norupiah($progress['alokasi']) }}</td>
                                             </tr>
                                         @endforeach
                                         <tr>

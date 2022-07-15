@@ -119,6 +119,7 @@ class RekeningController extends Controller
                 $kategori   = Kategori::where('label','keuangan')->get();
                 $manajemen  = Manajemenkeuangan::all();
                 $kewajiban = Manajemenkeuangan::where('alokasi','kewajiban')->sum('nominal');
+                $dperencanaan = Manajemenkeuangan::where('alokasi','perencanaan')->get();
                 // perencanaan
                 $jurnalmanajemen    = Jurnalmanajemen::whereMonth('created_at',ambil_bulan())->get();
                 $pemasukan          = 0;
@@ -139,6 +140,13 @@ class RekeningController extends Controller
                         default:
                             # code...
                             break;
+                    }
+                }
+                // cek perencanaan
+                foreach ($dperencanaan as $key) {
+                    if (!isset($dataperencanaan[$key->judul])) {
+                        $dataperencanaan[$key->judul]['nominal'][] = 0;
+                        $dataperencanaan[$key->judul]['persen'] = $key->nominal;
                     }
                 }
                 $perencanaan    = [
