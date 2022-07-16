@@ -90,7 +90,7 @@
                                                 $progress = keuangan_progressperencanaan($perencanaan,$item)
                                             @endphp
                                             <tr>
-                                                <td class="ps-4 text-capitalize" width="25%">{{ $label }}</td>
+                                                <td class="ps-4 text-capitalize" width="25%">{{ $label }} ({{ $item['persen'] }}%)</td>
                                                 <td>
                                                     <div class="progress progress-primary">
                                                         <div class="progress-bar" role="progressbar" style="width: {{ $progress['nilaipersen'] }}%" aria-valuemin="0" aria-valuemax="100">
@@ -103,7 +103,7 @@
                                         @endforeach
                                         <tr>
                                             <th class="ps-4" colspan="2">Total Perencanaan</th>
-                                            <td class="text-end">{{ norupiah($perencanaan['perencanaan']['total']) }}</td>
+                                            <th class="text-end">{{ norupiah($perencanaan['perencanaan']['total']) }}</th>
                                         </tr>
                                         <tr class="table-primary">
                                             <th colspan="2">Sisa Dana Alokasi</th>

@@ -85,8 +85,9 @@ class JurnalmanajemenController extends Controller
      * @param  \App\Models\Jurnalmanajemen  $jurnalmanajemen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jurnalmanajemen $jurnalmanajemen)
+    public function destroy($jurnalmanajemen)
     {
-        //
+        Jurnalmanajemen::find($jurnalmanajemen)->delete();
+        return back()->with('dd','Jurnal Manajemen');
     }
 }
