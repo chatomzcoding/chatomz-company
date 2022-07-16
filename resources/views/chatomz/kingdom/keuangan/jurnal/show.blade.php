@@ -7,9 +7,9 @@
                     <div class="card-body p-2">
                         <a href="#" data-bs-target="#ubahjurnal" data-bs-toggle="modal" class="btn btn-outline-success btn-sm"><i class="bi-pen"></i></a>
                         @if (isset($jurnal->jurnalmanajemen))
-                            <button class="btn btn-primary btn-sm text-capitalize">{{ $jurnal->jurnalmanajemen->manajemenkeuangan->alokasi }} - {{ $jurnal->jurnalmanajemen->manajemenkeuangan->judul }}</button>
+                            <button class="btn btn-primary btn-sm text-capitalize" data-bs-toggle="modal" data-bs-target="#ubahjurnalmanajemen">{{ $jurnal->jurnalmanajemen->manajemenkeuangan->alokasi }} - {{ $jurnal->jurnalmanajemen->manajemenkeuangan->judul.' | '.rupiah($jurnal->jurnalmanajemen->nominal) }}</button>
                         @else
-                            <a href="#" data-bs-target="#jurnalmanajemen" data-bs-toggle="modal" class="btn btn-outline-info btn-sm"><i class="bi-list"></i></a>
+                            <a href="#" data-bs-target="#jurnalmanajemen" data-bs-toggle="modal" class="btn btn-outline-info btn-sm"><i class="bi-plus"></i> Perencanaan</a>
                         @endif
                     </div>
                 </div>
@@ -263,8 +263,33 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="">Nominal</label>
+                    <input type="text" name="nominal" value="{{ $jurnal->nominal }}" class="form-control" required>
+                </div>
             </section>
         </x-modalsimpan>
+        @if (isset($jurnal->jurnalmanajemen))
+            <x-modalubah id="ubahjurnalmanajemen" judul="Ubah Jurnal Manajemen Keuangan" link="jurnalmanajemen">
+                <input type="hidden" name="id" value="{{ $jurnal->jurnalmanajemen->id }}">
+                <section class="p-3">
+                    <div class="form-group">
+                        <label for="">Manajemen Keuangan</label>
+                        <select name="manajemenkeuangan_id" id="manajemenkeuangan_id" class="form-control">
+                            @foreach ($manajemen as $item)
+                                <option value="{{ $item->id }}" @if ($jurnal->jurnalmanajemen->manajemenkeuangan_id == $item->id)
+                                    selected
+                                @endif>{{ $item->judul }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Nominal</label>
+                        <input type="text" name="nominal" value="{{ $jurnal->jurnalmanajemen->nominal }}" class="form-control" required>
+                    </div>
+                </section>
+            </x-modalubah>
+        @endif
     </x-slot>
     <x-slot name="kodejs">
         <script>

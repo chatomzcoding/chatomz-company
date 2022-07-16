@@ -69,9 +69,14 @@ class JurnalmanajemenController extends Controller
      * @param  \App\Models\Jurnalmanajemen  $jurnalmanajemen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jurnalmanajemen $jurnalmanajemen)
+    public function update(Request $request)
     {
-        //
+        Jurnalmanajemen::where('id',$request->id)->update([
+            'nominal' => $request->nominal,
+            'manajemenkeuangan_id' => $request->manajemenkeuangan_id,
+        ]);
+
+        return back()->with('du','Jurnal Manajemen');
     }
 
     /**

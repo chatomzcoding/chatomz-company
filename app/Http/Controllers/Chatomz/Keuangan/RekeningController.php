@@ -126,7 +126,7 @@ class RekeningController extends Controller
                 $perencanaan        = 0;
                 $dataperencanaan        = [];
                 foreach ($jurnalmanajemen as $key) {
-                    $nominal    = $key->jurnal->nominal;
+                    $nominal    = $key->nominal;
                     // pemasukan
                     switch ($key->manajemenkeuangan->alokasi) {
                         case 'pemasukan':
