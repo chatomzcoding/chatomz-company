@@ -115,7 +115,7 @@ class JurnalController extends Controller
             'totalharga' => $jumlah,
             'sisa' => $sisa
         ];
-        $manajemen  = Manajemenkeuangan::where('alokasi','pemasukan')->Orwhere('alokasi','perencanaan')->get();
+        $manajemen  = Manajemenkeuangan::where('alokasi','pemasukan')->Orwhere('alokasi','perencanaan')->orderBy('judul','ASC')->get();
         return view('chatomz.kingdom.keuangan.jurnal.show', compact('jurnal','items','kategori','main','kelompok','satuan','manajemen'));
     }
 

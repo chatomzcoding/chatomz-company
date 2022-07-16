@@ -93,8 +93,9 @@
                                                 <td class="ps-4 text-capitalize" width="25%">{{ $label }}</td>
                                                 <td>
                                                     <div class="progress progress-primary">
-                                                        <div class="progress-bar progress-label" role="progressbar" style="width: {{ $progress['persen'] }}%"
-                                                            aria-valuenow="{{ $progress['nilaipersen'] }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar" role="progressbar" style="width: {{ $progress['nilaipersen'] }}%" aria-valuemin="0" aria-valuemax="100">
+                                                           <small>{{ $progress['nilaipersen'] }}%</small>
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td class="text-end">{{ keuangan_alokasiterpakai($item['nominal']) }} / {{ norupiah($progress['alokasi']) }}</td>

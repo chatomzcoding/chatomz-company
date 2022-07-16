@@ -115,7 +115,7 @@
                 </div>
             </section>
         </x-modalsimpan>
-        <x-modalsimpan judul="Tambah Item" link="jurnalitem" tabindex="">
+        <x-modalsimpan judul="Tambah Item ke Jurnal" link="jurnalitem" tabindex="">
             <input type="hidden" name="jurnal_id" value="{{ $jurnal->id }}">
             <section class="p-3">
                 <div class="form-group">
@@ -259,7 +259,7 @@
                     <label for="">Manajemen Keuangan</label>
                     <select name="manajemenkeuangan_id" id="manajemenkeuangan_id" class="form-control">
                         @foreach ($manajemen as $item)
-                            <option value="{{ $item->id }}">{{ $item->judul }}</option>
+                            <option value="{{ $item->id }}">{{ ucwords($item->judul) }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -279,7 +279,7 @@
                             @foreach ($manajemen as $item)
                                 <option value="{{ $item->id }}" @if ($jurnal->jurnalmanajemen->manajemenkeuangan_id == $item->id)
                                     selected
-                                @endif>{{ $item->judul }}</option>
+                                @endif>{{ ucwords($item->judul) }}</option>
                             @endforeach
                         </select>
                     </div>

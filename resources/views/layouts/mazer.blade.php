@@ -98,6 +98,7 @@
                                             <h6 class="dropdown-header">Kingdom</h6>
                                         </li>
                                         <li class="ps-3"><a class="dropdown-item small" href="{{ url('orang?s=peta') }}">Peta Orang</a></li>
+                                        <li class="ps-3"><a class="dropdown-item small" href="{{ url('rekening?s=manajemen') }}">Manajemen Keuangan</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown me-1">
