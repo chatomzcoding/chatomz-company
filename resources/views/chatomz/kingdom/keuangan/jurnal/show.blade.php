@@ -6,6 +6,7 @@
                 <div class="card p-0">
                     <div class="card-body p-2">
                         <a href="#" data-bs-target="#ubahjurnal" data-bs-toggle="modal" class="btn btn-outline-success btn-sm"><i class="bi-pen"></i></a>
+                        
                         @if (isset($jurnal->jurnalmanajemen))
                             <button class="btn btn-primary btn-sm text-capitalize" data-bs-toggle="modal" data-bs-target="#ubahjurnalmanajemen">{{ $jurnal->jurnalmanajemen->manajemenkeuangan->alokasi }} - {{ $jurnal->jurnalmanajemen->manajemenkeuangan->judul.' | '.rupiah($jurnal->jurnalmanajemen->nominal) }}</button>
                             <form action="{{ url('jurnalmanajemen/'.$jurnal->jurnalmanajemen->id) }}" method="post" style="display : inline">
@@ -43,7 +44,20 @@
                         <div class="card">
                             <div class="card-body">
                                 <section class="mb-3">
-                                    <x-sistem.tambah></x-sistem.tambah>
+                                    <div class="btn-group">
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="bi bi-plus-circle-fill"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#tambah">Absolute</a>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#tambahrelative">Relative</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {{-- <x-sistem.tambah></x-sistem.tambah> --}}
                                     <x-sistem.tambah id="tambahitem">Item</x-sistem.tambah>
                                 </section>
                                 <p>Daftar Item Jurnal</p>
@@ -120,7 +134,7 @@
                 </div>
             </section>
         </x-modalsimpan>
-        <x-modalsimpan judul="Tambah Item ke Jurnal" link="jurnalitem" tabindex="">
+        <x-modalsimpan judul="Tambah Item ke Jurnal (absolute)" link="jurnalitem" tabindex="">
             <input type="hidden" name="jurnal_id" value="{{ $jurnal->id }}">
             <section class="p-3">
                 <div class="form-group">
@@ -137,7 +151,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Diskon</label>
-                    <input type="text" name="diskon" id="rupiah3" class="form-control">
+                    <input type="text" name="diskon" id="rupiah1" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Jumlah</label>
@@ -150,6 +164,44 @@
                             <option value="{{ $item->nama_kategori }}">{{ ucwords($item->nama_kategori) }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Detail</label>
+                    <input type="text" name="detail" id="detail" class="form-control">
+                </div>
+            </section>
+        </x-modalsimpan>
+        <x-modalsimpan judul="Tambah Item ke Jurnal (relative)" id="tambahrelative" link="jurnalitem" tabindex="">
+            <input type="hidden" name="jurnal_id" value="{{ $jurnal->id }}">
+            <input type="hidden" name="tambah" value="relative">
+            <section class="p-3">
+                <div class="form-group">
+                    <label for="">Nama Item</label>
+                    <select name="item_id" class="form-select select2bs4">
+                        @foreach ($items as $item)
+                            <option value="{{ $item->id }}">{{ ucwords($item->nama_item) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Satuan</label>
+                    <select name="satuan" class="form-select select2bs4">
+                        @foreach ($satuan as $item)
+                            <option value="{{ $item->nama_kategori }}">{{ ucwords($item->nama_kategori) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Harga Satuan</label>
+                    <input type="text" name="harga" id="rupiah2" class="form-control rupiah" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Harga Pembayaran</label>
+                    <input type="text" name="harga_satuan" id="rupiah3" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="">Diskon</label>
+                    <input type="text" name="diskon" id="rupiah4" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Detail</label>

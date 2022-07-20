@@ -31,6 +31,12 @@ function deleteRow(id,key='data')
                 });
 		}
 
+    var crupiah = document.getElementsByClassName('nilai-rupiah');
+	crupiah.addEventListener('keyup', function(e){
+		// tambahkan 'Rp.' pada saat form di ketik
+		// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+		crupiah.value = formatRupiah(this.value, 'Rp. ');
+	});
     var rupiah = document.getElementById('rupiah');
 	rupiah.addEventListener('keyup', function(e){
 		// tambahkan 'Rp.' pada saat form di ketik
@@ -57,9 +63,19 @@ function deleteRow(id,key='data')
 	});
 	var rupiah4 = document.getElementById('rupiah4');
 	rupiah4.addEventListener('keyup', function(e){
-		// tambahkan 'Rp.' pada saat form di ketik
-		// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
 		rupiah4.value = formatRupiah(this.value, 'Rp. ');
+	});
+	var rupiah5 = document.getElementById('rupiah5');
+	rupiah5.addEventListener('keyup', function(e){
+		rupiah5.value = formatRupiah(this.value, 'Rp. ');
+	});
+	var rupiah6 = document.getElementById('rupiah6');
+	rupiah6.addEventListener('keyup', function(e){
+		rupiah6.value = formatRupiah(this.value, 'Rp. ');
+	});
+	var rupiah7 = document.getElementById('rupiah7');
+	rupiah7.addEventListener('keyup', function(e){
+		rupiah7.value = formatRupiah(this.value, 'Rp. ');
 	});
 
 	function formatRupiah(angka, prefix){

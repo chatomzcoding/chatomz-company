@@ -36,15 +36,23 @@ class JurnalitemController extends Controller
      */
     public function store(Request $request)
     {
+        $tambah = (isset($request->tambah)) ? 'relative' : 'absolute' ;
+        if ($tambah == 'absolute') {
+            $jumlah = $request->jumlah;
+        } else {
+            $jumlah     = default_nilai($request->harga_satuan)/default_nilai($request->harga);
+            $jumlah     = round($jumlah,3);
+        }
         Jurnalitem::create([
             'jurnal_id' => $request->jurnal_id,
             'item_id' => $request->item_id,
             'harga' => default_nilai($request->harga),
             'diskon' => default_nilai($request->diskon),
-            'jumlah' => $request->jumlah,
+            'jumlah' => $jumlah,
             'satuan' => $request->satuan,
             'detail' => $request->detail,
         ]);
+        
 
         return back()->with('ds','Jurnal Item');
     }
