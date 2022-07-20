@@ -176,7 +176,6 @@ class RekeningController extends Controller
                 if ($akses == 'pribadi') {
                     $jurnal     = Jurnal::limit(20)->orderBy('tanggal','DESC')->get();
                 }
-                
                 return view('chatomz.kingdom.keuangan.index', compact('data','total','jurnal','akses'));
                 break;
         }

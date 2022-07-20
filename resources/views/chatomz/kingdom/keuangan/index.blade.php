@@ -66,8 +66,15 @@
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration}}</td>
                                                 <td>
-                                                    <a href="{{ url('jurnal/'.$item->id) }}">{{ $item->nama_jurnal}}</a> <br>
-                                                    <span class="small fst-italic">{{ date_indo($item->tanggal).' - '.$item->subkategori->nama_sub}} </span>
+                                                    <a href="{{ url('jurnal/'.$item->id) }}">{{ $item->nama_jurnal}}</a> 
+                                                    @if ($item->rekening->akses == 'umum')
+                                                        <span class="badge bg-secondary">umum</span>
+                                                    @endif
+                                                    <br>
+                                                    <span class="small fst-italic">{{ date_indo($item->tanggal).' - '.$item->subkategori->nama_sub}} </span> <br>
+                                                    @isset($item->jurnalmanajemen->manajemenkeuangan)
+                                                    <span class="badge bg-info">{{ $item->jurnalmanajemen->manajemenkeuangan->alokasi.' - '.$item->jurnalmanajemen->manajemenkeuangan->judul }}</span>
+                                                @endisset
                                                 </td>
                                                 <td class="small text-lowercase">
                                                     @forelse ($item->jurnalitem as $i)
