@@ -81,7 +81,7 @@ class UserController extends Controller
     public function show($user)
     {
         $user   = User::find(Crypt::decryptString($user));
-        return view('sistem.user.edit', compact('user'));
+        return view('chatomz.admin.user.show', compact('user'));
     }
 
     /**

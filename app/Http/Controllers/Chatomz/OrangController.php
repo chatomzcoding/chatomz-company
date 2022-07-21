@@ -246,7 +246,7 @@ class OrangController extends Controller
         ->orderBy('keluarga_hubungan.urutan','ASC')
         ->get();
         $suami          = Keluarga::where('orang_id',$orang->id)->get();
-        switch ($user) {
+        switch ($user->level) {
             case 'admin':
                 $tombol['next'] = Orang::where("id",'>',$orang->id)->first();
                 $tombol['back'] = Orang::where("id",'<',$orang->id)->orderBy('id','DESC')->first();
