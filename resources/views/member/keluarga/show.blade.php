@@ -10,8 +10,10 @@
                 <a href="#" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i class="bi-plus-circle-fill"></i></a>
             @endif
             <a href="#" data-bs-toggle="modal" data-bs-target="#editkeluarga" class="btn btn-outline-success btn-sm"><i class="bi-pencil"></i></a>
-            {{-- <a href="{{ url('keluarga/'.Crypt::encryptString($keluarga->id).'?s=silsilah') }}" class="btn btn-outline-info btn-sm"><i class="bi-diagram-3"></i></a> --}}
-            <a href="{{ url('keluarga/'.Crypt::encryptString($keluarga->id).'?s=diagram') }}" class="btn btn-outline-dark btn-sm"><i class="bi-diagram-3"></i></a>
+            @if ($pohon['istri'])
+                <a href="{{ url('keluarga/'.Crypt::encryptString($keluarga->id).'?s=silsilah') }}" class="btn btn-outline-info btn-sm"><i class="bi-diagram-3"></i> Silsilah</a>
+                <a href="{{ url('keluarga/'.Crypt::encryptString($keluarga->id).'?s=diagram') }}" class="btn btn-outline-dark btn-sm"><i class="bi-diagram-3"></i> Pohon Keluarga</a>
+            @endif
                   @if ($keluarga->status_keluarga == 'menikah')
                       <span class="badge bg-info float-end fst-italic">{{ $keluarga->status_keluarga }}</span>
                     @else
