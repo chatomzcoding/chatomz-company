@@ -138,7 +138,7 @@ class Menu extends Component
             $menu   = [
                 [
                     'sub' => FALSE,
-                    'icon' => 'bi-people',
+                    'icon' => 'bi-person',
                     'title' => 'Orang',
                     'link' => 'orang',
                 ],

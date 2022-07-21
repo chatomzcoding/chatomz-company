@@ -1,15 +1,17 @@
 <div class="sidebar-menu">
     <ul class="menu">
-        <section class="d-none d-sm-block">
-            <form action="{{ url('pencarian') }}" method="get">
-                @csrf
-                <input type="hidden" name="s" value="carinama">
-                <div class="input-group mb-3">
-                    <input type="text" name="nama" class="form-control" placeholder="cari disini ..." aria-label="cari disini ..." aria-describedby="button-addon2" autocomplete="off" required>
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi-search"></i></button>
-                </div>
-            </form>
-            <hr>
+        @if (Auth::user()->level == 'admin')
+            <section class="d-none d-sm-block">
+                <form action="{{ url('pencarian') }}" method="get">
+                    @csrf
+                    <input type="hidden" name="s" value="carinama">
+                    <div class="input-group mb-3">
+                        <input type="text" name="nama" class="form-control" placeholder="cari disini ..." aria-label="cari disini ..." aria-describedby="button-addon2" autocomplete="off" required>
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="bi-search"></i></button>
+                    </div>
+                </form>
+                <hr>
+        @endif
         </section>
         <li class="sidebar-title mt-0">Menu</li>
         <li class="sidebar-item active ">

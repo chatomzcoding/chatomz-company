@@ -26,6 +26,7 @@ use App\Http\Controllers\Company\TempatController;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Homepage\LandingController;
+use App\Http\Controllers\Member\OrangaksesController;
 use App\Http\Controllers\MigrasiController;
 use App\Http\Controllers\Sistem\ItemController;
 use App\Http\Controllers\Sistem\KategoriController;
@@ -143,6 +144,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     
     // Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
     Route::resource('orang', OrangController::class);
+    Route::resource('orangakses', OrangaksesController::class);
     Route::resource('user', UserController::class);
     Route::resource('keluarga', KeluargaController::class);
     Route::resource('hubungankeluarga', HubungankeluargaController::class);

@@ -1,4 +1,4 @@
-<x-mazer-layout title="CHATOMZ - Data User" datatables="TRUE" alert="TRUE">
+<x-mazer-layout title="CHATOMZ - Data User" datatables="TRUE" alert="TRUE" select="TRUE">
     <x-slot name="content">
         <div class="page-heading">
             <x-header head="Data User" active="Detail User">
@@ -73,36 +73,17 @@
             </section>
         </div>
         {{-- modal --}}
-        <x-modalsimpan judul="Tambah User" link="user">
+        <x-modalsimpan judul="Tambah Orang Akses" link="orangakses" tabindex="">
+            <input type="hidden" name="user_id" value="{{ $user->id }}">
             <section class="p-3">
                 <div class="form-group">
-                    <label for="">Nama </label>
-                    <input type="text" name="name" id="name" class="form-control" placeholder="Nama User" required>
-                </div>
-                <div class="form-group">
-                    <label for="">email</label>
-                    <input type="text" name="email" id="email" class="form-control" placeholder="Alamat Email" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Level</label>
-                    <select name="level" id="level" class="form-control">
-                        @foreach (list_leveluser() as $item)
-                            <option value="{{ $item}}">{{ $item}}</option>
+                    <label for="">Cari Nama Orang {!! ireq() !!}</label>
+                    <select name="orang_id" class="select2bs4" data-width="100%" required>
+                        @foreach ($orang as $item)
+                            <option value="{{ $item->id}}">{{ fullname($item)}}</option>
                         @endforeach
                     </select>
-                </div>
-                <div class="form-group">
-                    <label for="">Password</label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="********" required  autocomplete="off">
-                </div>
-                <div class="form-group">
-                    <label for="">Ulangi Password</label>
-                    <input type="password" name="password_confirmation" id="password" class="form-control" placeholder="********" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Photo</label>
-                    <input type="file" name="photo" id="profile_photo_path" class="form-control" required>
-                </div>
+                 </div>
             </section>
         </x-modalsimpan>
     </x-slot>

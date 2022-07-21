@@ -36,7 +36,8 @@ class OrangaksesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Orangakses::create($request->all());
+        return back()->with('ds','Orang Akses');
     }
 
     /**
