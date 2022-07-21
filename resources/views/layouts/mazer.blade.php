@@ -158,10 +158,10 @@
                 <footer>
                     <div class="footer clearfix mb-0 text-muted">
                         <div class="float-start">
-                            <p>{{ ambil_tahun() }} &copy; Chatomz Company</p>
+                            <p>{{ ambil_tahun() }} &copy; Zelnara Company</p>
                         </div>
                         <div class="float-end">
-                            <p>Created by Firman Chatomz</p>
+                            <p>Created by Chatomz Developer</p>
                         </div>
                     </div>
                 </footer>
