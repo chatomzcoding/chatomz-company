@@ -29,7 +29,12 @@ class KeluargaController extends Controller
             return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
         } else {
             $keluarga       = $user->keluargaakses;
-            $kepalakeluarga = $user->orangakses;
+            $kepalakeluarga = [];
+            foreach ($user->orangakses as $key) {
+                if ($key->orang->gender == 'laki-laki' AND $key->orang->marital_status == 'sudah') {
+                    $kepalakeluarga[] = $key->orang; 
+                }
+            }
             return view('member.keluarga.index', compact('keluarga','kepalakeluarga'));
         }
         

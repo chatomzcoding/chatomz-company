@@ -62,9 +62,7 @@
                     <label for="">Kepala Keluarga {!! ireq() !!}</label>
                     <select name="orang_id" class="select2bs4" data-width="100%" required>
                         @foreach ($kepalakeluarga as $item)
-                            @if (!DbChatomz::cekstatussuami($item->orang->id))
-                                <option value="{{ $item->orang->id}}">{{ fullname($item->orang)}}</option>
-                            @endif
+                            <option value="{{ $item->id}}">{{ fullname($item)}}</option>
                         @endforeach
                     </select>
                  </div>
@@ -102,7 +100,7 @@
                     <select name="orang_id" id="orang_id" class="select2bs4" data-width="100%" required>
                             <option value="">-- kepala keluarga --</option>
                         @foreach ($kepalakeluarga as $item)
-                            <option value="{{ $item->orang->id}}">{{ ucwords($item->orang->first_name.' '.$item->orang->last_name)}}</option>
+                            <option value="{{ $item->id}}">{{ fullname($item)}}</option>
                         @endforeach
                     </select>
                 </div>
