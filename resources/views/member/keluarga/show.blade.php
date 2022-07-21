@@ -233,9 +233,7 @@
                 <label for="">Nama Istri</label>
                 <select name="orang_id" class="form-select select2bs4" data-width="100%">
                     @foreach ($daftaristri as $item)
-                    @if (!DbChatomz::cekstatusistri($item->id))
                         <option value="{{ $item->id}}">{{ fullname($item)}}</option>
-                    @endif
                     @endforeach
                 </select>
             </div>
