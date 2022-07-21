@@ -18,6 +18,11 @@ class Keluarga extends Model
         return $this->belongsTo(Orang::class);
     }
 
+    public function keluargahubungan()
+    {
+        return $this->hasMany(Keluargahubungan::class);
+    }
+
     public function anakketurunan()
     {
         return $this->hasMany(Keluargahubungan::class)->where('status','anak')->orderBy('urutan','ASC');

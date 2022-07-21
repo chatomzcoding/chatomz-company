@@ -115,7 +115,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::post('proses/lihat/grup', 'App\Http\Controllers\Chatomz\GrupController@prosesgrup');
         Route::resource('grupanggota', GrupanggotaController::class);
         Route::resource('pendidikan', PendidikanController::class);
-        Route::resource('hubungankeluarga', HubungankeluargaController::class);
         
         // SISTEM
         Route::resource('visitor', VisitorController::class);
@@ -146,6 +145,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
     Route::resource('orang', OrangController::class);
     Route::resource('user', UserController::class);
     Route::resource('keluarga', KeluargaController::class);
+    Route::resource('hubungankeluarga', HubungankeluargaController::class);
     
     Route::get('pengujian/{sesi}', [UjiController::class, 'pengujian']);
     Route::post('simpanmaps', [JejakController::class, 'simpanmaps'])->name('simpanmaps');

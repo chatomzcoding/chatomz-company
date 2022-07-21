@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Orangakses::class);
     }
+
+    public function keluargaakses()
+    {
+        return $this->hasMany(Keluargaakses::class);
+    }
 }

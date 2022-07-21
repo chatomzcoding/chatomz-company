@@ -130,19 +130,6 @@
                     @endforeach
                 @endif
 
-                @if (count($keluarga) == 0)
-                    @if ($orang->gender == 'perempuan' AND $orang->marital_status == 'sudah' AND count($daftarkeluarga) > 0)
-                        <section class="col-md-12 text-center">
-                            <small class="font-italic">Memenuhi syarat menjadi seorang istri</small> <br>
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#tambahkeluarga" class="btn btn-primary btn-sm">Tambahkan keluarga</a>
-                        </section>
-                    @else
-                        <section class="text-center">
-                            <small class="font-italic">belum ada keluarga yang dibuat</small>
-                        </section>
-                    @endif
-                @endif
-                
                 @foreach ($keluarga as $item)
                 @if ($item->status == 'istri')
                     <div class="col-md-12">

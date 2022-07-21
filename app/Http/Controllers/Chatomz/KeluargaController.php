@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Chatomz;
 
 use App\Http\Controllers\Controller;
 use App\Models\Keluarga;
+use App\Models\Keluargaakses;
 use App\Models\Keluargahubungan;
 use App\Models\Orang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
@@ -20,9 +22,17 @@ class KeluargaController extends Controller
      */
     public function index()
     {
-        $keluarga       = Keluarga::orderBy('nama_keluarga','ASC')->get();
-        $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->orderBy('first_name','ASC')->get();
-        return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
+        $user   = Auth::user();
+        if ($user->level == 'admin') {
+            $keluarga       = Keluarga::orderBy('nama_keluarga','ASC')->get();
+            $kepalakeluarga = Orang::where('gender','laki-laki')->where('marital_status','sudah')->orderBy('first_name','ASC')->get();
+            return view('chatomz.kingdom.keluarga.index', compact('keluarga','kepalakeluarga'));
+        } else {
+            $keluarga       = $user->keluargaakses;
+            $kepalakeluarga = $user->orangakses;
+            return view('member.keluarga.index', compact('keluarga','kepalakeluarga'));
+        }
+        
     }
 
     /**
@@ -43,8 +53,23 @@ class KeluargaController extends Controller
      */
     public function store(Request $request)
     {
-        Keluarga::create($request->all());
-
+        Keluarga::create([
+            'orang_id' => $request->orang_id,
+            'nama_keluarga' => $request->nama_keluarga,
+            'no_kk' => $request->no_kk,
+            'keterangan' => $request->keterangan,
+            'tgl_pernikahan' => $request->tgl_pernikahan,
+            'status_keluarga' => $request->status_keluarga,
+            'slug' => Str::slug($request->nama_keluarga)
+        ]);
+        // save data ke keluarga akses
+        if (Auth::user()->level == 'member') {
+            $keluarga = Keluarga::where('nama_keluarga',$request->nama_keluarga)->where('orang_id',$request->orang_id)->first();
+            Keluargaakses::create([
+                'user_id' => Auth::user()->id,
+                'keluarga_id' => $keluarga->id
+            ]);
+        }
         return redirect()->back()->with('ds','Keluarga');
     }
 
@@ -58,10 +83,23 @@ class KeluargaController extends Controller
     {
         $keluarga           = Keluarga::find(Crypt::decryptString($keluarga));
         // data pohon keluarga
-        $daftaristri        = Orang::where('gender','perempuan')->where('marital_status','sudah')->orderBy('orang.first_name','ASC')->get();
+        $user               = Auth::user();
+        if ($user->level == 'admin') {
+            $daftaristri        = Orang::where('gender','perempuan')->where('marital_status','sudah')->orderBy('orang.first_name','ASC')->get();
+            $anggotakeluarga    = Orang::select('id','first_name','last_name')->orderBy('first_name','ASC')->get();
+        } else {
+            $daftaristri        = [];
+            $anggotakeluarga    = [];
+            foreach ($user->orangakses as $key) {
+                if ($key->orang->gender == 'perempuan' AND $key->orang->marital_status == 'sudah') {
+                    $daftaristri[] = $key->orang;
+                }
+                $anggotakeluarga[] = $key->orang;
+            }
+        }
+        
         $suami              = Orang::find($keluarga->orang_id);
         $istri              = $keluarga->istri;
-        $anggotakeluarga    = Orang::select('id','first_name','last_name')->orderBy('first_name','ASC')->get();
         $ortusuami          = Keluargahubungan::where('orang_id',$suami->id)->where('status','anak')->first();
         // jika istri ada
         if ($istri) {
@@ -146,7 +184,12 @@ class KeluargaController extends Controller
                 break;
             
             default:
-                return view('chatomz.kingdom.keluarga.show', compact('keluarga','pohon','daftaristri','anggotakeluarga','jumlahanak'));
+                if ($user->level == 'admin') {
+                    return view('chatomz.kingdom.keluarga.show', compact('keluarga','pohon','daftaristri','anggotakeluarga','jumlahanak'));
+                } else {
+                    return view('member.keluarga.show', compact('keluarga','pohon','daftaristri','anggotakeluarga','jumlahanak'));
+                }
+                
                 break;
         }
     }
