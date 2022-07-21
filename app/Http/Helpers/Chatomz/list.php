@@ -139,3 +139,10 @@ if (! function_exists('list_manajemenkeuangan')) {
         return $list;
     }
 }
+if (! function_exists('list_leveluser')) {
+    function list_leveluser()
+    {
+        $list = ['member'];
+        return $list;
+    }
+}

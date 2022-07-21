@@ -35,9 +35,9 @@
                 </li>
             @else
                 <li class="sidebar-item  ">
-                    <a href="table-datatable.html" class='sidebar-link'>
-                        <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                        <span>Datatable</span>
+                    <a href="{{ url($item['link']) }}" class='sidebar-link'>
+                        <i class="{{ $item['icon'] }}"></i>
+                        <span>{{ $item['title'] }}</span>
                     </a>
                 </li>
             @endif

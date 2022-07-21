@@ -41,4 +41,9 @@ class Orang extends Model
     {
         return $this->hasMany(Usaha::class);
     }
+
+    public function orangakses()
+    {
+        return $this->hasOne(Orangakses::class);
+    }
 }

@@ -76,31 +76,21 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                                {{-- <li class="nav-item dropdown me-3">
-                                    <a class="nav-link active dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class='bi bi-bell bi-sub fs-4 text-gray-600'></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <h6 class="dropdown-header">Notifications</h6>
-                                        </li>
-                                        <li><a class="dropdown-item">No notification available</a></li>
-                                    </ul>
-                                </li> --}}
-                                <li class="nav-item dropdown me-1">
-                                    <a class="nav-link active dropdown-toggle dropend" href="#" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <i class='bi bi-info-square bi-sub fs-4 text-gray-600'></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                        <li>
-                                            <h6 class="dropdown-header">Kingdom</h6>
-                                        </li>
-                                        <li class="ps-3"><a class="dropdown-item small" href="{{ url('orang?s=peta') }}">Peta Orang</a></li>
-                                        <li class="ps-3"><a class="dropdown-item small" href="{{ url('rekening?s=manajemen') }}">Manajemen Keuangan</a></li>
-                                    </ul>
-                                </li>
+                                @if ($user->level == 'admin')
+                                    <li class="nav-item dropdown me-1">
+                                        <a class="nav-link active dropdown-toggle dropend" href="#" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <i class='bi bi-info-square bi-sub fs-4 text-gray-600'></i>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <h6 class="dropdown-header">Kingdom</h6>
+                                            </li>
+                                            <li class="ps-3"><a class="dropdown-item small" href="{{ url('orang?s=peta') }}">Peta Orang</a></li>
+                                            <li class="ps-3"><a class="dropdown-item small" href="{{ url('rekening?s=manajemen') }}">Manajemen Keuangan</a></li>
+                                        </ul>
+                                    </li>
+                                @endif
                                 <li class="nav-item dropdown me-1">
                                     <a class="nav-link active dropdown-toggle dropend" href="#" data-bs-toggle="dropdown"
                                         aria-expanded="false">
@@ -108,15 +98,17 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
                                         <li>
-                                            <h6 class="dropdown-header">Kingdom</h6>
+                                            <h6 class="dropdown-header">Fitur</h6>
                                         </li>
                                         <li class="ps-3"><a class="dropdown-item small" href="{{ url('orang/create') }}">Tambah Orang</a></li>
-                                        <li>
-                                            <h6 class="dropdown-header">Jurnal Cash</h6>
-                                        </li>
-                                        @foreach ($rekening as $id => $nama_rekening)
-                                            <li class="ps-3"><a class="dropdown-item small" href="{{ url('rekening/'.$id) }}">{{ $nama_rekening }}</a></li>
-                                        @endforeach
+                                        @if ($user->level == 'admin')
+                                            <li>
+                                                <h6 class="dropdown-header">Jurnal Cash</h6>
+                                            </li>
+                                            @foreach ($rekening as $id => $nama_rekening)
+                                                <li class="ps-3"><a class="dropdown-item small" href="{{ url('rekening/'.$id) }}">{{ $nama_rekening }}</a></li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </li>
                             </ul>
@@ -144,9 +136,9 @@
                                     @endif
                                     <li><a class="dropdown-item" href="{{ url('user/'.Crypt::encryptString($user->id).'/edit') }}"><i class="icon-mid bi bi-gear me-2"></i>
                                             Pengaturan Akun</a></li>
-                                    <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
+                                    {{-- <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
                                             Wallet</a></li>
-                                    <li>
+                                    <li> --}}
                                         <hr class="dropdown-divider">
                                     </li>
                                     <li class="text-end">

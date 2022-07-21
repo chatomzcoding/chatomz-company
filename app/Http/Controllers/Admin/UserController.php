@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -25,13 +26,6 @@ class UserController extends Controller
     {
         $user   = User::all();
         return view('chatomz.admin.user.index', compact('user'));
-    }
-
-    public function seller()
-    {
-        $user   = Auth::user();
-
-        return view('chatomz.seller.user.index', compact('user'));
     }
 
     /**
@@ -54,16 +48,16 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'profile_photo_path' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+            'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
             'password' => 'min:6',
             'password_confirmation' => 'required_with:password|same:password|min:6',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         ]);
         // menyimpan data file yang diupload ke variabel $file
-        $file = $request->file('profile_photo_path');
+        $file = $request->file('photo');
         
         $nama_file = time()."_".$file->getClientOriginalName();
-        $tujuan_upload = 'img/user';
+        $tujuan_upload = 'public/img/user';
         // isi dengan nama folder tempat kemana file diupload
         $file->move($tujuan_upload,$nama_file);
 
@@ -71,7 +65,7 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'level' => $request->level,
-            'profile_photo_path' => $nama_file,
+            'photo' => $nama_file,
             'password' => Hash::make($request->password),
         ]);
 
@@ -84,9 +78,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show($user)
     {
-        //
+        $user   = User::find(Crypt::decryptString($user));
+        return view('sistem.user.edit', compact('user'));
     }
 
     /**
@@ -95,9 +90,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit($user)
     {
-        //
+        $user   = User::find(Crypt::decryptString($user));
+        return view('sistem.user.edit', compact('user'));
     }
 
     /**
@@ -118,20 +114,20 @@ class UserController extends Controller
         }
 
        
-        if (isset($request->profile_photo_path)) {
+        if (isset($request->photo)) {
             $request->validate([
-                'profile_photo_path' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
+                'photo' => 'required|file|image|mimes:jpeg,png,jpg|max:1000',
             ]);
             // menyimpan data file yang diupload ke variabel $file
-            $file = $request->file('profile_photo_path');
+            $file = $request->file('photo');
             
             $nama_file = time()."_".$file->getClientOriginalName();
-            $tujuan_upload = 'img/user';
+            $tujuan_upload = 'public/img/user';
             // isi dengan nama folder tempat kemana file diupload
             $file->move($tujuan_upload,$nama_file);
-            deletefile($tujuan_upload.'/'.$user->profile_photo_path);
+            deletefile($tujuan_upload.'/'.$user->photo);
         } else {
-            $nama_file = $user->profile_photo_path;
+            $nama_file = $user->photo;
         }
 
         if (isset($request->password)) {
@@ -143,7 +139,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'level' => $request->level,
-                'profile_photo_path' => $nama_file,
+                'photo' => $nama_file,
                 'password' => Hash::make($request->password),
             ]);
             
@@ -153,7 +149,7 @@ class UserController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'level' => $request->level,
-                'profile_photo_path' => $nama_file,
+                'photo' => $nama_file,
             ]);
         }
         
@@ -171,7 +167,7 @@ class UserController extends Controller
     public function destroy($user)
     {
         $user   = User::find($user);
-        deletefile('img/user/'.$user->profile_photo_path);
+        deletefile('img/user/'.$user->photo);
         $user->delete();
         return redirect()->back()->with('dd','User');
     }

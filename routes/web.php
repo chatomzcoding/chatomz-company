@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\BackupdbController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Bisnis\ProdukController;
 use App\Http\Controllers\Bisnis\UsahaController;
 use App\Http\Controllers\Bisnis\WadeController;
-use App\Http\Controllers\Chatomz\Barang\DetailController;
 use App\Http\Controllers\Chatomz\BarangController;
 use App\Http\Controllers\Chatomz\Coding\BotController;
 use App\Http\Controllers\Chatomz\GrupanggotaController;
@@ -104,11 +104,10 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('jejak', JejakController::class);
         Route::resource('jejakorang', 'App\Http\Controllers\Chatomz\JejakorangController');
         Route::resource('jejakpoto', 'App\Http\Controllers\Chatomz\JejakpotoController');
-        Route::resource('orang', OrangController::class);
         Route::resource('linimasa', LinimasaController::class);
         Route::get('lihat/orangpoto', 'App\Http\Controllers\Chatomz\OrangController@orangpoto');
-
-
+        
+        
         Route::get('lihat/statistik', 'App\Http\Controllers\HomeController@statistik');
         Route::resource('kontak', 'App\Http\Controllers\Chatomz\KontakController');
         Route::resource('grup', GrupController::class);
@@ -116,7 +115,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::post('proses/lihat/grup', 'App\Http\Controllers\Chatomz\GrupController@prosesgrup');
         Route::resource('grupanggota', GrupanggotaController::class);
         Route::resource('pendidikan', PendidikanController::class);
-        Route::resource('keluarga', KeluargaController::class);
         Route::resource('hubungankeluarga', HubungankeluargaController::class);
         
         // SISTEM
@@ -126,7 +124,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('subkategori', SubkategoriController::class);
         Route::get('statistik/orang',[StatistikController::class,'orang']);
         Route::resource('backupdb', BackupdbController::class);
-    
+        
         
         // Company
         // informasi
@@ -138,18 +136,20 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('produk', ProdukController::class);
         Route::resource('usaha', UsahaController::class);
         Route::get('wadec',[WadeController::class,'index']);
-
+        
         // CODING
         Route::resource('chatomzbot', BotController::class);
-
+        
     });
     
-    Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
-    Route::resource('user', 'App\Http\Controllers\UserController');
-
+    // Route::resource('adminuser', 'App\Http\Controllers\Admin\UserController');
+    Route::resource('orang', OrangController::class);
+    Route::resource('user', UserController::class);
+    Route::resource('keluarga', KeluargaController::class);
+    
     Route::get('pengujian/{sesi}', [UjiController::class, 'pengujian']);
     Route::post('simpanmaps', [JejakController::class, 'simpanmaps'])->name('simpanmaps');
-
+    
 });
 
 // --------------------------------------------------------------------------------------------

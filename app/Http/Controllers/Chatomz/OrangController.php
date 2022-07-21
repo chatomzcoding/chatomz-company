@@ -7,11 +7,12 @@ use App\Models\Grup;
 use App\Models\Keluarga;
 use App\Models\Keluargahubungan;
 use App\Models\Orang;
+use App\Models\Orangakses;
 use App\Models\Riwayat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class OrangController extends Controller
 {
@@ -22,40 +23,50 @@ class OrangController extends Controller
      */
     public function index()
     {
-        $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
-        switch ($s) {
-            case 'peta':
-                $orang  = Orang::where('nilai_lat','<>',NULL)->get();
-                $data = [];
-                foreach ($orang as $key) {
-                    $img    = asset('img/chatomz/orang/'.$key->photo);
-                    $data[] = [
-                        'type' => 'Feature',
-                        'properties' => [
-                            'message' => fullname($key),
-                            'iconSize' => [50, 50],
-                            'poto'  => asset('img/chatomz/orang/'.$key->photo),
-                            'description' =>
-                            '<img src="'.$img.'" width="100%"><strong>'.fullname($key).'</strong>
-                            <p>'.$key->home_address.'</p>',
-                            'icon' => 'music-15'
-                        ],
-                        'geometry' => [
-                            'type' => 'Point',
-                            'coordinates' => [$key->nilai_long, $key->nilai_lat]
-                        ]
-                    ];
+        $user   = Auth::user();
+        switch ($user->level) {
+            case 'admin':
+                $s = (isset($_GET['s'])) ? $_GET['s'] : 'index' ;
+                switch ($s) {
+                    case 'peta':
+                        $orang  = Orang::where('nilai_lat','<>',NULL)->get();
+                        $data = [];
+                        foreach ($orang as $key) {
+                            $img    = asset('img/chatomz/orang/'.$key->photo);
+                            $data[] = [
+                                'type' => 'Feature',
+                                'properties' => [
+                                    'message' => fullname($key),
+                                    'iconSize' => [50, 50],
+                                    'poto'  => asset('img/chatomz/orang/'.$key->photo),
+                                    'description' =>
+                                    '<img src="'.$img.'" width="100%"><strong>'.fullname($key).'</strong>
+                                    <p>'.$key->home_address.'</p>',
+                                    'icon' => 'music-15'
+                                ],
+                                'geometry' => [
+                                    'type' => 'Point',
+                                    'coordinates' => [$key->nilai_long, $key->nilai_lat]
+                                ]
+                            ];
+                        }
+                        $data   = [
+                            'features' => $data
+                        ];
+                        
+                        return view('chatomz.kingdom.orang.peta', compact('data'));
+                        break;
+                    
+                    default:
+                        $orang  = Orang::select('id','first_name','last_name','gender','home_address')->orderBy('first_name','ASC')->get();
+                        return view('chatomz.kingdom.orang.index', compact('orang'));
+                        break;
                 }
-                $data   = [
-                    'features' => $data
-                ];
-                
-                return view('chatomz.kingdom.orang.peta', compact('data'));
                 break;
             
             default:
-                $orang  = Orang::select('id','first_name','last_name','gender','home_address')->orderBy('first_name','ASC')->get();
-                return view('chatomz.kingdom.orang.index', compact('orang'));
+                $orang  = $user->orangakses;
+                return view('member.orang.index', compact('orang'));
                 break;
         }
     }
@@ -201,8 +212,16 @@ class OrangController extends Controller
              $id    = $orang->id;
                 break;
         }
-    
 
+        // cek jika level member
+        $user   = Auth::user();
+        if ($user->level == 'member') {
+            Orangakses::create([
+                'orang_id' => $id,
+                'user_id' => $user->id
+            ]);
+        }
+    
         return redirect('orang/'.Crypt::encryptString($id))->with('ds','Orang');
     }
 
@@ -216,9 +235,8 @@ class OrangController extends Controller
      */
     public function show($orang)
     {
+        $user = Auth::user();
         $orang  = Orang::find(Crypt::decryptString($orang));
-        $tombol['next'] = Orang::where("id",'>',$orang->id)->first();
-        $tombol['back'] = Orang::where("id",'<',$orang->id)->orderBy('id','DESC')->first();
         // riwayat keluarga
         $keluarga   = DB::table('keluarga_hubungan')
         ->join('orang','keluarga_hubungan.orang_id','=','orang.id')
@@ -228,41 +246,51 @@ class OrangController extends Controller
         ->orderBy('keluarga_hubungan.urutan','ASC')
         ->get();
         $suami          = Keluarga::where('orang_id',$orang->id)->get();
-        $dkeluarga      = Keluarga::all();
-        $daftarkeluarga = [];
-        foreach ($dkeluarga as $item) {
-            // cek jika belum ada istri
-            $keluargahubungan = Keluargahubungan::where('keluarga_id',$item->id)->where('status','istri')->first();
-            if (!$keluargahubungan) {
-                $daftarkeluarga[] = $item;
-            }
+        switch ($user) {
+            case 'admin':
+                $tombol['next'] = Orang::where("id",'>',$orang->id)->first();
+                $tombol['back'] = Orang::where("id",'<',$orang->id)->orderBy('id','DESC')->first();
+                $daftarkeluarga = [];
+                $dkeluarga      = Keluarga::all();
+                foreach ($dkeluarga as $item) {
+                    // cek jika belum ada istri
+                    $keluargahubungan = Keluargahubungan::where('keluarga_id',$item->id)->where('status','istri')->first();
+                    if (!$keluargahubungan) {
+                        $daftarkeluarga[] = $item;
+                    }
+                }
+                // grup
+                $anggotagrup    = DB::table('grup_anggota')
+                                    ->join('grup','grup_anggota.grup_id','=','grup.id')
+                                    ->select('grup_anggota.*','grup.name','grup.photo')
+                                    ->where('grup_anggota.orang_id',$orang->id)
+                                    ->orderBy('grup.name','ASC')
+                                    ->get();
+                $datagrup       = Grup::orderBy('name','ASC')->get();
+                // save riwayat dilihat
+                // cek jika sudah dilihat
+                $cekriwayat = Riwayat::where('kode','lihatorang')->where('nilai',$orang->id)->first();
+                if ($cekriwayat) {
+                    Riwayat::where('id',$cekriwayat->id)->update([
+                        'tanggal' => tgl_sekarang(),
+                        'detail' => 'lihat profil'
+                    ]);
+                } else {
+                    Riwayat::create([
+                        'kode' => 'lihatorang',
+                        'tanggal' => tgl_sekarang(),
+                        'nilai' => $orang->id,
+                        'detail' => 'lihat profil'
+                    ]);
+                }
+                $maps   = [$orang->nilai_long,$orang->nilai_lat];
+                return view('chatomz.kingdom.orang.show', compact('orang','tombol','keluarga','suami','daftarkeluarga','anggotagrup','datagrup','maps'));
+                break;
+            
+            default:
+            return view('member.orang.show', compact('orang','keluarga','suami'));
+                break;
         }
-        // grup
-        $anggotagrup    = DB::table('grup_anggota')
-                            ->join('grup','grup_anggota.grup_id','=','grup.id')
-                            ->select('grup_anggota.*','grup.name','grup.photo')
-                            ->where('grup_anggota.orang_id',$orang->id)
-                            ->orderBy('grup.name','ASC')
-                            ->get();
-        $datagrup       = Grup::orderBy('name','ASC')->get();
-        // save riwayat dilihat
-        // cek jika sudah dilihat
-        $cekriwayat = Riwayat::where('kode','lihatorang')->where('nilai',$orang->id)->first();
-        if ($cekriwayat) {
-            Riwayat::where('id',$cekriwayat->id)->update([
-                'tanggal' => tgl_sekarang(),
-                'detail' => 'lihat profil'
-            ]);
-        } else {
-            Riwayat::create([
-                'kode' => 'lihatorang',
-                'tanggal' => tgl_sekarang(),
-                'nilai' => $orang->id,
-                'detail' => 'lihat profil'
-            ]);
-        }
-        $maps   = [$orang->nilai_long,$orang->nilai_lat];
-        return view('chatomz.kingdom.orang.show', compact('orang','tombol','keluarga','suami','daftarkeluarga','anggotagrup','datagrup','maps'));
     }
 
     /**

@@ -73,7 +73,7 @@ class HomeController extends Controller
                 return view('chatomz.admin.dashboard', compact('main','total','dashboard','info','gender','kematian','data','chart'));
                 break;
             default:
-                return view('dashboard', compact('dashboard'));
+                return view('member.dashboard');
                 break;
         }
     }

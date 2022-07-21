@@ -10,15 +10,6 @@
                             <h3 class="card-title">Form Pengaturan Akun</h3>
                         </div>
                         <div class="card-body">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
                             <section class="container">
                                 <form action="{{ route('user.update','test')}}" method="post" enctype="multipart/form-data">
                                     @csrf
