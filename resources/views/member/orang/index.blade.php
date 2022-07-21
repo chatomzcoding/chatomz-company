@@ -7,7 +7,7 @@
                   <div class="col-md-12">
                     <div class="card">
                       <div class="card-header">
-                        <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="bi-plus-circle-fill"></i></a>
+                        <a href="{{ url('/orang/create')}}" class="btn btn-outline-primary btn-flat btn-sm"><i class="bi-plus-circle-fill"></i> Orang</a>
                       </div>
                       <div class="card-body">
                           <div class="table-responsive">

@@ -73,7 +73,11 @@ class HomeController extends Controller
                 return view('chatomz.admin.dashboard', compact('main','total','dashboard','info','gender','kematian','data','chart'));
                 break;
             default:
-                return view('member.dashboard');
+                $statistik = [
+                    'orang' => count($user->orangakses),
+                    'keluarga' => count($user->keluargaakses)
+                ];
+                return view('member.dashboard', compact('statistik'));
                 break;
         }
     }
