@@ -25,6 +25,7 @@ class MasakanController extends Controller
                 switch ($sesi) {
                     case 'cari':
                         $query = (isset($_GET['query'])) ? $_GET['query'] : ' ' ;
+                        $query = str_replace('-',' ',$query);
                         $result = Informasi::where('kategori_id',$kategori->id)->where('nama','LIKE','%'.$query.'%')->get();
                         break;
                     
