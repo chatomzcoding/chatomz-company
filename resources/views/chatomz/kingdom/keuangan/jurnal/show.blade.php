@@ -87,7 +87,7 @@
                                                     <a href="{{ url('item/'.$item->item_id) }}">{{ $item->item->nama_item}}</a> <br>
                                                     <i>{{ $item->detail}}</i>
                                                 </td>
-                                                    <td>{{ $item->jumlah.' '.$item->satuan}}</td>
+                                                    <td>{{ round($item->jumlah,3).' '.$item->satuan}}</td>
                                                     <td class="text-end">{{ norupiah($item->harga)}}</td>
                                                     <td class="text-end">{{ norupiah($item->diskon)}}</td>
                                                     <td class="text-end">{{ norupiah(subtotal($item->jumlah,$item->harga,$item->diskon))}}</td>

@@ -41,7 +41,6 @@ class JurnalitemController extends Controller
             $jumlah = $request->jumlah;
         } else {
             $jumlah     = default_nilai($request->harga_satuan)/default_nilai($request->harga);
-            $jumlah     = round($jumlah,3);
         }
         Jurnalitem::create([
             'jurnal_id' => $request->jurnal_id,
