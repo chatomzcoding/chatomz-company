@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\informasi;
+namespace App\Http\Controllers\Api\Informasi;
 
 use App\Http\Controllers\Controller;
 use App\Models\Informasi;

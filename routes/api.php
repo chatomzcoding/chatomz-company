@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\Bisnis\ProdukController;
 use App\Http\Controllers\Api\Bisnis\UsahaController;
 use App\Http\Controllers\Api\CikaraController;
 use App\Http\Controllers\Api\Informasi\HewanController;
-use App\Http\Controllers\Api\informasi\MasakanController;
+use App\Http\Controllers\Api\Informasi\MasakanController;
 use App\Http\Controllers\Api\KategoriController;
 use App\Http\Controllers\Api\Layanan\SilsilahkeluargaController;
 use Illuminate\Http\Request;
