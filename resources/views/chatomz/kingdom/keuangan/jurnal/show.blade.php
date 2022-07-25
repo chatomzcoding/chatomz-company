@@ -8,6 +8,7 @@
                         <a href="#" data-bs-target="#ubahjurnal" data-bs-toggle="modal" class="btn btn-outline-success btn-sm"><i class="bi-pen"></i></a>
                         
                         @if (isset($jurnal->jurnalmanajemen))
+                            <a href="{{ url('rekening?s=manajemen') }}" class="btn btn-outline-success btn-flat btn-sm"><i class="bi bi-bookmark-plus"></i></a>
                             <button class="btn btn-primary btn-sm text-capitalize" data-bs-toggle="modal" data-bs-target="#ubahjurnalmanajemen">{{ $jurnal->jurnalmanajemen->manajemenkeuangan->alokasi }} - {{ $jurnal->jurnalmanajemen->manajemenkeuangan->judul.' | '.rupiah($jurnal->jurnalmanajemen->nominal) }}</button>
                             <form action="{{ url('jurnalmanajemen/'.$jurnal->jurnalmanajemen->id) }}" method="post" style="display : inline">
                                 @csrf
