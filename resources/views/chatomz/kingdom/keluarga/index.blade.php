@@ -52,7 +52,7 @@
                 </div>
             </section>
         </div>
-        <x-modalsimpan judul="Tambah Keluarga" link="keluarga">
+        <x-modalsimpan judul="Tambah Keluarga" link="keluarga" tabindex="">
             <section class="p-3">
                 <div class="form-group">
                      <label for="">Nama Keluarga {!! ireq() !!}</label>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group">
                     <label for="">Kepala Keluarga {!! ireq() !!}</label>
-                    <select name="orang_id" class="select2bs4" data-width="100%" required>
+                    <select name="orang_id" class="select2bs4" required>
                         @foreach ($kepalakeluarga as $item)
                             @if (!DbChatomz::cekstatussuami($item->id))
                                 <option value="{{ $item->id}}">{{ fullname($item)}}</option>
@@ -91,7 +91,7 @@
              </section>
         </x-modalsimpan>
         
-        <x-modalubah judul="Edit Keluarga" link="keluarga">
+        <x-modalubah judul="Edit Keluarga" link="keluarga" tabindex="">
             <section class="p-3">
                 <div class="form-group">
                     <label for="">Nama Keluarga {!! ireq() !!}</label>
@@ -99,7 +99,7 @@
                </div>
                <div class="form-group">
                     <label for="">Kepala Keluarga {!! ireq() !!}</label>
-                    <select name="orang_id" id="orang_id" class="select2bs4" data-width="100%" required>
+                    <select name="orang_id" id="orang_id" class="select2bs4" required>
                             <option value="">-- kepala keluarga --</option>
                         @foreach ($kepalakeluarga as $item)
                             <option value="{{ $item->id}}">{{ ucwords($item->first_name.' '.$item->last_name)}}</option>
