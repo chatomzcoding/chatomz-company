@@ -23,8 +23,9 @@ class MasakanController extends Controller
                 // sesi get
                 $sesi = (isset($_GET['sesi'])) ? $_GET['sesi'] : 'index' ;
                 switch ($sesi) {
-                    case 'value':
-                        # code...
+                    case 'cari':
+                        $query = (isset($_GET['query'])) ? $_GET['query'] : ' ' ;
+                        $result = Informasi::where('kategori_id',$kategori->id)->where('nama','LIKE','%'.$query.'%')->get();
                         break;
                     
                     default:
