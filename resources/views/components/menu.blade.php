@@ -21,25 +21,25 @@
             </a>
         </li>
         @foreach ($menu as $item)
-            @if ($item['sub'])
+            @if ($item->link == '#')
                 <li class="sidebar-item has-sub">
                     <a href="#" class='sidebar-link'>
-                        <i class="{{ $item['icon'] }}"></i>
-                        <span>{{ $item['title'] }}</span>
+                        <i class="{{ $item->icon }}"></i>
+                        <span>{{ $item->nama }}</span>
                     </a>
                     <ul class="submenu ">
-                        @foreach ($item['submenu'] as $i)
+                        @foreach ($item->menusub as $i)
                             <li class="submenu-item">
-                                <a href="{{ url($i['link']) }}">{{ $i['title'] }}</a>
+                                <a href="{{ url($i->link) }}">{{ $i->nama }}</a>
                             </li>
                         @endforeach
                     </ul>
                 </li>
             @else
                 <li class="sidebar-item  ">
-                    <a href="{{ url($item['link']) }}" class='sidebar-link'>
-                        <i class="{{ $item['icon'] }}"></i>
-                        <span>{{ $item['title'] }}</span>
+                    <a href="{{ url($item->link) }}" class='sidebar-link'>
+                        <i class="{{ $item->icon }}"></i>
+                        <span>{{ $item->nama }}</span>
                     </a>
                 </li>
             @endif
