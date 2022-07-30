@@ -88,6 +88,7 @@
                                             </li>
                                             <li class="ps-3"><a class="dropdown-item small" href="{{ url('orang?s=peta') }}">Peta Orang</a></li>
                                             <li class="ps-3"><a class="dropdown-item small" href="{{ url('rekening?s=manajemen') }}">Manajemen Keuangan</a></li>
+                                            <li class="ps-3"><a class="dropdown-item small" href="{{ url('demo/architectui') }}">Thema ArchitectUi</a></li>
                                         </ul>
                                     </li>
                                 @endif

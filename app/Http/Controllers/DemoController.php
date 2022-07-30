@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 class DemoController extends Controller
 {
+    public function architectui()
+    {
+        return view('chatomz.admin.architectui');
+    }
     public function grab()
     {
         $url = "https://kurs.dollar.web.id/bank.php/?/@bca";
