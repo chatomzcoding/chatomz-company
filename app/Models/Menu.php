@@ -14,6 +14,6 @@ class Menu extends Model
 
     public function menusub()
     {
-        return $this->hasMany(Menusub::class);
+        return $this->hasMany(Menusub::class)->orderBy('urutan','ASC');
     }
 }

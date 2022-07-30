@@ -1,15 +1,14 @@
-<x-mazer-layout title="CHATOMZ - Data Menu" datatables="TRUE" alert="TRUE">
+<x-mazer-layout title="CHATOMZ - Data Menu Role" datatables="TRUE" alert="TRUE">
     <x-slot name="content">
         <div class="page-heading">
-            <x-header head="Data Menu" active="Daftar Menu">
-            </x-header>
+            <x-header head="Data Menu Role" active="Daftar Menu"></x-header>
             <section class="section">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
                         <div class="card-header">
+                            <x-sistem.kembali url="menu"></x-sistem.kembali>
                             <x-sistem.tambah></x-sistem.tambah>
-                            <a href="{{ url('menu?s=role') }}" class="btn btn-outline-primary btn-sm"><i class="bi-list"></i> Role Menu</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -18,32 +17,28 @@
                                         <tr>
                                             <th width="5%">No</th>
                                             <th width="10%">Aksi</th>
-                                            <th>Nama Menu</th>
-                                            <th>Link</th>
-                                            <th>Icon</th>
-                                            <th>Urutan</th>
+                                            <th>AKses</th>
+                                            <th>Role</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($menu as $item)
+                                        @forelse ($menurole as $item)
                                         <tr>
                                                 <td class="text-center">{{ $loop->iteration}}</td>
                                                 <td class="text-center">
                                                     <x-aksi :id="$item->id" link="menu">
-                                                        <a href="{{ url('menu/'.$item->id) }}" class="dropdown-item text-primary"><i class="fas fa-file" style="width: 20px;"></i> Sub Menu</a>
-                                                        <button type="button" data-bs-toggle="modal"  data-nama="{{ $item->nama }}"  data-link="{{ $item->link }}"  data-icon="{{ $item->icon }}" data-urutan="{{ $item->urutan }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
+                                                        {{-- <a href="{{ url('menurole/'.$item->id) }}" class="dropdown-item text-primary"><i class="fas fa-file" style="width: 20px;"></i> Sub Menu</a> --}}
+                                                        {{-- <button type="button" data-bs-toggle="modal"  data-nama="{{ $item->nama }}"  data-link="{{ $item->link }}"  data-icon="{{ $item->icon }}" data-urutan="{{ $item->urutan }}" data-id="{{ $item->id }}" data-bs-target="#ubah" title="" class="dropdown-item text-success" data-original-title="Edit Task">
                                                             <i class="fa fa-edit" style="width: 20px;"></i> EDIT
-                                                        </button>
+                                                        </button> --}}
                                                     </x-aksi>
                                                 </td>
-                                                <td>{{ $item->nama}}</td>
-                                                <td>{{ $item->link}}</td>
-                                                <td><i class="{{ $item->icon}}"></i> </td>
-                                                <td class="text-center">{{ $item->urutan}}</td>
+                                                <td>{{ $item->akses}}</td>
+                                                <td>{{ $item->role}}</td>
                                             </tr>
                                         @empty
                                             <tr class="text-center">
-                                                <td colspan="6">tidak ada data</td>
+                                                <td colspan="4">tidak ada data</td>
                                             </tr>
                                         @endforelse
                                 </table>
@@ -55,32 +50,35 @@
             </section>
         </div>
         {{-- modal --}}
-        <x-modalsimpan judul="Tambah Menu" link="menu">
+        <x-modalsimpan judul="Tambah Akses Role Menu" link="menurole">
             <section class="p-3">
                 <div class="form-group">
-                    <label for="">Nama Menu</label>
-                    <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Menu" required>
+                    <label for="">Akses / Level</label>
+                    <input type="text" name="akses" id="akses" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label for="">link</label>
-                    <input type="text" name="link" id="link" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Icon</label>
-                    <input type="text" name="icon" id="icon" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Urutan</label>
-                    <input type="number" name="urutan" id="urutan" class="form-control" required>
+                    <label for="">Role Menu</label>
+                    <ul class="list-group">
+                        @foreach ($menu as $item)
+                            <li class="list-group-item">
+                            <p>{{ $item->nama }}</p>
+                            {{-- <span class="badge bg-primary rounded-pill">{{ count($item->menusub) }} Sub Menu</span> --}}
+                                <div class="list-group">
+                                    @foreach ($item->menusub as $i)
+                                        <label class="list-group-item">
+                                        <input class="form-check-input me-1" name="role[]" type="checkbox" value="{{ $i->id }}">
+                                        {{ $i->nama }}
+                                        </label>
+                                    @endforeach
+                              </div>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </section>
         </x-modalsimpan>
         <x-modalubah judul="ubah data Menu" link="menu">
             <section class="p-3">
-                <div class="form-group">
-                    <label for="">Nama Menu</label>
-                    <input type="text" name="nama" id="nama" class="form-control" placeholder="Nama Menu" required>
-                </div>
                 <div class="form-group">
                     <label for="">link</label>
                     <input type="text" name="link" id="link" class="form-control" required>

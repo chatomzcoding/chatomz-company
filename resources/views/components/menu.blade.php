@@ -20,30 +20,58 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        @foreach ($menu as $item)
-            @if ($item->link == '#')
-                <li class="sidebar-item has-sub">
-                    <a href="#" class='sidebar-link'>
-                        <i class="{{ $item->icon }}"></i>
-                        <span>{{ $item->nama }}</span>
-                    </a>
-                    <ul class="submenu ">
-                        @foreach ($item->menusub as $i)
-                            <li class="submenu-item">
-                                <a href="{{ url($i->link) }}">{{ $i->nama }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
-                </li>
-            @else
-                <li class="sidebar-item  ">
-                    <a href="{{ url($item->link) }}" class='sidebar-link'>
-                        <i class="{{ $item->icon }}"></i>
-                        <span>{{ $item->nama }}</span>
-                    </a>
-                </li>
-            @endif
-        @endforeach
+        @if ($user->level == 'admin')
+            @foreach ($menu as $item)
+                @if ($item->link == '#')
+                    <li class="sidebar-item has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="{{ $item->icon }}"></i>
+                            <span>{{ $item->nama }}</span>
+                        </a>
+                        <ul class="submenu ">
+                            @foreach ($item->menusub as $i)
+                                <li class="submenu-item">
+                                    <a href="{{ url($i->link) }}">{{ $i->nama }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @else
+                    <li class="sidebar-item  ">
+                        <a href="{{ url($item->link) }}" class='sidebar-link'>
+                            <i class="{{ $item->icon }}"></i>
+                            <span>{{ $item->nama }}</span>
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+            
+        @else
+            @foreach ($menu as $item)
+                @if (count($item['sub']) > 0)
+                    <li class="sidebar-item has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="{{ $item['menu']->icon }}"></i>
+                            <span>{{ $item['menu']->nama }}</span>
+                        </a>
+                        <ul class="submenu ">
+                            @foreach ($item['sub'] as $i)
+                                <li class="submenu-item">
+                                    <a href="{{ url($i->link) }}">{{ $i->nama }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </li>
+                @else
+                    <li class="sidebar-item  ">
+                        <a href="{{ url($item->link) }}" class='sidebar-link'>
+                            <i class="{{ $item->icon }}"></i>
+                            <span>{{ $item->nama }}</span>
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+        @endif
 
 
         <li class="sidebar-title my-2">Sistem</li>

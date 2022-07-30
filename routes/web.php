@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BackupdbController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\MenuroleController;
 use App\Http\Controllers\Admin\MenusubController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Bisnis\ProdukController;
@@ -124,6 +125,7 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function() {
         Route::resource('visitor', VisitorController::class);
         Route::resource('menu', MenuController::class);
         Route::resource('menusub', MenusubController::class);
+        Route::resource('menurole', MenuroleController::class);
         Route::resource('item', ItemController::class);
         Route::resource('kategori', KategoriController::class);
         Route::resource('subkategori', SubkategoriController::class);

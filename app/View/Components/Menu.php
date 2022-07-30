@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Menu as ModelsMenu;
+use App\Models\Menurole;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
@@ -28,135 +29,30 @@ class Menu extends Component
         $user   = Auth::user();
         switch ($user->level) {
             case 'admin':
-                // $menu   = [
-                //     [
-                //         'title' => 'Kingdomz',
-                //         'icon' => 'bi bi-building',
-                //         'sub' => TRUE,
-                //         'submenu' => [
-                //             [
-                //                 'title' => 'Orang',
-                //                 'link' => 'orang',
-                //             ],
-                //             [
-                //                 'title' => 'Keluarga',
-                //                 'link' => 'keluarga',
-                //             ],
-                //             [
-                //                 'title' => 'Grup',
-                //                 'link' => 'grup',
-                //             ],
-                //             [
-                //                 'title' => 'Jejak',
-                //                 'link' => 'jejak',
-                //             ]
-                //         ]
-                //     ],
-                //     [
-                //         'title' => 'Big Data',
-                //         'icon' => 'bi bi-award',
-                //         'sub' => TRUE,
-                //         'submenu' => [
-                //             [
-                //                 'title' => 'Bot',
-                //                 'link' => 'chatomzbot',
-                //             ],
-                //             [
-                //                 'title' => 'Unsil',
-                //                 'link' => 'unsil',
-                //             ],
-                //             [
-                //                 'title' => 'Informasi',
-                //                 'link' => 'informasi',
-                //             ],
-                //             [
-                //                 'title' => 'Tempat',
-                //                 'link' => 'tempat',
-                //             ]
-                //         ]
-                //     ],
-                //     [
-                //         'title' => 'Bisnis',
-                //         'icon' => 'bi bi-shop',
-                //         'sub' => TRUE,
-                //         'submenu' => [
-                //             [
-                //                 'title' => 'Wadec',
-                //                 'link' => 'wadec',
-                //             ],
-                //             [
-                //                 'title' => 'Usaha',
-                //                 'link' => 'usaha',
-                //             ]
-                //         ]
-                //     ],
-                //     [
-                //         'title' => 'Asset',
-                //         'icon' => 'bi bi-tv',
-                //         'sub' => TRUE,
-                //         'submenu' => [
-                //             [
-                //                 'title' => 'Barang',
-                //                 'link' => 'barang',
-                //             ],
-                //             [
-                //                 'title' => 'Keuangan',
-                //                 'link' => 'rekening',
-                //             ]
-                //         ]
-                //     ],
-                //     [
-                //         'title' => 'Admin',
-                //         'icon' => 'bi bi-person-square',
-                //         'sub' => TRUE,
-                //         'submenu' => [
-                //             [
-                //                 'title' => 'Info Website',
-                //                 'link' => 'info-website',
-                //             ],
-                //             [
-                //                 'title' => 'User',
-                //                 'link' => 'user',
-                //             ],
-                //             [
-                //                 'title' => 'Kategori',
-                //                 'link' => 'kategori',
-                //             ],
-                //             [
-                //                 'title' => 'Item',
-                //                 'link' => 'item',
-                //             ],
-                //             [
-                //                 'title' => 'Backup DB',
-                //                 'link' => 'backupdb',
-                //             ],
-                //             [
-                //                 'title' => 'Menu',
-                //                 'link' => 'menu',
-                //             ]
-                //         ]
-                //     ]
-                // ];
                 $menu   = ModelsMenu::orderBy('urutan','ASC')->get();
                 break;
-            
+                
             default:
-            $menu   = [
-                [
-                    'sub' => FALSE,
-                    'icon' => 'bi-person',
-                    'title' => 'Orang',
-                    'link' => 'orang',
-                ],
-                [
-                    'sub' => FALSE,
-                    'icon' => 'bi-people',
-                    'title' => 'Keluarga',
-                    'link' => 'keluarga',
-                ]
-            ];
+            $dmenu      = ModelsMenu::orderBy('urutan','ASC')->get();
+            $menurole   = Menurole::where('akses',$user->level)->first();
+            $role       = json_decode($menurole->role);
+            $menu       = [];
+            foreach ($dmenu as $key) {
+                $submenu = [];
+                foreach ($key->menusub as $k) {
+                    if (in_array($k->id,$role)) {
+                        $submenu[] = $k;
+                    }
+                }
+                if (count($submenu) > 0) {
+                    $menu[] = [
+                        'menu' => $key,
+                        'sub' => $submenu
+                    ];
+                }
+            }
                 break;
         }
-        return view('components.menu', compact('menu'));
+        return view('components.menu', compact('menu','user'));
     }
 }

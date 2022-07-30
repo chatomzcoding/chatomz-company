@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Menu;
 use App\Models\Menurole;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class MenuroleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,15 +15,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menu   = Menu::orderBy('urutan','ASC')->get();
-        $s = (isset($_GET['s'])) ? $_GET['s'] : 'menu' ;
-        if ($s == 'menu') {
-            return view('chatomz.admin.menu.index', compact('menu'));
-        } else {
-            $menurole   = Menurole::all();
-            return view('chatomz.admin.menu.role', compact('menu','menurole'));
-        }
-        
+        //
     }
 
     /**
@@ -45,28 +36,32 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        Menu::create($request->all());
-        return back()->with('ds','Menu');
+        Menurole::create([
+            'akses' => $request->akses,
+            'role' => json_encode($request->role),
+        ]);
+        
+        return back()->with('ds','Menu Role');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Menu  $menu
+     * @param  \App\Models\Menurole  $menurole
      * @return \Illuminate\Http\Response
      */
-    public function show(Menu $menu)
+    public function show(Menurole $menurole)
     {
-        return view('chatomz.admin.menu.show', compact('menu'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Menu  $menu
+     * @param  \App\Models\Menurole  $menurole
      * @return \Illuminate\Http\Response
      */
-    public function edit(Menu $menu)
+    public function edit(Menurole $menurole)
     {
         //
     }
@@ -75,31 +70,22 @@ class MenuController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Menu  $menu
+     * @param  \App\Models\Menurole  $menurole
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Menurole $menurole)
     {
-        Menu::where('id',$request->id)->update([
-            'nama' => $request->nama,
-            'link' => $request->link,
-            'icon' => $request->icon,
-            'urutan' => $request->urutan,
-        ]);
-
-        return back()->with('du','Menu');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Menu  $menu
+     * @param  \App\Models\Menurole  $menurole
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $menu)
+    public function destroy(Menurole $menurole)
     {
-        $menu->delete();
-
-        return back()->with('ds','Menu');
+        dd($menurole);
     }
 }
